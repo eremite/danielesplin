@@ -11,7 +11,6 @@ gem 'strong_parameters'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'sass-rails', '~> 3.2.3'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -25,7 +24,7 @@ group :development, :test do
   gem 'guard-test'
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
-  gem 'sqlite3'
+  gem 'ruby-prof'
 end
 
 group :test do
