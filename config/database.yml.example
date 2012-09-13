@@ -1,0 +1,9 @@
+development:
+  adapter: postgresql
+  database: app_development
+  username: pg_user
+
+test:
+  adapter: postgresql
+  database: app_test
+  username: pg_user
