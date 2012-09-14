@@ -1,0 +1,8 @@
+%h1 New Photo
+
+= form_for @photo, class: 'form-horizontal' do |f|
+  .control-group
+    = f.label :description, class: 'control-label'
+    .controls
+      = f.text_area :description, :rows => 3
+  %button.btn{ type: 'submit'} Save
