@@ -1,0 +1,7 @@
+- flash.each do |key, message|                                                    
+  -# Bootstrap has warning, error, success and info; Rails has alert and notice  
+  - key = :error if key == :alert                                                
+  - key = :success if key == :notice                                             
+  %div{:class => "alert alert-#{key}"}                                           
+    %button.close{data: { dismiss: 'alert' }} &times;                        
+    = message                                                                    

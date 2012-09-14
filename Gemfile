@@ -6,12 +6,13 @@ gem 'rails', '3.2.8'
 
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'sqlite3'
+gem 'sass'
+gem 'sass-rails'
 gem 'strong_parameters'
 
 group :assets do
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
 group :production do

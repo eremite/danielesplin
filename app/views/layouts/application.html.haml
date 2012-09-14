@@ -1,0 +1,20 @@
+!!!
+%html
+
+  %head
+    %title Untitled
+    %meta{'http-equiv' => 'Content-Type', content: 'text/html; charset=utf-8'}
+    = stylesheet_link_tag :application
+    = javascript_include_tag :application
+    = csrf_meta_tag
+    = yield(:head)
+
+  %body
+
+    .container
+      = render 'layouts/flash_hash'
+      = yield
+
+    %footer.footer
+      .container
+        %p &copy; #{Time.zone.now.year} Daniel Esplin
