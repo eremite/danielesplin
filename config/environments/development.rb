@@ -34,4 +34,7 @@ Danielesplin::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.paperclip_storage_options = {}
+
 end

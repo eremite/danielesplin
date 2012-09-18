@@ -6,9 +6,9 @@ gem 'rails', '3.2.8'
 
 gem 'haml-rails'
 gem 'jquery-rails'
+gem 'paperclip'
 gem 'sass'
 gem 'sass-rails'
-gem 'strong_parameters'
 
 group :assets do
   gem 'coffee-rails'

@@ -5,4 +5,8 @@
     = f.label :description, class: 'control-label'
     .controls
       = f.text_area :description, :rows => 3
+  .control-group
+    = f.label :image, class: 'control-label'
+    .controls
+      = f.file_field :image
   %button.btn{ type: 'submit'} Save

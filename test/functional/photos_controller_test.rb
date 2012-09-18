@@ -13,26 +13,15 @@ class PhotosControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    Photo.any_instance.stubs(valid?: false)
-    post :create, photo: valid_params
+    Photo.any_instance.stubs(save: false)
+    post :create, photo: {}
     assert_template :new
   end
 
   test 'create valid' do
-    Photo.any_instance.stubs(valid?: true)
-    post :create, photo: valid_params
+    Photo.any_instance.stubs(save: true)
+    post :create, photo: {}
     assert_redirected_to photos_url
-  end
-
-
-  private
-
-  def valid_params
-    {
-      photo: {
-        description: 'fred'
-      }
-    }
   end
 
 end

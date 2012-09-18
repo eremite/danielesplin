@@ -9,22 +9,12 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @photo = Photo.new(safe_params)
+    @photo = Photo.new(params[:photo])
     if @photo.save
       redirect_to photos_url
     else
       render :new
     end
-  end
-
-
-  private
-
-  def safe_params
-    safe_attributes = [
-      :description,
-    ]
-    params.require(:photo).permit(*safe_attributes)
   end
 
 end
