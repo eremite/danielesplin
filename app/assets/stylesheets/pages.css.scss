@@ -1,0 +1,42 @@
+#pages-controller {
+
+  .name-container {
+    margin-left: 30px;
+    width: 250px;
+    position: relative;
+    font-family: 'Courier New', 'Lucida Console', 'Monaco', monospace;
+    font-size: 40px;
+    line-height: 40px;
+    text-transform: uppercase;
+    height: 6em;
+    .erika {
+      position: absolute;
+      top: 3em;
+      left: 0;
+    }
+    .amp {
+      position: absolute;
+      top: 88px;
+      left: 30px;
+      font-size: 100px;
+      line-height: 100px;
+      font-weight: bolder;
+      color: rgba(80, 0, 80, 0.3);
+    }
+    .daniel {
+      position: absolute;
+      top: 0;
+      left: 1.2em;
+      width: 1em;
+      word-wrap: break-word;
+    }
+  }
+
+  .description {
+    font-size: 20px;
+    line-height: 30px;
+    margin-top: 20px;
+    width: 500px;
+  }
+
+}

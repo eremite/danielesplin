@@ -9,12 +9,12 @@
     = csrf_meta_tag
     = yield(:head)
 
-  %body
+  %body{ id: "#{controller.controller_name}-controller" }
 
-    .container
+    .content.container
       = render 'layouts/flash_hash'
       = yield
 
     %footer.footer
       .container
-        %p &copy; #{Time.zone.now.year} Daniel Esplin
+        %p &copy; #{Time.zone.now.year} Daniel &amp; Erika Esplin
