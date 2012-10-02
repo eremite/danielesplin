@@ -1,6 +1,6 @@
 Danielesplin::Application.routes.draw do
 
-  resources :photos
+  resources :photos, :upload_batches
   root :to => 'photos#index'
 
   # The priority is based upon order of creation:

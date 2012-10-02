@@ -1,0 +1,12 @@
+%h1 Upload Multiple Photos
+
+= form_for @upload_batch, class: 'form-horizontal' do |f|
+  .control-group
+    = f.label :description, class: 'control-label'
+    .controls
+      = f.text_area :description, :rows => 3
+  .control-group
+    = f.label :images, class: 'control-label'
+    .controls
+      = f.file_field :images, :multiple => true
+  %button.btn{ type: 'submit'} Save
