@@ -58,5 +58,8 @@ module Danielesplin
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # https://gist.github.com/343843
+    config.email_regex = /^(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*$/i
   end
 end

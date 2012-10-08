@@ -1,0 +1,7 @@
+PASSWORD: &PASSWORD
+  password_digest: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+
+base:
+  name: Base User
+  email: base@example.com
+  <<: *PASSWORD
