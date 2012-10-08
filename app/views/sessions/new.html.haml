@@ -1,0 +1,16 @@
+%h1 Login
+
+.row
+  .span4.offset4
+    %h1 Login
+    %hr
+    = form_tag sessions_path, class: 'form-vertical' do
+      .control-group
+        .control-label= label_tag :email, 'Email Address'
+        .controls= email_field_tag :email, params[:email], class: 'autofocus span4'
+      .control-group
+        .control-label= label_tag :password
+        .controls= password_field_tag :password, nil, class: 'span4'
+      .control-group
+        .controls
+          = submit_tag 'Log in', class: 'btn btn-primary'

@@ -1,6 +1,8 @@
 Danielesplin::Application.routes.draw do
 
-  resources :photos, :upload_batches, :pages
+  resources :photos, :upload_batches, :pages, :sessions
+  match 'logout', to: 'sessions#destroy', as: 'logout'
+  match 'login', to: 'sessions#new', as: 'login'
   root :to => 'pages#index'
 
   # The priority is based upon order of creation:
