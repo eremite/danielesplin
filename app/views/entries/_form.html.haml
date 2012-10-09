@@ -2,7 +2,8 @@
   .control-group
     = f.label :at, class: 'control-label'
     .controls
-      = f.text_field :at, class: 'datetimepicker'
+      = text_field_tag :at, l(f.object.at), class: 'datetimepicker'
+      = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .control-group
     = f.label :body, class: 'control-label'
     .controls

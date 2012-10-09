@@ -2,4 +2,12 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
-  $('.datetimepicker').datetimepicker()
+  $('.datetimepicker').datetimepicker
+    dateFormat: 'm/d/yy',
+    timeFormat: 'h:mmtt',
+    ampm: true,
+    altFormat: 'yy-mm-dd',
+    altTimeFormat: 'hh:mm:ss TT z',
+    altField: '.datetimepicker-hidden',
+    altFieldTimeOnly: false
+    useLocalTimezone: true,
