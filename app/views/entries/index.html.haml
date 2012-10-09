@@ -1,5 +1,6 @@
 - @entries.each do |entry|
-  %p= entry.body
+  :markdown
+    #{entry.body}
   = link_to 'edit', [:edit, entry]
   = link_to 'delete', entry, method: :delete
 
