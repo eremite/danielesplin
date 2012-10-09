@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LogEntriesTest < ActiveSupport::TestCase
+class LogEntryTest < ActiveSupport::TestCase
 
   test 'valid' do
     assert log_entries(:base).valid?

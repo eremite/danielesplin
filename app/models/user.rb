@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 4 }, allow_blank: true
 
+  def log(action)
+    log_entries.create(action: action)
+  end
+
 end

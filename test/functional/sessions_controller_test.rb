@@ -17,7 +17,9 @@ class SessionsControllerTest < ActionController::TestCase
   test 'create valid' do
     u = users(:base)
     User.any_instance.stubs(authenticate: u)
-    post :create, email: u.email
+    assert_difference lambda { LogEntry.logins.count } do
+      post :create, email: u.email
+    end
     assert_redirected_to photos_url
     assert_equal u.id, session['user_id']
   end
