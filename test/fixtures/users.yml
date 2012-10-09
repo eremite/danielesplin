@@ -5,3 +5,8 @@ base:
   name: Base User
   email: base@example.com
   <<: *PASSWORD
+
+admin:
+  name: Daniel
+  email: admin@example.com
+  <<: *PASSWORD

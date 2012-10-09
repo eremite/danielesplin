@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   end
   helper_method :logged_in?
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to login_url, alert: 'Permission denied!'
+  end
+
 end

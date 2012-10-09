@@ -2,6 +2,10 @@ require 'test_helper'
 
 class PhotosControllerTest < ActionController::TestCase
 
+  def setup
+    login_as(users(:admin))
+  end
+
   test 'index' do
     get :index
     assert_template :index
