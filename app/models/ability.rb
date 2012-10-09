@@ -8,6 +8,7 @@ class Ability
       can :manage, :all
     else
       can :read, Photo
+      can :read, Entry, { public: true }
     end
   end
 

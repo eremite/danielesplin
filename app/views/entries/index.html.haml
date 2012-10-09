@@ -1,0 +1,6 @@
+- @entries.each do |entry|
+  %p= entry.body
+  = link_to 'edit', [:edit, entry]
+  = link_to 'delete', entry, method: :delete
+
+%p= link_to 'New', new_entry_path
