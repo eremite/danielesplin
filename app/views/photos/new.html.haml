@@ -2,6 +2,10 @@
 
 = form_for @photo, class: 'form-horizontal' do |f|
   .control-group
+    = f.label :at, class: 'control-label'
+    .controls
+      = f.text_field :at, class: 'datetimepicker'
+  .control-group
     = f.label :description, class: 'control-label'
     .controls
       = f.text_area :description, :rows => 3
