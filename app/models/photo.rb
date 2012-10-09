@@ -2,6 +2,8 @@ class Photo < ActiveRecord::Base
 
   attr_protected :id
 
+  belongs_to :user
+
   has_attached_file :image, {
     :styles => {
       :small => '120x120>',

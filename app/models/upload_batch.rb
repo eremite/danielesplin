@@ -2,7 +2,7 @@ class UploadBatch
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :description, :images
+  attr_accessor :description, :images, :user
 
 
   def initialize(attributes = {})
@@ -17,7 +17,7 @@ class UploadBatch
 
   def save!
     images.to_a.each do |image|
-      Photo.create!({
+      user.photos.create!({
         description: description,
         image: image,
       })

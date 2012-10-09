@@ -6,6 +6,7 @@ class UploadBatchesController < ApplicationController
 
   def create
     @upload_batch = UploadBatch.new(params[:upload_batch])
+    @upload_batch.user = current_user
     if @upload_batch.save!
       redirect_to photos_url
     else

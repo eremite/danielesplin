@@ -1,3 +1,4 @@
 base:
+  user: base
   taken_at: <%= Time.zone.now %>
   description: Funky
