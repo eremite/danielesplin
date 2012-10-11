@@ -1,5 +1,5 @@
 - @entries.each do |entry|
-  %h3=l entry.at, format: :long if entry.at
+  %h3=l entry.at, format: :long
   :markdown
     #{entry.body}
   = link_to 'edit', [:edit, entry]
