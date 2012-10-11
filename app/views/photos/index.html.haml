@@ -3,6 +3,10 @@
 - @photos.each do |photo|
   %div
     = image_tag photo.image(:medium) if photo.image.exists?
+    =l photo.at, format: :long
     = photo.description
+    %p
+      = link_to 'edit', [:edit, photo]
+      = link_to 'delete', photo, method: :delete
 
 = link_to 'New', new_photo_path

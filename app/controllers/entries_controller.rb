@@ -13,10 +13,8 @@ class EntriesController < ApplicationController
 
   def update
     if @entry.update_attributes(params[:entry])
-      puts 'saved'
       redirect_to entries_url
     else
-      puts 'edit'
       render :edit
     end
   end

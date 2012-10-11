@@ -1,0 +1,15 @@
+= form_for @photo, class: 'form-horizontal' do |f|
+  .control-group
+    = f.label :at, class: 'control-label'
+    .controls
+      = text_field_tag :at, l(f.object.at), class: 'datetimepicker'
+      = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
+  .control-group
+    = f.label :description, class: 'control-label'
+    .controls
+      = f.text_area :description, :rows => 3
+  .control-group
+    = f.label :image, class: 'control-label'
+    .controls
+      = f.file_field :image
+  %button.btn{ type: 'submit'} Save

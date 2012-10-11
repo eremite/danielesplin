@@ -3,6 +3,7 @@ require 'test_helper'
 class PhotosControllerTest < ActionController::TestCase
 
   def setup
+    @photo = photos(:base)
     login_as(users(:admin))
   end
 
@@ -25,6 +26,28 @@ class PhotosControllerTest < ActionController::TestCase
   test 'create valid' do
     Photo.any_instance.stubs(save: true)
     post :create, photo: {}
+    assert_redirected_to photos_url
+  end
+
+  test 'edit' do
+    get :edit, id: @photo.id
+    assert_template :edit
+  end
+
+  test 'update invalid' do
+    Photo.any_instance.stubs(valid?: false)
+    put :update, id: @photo.id, photo: {}
+    assert_template :edit
+  end
+
+  test 'update valid' do
+    Photo.any_instance.stubs(valid?: true)
+    put :update, id: @photo.id, photo: {}
+    assert_redirected_to photos_url
+  end
+
+  test 'destroy' do
+    delete :destroy, id: @photo.id
     assert_redirected_to photos_url
   end
 

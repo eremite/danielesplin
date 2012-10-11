@@ -1,19 +1,6 @@
 %h1 New Photo
 
-= form_for @photo, class: 'form-horizontal' do |f|
-  .control-group
-    = f.label :at, class: 'control-label'
-    .controls
-      = f.text_field :at, class: 'datetimepicker'
-  .control-group
-    = f.label :description, class: 'control-label'
-    .controls
-      = f.text_area :description, :rows => 3
-  .control-group
-    = f.label :image, class: 'control-label'
-    .controls
-      = f.file_field :image
-  %button.btn{ type: 'submit'} Save
+= render :partial => 'form'
 
 %p
   Or
