@@ -3,6 +3,11 @@ Danielesplin::Application.routes.draw do
   resources :entries, :photos, :upload_batches, :pages, :sessions
   match 'logout', to: 'sessions#destroy', as: 'logout'
   match 'login', to: 'sessions#new', as: 'login'
+
+  # Dir['app/views/pages/*'].map { |f| File.basename(f, '.html.haml') }.each do |page|
+  #   match "#{page}_page" => "pages##{page}"
+  # end
+
   root :to => 'pages#index'
 
   # The priority is based upon order of creation:
