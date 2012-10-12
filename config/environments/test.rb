@@ -35,6 +35,4 @@ Danielesplin::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-  config.paperclip_storage_options = {}
-
 end

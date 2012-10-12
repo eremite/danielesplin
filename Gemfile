@@ -6,10 +6,10 @@ gem 'rails', '3.2.8'
 
 gem 'bcrypt-ruby'
 gem 'cancan'
+gem 'carrierwave'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'maruku'
-gem 'paperclip'
 gem 'sass'
 gem 'sass-rails'
 

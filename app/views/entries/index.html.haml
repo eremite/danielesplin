@@ -32,6 +32,6 @@
     %h3=l today
   - @grouped_photos[today].to_a.each do |photo|
     = div_for photo do
-      = image_tag photo.image(:small)
+      = image_tag photo.image.url
 
 %p
