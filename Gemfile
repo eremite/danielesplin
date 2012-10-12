@@ -10,6 +10,7 @@ gem 'carrierwave'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'maruku'
+gem 'mini_magick'
 gem 'sass'
 gem 'sass-rails'
 
