@@ -9,5 +9,5 @@ jQuery ->
     altFormat: 'yy-mm-dd',
     altTimeFormat: 'hh:mm:ss TT z',
     altField: '.datetimepicker-hidden',
-    altFieldTimeOnly: false
+    altFieldTimeOnly: false,
     useLocalTimezone: true,
