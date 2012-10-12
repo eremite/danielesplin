@@ -1,3 +1,12 @@
+%h1 Entries
+
+%p
+  = link_to '&laquo; Newer'.html_safe, url_for(starts_at: @starts_at + @interval)
+  =l @starts_at.to_date
+  to
+  =l @ends_at.to_date
+  = link_to '&raquo; Older'.html_safe, url_for(starts_at: @starts_at - @interval)
+
 - @entries.each do |entry|
   %h3=l entry.at, format: :long
   :markdown

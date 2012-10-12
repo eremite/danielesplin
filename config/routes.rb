@@ -8,7 +8,7 @@ Danielesplin::Application.routes.draw do
   #   match "#{page}_page" => "pages##{page}"
   # end
 
-  root :to => 'pages#index'
+  root :to => 'entries#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

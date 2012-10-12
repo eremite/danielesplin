@@ -13,6 +13,7 @@
 
     %header.header
       .container
+        = link_to 'Entries', entries_path
         .pull-right
           - if logged_in?
             = link_to 'Logout', logout_path
