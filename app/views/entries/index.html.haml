@@ -1,17 +1,25 @@
 %h1 Entries
 
 %p
-  = link_to '&laquo; Newer'.html_safe, url_for(starts_at: @starts_at + @interval)
+  = link_to '&laquo; Older'.html_safe, url_for(starts_at: @starts_at - @interval)
   =l @starts_at.to_date
   to
   =l @ends_at.to_date
-  = link_to '&raquo; Older'.html_safe, url_for(starts_at: @starts_at - @interval)
+  = link_to '&raquo; Newer'.html_safe, url_for(starts_at: @starts_at + @interval)
 
-- @entries.each do |entry|
-  %h3=l entry.at, format: :long
-  :markdown
-    #{entry.body}
-  = link_to 'edit', [:edit, entry]
-  = link_to 'delete', entry, method: :delete
+- (@interval / 1.day).times do |i|
+  - today = @starts_at.to_date + i.days
+  - @grouped_entries[today].to_a.each do |entry|
+    = div_for entry do
+      %h3=l entry.at, format: :long
+      .body
+        :markdown
+          #{entry.body}
+      .links
+        = link_to 'edit', [:edit, entry]
+        = link_to 'delete', entry, method: :delete
+  - @grouped_photos[today].to_a.each do |photo|
+    = div_for photo do
+      = image_tag photo.image(:small)
 
 %p= link_to 'New', new_entry_path

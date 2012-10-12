@@ -6,6 +6,6 @@ class Entry < ActiveRecord::Base
 
   validates :body, presence: true
 
-  scope :newest_first, order(arel_table[:at].desc)
+  scope :oldest_first, order(arel_table[:at].asc)
 
 end

@@ -8,10 +8,13 @@ class EntriesController < ApplicationController
       @starts_at = Time.zone.parse(params[:starts_at])
     rescue ArgumentError, TypeError
       flash[:error] = 'Invalid date' if params[:starts_at].present?
-      @starts_at = (Time.zone.now - @interval).beginning_of_day
+      @starts_at = (Time.zone.now - @interval).beginning_of_week
     end
     @ends_at = @starts_at + @interval
-    @entries = @entries.newest_first.where(at: @starts_at..@ends_at)
+    photos = Photo.oldest_first.where(at: @starts_at..@ends_at)
+    @grouped_photos = photos.group_by { |p| p.at.to_date }
+    entries = @entries.oldest_first.where(at: @starts_at..@ends_at)
+    @grouped_entries = entries.group_by { |e| e.at.to_date }
   end
 
   def create

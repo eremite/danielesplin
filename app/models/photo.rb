@@ -12,4 +12,6 @@ class Photo < ActiveRecord::Base
     },
   }.merge(Rails.application.config.paperclip_storage_options)
 
+  scope :oldest_first, order(arel_table[:at].asc)
+
 end
