@@ -8,7 +8,7 @@ class EntriesController < ApplicationController
       @starts_at = Time.zone.parse(params[:starts_at])
     rescue ArgumentError, TypeError
       flash[:error] = 'Invalid date' if params[:starts_at].present?
-      @starts_at = (Time.zone.now - @interval).beginning_of_week
+      @starts_at = Time.zone.now.beginning_of_week
     end
     @ends_at = @starts_at + @interval
     photos = Photo.oldest_first.where(at: @starts_at..@ends_at)
@@ -20,7 +20,7 @@ class EntriesController < ApplicationController
   def create
     @entry = current_user.entries.new(params[:entry])
     if @entry.save
-      redirect_to entries_url
+      redirect_to entries_url, notice: 'Entry saved.'
     else
       render :new
     end
@@ -28,7 +28,7 @@ class EntriesController < ApplicationController
 
   def update
     if @entry.update_attributes(params[:entry])
-      redirect_to entries_url
+      redirect_to entries_url, notice: 'Entry updated.'
     else
       render :edit
     end

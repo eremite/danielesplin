@@ -9,4 +9,6 @@
     = f.label :images, class: 'control-label'
     .controls
       = f.file_field :images, :multiple => true
-  %button.btn{ type: 'submit'} Save
+  .form-actions
+    %button.btn.btn-primary{ type: 'submit'} Save
+    = link_to 'Cancel', new_photo_path, class: 'btn'

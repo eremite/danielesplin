@@ -4,7 +4,7 @@ class EntriesControllerTest < ActionController::TestCase
 
   def setup
     @entry = entries(:base)
-    login_as(users(:admin))
+    login_as(@entry.user)
   end
 
   test 'index' do

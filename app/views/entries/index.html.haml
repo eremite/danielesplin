@@ -1,3 +1,9 @@
+%p.pull-right
+  %br
+  = link_to new_entry_path, class: 'btn btn-success' do
+    %i.icon-white.icon-plus
+    New Entry
+
 %h1 Entries
 
 %p
@@ -11,15 +17,21 @@
   - today = @starts_at.to_date + i.days
   - @grouped_entries[today].to_a.each do |entry|
     = div_for entry do
+      .btn-group.pull-right
+        = link_to [:edit, entry], class: 'btn btn-small' do
+          %i.icon-edit
+          Edit
+        = link_to entry, class: 'btn btn-small', method: :delete, confirm: 'Are you sure you want to delete this entry?' do
+          %i.icon-trash
+          Delete
       %h3=l entry.at, format: :long
       .body
         :markdown
           #{entry.body}
-      .links
-        = link_to 'edit', [:edit, entry]
-        = link_to 'delete', entry, method: :delete
+  - if @grouped_entries[today].blank? && @grouped_photos[today].present?
+    %h3=l today
   - @grouped_photos[today].to_a.each do |photo|
     = div_for photo do
       = image_tag photo.image(:small)
 
-%p= link_to 'New', new_entry_path
+%p

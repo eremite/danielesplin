@@ -2,14 +2,16 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.nil?
-      can :index, :page
-    elsif %w(Daniel Erika).include?(user.name)
-      can :manage, :all
-    else
-      can :read, Photo
-      can :read, Entry, { public: true }
+    if user
+      if %w(Daniel Erika).include?(user.name)
+        can :manage, Photo
+        can :manage, Entry, :user_id => user.id
+      else
+        can :read, Photo
+        can :read, Entry, { public: true }
+      end
     end
+    can :index, :page
   end
 
 end

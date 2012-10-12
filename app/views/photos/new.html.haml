@@ -1,7 +1,9 @@
+%p.pull-right
+  %br
+  = link_to new_upload_batch_path, class: 'btn btn-success' do
+    %i.icon-white.icon-asterisk
+    Upload Batch
+
 %h1 New Photo
 
 = render :partial => 'form'
-
-%p
-  Or
-  = link_to 'Upload a Bunch', new_upload_batch_path

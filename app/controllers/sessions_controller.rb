@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if (user = User.find_by_email(params[:email]).try(:authenticate, params[:password]))
       user.log('login')
       session[:user_id] = user.id
-      redirect_to photos_url, notice: 'Logged in successfully.'
+      redirect_to entries_url, notice: 'Logged in successfully.'
     else
       flash.now[:alert] = 'Invalid login or password.'
       render :new

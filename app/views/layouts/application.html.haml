@@ -12,15 +12,25 @@
   %body{ id: "#{controller.controller_name}-controller" }
 
     %header.header
-      .container
-        = link_to 'Entries', entries_path
-        .pull-right
-          - if logged_in?
-            = link_to 'Logout', logout_path
-          - else
-            = link_to 'Login', login_path
+      - if logged_in?
+        .navbar.navbar-static-top
+          .navbar-inner
+            .container
+              %ul.nav
+                %li{class: controller.controller_name == 'entries' && 'active'}
+                  = link_to entries_path do
+                    %i.icon-pencil
+                    Entries
+                %li{class: controller.controller_name == 'photos' && 'active'}
+                  = link_to photos_path do
+                    %i.icon-camera
+                    Photos
+              %ul.nav.pull-right
+                %li= link_to 'Logout', logout_path
 
     .content.container
+      - unless logged_in?
+        = link_to 'Login', login_path, class: 'pull-right'
       = render 'layouts/flash_hash'
       = yield
 

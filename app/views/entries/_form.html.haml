@@ -13,4 +13,6 @@
       = f.label :public, class: 'checkbox' do
         = f.check_box :public
         Public
-  %button.btn{ type: 'submit'} Save
+  .form-actions
+    %button.btn.btn-primary{ type: 'submit'} Save
+    = link_to 'Cancel', entries_path, class: 'btn'
