@@ -31,7 +31,9 @@
   - if @grouped_entries[today].blank? && @grouped_photos[today].present?
     %h3=l today
   - @grouped_photos[today].to_a.each do |photo|
-    = div_for photo do
-      = image_tag photo.image.url
+    - if photo.image?
+      = div_for photo do
+        = link_to photo.image.url do
+          = image_tag photo.image.small.url, class: 'img-polaroid'
 
 %p

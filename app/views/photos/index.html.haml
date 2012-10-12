@@ -16,7 +16,7 @@
         %i.icon-trash
         Delete
     = link_to photo.image.url do
-      = image_tag photo.image.medium.url, class: 'img-polaroid' if photo.image.present?
+      = image_tag photo.image.medium.url, class: 'img-rounded' if photo.image.present?
     =l photo.at, format: :long
     = photo.description
 
