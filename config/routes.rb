@@ -1,6 +1,12 @@
 Danielesplin::Application.routes.draw do
 
-  resources :entries, :photos, :upload_batches, :pages, :sessions
+  resources :entries
+  resources :photos
+  resources :upload_batches
+  resources :pages
+  resources :users
+
+  resources :sessions
   match 'logout', to: 'sessions#destroy', as: 'logout'
   match 'login', to: 'sessions#new', as: 'login'
 

@@ -1,0 +1,21 @@
+= form_for @user, class: 'form-horizontal' do |f|
+  = @user.errors.full_messages.to_sentence
+  .control-group
+    = f.label :name, class: 'control-label'
+    .controls
+      = f.text_field :name
+  .control-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.text_field :email
+  .control-group
+    = f.label :password, 'New Password', class: 'control-label'
+    .controls
+      = f.password_field :password
+  .control-group
+    = f.label :password_confirmation, 'Confirm New Password', class: 'control-label'
+    .controls
+      = f.password_field :password_confirmation
+  .form-actions
+    %button.btn.btn-primary{ type: 'submit'} Save
+    = link_to 'Cancel', entries_path, class: 'btn'
