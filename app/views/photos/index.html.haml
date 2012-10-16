@@ -3,21 +3,15 @@
   = link_to new_photo_path, class: 'btn btn-success' do
     %i.icon-white.icon-plus
     New Photo
+  = link_to new_upload_batch_path, class: 'btn btn-success' do
+    %i.icon-white.icon-asterisk
+    New Batch
 
 %h1 Photos
 
 - @photos.each do |photo|
-  %div
-    .btn-group.pull-right
-      = link_to [:edit, photo], class: 'btn btn-small' do
-        %i.icon-edit
-        Edit
-      = link_to photo, class: 'btn btn-small', method: :delete, confirm: 'Are you sure you want to delete this photo?' do
-        %i.icon-trash
-        Delete
-    = link_to photo.image.url do
-      = image_tag photo.image.medium.url, class: 'img-rounded' if photo.image.present?
-    =l photo.at, format: :long
-    = photo.description
+  = div_for photo, class: 'pull-left' do
+    = link_to photo, title: l(photo.at) do
+      = image_tag photo.image.small.url, class: 'img-polaroid' if photo.image.present?
 
 %p

@@ -29,6 +29,11 @@ class PhotosControllerTest < ActionController::TestCase
     assert_redirected_to new_photo_url
   end
 
+  test 'show' do
+    get :show, id: @photo.id
+    assert_template :show
+  end
+
   test 'edit' do
     get :edit, id: @photo.id
     assert_template :edit
