@@ -16,7 +16,7 @@ class UploadBatchesControllerTest < ActionController::TestCase
   test 'create valid' do
     UploadBatch.any_instance.stubs(save!: true)
     post :create, upload_batch: {}
-    assert_redirected_to photos_url
+    assert_redirected_to new_upload_batch_url
   end
 
 end

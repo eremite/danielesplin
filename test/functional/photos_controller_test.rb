@@ -26,7 +26,7 @@ class PhotosControllerTest < ActionController::TestCase
   test 'create valid' do
     Photo.any_instance.stubs(save: true)
     post :create, photo: {}
-    assert_redirected_to photos_url
+    assert_redirected_to new_photo_url
   end
 
   test 'edit' do
