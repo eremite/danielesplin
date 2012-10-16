@@ -17,6 +17,14 @@ class EntriesController < ApplicationController
     @grouped_entries = entries.group_by { |e| e.at.to_date }
   end
 
+  def new
+    if current_user.name == 'Erika'
+      @entry.at = Time.zone.now.beginning_of_day
+    elsif current_user.name == 'Daniel'
+      @entry.at = (Time.zone.now - 1.day).beginning_of_day
+    end
+  end
+
   def create
     @entry = current_user.entries.new(params[:entry])
     if @entry.save
