@@ -8,7 +8,7 @@ class EntriesController < ApplicationController
       @starts_at = Time.zone.parse(params[:starts_at])
     rescue ArgumentError, TypeError
       flash[:error] = 'Invalid date' if params[:starts_at].present?
-      @starts_at = Time.zone.now.beginning_of_week
+      @starts_at = Time.zone.now.beginning_of_week + 1.day
     end
     @ends_at = @starts_at + @interval
     photos = Photo.oldest_first.where(at: @starts_at..@ends_at)
