@@ -20,7 +20,7 @@ class EntriesController < ApplicationController
 
   def new
     if current_user.name == 'Erika'
-      @entry.at = Time.zone.now.beginning_of_day
+      @entry.at = Time.zone.now
     elsif current_user.name == 'Daniel'
       @entry.at = (Time.zone.now - 1.day).beginning_of_day
     end
