@@ -10,9 +10,9 @@ class EntriesController < ApplicationController
       flash[:error] = 'Invalid date' if params[:starts_at].present?
       @starts_at = Time.zone.now
     end
-    @starts_at = @starts_at.beginning_of_week - 1.day
-    @ends_at = @starts_at + @interval
-    entries = @entries.private.oldest_first.where(at: @starts_at..@ends_at)
+    @starts_at = (@starts_at - @starts_at.wday.day).beginning_of_day
+    @ends_at = @starts_at + @interval - 1.second
+    entries = @entries.private.newest_first.where(at: @starts_at..@ends_at)
     @grouped_entries = entries.group_by { |e| e.at.to_date }
   end
 

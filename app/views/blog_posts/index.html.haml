@@ -7,36 +7,14 @@
 
 %h1 Blog
 
-.clearfix
-  .btn-group.pull-left
-    = link_to url_for(starts_at: @starts_at - 1.week), class: 'btn btn-mini' do
-      Previous Week
-    %a.btn.btn-mini.dropdown-toggle{data: { toggle: 'dropdown' }}
-      %span.caret
-    %ul.dropdown-menu
-      %li= link_to 'Previous Month', url_for(starts_at: @starts_at - 1.month)
-      %li= link_to 'Previous Year', url_for(starts_at: @starts_at - 1.year)
-  .pull-left
-    &nbsp;
-    =l @starts_at.to_date
-    to
-    =l @ends_at.to_date
-    &nbsp;
-  .btn-group.pull-left
-    = link_to url_for(starts_at: @starts_at + 2.weeks), class: 'btn btn-mini' do
-      Next Week
-    %a.btn.btn-mini.dropdown-toggle{data: { toggle: 'dropdown' }}
-      %span.caret
-    %ul.dropdown-menu
-      %li= link_to 'Next Month', url_for(starts_at: @starts_at + 1.month)
-      %li= link_to 'Next Year', url_for(starts_at: @starts_at + 1.year)
+= render '/entries/date_pagination'
 
 .clearfix
   - if @grouped_entries.empty? && @grouped_photos.empty?
     %p Nothing to show. We're not that interesting.
   - else
     - (@interval / 1.day).times do |i|
-      - today = @starts_at.to_date + i.days
+      - today = @starts_at.to_date + @interval - i.days
       - @grouped_entries[today].to_a.each do |entry|
         = div_for entry do
           - if can? :update, entry

@@ -6,29 +6,7 @@
 
 %h1 Journal
 
-.clearfix
-  .btn-group.pull-left
-    = link_to url_for(starts_at: @starts_at - 1.week), class: 'btn btn-mini' do
-      Previous Week
-    %a.btn.btn-mini.dropdown-toggle{data: { toggle: 'dropdown' }}
-      %span.caret
-    %ul.dropdown-menu
-      %li= link_to 'Previous Month', url_for(starts_at: @starts_at - 1.month)
-      %li= link_to 'Previous Year', url_for(starts_at: @starts_at - 1.year)
-  .pull-left
-    &nbsp;
-    =l @starts_at.to_date
-    to
-    =l @ends_at.to_date
-    &nbsp;
-  .btn-group.pull-left
-    = link_to url_for(starts_at: @starts_at + 2.weeks), class: 'btn btn-mini' do
-      Next Week
-    %a.btn.btn-mini.dropdown-toggle{data: { toggle: 'dropdown' }}
-      %span.caret
-    %ul.dropdown-menu
-      %li= link_to 'Next Month', url_for(starts_at: @starts_at + 1.month)
-      %li= link_to 'Next Year', url_for(starts_at: @starts_at + 1.year)
+= render 'date_pagination'
 
 .clearfix
   - if @grouped_entries.empty?

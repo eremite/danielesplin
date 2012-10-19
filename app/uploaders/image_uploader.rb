@@ -51,6 +51,21 @@ class ImageUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
 
+  def extract_at
+    manipulate! do |img|
+      date = img['EXIF:DateTimeOriginal'].to_s.squish
+      if date.present?
+        begin
+          model.at = Time.zone.parse(date.sub(':', '-').sub(':', '-'))
+        rescue ArgumentError, TypeError
+          logger.error "#{date} is an invalid date."
+        end
+      end
+      img
+    end
+  end
+  process :extract_at
+
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename

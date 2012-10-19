@@ -10,11 +10,11 @@ class BlogPostsController < ApplicationController
       flash[:error] = 'Invalid date' if params[:starts_at].present?
       @starts_at = Time.zone.now
     end
-    @starts_at = @starts_at.beginning_of_week - 1.day
-    @ends_at = @starts_at + @interval
-    photos = Photo.oldest_first.where(at: @starts_at..@ends_at)
+    @starts_at = (@starts_at - @starts_at.wday.day).beginning_of_day
+    @ends_at = @starts_at + @interval - 1.second
+    photos = Photo.newest_first.where(at: @starts_at..@ends_at)
     @grouped_photos = photos.group_by { |p| p.at.to_date }
-    entries = Entry.public.oldest_first.where(at: @starts_at..@ends_at)
+    entries = Entry.public.newest_first.where(at: @starts_at..@ends_at)
     @grouped_entries = entries.group_by { |e| e.at.to_date }
   end
 
