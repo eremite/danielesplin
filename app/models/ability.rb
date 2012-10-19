@@ -6,6 +6,8 @@ class Ability
       if %w(Daniel Erika).include?(user.name)
         can :manage, Photo
         can :manage, Entry, user_id: user.id
+        can :manage, Entry, public: true
+        can :manage, :blog_post
       else
         can :read, Photo
         can :read, Entry, { public: true }

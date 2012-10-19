@@ -1,9 +1,10 @@
 Danielesplin::Application.routes.draw do
 
+  resources :blog_posts
   resources :entries
+  resources :pages
   resources :photos
   resources :upload_batches
-  resources :pages
   resources :users
 
   resources :sessions

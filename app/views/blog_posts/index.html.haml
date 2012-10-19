@@ -1,10 +1,10 @@
 %p.pull-right
   %br
-  = link_to new_entry_path, class: 'btn btn-success' do
+  = link_to new_blog_post_path, class: 'btn btn-success' do
     %i.icon-white.icon-plus
-    New Entry
+    New Blog Post
 
-%h1 Journal
+%h1 Blog
 
 .clearfix
   .btn-group.pull-left
@@ -31,11 +31,12 @@
       %li= link_to 'Next Year', url_for(starts_at: @starts_at + 1.year)
 
 .clearfix
-  - if @grouped_entries.empty?
-    %p Nothing yet.
+  - if @grouped_entries.empty? && @grouped_photos.empty?
+    %p Nothing to show. We're not that interesting.
   - else
-    - @grouped_entries.each do |day, entries|
-      - entries.each do |entry|
+    - (@interval / 1.day).times do |i|
+      - today = @starts_at.to_date + i.days
+      - @grouped_entries[today].to_a.each do |entry|
         = div_for entry do
           .btn-group.pull-right
             = link_to [:edit, entry], class: 'btn btn-small' do
@@ -48,3 +49,11 @@
           .body
             :markdown
               #{entry.body}
+      - if @grouped_entries[today].blank? && @grouped_photos[today].present?
+        %h3=l today
+      - @grouped_photos[today].to_a.each do |photo|
+        - if photo.image?
+          = div_for photo do
+            = link_to photo.image.url do
+              = image_tag photo.image.small.url, class: 'img-polaroid'
+

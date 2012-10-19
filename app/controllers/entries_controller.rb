@@ -12,11 +12,10 @@ class EntriesController < ApplicationController
     end
     @starts_at = @starts_at.beginning_of_week - 1.day
     @ends_at = @starts_at + @interval
-    photos = Photo.oldest_first.where(at: @starts_at..@ends_at)
-    @grouped_photos = photos.group_by { |p| p.at.to_date }
-    entries = @entries.oldest_first.where(at: @starts_at..@ends_at)
+    entries = @entries.private.oldest_first.where(at: @starts_at..@ends_at)
     @grouped_entries = entries.group_by { |e| e.at.to_date }
   end
+
 
   def new
     if current_user.name == 'Erika'

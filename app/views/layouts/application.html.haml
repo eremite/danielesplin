@@ -9,7 +9,7 @@
     = csrf_meta_tag
     = yield(:head)
 
-  %body{ id: "#{controller.controller_name}-controller" }
+  %body{ id: "#{controller.controller_name.dasherize}-controller" }
 
     %header.header
       - if logged_in?
@@ -19,8 +19,12 @@
               %ul.nav
                 %li{class: controller.controller_name == 'entries' && 'active'}
                   = link_to entries_path do
-                    %i.icon-pencil
-                    Entries
+                    %i.icon-book
+                    Journal
+                %li{class: controller.controller_name == 'blog_posts' && 'active'}
+                  = link_to blog_posts_path do
+                    %i.icon-picture
+                    Blog
                 %li{class: controller.controller_name == 'photos' && 'active'}
                   = link_to photos_path do
                     %i.icon-camera
