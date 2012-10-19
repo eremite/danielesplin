@@ -1,8 +1,9 @@
-%p.pull-right
-  %br
-  = link_to new_blog_post_path, class: 'btn btn-success' do
-    %i.icon-white.icon-plus
-    New Blog Post
+- if can? :create, :blog_post
+  %p.pull-right
+    %br
+    = link_to new_blog_post_path, class: 'btn btn-success' do
+      %i.icon-white.icon-plus
+      New Blog Post
 
 %h1 Blog
 
@@ -38,13 +39,14 @@
       - today = @starts_at.to_date + i.days
       - @grouped_entries[today].to_a.each do |entry|
         = div_for entry do
-          .btn-group.pull-right
-            = link_to [:edit, entry], class: 'btn btn-small' do
-              %i.icon-edit
-              Edit
-            = link_to entry, class: 'btn btn-small', method: :delete, confirm: 'Are you sure you want to delete this entry?' do
-              %i.icon-trash
-              Delete
+          - if can? :update, entry
+            .btn-group.pull-right
+              = link_to [:edit, entry], class: 'btn btn-small' do
+                %i.icon-edit
+                Edit
+              = link_to entry, class: 'btn btn-small', method: :delete, confirm: 'Are you sure you want to delete this entry?' do
+                %i.icon-trash
+                Delete
           %h3=l entry.at, format: :long
           .body
             :markdown
@@ -54,6 +56,6 @@
       - @grouped_photos[today].to_a.each do |photo|
         - if photo.image?
           = div_for photo do
-            = link_to photo.image.url do
+            = link_to photo do
               = image_tag photo.image.small.url, class: 'img-polaroid'
 
