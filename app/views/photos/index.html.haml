@@ -15,4 +15,5 @@
     = link_to photo, title: l(photo.at) do
       = image_tag photo.image.small.url, class: 'img-polaroid' if photo.image.present?
 
-%p
+%p.clearfix
+  = paginate @photos

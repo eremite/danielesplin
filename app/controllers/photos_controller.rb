@@ -2,6 +2,10 @@ class PhotosController < ApplicationController
 
   load_and_authorize_resource
 
+  def index
+    @photos = @photos.page(params[:page])
+  end
+
   def create
     @photo = current_user.photos.new(params[:photo])
     if @photo.save
