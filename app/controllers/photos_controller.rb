@@ -5,7 +5,7 @@ class PhotosController < ApplicationController
   def create
     @photo = current_user.photos.new(params[:photo])
     if @photo.save
-      redirect_to new_photo_url
+      redirect_to new_photo_url, notice: 'Photo saved.'
     else
       render :new
     end
@@ -13,7 +13,7 @@ class PhotosController < ApplicationController
 
   def update
     if @photo.update_attributes(params[:photo])
-      redirect_to photos_url
+      redirect_to photos_url, notice: 'Photo saved.'
     else
       render :edit
     end

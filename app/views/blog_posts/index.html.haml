@@ -25,15 +25,15 @@
               = link_to entry, class: 'btn btn-small', method: :delete, confirm: 'Are you sure you want to delete this entry?' do
                 %i.icon-trash
                 Delete
-          %h3=l entry.at, format: :long
+          %h3.clearfix=l entry.at, format: :long
           .body
             :markdown
               #{entry.body}
       - if @grouped_entries[today].blank? && @grouped_photos[today].present?
-        %h3=l today
+        %h3.clearfix=l today
       - @grouped_photos[today].to_a.each do |photo|
         - if photo.image?
           = div_for photo do
-            = link_to photo do
+            = link_to photo.image.url, class: 'fancybox', rel: "group-#{today}", title: photo.description do
               = image_tag photo.image.small.url, class: 'img-polaroid'
 

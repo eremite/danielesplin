@@ -3,8 +3,9 @@ require 'test_helper'
 class EntriesControllerTest < ActionController::TestCase
 
   def setup
-    @entry = entries(:base)
-    login_as(@entry.user)
+    user = users(:admin)
+    @entry = user.entries.create!(body: 'body')
+    login_as(user)
   end
 
   test 'index' do
