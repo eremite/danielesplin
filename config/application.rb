@@ -66,5 +66,12 @@ module Danielesplin
     # https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
     config.assets.initialize_on_precompile = false
 
+    # Configure generators values
+    config.generators do |g|
+      g.haml true
+      g.helper false
+      g.stylesheets false
+    end
+
   end
 end

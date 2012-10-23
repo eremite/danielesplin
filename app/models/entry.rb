@@ -6,7 +6,7 @@ class Entry < ActiveRecord::Base
 
   validates :body, presence: true
 
-  scope :newest_first, order(arel_table[:at].desc)
+  scope :at_desc, order(arel_table[:at].desc)
   scope :public, where(public: true)
   scope :private, where(public: false)
 

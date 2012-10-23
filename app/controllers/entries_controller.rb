@@ -12,7 +12,7 @@ class EntriesController < ApplicationController
     end
     @starts_at = (@starts_at - @starts_at.wday.day).beginning_of_day
     @ends_at = @starts_at + @interval - 1.second
-    entries = @entries.private.newest_first.where(at: @starts_at..@ends_at)
+    entries = @entries.private.at_desc.where(at: @starts_at..@ends_at)
     @grouped_entries = entries.group_by { |e| e.at.to_date }
   end
 

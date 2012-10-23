@@ -7,33 +7,28 @@
 
 %h1 Blog
 
-= render '/entries/date_pagination'
-
-.clearfix
-  - if @grouped_entries.empty? && @grouped_photos.empty?
+- if @entries.empty?
+  .row.clearfix
     %p Nothing to show. We're not that interesting.
-  - else
-    - (@interval / 1.day).times do |i|
-      - today = @starts_at.to_date + @interval - i.days
-      - @grouped_entries[today].to_a.each do |entry|
-        = div_for entry do
-          - if can? :update, entry
-            .btn-group.pull-right
-              = link_to [:edit, entry], class: 'btn btn-small' do
-                %i.icon-edit
-                Edit
-              = link_to entry, class: 'btn btn-small', method: :delete, confirm: 'Are you sure you want to delete this entry?' do
-                %i.icon-trash
-                Delete
-          %h3.clearfix=l entry.at, format: :long
-          .body
-            :markdown
-              #{entry.body}
-      - if @grouped_entries[today].blank? && @grouped_photos[today].present?
-        %h3.clearfix=l today
-      - @grouped_photos[today].to_a.each do |photo|
+- else
+  - @entries.each do |entry|
+    = div_for entry do
+      - if can? :update, entry
+        .btn-group.pull-right
+          = link_to [:edit, entry], class: 'btn btn-small' do
+            %i.icon-edit
+            Edit
+          = link_to entry, class: 'btn btn-small', method: :delete, confirm: 'Are you sure you want to delete this entry?' do
+            %i.icon-trash
+            Delete
+      %h3.clearfix=l entry.at, format: :long
+      .body
+        :markdown
+          #{entry.body}
+      - Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).each do |photo|
         - if photo.image?
           = div_for photo do
-            = link_to photo.image.url, class: 'fancybox', rel: "group-#{today}", title: photo.description do
+            = link_to photo.image.url, class: 'fancybox', rel: "group-#{entry.at.to_date}", title: photo.description do
               = image_tag photo.image.small.url, class: 'img-polaroid'
 
+= paginate @entries
