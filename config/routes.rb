@@ -15,6 +15,11 @@ Danielesplin::Application.routes.draw do
   #   match "#{page}_page" => "pages##{page}"
   # end
 
+  Dir['app/views/reports/*'].map { |f| File.basename(f, '.html.haml') }.each do |page|
+    next if page.starts_with?('_')
+    match "#{page}_report" => "reports##{page}"
+  end
+
   root :to => 'pages#index'
 
   # The priority is based upon order of creation:

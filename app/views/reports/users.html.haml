@@ -1,0 +1,14 @@
+%h1 Users
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Last Login
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.name
+        %td= user.email
+        %td=l user.log_entries.logins.created_at_desc.first.try(:created_at)

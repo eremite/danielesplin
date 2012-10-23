@@ -32,6 +32,12 @@
                     = link_to photos_path do
                       %i.icon-camera
                       Photos
+                - if can? :index, :report
+                  %li.dropdown
+                    = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+                      %i.icon-list
+                      Reports
+                      %b.caret
               %ul.nav.pull-right
                 %li.divider-vertical
                 %li.dropdown

@@ -8,6 +8,7 @@ class Ability
         can :manage, Entry, user_id: user.id
         can :manage, Entry, public: true
         can :manage, :blog_post
+        can :manage, :report
       else
         can :read, Photo
         can :index, :blog_post
