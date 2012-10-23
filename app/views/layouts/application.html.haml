@@ -28,16 +28,19 @@
                       %i.icon-picture
                       Blog
                 - if can? :manage, Photo
-                  %li{class: controller.controller_name == 'photos' && 'active'}
+                  %li{class: %w(photos upload_batches).include?(controller.controller_name) && 'active'}
                     = link_to photos_path do
                       %i.icon-camera
                       Photos
                 - if can? :index, :report
-                  %li.dropdown
+                  %li.dropdown{class: controller.controller_name == 'reports' && 'active'}
                     = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
                       %i.icon-list
                       Reports
                       %b.caret
+                    %ul.dropdown-menu
+                      %li= link_to 'Users', users_report_path
+                      %li= link_to 'Unblogged Photos', unblogged_photos_report_path
               %ul.nav.pull-right
                 %li.divider-vertical
                 %li.dropdown

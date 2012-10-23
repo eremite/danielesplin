@@ -7,8 +7,8 @@ class BlogPostsController < ApplicationController
   end
 
   def new
-    @entry = Entry.public.new
-    @entry.at = Time.zone.now
+    @entry = Entry.public.new(params[:entry])
+    @entry.at ||= Time.zone.now
   end
 
   def create

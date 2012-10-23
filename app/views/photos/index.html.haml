@@ -10,10 +10,8 @@
 
 %h1 Photos
 
-- @photos.each do |photo|
-  = div_for photo, class: 'pull-left' do
-    = link_to photo, title: l(photo.at) do
-      = image_tag photo.image.small.url, class: 'img-polaroid' if photo.image.present?
+%ul.thumbnails
+  = render @photos
 
 %p.clearfix
   = paginate @photos

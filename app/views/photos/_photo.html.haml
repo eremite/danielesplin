@@ -1,0 +1,3 @@
+%li.span2
+  = link_to photo, title: l(photo.at), class: 'thumbnail' do
+    = image_tag photo.image.small.url if photo.image?
