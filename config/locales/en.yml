@@ -15,3 +15,9 @@ en:
       db: '%Y-%m-%d %I:%M:%S %p %z'
     am: 'am'
     pm: 'pm'
+
+  attributes:
+    at: 'Date'
+    body: 'Content'
+    created_at: 'Created'
+    updated_at: 'Updated'
