@@ -7,8 +7,11 @@ class ReportsController < ApplicationController
   end
 
   def unblogged_photos
-    entry_dates = Entry.public.all.map { |e| e.at.to_date }
-    @photos = Photo.where(["DATE(photos.at) NOT IN (?)", entry_dates]).page(params[:page])
+    @photos = []
+    Photo.where(Photo.arel_table[:at].not_eq(nil)).each do |photo|
+      range = photo.at.beginning_of_day...photo.at.end_of_day
+      @photos << photo if Entry.where(:at => range).empty?
+    end
   end
 
 end
