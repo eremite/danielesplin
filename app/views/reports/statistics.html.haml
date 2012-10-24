@@ -1,0 +1,15 @@
+%h1 Statistics
+
+%dl.dl-horizontal
+
+  %dt Daniel's Entries
+  %dd= number_with_delimiter User.find_by_email('daniel@danielesplin.org').entries.private.count
+
+  %dt Erika's Entries
+  %dd= number_with_delimiter User.find_by_email('erika@danielesplin.org').entries.private.count
+
+  %dt Blog Posts
+  %dd= number_with_delimiter Entry.public.count
+
+  %dt Photos
+  %dd= number_with_delimiter Photo.count
