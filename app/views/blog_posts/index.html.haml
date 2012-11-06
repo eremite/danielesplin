@@ -25,7 +25,7 @@
       .body
         :markdown
           #{entry.body}
-      - Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).each do |photo|
+      - Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).at_asc.each do |photo|
         - if photo.image?
           = div_for photo do
             = link_to photo.image.url, class: 'fancybox', rel: "group-#{entry.at.to_date}", title: photo.description do

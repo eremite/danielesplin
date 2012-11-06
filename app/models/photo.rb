@@ -8,7 +8,8 @@ class Photo < ActiveRecord::Base
 
   belongs_to :user
 
-  scope :newest_first, order(arel_table[:at].desc)
+  scope :at_asc, order(arel_table[:at].asc)
+  scope :at_desc, order(arel_table[:at].desc)
 
   before_save :reprocess, if: lambda { |p| p.rotate.present? }
 
