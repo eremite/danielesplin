@@ -5,6 +5,10 @@
       = text_field_tag :at, l(f.object.at), class: 'datetimepicker'
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .control-group
+    = f.label :entry_id, 'Blog Post'
+    .controls
+      = f.select :entry_id, Entry.public.at_desc.limit(30).map { |e| [e.title, e.id] }, :include_blank => 'Default'
+  .control-group
     = f.label :description, class: 'control-label'
     .controls
       = f.text_area :description, :rows => 3
