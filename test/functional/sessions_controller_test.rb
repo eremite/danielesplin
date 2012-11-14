@@ -20,6 +20,16 @@ class SessionsControllerTest < ActionController::TestCase
     assert_difference lambda { LogEntry.logins.count } do
       post :create, email: u.email
     end
+    assert_redirected_to blog_posts_url
+    assert_equal u.id, session['user_id']
+  end
+
+  test 'create valid admin' do
+    u = users(:admin)
+    User.any_instance.stubs(authenticate: u)
+    assert_difference lambda { LogEntry.logins.count } do
+      post :create, email: u.email
+    end
     assert_redirected_to new_entry_url
     assert_equal u.id, session['user_id']
   end

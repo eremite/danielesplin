@@ -8,5 +8,5 @@ base:
 
 admin:
   name: Daniel
-  email: admin@example.com
+  email: daniel@danielesplin.org
   <<: *PASSWORD
