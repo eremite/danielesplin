@@ -1,11 +1,11 @@
+- title 'Blog'
+
 - if can? :create, :blog_post
   %p.pull-right
     %br
     = link_to new_blog_post_path, class: 'btn btn-success' do
       %i.icon-white.icon-plus
       New Blog Post
-
-%h1 Blog
 
 - if @entries.empty?
   .row.clearfix

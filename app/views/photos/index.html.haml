@@ -1,3 +1,5 @@
+- title 'Photos'
+
 - if can? :create, Photo
   %p.pull-right
     %br
@@ -7,8 +9,6 @@
     = link_to new_upload_batch_path, class: 'btn btn-success' do
       %i.icon-white.icon-asterisk
       New Batch
-
-%h1 Photos
 
 %ul.thumbnails
   = render @photos
