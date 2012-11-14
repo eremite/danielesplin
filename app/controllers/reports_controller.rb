@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
     @photos = []
     Photo.where(Photo.arel_table[:at].not_eq(nil)).each do |photo|
       range = photo.at.beginning_of_day...photo.at.end_of_day
-      @photos << photo if Entry.where(:at => range).empty?
+      @photos << photo if Entry.public.where(:at => range).empty?
     end
   end
 
