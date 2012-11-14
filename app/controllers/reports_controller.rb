@@ -7,11 +7,7 @@ class ReportsController < ApplicationController
   end
 
   def unblogged_photos
-    @photos = Photo.where(:at => nil).to_a
-    Photo.where(Photo.arel_table[:at].not_eq(nil)).each do |photo|
-      range = photo.at.beginning_of_day...photo.at.end_of_day
-      @photos << photo if Entry.public.where(:at => range).empty?
-    end
+    @photos = Photo.unblogged
   end
 
 end

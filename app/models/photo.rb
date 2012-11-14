@@ -14,6 +14,13 @@ class Photo < ActiveRecord::Base
 
   before_save :reprocess, if: lambda { |p| p.rotate.present? }
 
+  def self.unblogged
+    excluded_ids = []
+    Entry.all.each do |entry|
+      excluded_ids += entry.photos.map(&:id)
+    end
+    Photo.where(arel_table[:id].not_in(excluded_ids))
+  end
 
   private
 
