@@ -34,6 +34,10 @@ class EntriesController < ApplicationController
     end
   end
 
+  # TODO test
+  def show
+  end
+
   def update
     if @entry.update_attributes(params[:entry])
       redirect_to entries_url, notice: 'Entry updated.'

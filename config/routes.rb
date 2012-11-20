@@ -4,6 +4,7 @@ Danielesplin::Application.routes.draw do
   resources :entries
   resources :pages
   resources :photos
+  resources :searches
   resources :upload_batches
   resources :users
 

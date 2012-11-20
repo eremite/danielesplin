@@ -11,9 +11,11 @@ class Ability
         can :manage, :report
       else
         can :read, Photo
+        can :read, Entry, public: true
         can :index, :blog_post
       end
       can :update, User, id: user.id
+      can :index, :search
     end
     can :index, :page
   end
