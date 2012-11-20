@@ -25,10 +25,10 @@
       .body
         :markdown
           #{entry.body}
-      - entry.photos.at_asc.each do |photo|
-        - if photo.image?
-          = div_for photo do
-            = link_to photo.image.url, class: 'fancybox', rel: "group-#{entry.at.to_date}", title: photo.description do
-              = image_tag photo.image.small.url, class: 'img-polaroid'
+        - if entry.photos.present?
+          %ul.thumbnails
+            - entry.photos.at_asc.each do |photo|
+              - if photo.image?
+                = render photo, :group =>  "group-#{entry.at.to_date}"
 
 = paginate @entries
