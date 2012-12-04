@@ -17,7 +17,7 @@ class Entry < ActiveRecord::Base
 
   def photos
     t = Photo.arel_table
-    conditions = t[:at].in(at.beginning_of_day..at.end_of_day)
+    conditions = t[:at].in(at.beginning_of_day..at.end_of_day).and(t[:entry_id].eq(nil))
     conditions = conditions.or(t[:entry_id].eq(id))
     Photo.where(conditions)
   end
