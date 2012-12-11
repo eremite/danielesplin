@@ -1,4 +1,4 @@
-= form_for @entry, url: blog_posts_path, class: 'form-horizontal' do |f|
+= form_for @entry, url: blog_posts_path, class: 'form-horizontal', html: { data: { persist: 'garlic' } } do |f|
   .control-group
     = f.label :at, class: 'control-label'
     .controls
