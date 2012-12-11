@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require bootstrap
+//= require garlic
 //= require jquery-ui-timepicker-addon
 //= require jquery.fancybox
 //= require_tree .
