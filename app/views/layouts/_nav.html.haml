@@ -29,6 +29,8 @@
               %li= link_to 'Users', users_report_path
               %li= link_to 'Untimed Photos', untimed_photos_report_path
               %li= link_to 'Unblogged Photos', unblogged_photos_report_path
+              - if can? :create, Thought
+                %li= link_to 'Thoughts', thoughts_path
 
       %ul.nav.pull-right
         %li.divider-vertical

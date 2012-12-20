@@ -1,0 +1,28 @@
+- title 'Thoughts'
+
+= form_for @thought do |f|
+  %table.table
+    %thead
+      %tr
+        %th User
+        %th Date
+        %th Thought
+        %th
+    %tbody
+      - @thoughts.each do |thought|
+        %tr
+          %td= thought.user.try(:name)
+          %td=l thought.on
+          %td= thought.body
+          %td= link_to 'Delete', thought, method: :delete, class: 'btn btn-small btn-danger', confirm: 'Are you sure?'
+    %tfoot
+      %tr
+        %td= f.select :user_id, User.all.map { |u| [u.name, u.id] }
+        %td= f.date_select :on, order: [:month, :day, :year], start_year: Date.today.year, end_year: Date.today.year + 1
+        %td
+          - if f.object.errors[:body].present?
+            %span.text-error
+              Body
+              = f.object.errors[:body].to_sentence
+          = f.text_area :body, rows: 2
+        %td= f.submit 'Add', class: 'btn btn-small btn-primary'
