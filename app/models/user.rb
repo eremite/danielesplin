@@ -19,4 +19,12 @@ class User < ActiveRecord::Base
     log_entries.create(action: action)
   end
 
+  def daniel?
+    email == 'daniel@danielesplin.org'
+  end
+
+  def erika?
+    email == 'erika@danielesplin.org'
+  end
+
 end
