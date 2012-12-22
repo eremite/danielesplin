@@ -1,5 +1,9 @@
 Danielesplin::Application.routes.draw do
 
+  namespace :api do
+    resources :entries
+  end
+
   resources :blog_posts
   resources :entries
   resources :pages
