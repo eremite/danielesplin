@@ -26,9 +26,14 @@
         :markdown
           #{entry.body}
         - if entry.photos.present?
-          %ul.thumbnails
-            - entry.photos.at_asc.each do |photo|
-              - if photo.image?
-                = render photo, :group =>  "group-#{entry.at.to_date}"
+          - if entry.photos.size > 1
+            %ul.thumbnails
+              - entry.photos.at_asc.each do |photo|
+                - if photo.image?
+                  = render photo, :group =>  "group-#{entry.at.to_date}"
+          - else
+            - photo = entry.photos.first
+            = link_to photo.image.url, class: 'fancybox', rel: "group-#{entry.at.to_date}", title: photo.description do
+              = image_tag photo.image.medium.url
 
 = paginate @entries
