@@ -1,4 +1,4 @@
-body#thoughts-controller {
+#thoughts-controller {
   select#thought_on_1i {
     width: 80px;
   }
@@ -7,5 +7,8 @@ body#thoughts-controller {
   }
   select#thought_on_3i {
     width: 60px;
+  }
+  #thought_body {
+    width: 98%;
   }
 }
