@@ -1,6 +1,6 @@
 - title 'New Journal Entry'
 
-- if (thought = current_user.thoughts.where(on: Date.today).first)
+- if (thought = current_user.thoughts.where(on: Time.zone.now.to_date).first)
   %p.thought.pull-right= thought.body
 
 = render 'form'
