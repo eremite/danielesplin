@@ -5,6 +5,7 @@ Danielesplin::Application.routes.draw do
   end
 
   resources :blog_posts
+  resources :comments
   resources :entries
   resources :pages
   resources :photos

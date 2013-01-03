@@ -3,6 +3,7 @@ class Entry < ActiveRecord::Base
   attr_accessible :at, :body, :public
 
   belongs_to :user
+  has_many :comments
 
   validates :body, presence: true
 

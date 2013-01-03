@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :log_entries
   has_many :photos
   has_many :thoughts
+  has_many :comments
 
   validates :email,
     presence: true,
