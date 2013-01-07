@@ -1,0 +1,23 @@
+!!! XML
+%rss{:version => '2.0'}
+  %channel
+    %title Daniel &amp; Erika's blog
+    %link= blog_posts_url(format: 'rss').to_s
+    %description
+      The (private) blog of Daniel and Erika Esplin in St. George, Utah.
+    %language en-us
+    %pubDate= Time.now.rfc822
+
+    - @entries.each do |entry|
+      %item
+        %title= entry.title
+        %description
+          %p= entry.title
+          %p 
+            - if entry.photos.count > 0
+              Includes #{pluralize(entry.photos.count, 'picture')}!
+            - else
+              No pictures. :(
+        %link= blog_posts_url
+        %guid= entry.id
+        %pubDate= entry.created_at.rfc822

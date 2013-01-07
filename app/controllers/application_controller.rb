@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :logged_in?
 
+  def current_ability
+    @current_ability ||= Ability.new(current_user, params[:format])
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to login_url, alert: 'Permission denied!'
   end

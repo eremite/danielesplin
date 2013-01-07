@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, format)
     if user
       if user.daniel? || user.erika?
         can :manage, Photo
@@ -24,6 +24,9 @@ class Ability
       can :index, :search
     end
     can :index, :page
+    if format == 'rss'
+      can :index, :blog_post
+    end
   end
 
 end

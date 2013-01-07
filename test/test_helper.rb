@@ -15,3 +15,7 @@ end
 def login_as(user)
   user.tap { |u| @request.session['user_id'] = u.try(:id) }
 end
+
+def logout
+  @request.session['user_id'] = nil
+end

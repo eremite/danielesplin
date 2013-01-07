@@ -11,6 +11,12 @@ class BlogPostsControllerTest < ActionController::TestCase
     assert_template :index
   end
 
+  test 'index rss' do
+    logout
+    get :index, format: 'rss'
+    assert_template :index
+  end
+
   test 'new' do
     get :new
     assert_template :new
