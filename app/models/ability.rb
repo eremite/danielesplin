@@ -9,6 +9,7 @@ class Ability
         can :manage, Entry, public: true
         can :manage, :blog_post
         can :manage, :report
+        can :index, User
         if user.daniel?
           can :manage, Thought
         else

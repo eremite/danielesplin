@@ -7,6 +7,12 @@ class UsersControllerTest < ActionController::TestCase
     login_as(@user)
   end
 
+  test 'index' do
+    login_as(users(:admin))
+    get :index
+    assert_template :index
+  end
+
   test 'edit' do
     get :edit, id: @user.id
     assert_template :edit

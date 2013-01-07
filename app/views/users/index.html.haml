@@ -7,7 +7,7 @@
       %th Email
       %th Last Login
   %tbody
-    - @users.each do |user|
+    - @users.sort_by { |u| u.log_entries.logins.created_at_desc.first.try(:created_at) || Time.at(0) }.reverse.each do |user|
       %tr
         %td= user.name
         %td= user.email
