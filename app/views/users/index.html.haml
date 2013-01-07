@@ -9,6 +9,6 @@
   %tbody
     - @users.sort_by { |u| u.log_entries.logins.created_at_desc.first.try(:created_at) || Time.at(0) }.reverse.each do |user|
       %tr
-        %td= user.name
+        %td= link_to user.name, [:edit, user]
         %td= user.email
         %td=l user.log_entries.logins.created_at_desc.first.try(:created_at)
