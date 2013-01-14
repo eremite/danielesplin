@@ -36,11 +36,7 @@
             = link_to photo.image.url, class: 'fancybox', rel: "group-#{entry.at.to_date}", title: photo.description do
               = image_tag photo.image.medium.url, class: 'img-rounded'
       .comments
-        - entry.comments.each do |comment|
-          %blockquote
-            %span.pull-right.muted{ :style => 'font-size: smaller'}=l comment.created_at
-            = comment.body
-            %small= comment.user.try(:name)
+        = render entry.comments.created_at_asc
         = form_for entry.comments.new do |f|
           = f.text_area :body, rows: 2, class: 'span7', placeholder: 'If you have something to say, you can say it here.'
           = f.hidden_field :entry_id

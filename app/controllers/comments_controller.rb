@@ -7,8 +7,21 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to blog_posts_url, notice: 'Comment saved.'
     else
-      redirect_to blog_posts_url, alert: "Comment not saved: #{@comment.errors.full_messages.to_sentence}"
+      render :new
     end
+  end
+
+  def update
+    if @comment.update_attributes(params[:comment])
+      redirect_to blog_posts_url, notice: 'Comment updated.'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @comment.destroy
+    redirect_to blog_posts_url, notice: 'Comment deleted.'
   end
 
 end

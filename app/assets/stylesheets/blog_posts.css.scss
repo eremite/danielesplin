@@ -13,6 +13,16 @@
     padding: 10px;
     margin-top: 10px;
     border-radius: 6px;
+    blockquote {
+      .muted {
+        font-size: smaller;
+        width: 105px;
+        text-align: right;
+      }
+      .btn-group {
+        margin-right: 10px;
+      }
+    }
   }
 
 }

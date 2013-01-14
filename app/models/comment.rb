@@ -5,6 +5,8 @@ class Comment < ActiveRecord::Base
   belongs_to :entry
   belongs_to :user
 
+  scope :created_at_asc, order(arel_table[:created_at].asc)
+
   validates :body, presence: true
 
 end

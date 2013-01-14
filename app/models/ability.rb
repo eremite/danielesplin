@@ -3,6 +3,9 @@ class Ability
 
   def initialize(user, format)
     if user
+      can :index, :search
+      can :update, User, id: user.id
+      can :manage, Comment, user_id: user.id
       if user.daniel? || user.erika?
         can :manage, Photo
         can :manage, Entry, user_id: user.id
@@ -10,6 +13,7 @@ class Ability
         can :manage, :blog_post
         can :manage, :report
         can :manage, User
+        can :manage, Comment
         if user.daniel?
           can :manage, Thought
         else
@@ -20,9 +24,6 @@ class Ability
         can :read, Entry, public: true
         can :index, :blog_post
       end
-      can :manage, Comment, user_id: user.id
-      can :update, User, id: user.id
-      can :index, :search
     end
     can :index, :page
     if format == 'rss'
