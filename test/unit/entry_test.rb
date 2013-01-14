@@ -8,8 +8,8 @@ class EntryTest < ActiveSupport::TestCase
 
   test 'title' do
     e = entries(:base)
-    e.body = '## hello'
-    assert_equal "#{I18n.l(e.at.to_date)} hello", e.title
+    e.body = "## hello\nMore content"
+    assert_equal "hello", e.title
   end
 
 end

@@ -13,7 +13,7 @@ class Entry < ActiveRecord::Base
 
 
   def title
-    "#{I18n.l(at.to_date)} #{body.gsub(/[^\w\s]/, '').squish.first(20)}"
+    body.split(/\r?\n/).first.gsub(/[^\w\s\.\?,!]/, '').squish.first(50)
   end
 
   def photos
