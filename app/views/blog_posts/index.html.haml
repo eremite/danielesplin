@@ -30,7 +30,7 @@
             %ul.thumbnails
               - entry.photos.at_asc.each do |photo|
                 - if photo.image?
-                  = render photo, :group =>  "group-#{entry.at.to_date}"
+                  = render photo, :group => "group-#{entry.at.to_date}"
           - else
             - photo = entry.photos.first
             = link_to photo.image.url, class: 'fancybox', rel: "group-#{entry.at.to_date}", title: photo.description do
@@ -38,6 +38,7 @@
       .comments
         - entry.comments.each do |comment|
           %blockquote
+            %span.pull-right.muted{ :style => 'font-size: smaller'}=l comment.created_at
             = comment.body
             %small= comment.user.try(:name)
         = form_for entry.comments.new do |f|
