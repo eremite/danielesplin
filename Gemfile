@@ -11,8 +11,9 @@ gem 'fog'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'kaminari'
-gem 'maruku'
 gem 'mini_magick'
+gem 'pg'
+gem 'redcarpet'
 gem 'sass'
 gem 'sass-rails'
 
@@ -22,7 +23,6 @@ group :assets do
 end
 
 group :production do
-  gem 'pg'
   gem 'thin'
 end
 
