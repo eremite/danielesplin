@@ -1,14 +1,15 @@
-require 'open-uri'
 require 'net/http'
 desc 'Imports entries. FILE=file.txt'
 task :import => :environment do
-  SITE_URL = URI.parse('http://de.10.0.1.2.xip.io/api/entries')
+  # SITE_URL = URI.parse('http://0.0.0.0:3000/api/entries')
+  SITE_URL = URI.parse('http://www.danielesplin.org/api/entries')
   # API_KEY = 'EAT_YOUR_VEGGIES'
   API_KEY = 'CHEESE_IS_TASTY'
-  # REGEXP = %r{\s*#+\s+\b?(?<date>\d{1,2}/\d{1,2}/\d{2,4})}
-  # STRPTIME = '%m/%d/%Y'
-  REGEXP = %r{\s*#+\s+\b?(?<date>\w+\s+\d{1,2},\s+\d{2,4})}
-  STRPTIME = '%B %d, %Y'
+  REGEXP = %r{\s*#+\s+\b?(?<date>\d{1,2}/\d{1,2}/\d{2,4})}
+  STRPTIME = '%m/%d/%Y'
+  # REGEXP = %r{\s*#+\s+\b?(?<date>\w+\s+\d{1,2},\s+\d{2,4})}
+  # STRPTIME = '%B %d, %Y'
+  NEWLINE = '{{NEWLINE}}'
   file_name = ENV['FILE']
   if file_name.blank?
     raise ArgumentError, 'Please supply a file to import: `rake import FILE=file.txt`'
@@ -16,29 +17,30 @@ task :import => :environment do
     raise ArgumentError, "#{file_name}: No such file or directory."
   end
   puts "Importing #{file_name}"
-  entry_lines = []
+  body = ''
   at = nil
 
   File.readlines(file_name).each do |line|
     if (match = REGEXP.match(line))
-      if at.present? && entry_lines.present?
-        puts "New entry for #{I18n.l(at)} with #{entry_lines.size} lines."
+      if at.present? && body.present?
+        puts "New entry for #{I18n.l(at)}."
         data = {
           'api_key' => API_KEY,
           'entry[at]' => at,
-          'entry[body]' => entry_lines.join(' ').strip,
+          'entry[body]' => body.gsub(/\s*#{NEWLINE}/, "\n\n").strip,
         }
         Net::HTTP.post_form(SITE_URL, data)
         at = nil
-        entry_lines = []
+        body = ''
       end
       begin
-        at = Time.strptime(match[:date], STRPTIME)
+        date = match[:date].gsub(%r{/(\d{2})\Z}, '/20\1')
+        at = Time.strptime(date, STRPTIME)
       rescue ArgumentError
         puts "#{match[:date]} is invalid date."
       end
     else
-      entry_lines << (line.squish.blank? ? "\n\n" : line.chomp)
+      body << (line.squish.blank? ? NEWLINE : "#{line.squish} ")
     end
   end
 end
