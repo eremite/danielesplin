@@ -2,6 +2,10 @@ class CommentsController < ApplicationController
 
   load_and_authorize_resource
 
+  def index
+    @comments = @comments.created_at_desc.page(params[:page])
+  end
+
   def create
     @comment = current_user.comments.new(params[:comment])
     if @comment.save

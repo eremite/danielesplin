@@ -6,6 +6,11 @@ class CommentsControllerTest < ActionController::TestCase
     login_as(users(:base))
   end
 
+  test 'index' do
+    get :index
+    assert_template :index
+  end
+
   test 'new' do
     get :new
     assert_template :new

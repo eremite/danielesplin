@@ -1,0 +1,12 @@
+- title 'Comments'
+
+
+- if @comments.empty?
+  %p No comments.
+- else
+  - @comments.each do |comment|
+    %h3= link_to comment.entry.title, comment.entry
+    = render comment
+
+%p.clearfix
+  = paginate @comments
