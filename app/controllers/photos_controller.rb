@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @photos = @photos.created_at_asc.page(params[:page])
+    @photos = @photos.created_at_desc.page(params[:page])
   end
 
   def create
