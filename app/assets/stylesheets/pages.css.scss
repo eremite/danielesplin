@@ -2,7 +2,6 @@
 
   .name-container {
     margin-left: 30px;
-    width: 250px;
     position: relative;
     font-family: 'Courier New', 'Lucida Console', 'Monaco', monospace;
     font-size: 40px;
@@ -36,7 +35,11 @@
     font-size: 20px;
     line-height: 30px;
     margin-top: 20px;
-    width: 500px;
+  }
+
+  form {
+    text-align: center;
+    margin-top: 3rem;
   }
 
 }

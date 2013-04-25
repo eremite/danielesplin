@@ -1,8 +1,20 @@
-%h1.name-container.pull-left
-  .daniel Daniel
-  .amp &amp;
-  .erika Erika
+.row
+  .span3
+    %h1.name-container
+      .daniel Daniel
+      .amp &amp;
+      .erika Erika
 
-.description.pull-left
-  %p
-    This is the personal page for Daniel &amp; Erika Esplin. Daniel is a cofounder of #{link_to('Custom Bit', 'http://custombit.com')} and is on #{link_to('Github', 'https://github.com/eremite')}. Erika works as a #{link_to('Registered Dietitian', 'http://eatright.org')}. We live in St. George, Utah.
+  .span9
+
+    .description
+      %p
+        This is the personal page for Daniel &amp; Erika Esplin.
+        Daniel is a cofounder of #{link_to('Custom Bit', 'http://custombit.com')} and is on #{link_to('Github', 'https://github.com/eremite')}.
+        Erika works as a #{link_to('Registered Dietitian', 'http://eatright.org')}.
+        We live in Santa Clara, Utah.
+
+    = form_tag sessions_path, class: 'form-inline' do
+      = email_field_tag :email, params[:email], class: 'autofocus span3', placeholder: 'Email'
+      = password_field_tag :password, nil, class: 'span3', placeholder: 'Password'
+      = submit_tag 'Log in', class: 'btn btn-primary'
