@@ -1,3 +1,9 @@
 - title 'New Photo'
 
+- most_recent_photo = Photo.created_at_desc.first
+- if most_recent_photo
+  .thumbnail.pull-right
+    = image_tag most_recent_photo.image.small.url, class: 'img-rounded'
+    %span Most Recent Photo
+
 = render :partial => 'form'
