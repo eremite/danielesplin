@@ -11,6 +11,7 @@ class Photo < ActiveRecord::Base
 
   scope :at_asc, order(arel_table[:at].asc)
   scope :at_desc, order(arel_table[:at].desc)
+  scope :created_at_desc, order(arel_table[:created_at].desc)
 
   before_save :reprocess, if: lambda { |p| p.rotate.present? }
 
