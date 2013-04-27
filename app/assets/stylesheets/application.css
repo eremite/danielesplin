@@ -12,6 +12,7 @@
  *= require jquery-ui
  *= require jquery-ui-timepicker-addon
  *= require jquery.fancybox
+ *= require font-awesome
  *= require_self
  *= require_tree .
  */
