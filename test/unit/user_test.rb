@@ -23,4 +23,9 @@ class UserTest < ActiveSupport::TestCase
     assert User.new(:email => 'erika@danielesplin.org').erika?
   end
 
+  test 'mayli?' do
+    assert !User.new(:email => 'daniel@danielesplin.org').mayli?
+    assert User.new(:email => 'baby@danielesplin.org').mayli?
+  end
+
 end

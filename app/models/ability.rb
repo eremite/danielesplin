@@ -14,6 +14,7 @@ class Ability
         can :manage, :report
         can :manage, User
         can :manage, Comment
+        can :manage, BabyLog
         if user.daniel?
           can :manage, Thought
         else

@@ -14,6 +14,9 @@ Danielesplin::Application.routes.draw do
   resources :upload_batches
   resources :users
 
+  resources :baby_logs
+  match '/baby' => redirect('/baby_logs')
+
   resources :sessions
   match 'logout', to: 'sessions#destroy', as: 'logout'
   match 'login', to: 'sessions#new', as: 'login'

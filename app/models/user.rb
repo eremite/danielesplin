@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :thoughts
   has_many :comments
+  has_many :baby_logs
 
   validates :email,
     presence: true,
@@ -27,6 +28,10 @@ class User < ActiveRecord::Base
 
   def erika?
     email == 'erika@danielesplin.org'
+  end
+
+  def mayli?
+    email == 'baby@danielesplin.org'
   end
 
 end

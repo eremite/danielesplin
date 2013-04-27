@@ -6,6 +6,11 @@ base:
   email: base@example.com
   <<: *PASSWORD
 
+baby:
+  name: Baby User
+  email: baby@danielesplin.org
+  <<: *PASSWORD
+
 admin:
   name: Daniel
   email: daniel@danielesplin.org

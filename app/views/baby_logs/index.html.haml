@@ -1,0 +1,46 @@
+%h1 Baby Logs
+
+- if @baby.nil?
+
+  %p No baby!
+
+- else
+
+  %table
+    %thead
+      %tr
+        %th Feedings
+        %th Wet Diapers
+        %th Poopy Diapers
+    %tbody
+      %tr
+        %td
+          - @feedings.each do |baby_log|
+            =l baby_log.at
+            %br
+        %td
+          - @wet_diapers.each do |baby_log|
+            =l baby_log.at
+            %br
+        %td
+          - @poopy_diapers.each do |baby_log|
+            =l baby_log.at
+            %br
+
+  = form_for @baby_log do |f|
+
+    = f.hidden_field :kind
+
+    .row
+      .span4
+        %button{type: 'submit', class: 'btn btn-block btn-info', data: { kind: 'feeding' }}
+          %i.icon-glass.icon-white
+          Feeding
+      .span4
+        %button{type: 'submit', class: 'btn btn-block btn-warning', data: { kind: 'wet_diaper' }}
+          %i.icon-tint.icon-white
+          Wet Diaper
+      .span4
+        %button{type: 'submit', class: 'btn btn-block btn-danger', data: { kind: 'poopy_diaper' }}
+          %i.icon-fire.icon-white
+          Poopy Diaper
