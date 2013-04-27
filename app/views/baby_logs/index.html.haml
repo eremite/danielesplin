@@ -6,7 +6,7 @@
 
 - else
 
-  %table
+  %table.table
     %thead
       %tr
         %th Feedings
@@ -44,3 +44,7 @@
         %button{type: 'submit', class: 'btn btn-block btn-danger', data: { kind: 'poopy_diaper' }}
           %i.icon-fire.icon-white.icon-3x
           %h3 Poopy Diaper
+
+    .row
+      .span12
+        = f.text_area :notes, rows: 2, placeholder: "You can share details, if you'd like.", class: 'span12'
