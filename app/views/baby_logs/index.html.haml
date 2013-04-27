@@ -6,26 +6,25 @@
 
 - else
 
-  %table.table
-    %thead
-      %tr
-        %th Feedings
-        %th Wet Diapers
-        %th Poopy Diapers
-    %tbody
-      %tr
-        %td
-          - @feedings.each do |baby_log|
-            =l baby_log.at
-            %br
-        %td
-          - @wet_diapers.each do |baby_log|
-            =l baby_log.at
-            %br
-        %td
-          - @poopy_diapers.each do |baby_log|
-            =l baby_log.at
-            %br
+  .row
+
+    - { 'Feedings' => @feedings, 'Wet Diapers' => @wet_diapers, 'Poopy Diapers' => @poopy_diapers }.each do |name, baby_logs|
+      .span4
+        %table.table.table-striped.table-hover.table-condensed
+          %thead
+            %tr
+              %th{colspan: 4}= name
+          %tbody
+            - baby_logs.each do |baby_log|
+              %tr
+                %td=l baby_log.at
+                %td= baby_log.notes
+                %td
+                  = link_to [:edit, baby_log] do
+                    %i.icon-edit
+                %td
+                  = link_to baby_log, method: :delete, confirm: 'Are you sure?' do
+                    %i.icon-trash
 
   = form_for @baby_log do |f|
 

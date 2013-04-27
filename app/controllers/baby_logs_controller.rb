@@ -27,22 +27,18 @@ class BabyLogsController < ApplicationController
     end
   end
 
-  # # TODO test
-  # def show
-  # end
+  def update
+    if @baby_log.update_attributes(params[:baby_log])
+      redirect_to baby_logs_url, notice: 'Updated.'
+    else
+      render :edit
+    end
+  end
 
-  # def update
-  #   if @baby_log.update_attributes(params[:baby_log])
-  #     redirect_to entries_url, notice: 'BabyLog updated.'
-  #   else
-  #     render :edit
-  #   end
-  # end
-
-  # def destroy
-  #   @baby_log.destroy
-  #   redirect_to entries_url, notice: 'BabyLog destroyed.'
-  # end
+  def destroy
+    @baby_log.destroy
+    redirect_to baby_logs_url, notice: "OK, we'll pretend that never happened."
+  end
 
 
   private
