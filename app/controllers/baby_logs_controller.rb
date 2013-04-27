@@ -6,9 +6,9 @@ class BabyLogsController < ApplicationController
 
   def index
     if @baby
-      @feedings = @baby.baby_logs.kind(:feeding)
-      @wet_diapers = @baby.baby_logs.kind(:wet_diaper)
-      @poopy_diapers = @baby.baby_logs.kind(:poopy_diaper)
+      @feedings = @baby.baby_logs.kind(:feeding).at_asc
+      @wet_diapers = @baby.baby_logs.kind(:wet_diaper).at_asc
+      @poopy_diapers = @baby.baby_logs.kind(:poopy_diaper).at_asc
       @baby_log = @baby.baby_logs.new
     end
   end

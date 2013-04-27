@@ -10,5 +10,6 @@ class BabyLog < ActiveRecord::Base
   validates :kind, inclusion: { in: KINDS }
 
   scope :kind, lambda { |k| where(kind: k) }
+  scope :at_asc, order(arel_table[:at].asc)
 
 end

@@ -17,7 +17,17 @@
           %tbody
             - baby_logs.each do |baby_log|
               %tr
-                %td=l baby_log.at
+                %td
+                  - if baby_log.at.today?
+                    This
+                    = baby_log.at.hour > 12 ? 'afternoon' : 'morning'
+                    = baby_log.at.strftime('%r')
+                  - elsif baby_log.at.to_date == Time.zone.now.to_date.yesterday
+                    Yesterday
+                    = baby_log.at.hour > 12 ? 'afternoon' : 'morning'
+                    = baby_log.at.strftime('%r')
+                  - else
+                    =l baby_log.at
                 %td= baby_log.notes
                 %td
                   = link_to [:edit, baby_log] do
