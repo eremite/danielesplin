@@ -82,16 +82,16 @@
       .row
         .span4
           %button{type: 'submit', class: 'btn btn-block btn-success', data: { kind: 'feeding' }}
-            %i.icon-glass.icon-white.icon-3x
+            %i.icon-white.icon-3x{class: rand(20).zero? ? 'icon-food' : 'icon-glass'}
             %h3 Feeding
         .span4
           %button{type: 'submit', class: 'btn btn-block btn-warning', data: { kind: 'wet_diaper' }}
-            %i.icon-tint.icon-white.icon-3x
+            %i.icon-white.icon-3x{class: rand(20).zero? ? 'icon-umbrella' : 'icon-tint'}
             %h3 Wet Diaper
         .span4
-          %button{type: 'submit', class: 'btn btn-block btn-danger', data: { kind: 'poopy_diaper' }}
-            %i.icon-fire.icon-white.icon-3x
-            %h3 Poopy Diaper
+          %button{type: 'submit', class: 'btn btn-block btn-danger', data: { kind: 'dirty_diaper' }}
+            %i.icon-white.icon-3x{class: rand(20).zero? ? 'icon-warning-sign' : 'icon-fire'}
+            %h3 Dirty Diaper
 
       .row
         .span12

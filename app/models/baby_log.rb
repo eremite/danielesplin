@@ -1,6 +1,6 @@
 class BabyLog < ActiveRecord::Base
 
-  KINDS = %w(feeding wet_diaper poopy_diaper)
+  KINDS = %w(feeding wet_diaper dirty_diaper)
 
   attr_accessible :user_id, :at, :kind, :notes
 
