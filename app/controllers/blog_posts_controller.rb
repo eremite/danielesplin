@@ -3,7 +3,7 @@ class BlogPostsController < ApplicationController
   authorize_resource :class => false
 
   def index
-    @entries = Entry.public.at_desc.page(params[:page])
+    @entries = Entry.public.at_desc.published(params[:unpublished].blank?).page(params[:page])
   end
 
   def new

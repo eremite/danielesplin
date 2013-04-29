@@ -6,6 +6,14 @@
     = link_to new_blog_post_path, class: 'btn btn-success' do
       %i.icon-white.icon-plus
       New Blog Post
+    - if params[:unpublished].present?
+      = link_to blog_posts_path, class: 'btn btn-info' do
+        %i.icon-white.icon-picture
+        Published
+    - elsif Entry.public.published(false).count > 0
+      = link_to blog_posts_path(unpublished: true), class: 'btn btn-info' do
+        %i.icon-white.icon-calendar
+        Scheduled
 
 - if @entries.empty?
   .row.clearfix
