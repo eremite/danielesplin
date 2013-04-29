@@ -5,12 +5,16 @@
     text-align: center;
   }
 
-  button {
-    padding: 1rem;
-  }
+  #new_baby_log {
 
-  textarea#baby_log_notes {
-    margin-top: 1rem;
+    button {
+      padding: 1rem;
+    }
+
+    textarea#baby_log_notes {
+      margin-top: 1rem;
+    }
+
   }
 
 }

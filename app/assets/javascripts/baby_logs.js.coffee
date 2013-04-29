@@ -3,5 +3,9 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
 
+  # Set kind before submitting form.
   $('#new_baby_log button').click ->
     $('#baby_log_kind').val($(this).data('kind'))
+
+  # Enable popovers
+  $('#baby-logs-controller .popover-note').popover();

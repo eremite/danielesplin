@@ -2,18 +2,24 @@
 
 - if @baby.nil?
 
-  %p No baby!
+  %p No baby yet!
 
 - else
 
   .row
 
+    - colspan = 1
+    - if can? :edit, BabyLog
+      - colspan += 1
+    - if can? :destroy, BabyLog
+      - colspan += 1
+    - day_ago = Time.zone.now - 24.hours
     - { 'Feedings' => @feedings, 'Wet Diapers' => @wet_diapers, 'Poopy Diapers' => @poopy_diapers }.each do |name, baby_logs|
       .span4
         %table.table.table-striped.table-hover.table-condensed
           %thead
             %tr
-              %th{colspan: 4}= name
+              %th{colspan: colspan}= name
           %tbody
             - baby_logs.each do |baby_log|
               %tr
@@ -21,20 +27,27 @@
                   - if baby_log.at.today?
                     This
                     = baby_log.at.hour > 12 ? 'afternoon' : 'morning'
-                    = baby_log.at.strftime('%r')
+                    = baby_log.at.strftime('%l:%M%P')
                   - elsif baby_log.at.to_date == Time.zone.now.to_date.yesterday
                     Yesterday
                     = baby_log.at.hour > 12 ? 'afternoon' : 'morning'
-                    = baby_log.at.strftime('%r')
+                    = baby_log.at.strftime('%l:%M%P')
                   - else
                     =l baby_log.at
-                %td= baby_log.notes
-                %td
-                  = link_to [:edit, baby_log] do
-                    %i.icon-edit
-                %td
-                  = link_to baby_log, method: :delete, confirm: 'Are you sure?' do
-                    %i.icon-trash
+                  - if can? :destroy, baby_log
+                    = link_to baby_log, method: :delete, confirm: 'Are you sure?' do
+                      %i.icon-trash.pull-right
+                  - if can? :edit, baby_log
+                    = link_to [:edit, baby_log] do
+                      %i.icon-edit.pull-right
+                  - if baby_log.notes.present?
+                    %i.icon-star.pull-right.popover-note{data: {trigger: 'hover', title: BabyLog.human_attribute_name(:notes), content: baby_log.notes}}
+          %tfoot
+            %tr
+              %td{colspan: colspan}
+                In the past 24 hours:
+                %strong= baby_logs.select { |bl| bl.at > day_ago }.size
+
 
   = form_for @baby_log do |f|
 
