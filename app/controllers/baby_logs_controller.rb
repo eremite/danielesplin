@@ -6,10 +6,16 @@ class BabyLogsController < ApplicationController
 
   def index
     if @baby
-      @feedings = @baby.baby_logs.kind(:feeding).at_asc
-      @wet_diapers = @baby.baby_logs.kind(:wet_diaper).at_asc
-      @poopy_diapers = @baby.baby_logs.kind(:poopy_diaper).at_asc
-      @baby_log = @baby.baby_logs.new
+      if params[:kind].present?
+        @baby_logs = @baby.baby_logs.kind(params[:kind]).at_asc
+      else
+        range = (Time.zone.now - 24.hours)..Time.zone.now
+        base_query = @baby.baby_logs.at_asc.where(:at => range)
+        @baby_logs = Hash[BabyLog::KINDS.map do |kind|
+          [kind, base_query.kind(kind)]
+        end]
+        @baby_log = @baby.baby_logs.new
+      end
     end
   end
 
