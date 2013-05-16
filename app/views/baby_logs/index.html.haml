@@ -1,4 +1,4 @@
-- if @baby.nil?
+- if current_baby.nil?
   %p No baby yet!
 - else
 
@@ -16,7 +16,7 @@
               - if can? :destroy, BabyLog
                 %th
           %tbody
-            - @baby_logs.each do |baby_log|
+            - current_baby.each do |baby_log|
               %tr
                 %td{style: 'text-align: center'}=l baby_log.at
                 %td{style: 'text-align: center'}= baby_log.notes
@@ -35,7 +35,7 @@
 
   - else
 
-    - title "Feeding/Diaper log for #{@baby.name}"
+    - title "Feeding/Diaper log for #{current_baby.name}"
 
     .row
 

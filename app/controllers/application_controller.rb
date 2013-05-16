@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def current_baby
+    @current_baby ||= User.where(email: 'baby@danielesplin.org').first
+  end
+  helper_method :current_baby
+
   def logged_in?
     !!current_user
   end
