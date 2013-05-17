@@ -31,6 +31,7 @@ class Entry < ActiveRecord::Base
   def baby_body
     return @baby_body if defined?(@baby_body)
     baby = User.where(email: 'baby@danielesplin.org').first
+    return nil unless baby
     time = Time.zone.now
     @baby_body = baby.entries.where(:at => time.beginning_of_day..time.end_of_day).first
   end
