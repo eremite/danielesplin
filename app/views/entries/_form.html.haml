@@ -1,8 +1,9 @@
 = form_for @entry, class: 'form-horizontal', html: { data: { persist: 'garlic' } } do |f|
-  .control-group.pull-right.span8.baby
-    = f.label :baby_body, class: 'control-label'
-    .controls
-      = f.text_area :baby_body, rows: 3, class: 'span8'
+  - if current_baby
+    .control-group.pull-right.span8.baby
+      = f.label :baby_body, class: 'control-label'
+      .controls
+        = f.text_area :baby_body, rows: 3, class: 'span8'
   .control-group
     = f.label :at, class: 'control-label'
     .controls
