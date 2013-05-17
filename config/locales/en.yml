@@ -22,3 +22,8 @@ en:
     body: 'Content'
     created_at: 'Created'
     updated_at: 'Updated'
+
+  activerecord:
+    attributes:
+      entry:
+        baby_body: 'Baby Journal'
