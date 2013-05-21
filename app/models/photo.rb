@@ -23,6 +23,19 @@ class Photo < ActiveRecord::Base
     Photo.where(arel_table[:id].not_in(excluded_ids))
   end
 
+  def google_plus_remote_image_url=(value)
+    if value.present?
+      parts = value.split('/')
+      parts[-2] = 'd'
+      self.remote_image_url = parts.join('/')
+    end
+  end
+
+  def google_plus_remote_image_url
+    remote_image_url
+  end
+
+
   private
 
   def reprocess
