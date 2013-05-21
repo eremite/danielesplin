@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 
-  attr_accessible :name, :email, :password, :password_confirmation
+  ROLES = %w(father mother baby guest)
+
+  attr_accessible :name, :email, :password, :password_confirmation, :role
 
   has_secure_password
 
@@ -22,16 +24,20 @@ class User < ActiveRecord::Base
     log_entries.create(action: action)
   end
 
-  def daniel?
-    email == 'daniel@danielesplin.org'
+  def father?
+    role == 'father'
   end
 
-  def erika?
-    email == 'erika@danielesplin.org'
+  def mother?
+    role == 'mother'
   end
 
-  def mayli?
-    email == 'baby@danielesplin.org'
+  def parent?
+    father? || mother?
+  end
+
+  def baby?
+    role == 'baby'
   end
 
 end

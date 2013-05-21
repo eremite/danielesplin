@@ -4,14 +4,17 @@ PASSWORD: &PASSWORD
 base:
   name: Base User
   email: base@example.com
+  role: guest
   <<: *PASSWORD
 
 baby:
   name: Baby User
-  email: baby@danielesplin.org
+  email: baby@example.com
+  role: baby
   <<: *PASSWORD
 
 admin:
   name: Daniel
-  email: daniel@danielesplin.org
+  email: daniel@example.com
+  role: father
   <<: *PASSWORD

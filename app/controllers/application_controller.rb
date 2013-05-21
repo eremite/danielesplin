@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_baby
-    @current_baby ||= User.where(email: 'baby@danielesplin.org').first
+    @current_baby ||= User.where(role: 'baby').first
   end
   helper_method :current_baby
 

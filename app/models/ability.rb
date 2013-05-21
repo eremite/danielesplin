@@ -6,7 +6,7 @@ class Ability
       can :index, :search
       can :update, User, id: user.id
       can :manage, Comment, user_id: user.id
-      if user.daniel? || user.erika?
+      if user.parent?
         can :manage, Photo
         can :manage, Entry, user_id: user.id
         can :manage, Entry, public: true
@@ -15,7 +15,7 @@ class Ability
         can :manage, User
         can :manage, Comment
         can :manage, BabyLog
-        if user.daniel?
+        if user.father?
           can :manage, Thought
         else
           can :read, Thought

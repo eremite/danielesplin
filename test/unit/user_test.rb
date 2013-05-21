@@ -13,19 +13,19 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'daniel?' do
-    assert !User.new(:email => 'erika@danielesplin.org').daniel?
-    assert User.new(:email => 'daniel@danielesplin.org').daniel?
+  test 'father?' do
+    assert !User.new(:role => 'mother').father?
+    assert User.new(:role => 'father').father?
   end
 
-  test 'erika?' do
-    assert !User.new(:email => 'daniel@danielesplin.org').erika?
-    assert User.new(:email => 'erika@danielesplin.org').erika?
+  test 'mother?' do
+    assert !User.new(:role => 'father').mother?
+    assert User.new(:role => 'mother').mother?
   end
 
-  test 'mayli?' do
-    assert !User.new(:email => 'daniel@danielesplin.org').mayli?
-    assert User.new(:email => 'baby@danielesplin.org').mayli?
+  test 'baby?' do
+    assert !User.new(:role => 'father').baby?
+    assert User.new(:role => 'baby').baby?
   end
 
 end

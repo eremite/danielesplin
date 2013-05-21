@@ -16,6 +16,11 @@
     = f.label :password_confirmation, 'Confirm New Password', class: 'control-label'
     .controls
       = f.password_field :password_confirmation
+  - if can? :change_role, f.object
+    .control-group
+      = f.label :role
+      .controls
+        = f.select :role, User::ROLES.map { |role| [role.titleize, role] }
   .form-actions
     %button.btn.btn-primary{ type: 'submit'} Save
     = link_to 'Cancel', can?(:index, Entry) ? entries_path : blog_posts_path, class: 'btn'

@@ -4,7 +4,7 @@ class ThoughtsController < ApplicationController
 
   def index
     @thought = Thought.new(:on => Date.tomorrow)
-    @thought.user = User.find_by_email('erika@danielesplin.org')
+    @thought.user = User.where(role: 'mother').first
     if params[:kind] == 'past'
       @thoughts = @thoughts.where(Thought.arel_table[:on].lt(Time.zone.now.to_date))
     else
