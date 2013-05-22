@@ -17,4 +17,5 @@
 //= require garlic
 //= require jquery-ui-timepicker-addon
 //= require jquery.fancybox
+//= require jquery.autosize
 //= require_tree .

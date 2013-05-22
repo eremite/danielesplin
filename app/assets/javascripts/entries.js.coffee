@@ -15,3 +15,6 @@ jQuery ->
 
   # Enable autofocus
   $('.autofocus:first').focus()
+
+  # Enable autosize
+  $('textarea#entry_body').autosize()
