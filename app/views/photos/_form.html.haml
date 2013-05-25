@@ -7,7 +7,7 @@
   .control-group
     = f.label :entry_id, 'Blog Post'
     .controls
-      = f.select :entry_id, Entry.public.at_desc.limit(30).map { |e| ["#{l(e.at.to_date)} #{e.title}", e.id] }, :include_blank => 'Default'
+      = f.select :entry_id, f.object.entry_options_for_select
   .control-group
     = f.label :description, class: 'control-label'
     .controls

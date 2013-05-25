@@ -35,6 +35,12 @@ class Photo < ActiveRecord::Base
     remote_image_url
   end
 
+  def entry_options_for_select
+    [
+      ['Default', nil],
+      ['None (hidden)', 0],
+    ] + Entry.public.at_desc.limit(50).map { |e| [e.dated_title, e.id] }
+  end
 
   private
 
