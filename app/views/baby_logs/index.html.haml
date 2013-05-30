@@ -16,7 +16,7 @@
               - if can? :destroy, BabyLog
                 %th
           %tbody
-            - current_baby.each do |baby_log|
+            - @baby_logs.each do |baby_log|
               %tr
                 %td{style: 'text-align: center'}=l baby_log.at
                 %td{style: 'text-align: center'}= baby_log.notes
