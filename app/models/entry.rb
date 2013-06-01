@@ -7,7 +7,7 @@ class Entry < ActiveRecord::Base
   belongs_to :user
   has_many :comments
 
-  after_create :create_baby_entry, if: lambda { |e| e.baby_body.present? }
+  after_save :create_baby_entry, if: lambda { |e| e.baby_body.present? }
 
   validates :body, presence: true
 
@@ -32,23 +32,24 @@ class Entry < ActiveRecord::Base
     Photo.where(conditions)
   end
 
-  def baby_body
-    return @baby_body if defined?(@baby_body)
-    baby = User.where(email: 'baby@danielesplin.org').first
-    return nil if baby.nil?
-    time = Time.zone.now
-    @baby_body = baby.entries.where(:at => time.beginning_of_day..time.end_of_day).first
+  def existing_baby_body
+    baby = User.where(role: 'baby').first
+    return nil if baby.nil? || at.nil?
+    baby.entries.where(:at => at.beginning_of_day..at.end_of_day).first.try(:body)
   end
 
 
   private
 
   def create_baby_entry
-    baby = User.where(email: 'baby@danielesplin.org').first
-    baby.entries.create({
-      at: at,
-      body: baby_body,
-    }) if baby
+    baby = User.where(role: 'baby').first
+    if baby
+      baby.entries.where(:at => at).destroy_all
+      baby.entries.create({
+        at: at,
+        body: baby_body,
+      })
+    end
   end
 
 end

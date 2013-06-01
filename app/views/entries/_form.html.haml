@@ -3,7 +3,7 @@
     .control-group.pull-right.span8.baby
       = f.label :baby_body, class: 'control-label'
       .controls
-        = f.text_area :baby_body, rows: 3, class: 'span8'
+        = f.text_area :baby_body, rows: 3, class: 'span8', value: f.object.existing_baby_body
   .control-group
     = f.label :at, class: 'control-label'
     .controls

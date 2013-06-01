@@ -24,9 +24,9 @@
               Delete
           %h3=l entry.at, format: :long
           .body
-            - if current_baby && (baby_entry = current_baby.entries.where(:at => entry.at.beginning_of_day..entry.at.end_of_day).first)
+            - if current_baby && entry.try(:existing_baby_body).present?
               .baby.pull-right.well
                 :markdown
-                  #{baby_entry.body}
+                  #{entry.existing_baby_body}
             :markdown
               #{entry.body}
