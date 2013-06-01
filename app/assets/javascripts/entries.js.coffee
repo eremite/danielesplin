@@ -12,6 +12,10 @@ jQuery ->
     altField: '.datetimepicker-hidden',
     altFieldTimeOnly: false,
     useLocalTimezone: true,
+    onSelect: ->
+      if ($('#entry_baby_body').length)
+        $.get '/entries/baby_body', { at: $('#entry_at').val() }, (body) ->
+          $('#entry_baby_body').val(body)
 
   # Enable autofocus
   $('.autofocus:first').focus()

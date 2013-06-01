@@ -52,4 +52,9 @@ class EntriesControllerTest < ActionController::TestCase
     assert_redirected_to entries_url
   end
 
+  test 'baby_body' do
+    get :baby_body, id: @entry.id, format: :json
+    assert_response :success
+  end
+
 end

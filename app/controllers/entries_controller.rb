@@ -51,4 +51,14 @@ class EntriesController < ApplicationController
     redirect_to entries_url, notice: 'Entry destroyed.'
   end
 
+  def baby_body
+    if params[:at].present? && current_baby
+      at = Time.zone.parse(params[:at])
+      entry = current_baby.entries.where(at: at.beginning_of_day..at.end_of_day).first
+      render text: entry.try(:existing_baby_body), status: :ok
+    else
+      render text: nil, status: :ok
+    end
+  end
+
 end

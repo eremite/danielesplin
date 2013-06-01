@@ -6,13 +6,18 @@ Danielesplin::Application.routes.draw do
 
   resources :blog_posts
   resources :comments
-  resources :entries
   resources :pages
   resources :photos
   resources :searches
   resources :thoughts
   resources :upload_batches
   resources :users
+
+  resources :entries do
+    collection do
+      get :baby_body
+    end
+  end
 
   resources :baby_logs
   match '/baby' => redirect('/baby_logs')
