@@ -99,7 +99,7 @@ GEM
     mime-types (1.23)
     mini_magick (3.4)
       subexec (~> 0.2.1)
-    mocha (0.10.2)
+    mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.7.7)
     net-scp (1.0.4)
