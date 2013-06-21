@@ -18,11 +18,6 @@
             = link_to photos_path do
               %i.icon-camera
               Photos
-        - if can? :read, BabyLog
-          %li{class: controller.controller_name == 'baby_logs' && 'active'}
-            = link_to baby_logs_path do
-              %i.icon-heart
-              Baby Log
         - if can? :index, :report
           %li.dropdown{class: controller.controller_name == 'reports' && 'active'}
             = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
