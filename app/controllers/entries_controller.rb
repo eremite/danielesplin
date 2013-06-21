@@ -18,11 +18,7 @@ class EntriesController < ApplicationController
 
 
   def new
-    if current_user.mother?
-      @entry.at = Time.zone.now
-    elsif current_user.father?
-      @entry.at = (Time.zone.now - 1.day).beginning_of_day
-    end
+    @entry.at = Time.zone.now
   end
 
   def create
