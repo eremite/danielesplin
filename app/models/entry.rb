@@ -6,6 +6,8 @@ class Entry < ActiveRecord::Base
 
   belongs_to :user
   has_many :comments
+  has_many :entry_photos
+  has_many :photos, through: :entry_photos
 
   after_save :create_baby_entry, if: lambda { |e| e.baby_body.present? }
 

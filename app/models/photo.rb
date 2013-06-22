@@ -8,6 +8,8 @@ class Photo < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :entry
+  has_many :entry_photos
+  has_many :entries, through: :entry_photos
 
   scope :at_asc, order(arel_table[:at].asc)
   scope :at_desc, order(arel_table[:at].desc)
