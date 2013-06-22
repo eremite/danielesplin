@@ -27,13 +27,6 @@ class Entry < ActiveRecord::Base
     "#{I18n.l(at.to_date)} #{title}"
   end
 
-  def photos
-    t = Photo.arel_table
-    conditions = t[:at].in(at.beginning_of_day..at.end_of_day).and(t[:entry_id].eq(nil))
-    conditions = conditions.or(t[:entry_id].eq(id))
-    Photo.where(conditions)
-  end
-
   def existing_baby_body
     baby = User.where(role: 'baby').first
     return nil if baby.nil? || at.nil?
