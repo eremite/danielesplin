@@ -21,4 +21,8 @@ class PhotoTest < ActiveSupport::TestCase
     assert options.rassoc(entry.id).present?
   end
 
+  test 'handle hidden' do
+    pending 'handle_hidden'
+  end
+
 end
