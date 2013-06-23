@@ -25,4 +25,8 @@ class PhotoTest < ActiveSupport::TestCase
     pending 'handle_hidden'
   end
 
+  test 'auto_assign_entries' do
+    pending 'auto_assign_entries'
+  end
+
 end

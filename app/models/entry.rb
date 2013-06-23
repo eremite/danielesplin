@@ -9,6 +9,7 @@ class Entry < ActiveRecord::Base
   has_many :entry_photos
   has_many :photos, through: :entry_photos
 
+  before_create :auto_assign_photos
   after_save :create_baby_entry, if: lambda { |e| e.baby_body.present? }
 
   validates :body, presence: true
@@ -44,6 +45,12 @@ class Entry < ActiveRecord::Base
         at: at,
         body: baby_body,
       })
+    end
+  end
+
+  def auto_assign_photos
+    if at.present?
+      self.photos = Photo.where(hidden: false, at: at.beginning_of_day..at.end_of_day)
     end
   end
 

@@ -16,7 +16,9 @@ class Photo < ActiveRecord::Base
   scope :created_at_desc, order(arel_table[:created_at].desc)
 
   before_validation :handle_hidden
+  before_validation :auto_assign_entries, if: ->(photo) { photo.entry_ids.blank? }
   before_save :reprocess, if: lambda { |p| p.rotate.present? }
+
 
   def self.unblogged
     excluded_ids = []
@@ -45,6 +47,7 @@ class Photo < ActiveRecord::Base
     ] + Entry.public.at_desc.limit(50).map { |e| [e.dated_title, e.id] }
   end
 
+
   private
 
   def reprocess
@@ -54,6 +57,12 @@ class Photo < ActiveRecord::Base
   def handle_hidden
     if hidden?
       self.entry_ids = []
+    end
+  end
+
+  def auto_assign_entries
+    if at.present?
+      self.entries = Entry.public.where(at: at.beginning_of_day..at.end_of_day)
     end
   end
 

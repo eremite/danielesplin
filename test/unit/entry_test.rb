@@ -19,4 +19,8 @@ class EntryTest < ActiveSupport::TestCase
     assert_equal '10/31/2013 Halloween', e.dated_title
   end
 
+  test 'auto_assign_photos' do
+    pending 'auto_assign_photos'
+  end
+
 end

@@ -10,7 +10,7 @@
       = f.label :hidden do
         = f.check_box :hidden
         = Photo.human_attribute_name(:hidden)
-      = f.collection_select :entry_ids, Entry.public.at_desc, :id, :dated_title, { include_blank: 'Default (by date)' }, { :multiple => true }
+      = f.collection_select :entry_ids, Entry.public.at_desc, :id, :dated_title, { include_blank: 'Any that match the date' }, { :multiple => true }
   .control-group
     = f.label :description, class: 'control-label'
     .controls
