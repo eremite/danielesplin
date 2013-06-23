@@ -5,9 +5,9 @@
       = text_field_tag :at, l(f.object.at), class: 'datetimepicker'
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .control-group
-    = f.label :entry_id, 'Blog Post'
+    = f.label :entry_ids, 'Blog Posts'
     .controls
-      = f.select :entry_id, f.object.entry_options_for_select
+      = f.collection_select :entry_ids, Entry.public.at_desc, :id, :dated_title, { include_blank: 'Default (by date)' }, { :multiple => true }
   .control-group
     = f.label :description, class: 'control-label'
     .controls
