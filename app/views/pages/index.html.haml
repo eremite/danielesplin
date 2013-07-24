@@ -14,7 +14,10 @@
         Erika works as a #{link_to('Registered Dietitian', 'http://eatright.org')}.
         We live in Santa Clara, Utah.
 
-    = form_tag sessions_path, class: 'form-inline' do
-      = email_field_tag :email, params[:email], class: 'autofocus span3', placeholder: 'Email'
-      = password_field_tag :password, nil, class: 'span3', placeholder: 'Password'
-      = submit_tag 'Log in', class: 'btn btn-primary'
+    - if logged_in?
+      = link_to 'See the blog!', blog_posts_path if can? :index, :blog_post
+    - else
+      = form_tag sessions_path, class: 'form-inline' do
+        = email_field_tag :email, params[:email], class: 'autofocus span3', placeholder: 'Email'
+        = password_field_tag :password, nil, class: 'span3', placeholder: 'Password'
+        = submit_tag 'Log in', class: 'btn btn-primary'
