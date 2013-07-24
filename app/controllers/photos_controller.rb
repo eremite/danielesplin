@@ -17,7 +17,7 @@ class PhotosController < ApplicationController
 
   def update
     if @photo.update_attributes(params[:photo])
-      redirect_to photos_url, notice: 'Photo saved.'
+      redirect_to params[:redirect_to].presence || photos_url, notice: 'Photo saved.'
     else
       render :edit
     end

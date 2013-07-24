@@ -51,6 +51,12 @@ class PhotosControllerTest < ActionController::TestCase
     assert_redirected_to photos_url
   end
 
+  test 'update valid with redirect' do
+    Photo.any_instance.stubs(valid?: true)
+    put :update, id: @photo.id, photo: {}, redirect_to: '/'
+    assert_redirected_to '/'
+  end
+
   test 'destroy' do
     delete :destroy, id: @photo.id
     assert_redirected_to photos_url
