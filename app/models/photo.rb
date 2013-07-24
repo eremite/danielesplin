@@ -56,6 +56,7 @@ class Photo < ActiveRecord::Base
 
   def handle_hidden
     if hidden?
+      self.entries = []
       self.entry_ids = []
     end
   end
