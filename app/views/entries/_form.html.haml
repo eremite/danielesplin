@@ -15,4 +15,5 @@
       = f.text_area :body, rows: 10, class: 'span12'
   .form-actions
     %button.btn.btn-primary{ type: 'submit'} Save
+    = hidden_field_tag :redirect_to, request.referrer.presence || photos_path
     = link_to 'Cancel', entries_path, class: 'btn'

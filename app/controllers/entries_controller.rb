@@ -16,7 +16,6 @@ class EntriesController < ApplicationController
     @grouped_entries = entries.group_by { |e| e.at.to_date }
   end
 
-
   def new
     @entry.at = Time.zone.now
   end
@@ -24,7 +23,7 @@ class EntriesController < ApplicationController
   def create
     @entry = current_user.entries.new(params[:entry])
     if @entry.save
-      redirect_to entries_url, notice: 'Entry saved.'
+      redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
     else
       render :new
     end
@@ -36,7 +35,7 @@ class EntriesController < ApplicationController
 
   def update
     if @entry.update_attributes(params[:entry])
-      redirect_to entries_url, notice: 'Entry updated.'
+      redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
     else
       render :edit
     end
