@@ -10,7 +10,12 @@ class SessionsController < ApplicationController
       if (thought = user.thoughts.where(on: Time.zone.now.to_date).first)
         flash[:notice] = thought.body
       end
-      redirect_to can?(:create, Entry) ? new_entry_url : blog_posts_url
+      if can? :create, Entry
+        todays_entry = user.entries.private.where(:at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).first
+        redirect_to todays_entry ? [:edit, todays_entry] : new_entry_url
+      else
+        redirect_to blog_posts_url
+      end
     else
       flash.now[:alert] = 'Invalid login or password.'
       render :new
