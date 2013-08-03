@@ -15,8 +15,8 @@ class Photo < ActiveRecord::Base
   scope :at_desc, order(arel_table[:at].desc)
   scope :created_at_desc, order(arel_table[:created_at].desc)
 
-  before_validation :handle_hidden
   before_validation :auto_assign_entries, if: ->(photo) { photo.entry_ids.blank? }
+  before_validation :handle_hidden
   before_save :reprocess, if: lambda { |p| p.rotate.present? }
 
 
