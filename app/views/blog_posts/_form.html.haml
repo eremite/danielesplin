@@ -8,6 +8,8 @@
     = f.label :body, class: 'control-label autofocus'
     .controls
       = f.text_area :body, rows: 10
+    %span.help-block.pull-right
+      = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .form-actions
     %button.btn.btn-primary{ type: 'submit'} Save
     = link_to 'Cancel', entries_path, class: 'btn'
