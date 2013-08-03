@@ -1,4 +1,4 @@
-- title 'Blog'
+- title 'Blog', false
 
 - if can? :create, :blog_post
   %p.pull-right
@@ -14,6 +14,17 @@
       = link_to blog_posts_path(unpublished: true), class: 'btn btn-info' do
         %i.icon-white.icon-calendar
         Scheduled
+
+  - if can? :index, :report
+    .well
+      - limit = 3
+      Last
+      = limit
+      logins:
+      - LogEntry.logins.includes(:user).where('users.role' => 'guest').created_at_desc.limit(limit).each_with_index do |log_entry, i|
+        = log_entry.user.try(:name)
+        = time_ago_in_words log_entry.created_at
+        ago#{';' unless i + 1 == limit}
 
 - if @entries.empty?
   .row.clearfix

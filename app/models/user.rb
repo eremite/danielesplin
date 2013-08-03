@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 4 }, allow_blank: true
 
+  scope :guest, where(role: :guest)
+
+
   def log(action)
     log_entries.create(action: action)
   end
