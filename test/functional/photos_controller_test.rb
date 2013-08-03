@@ -62,4 +62,9 @@ class PhotosControllerTest < ActionController::TestCase
     assert_redirected_to photos_url
   end
 
+  test 'reprocess' do
+    put :reprocess, id: @photo.id
+    assert_redirected_to @photo
+  end
+
 end

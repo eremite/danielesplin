@@ -7,11 +7,16 @@ Danielesplin::Application.routes.draw do
   resources :blog_posts
   resources :comments
   resources :pages
-  resources :photos
   resources :searches
   resources :thoughts
   resources :upload_batches
   resources :users
+
+  resources :photos do
+    member do
+      put :reprocess
+    end
+  end
 
   resources :entries do
     collection do

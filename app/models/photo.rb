@@ -2,7 +2,9 @@ class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
-  attr_accessor :rotate
+  attr_accessor :rotate, :skip_versioning
+
+  alias_method :skip_versioning?, :skip_versioning
 
   attr_protected :id
 
@@ -47,12 +49,12 @@ class Photo < ActiveRecord::Base
     ] + Entry.public.at_desc.limit(50).map { |e| [e.dated_title, e.id] }
   end
 
+  def reprocess
+    image.recreate_versions! if image?
+  end
+
 
   private
-
-  def reprocess
-    image.recreate_versions!
-  end
 
   def handle_hidden
     if hidden?

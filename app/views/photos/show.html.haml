@@ -5,6 +5,9 @@
     = link_to new_blog_post_path(entry: { at: @photo.at }), class: 'btn btn-small' do
       %i.icon-plus
       New Blog Post
+    = link_to [:reprocess, @photo], class: 'btn btn-small', method: :put do
+      %i.icon-picture
+      Reprocess
     = link_to [:edit, @photo], class: 'btn btn-small' do
       %i.icon-edit
       Edit

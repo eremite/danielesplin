@@ -35,13 +35,13 @@ class ImageUploader < CarrierWave::Uploader::Base
 
 
   # Create different versions of your uploaded files:
-  version :small do
+  version :small, if: :generate_versions? do
     process :resize_to_fit => [120, 120]
   end
-  version :medium do
+  version :medium, if: :generate_versions? do
     process :resize_to_fit => [480, 480]
   end
-  version :large do
+  version :large, if: :generate_versions? do
     process :resize_to_fit => [1024, 1024]
   end
 
@@ -61,6 +61,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   private
+
+  def generate_versions?(photo)
+    !model.skip_versioning?
+  end
 
   def extract_at
     manipulate! do |img|
