@@ -32,8 +32,8 @@ class EntriesControllerTest < ActionController::TestCase
 
   test 'create valid with redirect' do
     Entry.any_instance.stubs(save: true)
-    post :create, entry: {}, redirect_to: '/'
-    assert_redirected_to '/'
+    post :create, entry: {}, redirect_to: '/blog_posts'
+    assert_redirected_to '/blog_posts'
   end
 
   test 'edit' do
@@ -55,8 +55,8 @@ class EntriesControllerTest < ActionController::TestCase
 
   test 'update valid with redirect' do
     Entry.any_instance.stubs(save: true)
-    put :update, id: @entry.id, entry: {}, redirect_to: '/'
-    assert_redirected_to '/'
+    put :update, id: @entry.id, entry: {}, redirect_to: '/blog_posts'
+    assert_redirected_to '/blog_posts'
   end
 
   test 'destroy' do

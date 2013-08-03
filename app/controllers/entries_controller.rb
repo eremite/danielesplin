@@ -23,6 +23,7 @@ class EntriesController < ApplicationController
   def create
     @entry = current_user.entries.new(params[:entry])
     if @entry.save
+      params.delete(:redirect_to) if params[:redirect_to] == root_url
       redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
     else
       render :new
@@ -35,6 +36,7 @@ class EntriesController < ApplicationController
 
   def update
     if @entry.update_attributes(params[:entry])
+      params.delete(:redirect_to) if params[:redirect_to] == root_url
       redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
     else
       render :edit
