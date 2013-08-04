@@ -63,7 +63,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   private
 
   def generate_versions?(photo)
-    !model.skip_versioning?
+    model.skip_versioning != '1'
   end
 
   def extract_at

@@ -4,8 +4,6 @@ class Photo < ActiveRecord::Base
 
   attr_accessor :rotate, :skip_versioning
 
-  alias_method :skip_versioning?, :skip_versioning
-
   attr_protected :id
 
   belongs_to :user
