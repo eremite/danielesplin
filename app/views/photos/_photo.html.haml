@@ -6,4 +6,7 @@
           %i.icon-edit
       - group = 'group' if local_assigns[:group].nil?
       = link_to photo.image.url, class: 'fancybox', rel: group, title: photo.description do
-        = image_tag photo.image.small.url
+        - if photo.image.small.present?
+          = image_tag photo.image.small.url, class: 'img-rounded'
+        - else
+          Unprocessed...

@@ -3,8 +3,12 @@
 - most_recent_photo = Photo.created_at_desc.first
 - if most_recent_photo.try(:image?)
   .thumbnail.pull-right
+    %p Most Recent Photo
     = link_to most_recent_photo do
-      = image_tag most_recent_photo.image.small.url, class: 'img-rounded'
-    %span Most Recent Photo
+      - if most_recent_photo.image.small.present?
+        = image_tag most_recent_photo.image.small.url, class: 'img-rounded'
+      - else
+        Unprocessed...
+    %p= most_recent_photo.description
 
 = render :partial => 'form'
