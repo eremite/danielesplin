@@ -1,7 +1,7 @@
 - title 'Blog', false
 
 - if can? :create, :blog_post
-  %p.pull-right
+  %p.pull-right{:style => 'margin-right: 1rem'}
     %br
     = link_to new_blog_post_path, class: 'btn btn-success' do
       %i.icon-white.icon-plus
@@ -16,15 +16,20 @@
         Scheduled
 
   - if can? :index, :report
-    .well
+    .well.well-small
       - limit = 3
-      Last
-      = limit
-      logins:
-      - LogEntry.logins.includes(:user).where('users.role' => 'guest').created_at_desc.limit(limit).each_with_index do |log_entry, i|
-        = log_entry.user.try(:name)
-        = time_ago_in_words log_entry.created_at
-        ago#{';' unless i + 1 == limit}
+      %p
+        - LogEntry.logins.includes(:user).where('users.role' => 'guest').created_at_desc.limit(limit).each_with_index do |log_entry, i|
+          #{log_entry.user.try(:name)}#{',' unless i.zero?}
+          = 'logged in' if i.zero?
+          = time_ago_in_words log_entry.created_at
+          ago#{';' unless i + 1 == limit}
+      %p{:style => 'margin-top: 0'}
+        - Comment.created_at_desc.limit(limit).each_with_index do |comment, i|
+          #{comment.user.try(:name)}#{',' unless i.zero?}
+          = 'commented' if i.zero?
+          = time_ago_in_words comment.created_at
+          ago#{';' unless i + 1 == limit}
 
 - if @entries.empty?
   .row.clearfix
