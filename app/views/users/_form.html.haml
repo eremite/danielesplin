@@ -21,6 +21,11 @@
       = f.label :role
       .controls
         = f.select :role, User::ROLES.map { |role| [role.titleize, role] }
+  - if can? :change_api_key, f.object
+    .control-group
+      = f.label :api_key
+      .controls
+        = f.text_field :api_key
   .form-actions
     %button.btn.btn-primary{ type: 'submit'} Save
     = link_to 'Cancel', can?(:index, Entry) ? entries_path : blog_posts_path, class: 'btn'

@@ -6,11 +6,8 @@ class ApiController < ApplicationController
   private
 
   def verify_api_key
-    if params[:api_key] == 'CHEESE_IS_TASTY'
-      @user = User.where(role: 'father').first
-    elsif params[:api_key] == 'EAT_YOUR_VEGGIES'
-      @user = User.where(role: 'mother').first
-    else
+    @user = User.where(api_key: params[:api_key]).first
+    if params[:api_key].blank? || @user.nil?
       render text: 'Invalid API Key.', status: :unauthorized
     end
   end

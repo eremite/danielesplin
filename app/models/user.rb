@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   ROLES = %w(father mother baby guest)
 
-  attr_accessible :name, :email, :password, :password_confirmation, :role
+  attr_accessible :name, :email, :password, :password_confirmation, :role, :api_key
 
   has_secure_password
 
@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
     format: { with: Rails.application.config.email_regex }
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 4 }, allow_blank: true
+  validates :api_key, uniqueness: true, allow_blank: true
 
   scope :guest, where(role: :guest)
 
