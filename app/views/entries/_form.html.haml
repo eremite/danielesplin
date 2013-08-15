@@ -3,19 +3,19 @@
     .control-group.pull-right.span8.baby
       = f.label :baby_body, class: 'control-label'
       .controls
-        = f.text_area :baby_body, rows: 3, class: 'span8', value: f.object.existing_baby_body
+        = f.text_area :baby_body, rows: 2, value: f.object.existing_baby_body, class: 'span8', tabindex: 2
   .control-group
     = f.label :at, class: 'control-label'
     .controls
-      = text_field_tag :at, l(f.object.at), class: 'datetimepicker'
+      = text_field_tag :at, l(f.object.at), class: 'datetimepicker', tabindex: 1
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .control-group
-    = f.label :body, class: 'control-label autofocus'
+    = f.label :body, class: 'control-label'
     .controls
-      = f.text_area :body, rows: 10, class: 'span12'
+      = f.text_area :body, rows: 10, class: 'span12 autofocus', tabindex: 3
     %span.help-block.pull-right
       = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .form-actions
-    %button.btn.btn-primary{ type: 'submit'} Save
+    %button.btn.btn-primary{ type: 'submit', tabindex: 4} Save
     = hidden_field_tag :redirect_to, request.referrer.presence || photos_path
-    = link_to 'Cancel', entries_path, class: 'btn'
+    = link_to 'Cancel', entries_path, class: 'btn', tabindex: 5
