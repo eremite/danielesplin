@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.0'
 
 gem 'bcrypt-ruby'
 gem 'cancan'
@@ -15,13 +15,10 @@ gem 'kaminari'
 gem 'mini_magick'
 gem 'pg'
 gem 'redcarpet'
-gem 'sass'
 gem 'sass-rails'
 
-group :assets do
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+gem 'coffee-rails'
+gem 'uglifier'
 
 group :production do
   gem 'unicorn'
