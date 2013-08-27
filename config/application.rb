@@ -53,7 +53,7 @@ module Danielesplin
     config.assets.version = '1.0'
 
     # https://gist.github.com/343843
-    config.email_regex = /^(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*$/i
+    config.email_regex = /\A(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\Z/i
 
     # Make heroku happy
     # https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar

@@ -24,12 +24,9 @@ Danielesplin::Application.routes.draw do
     end
   end
 
-  resources :baby_logs
-  match '/baby' => redirect('/baby_logs')
-
   resources :sessions
-  match 'logout', to: 'sessions#destroy', as: 'logout'
-  match 'login', to: 'sessions#new', as: 'login'
+  delete 'logout', to: 'sessions#destroy', as: 'logout'
+  get 'login', to: 'sessions#new', as: 'login'
 
   # Dir['app/views/pages/*'].map { |f| File.basename(f, '.html.haml') }.each do |page|
   #   match "#{page}_page" => "pages##{page}"
@@ -37,7 +34,7 @@ Danielesplin::Application.routes.draw do
 
   Dir['app/views/reports/*'].map { |f| File.basename(f, '.html.haml') }.each do |page|
     next if page.starts_with?('_')
-    match "#{page}_report" => "reports##{page}"
+    match "#{page}_report" => "reports##{page}", via: [:get, :post]
   end
 
   root :to => 'pages#index'

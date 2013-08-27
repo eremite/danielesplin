@@ -1,7 +1,7 @@
 # https://github.com/middleman/middleman/issues/456
 module Haml::Filters::Markdown
   include Haml::Filters::Base
-  lazy_require 'redcarpet'
+  require 'redcarpet'
   def render(text)
     # For list of Github Flavored Markdown options see https://gist.github.com/ralph/1300939
     renderer = Redcarpet::Render::HTML.new({
