@@ -1,7 +1,5 @@
 class Thought < ActiveRecord::Base
 
-  attr_accessible :user_id, :body, :on
-
   belongs_to :user
 
   validates :on, presence: true

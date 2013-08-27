@@ -2,8 +2,6 @@ class Entry < ActiveRecord::Base
 
   attr_accessor :baby_body
 
-  attr_accessible :at, :body, :public, :baby_body
-
   belongs_to :user
   has_many :comments
   has_many :entry_photos
@@ -14,9 +12,9 @@ class Entry < ActiveRecord::Base
 
   validates :body, presence: true
 
-  scope :at_desc, order(arel_table[:at].desc)
-  scope :public, where(public: true)
-  scope :private, where(public: false)
+  scope :at_desc, -> { order(arel_table[:at].desc) }
+  scope :public, -> { where(public: true) }
+  scope :private, -> { where(public: false) }
   scope :published, lambda { |*b| where(!!b.first ? arel_table[:at].lt(Time.zone.now) : arel_table[:at].gt(Time.zone.now) ) }
 
 

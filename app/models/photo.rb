@@ -4,16 +4,14 @@ class Photo < ActiveRecord::Base
 
   attr_accessor :rotate, :skip_versioning
 
-  attr_protected :id
-
   belongs_to :user
   belongs_to :entry
   has_many :entry_photos
   has_many :entries, through: :entry_photos
 
-  scope :at_asc, order(arel_table[:at].asc)
-  scope :at_desc, order(arel_table[:at].desc)
-  scope :created_at_desc, order(arel_table[:created_at].desc)
+  scope :at_asc, -> { order(arel_table[:at].asc) }
+  scope :at_desc, -> { order(arel_table[:at].desc) }
+  scope :created_at_desc, -> { order(arel_table[:created_at].desc) }
 
   before_validation :auto_assign_entries, if: ->(photo) { photo.entry_ids.blank? }
   before_validation :handle_hidden
