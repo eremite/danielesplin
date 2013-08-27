@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+ruby '2.0.0'
 
 gem 'rails', '3.2.13'
 
@@ -32,7 +32,6 @@ group :development, :test do
   gem 'guard-test'
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
-  gem 'ruby-prof'
 end
 
 group :test do
