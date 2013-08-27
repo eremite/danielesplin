@@ -26,7 +26,7 @@ end
 
 group :development, :test do
   gem 'guard'
-  gem 'guard-test'
+  gem 'guard-minitest'
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
 end

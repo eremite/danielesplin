@@ -20,7 +20,7 @@ class EntryTest < ActiveSupport::TestCase
   end
 
   test 'auto_assign_photos' do
-    pending 'auto_assign_photos'
+    skip
   end
 
 end
