@@ -7,7 +7,7 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @photo = current_user.photos.new(params[:photo])
+    @photo = current_user.photos.new(safe_params)
     if @photo.save
       redirect_to new_photo_url, notice: 'Photo saved.'
     else
@@ -16,7 +16,7 @@ class PhotosController < ApplicationController
   end
 
   def update
-    if @photo.update_attributes(params[:photo])
+    if @photo.update_attributes(safe_params)
       redirect_to params[:redirect_to].presence || photos_url, notice: 'Photo saved.'
     else
       render :edit
@@ -31,6 +31,13 @@ class PhotosController < ApplicationController
   def reprocess
     @photo.reprocess
     redirect_to @photo
+  end
+
+
+  private
+
+  def safe_params
+    params.require(:photo).permit(:at, :description, :image, :entry_id, :hidden)
   end
 
 end

@@ -12,12 +12,19 @@ class BlogPostsController < ApplicationController
   end
 
   def create
-    @entry = current_user.entries.public.new(params[:entry])
+    @entry = current_user.entries.public.new(safe_params)
     if @entry.save
       redirect_to blog_posts_url, notice: 'Blog Post saved.'
     else
       render :new
     end
+  end
+
+
+  private
+
+  def safe_params
+    params.require(:entry).permit(:at, :body, :public)
   end
 
 end
