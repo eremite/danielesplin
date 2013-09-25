@@ -14,6 +14,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'pg'
+gem 'rails_12factor'
 gem 'redcarpet'
 gem 'sass-rails'
 
