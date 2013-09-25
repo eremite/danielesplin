@@ -1,6 +1,7 @@
 class ThoughtsController < ApplicationController
 
-  load_and_authorize_resource
+  load_resource except: :create
+  authorize_resource
 
   def index
     @thought = Thought.new(:on => Date.tomorrow)
@@ -14,6 +15,7 @@ class ThoughtsController < ApplicationController
   end
 
   def create
+    @thought = Thought.new(safe_params)
     if @thought.save
       redirect_to thoughts_url, notice: 'Thought saved.'
     else
@@ -26,7 +28,7 @@ class ThoughtsController < ApplicationController
   end
 
   def update
-    if @thought.update_attributes(params[:thought])
+    if @thought.update_attributes(safe_params)
       redirect_to thoughts_url, notice: 'Thought updated.'
     else
       render :edit
@@ -36,6 +38,13 @@ class ThoughtsController < ApplicationController
   def destroy
     @thought.destroy
     redirect_to thoughts_url, notice: 'Thought destroyed.'
+  end
+
+
+  private
+
+  def safe_params
+    params.require(:thought).permit(:on, :user, :body)
   end
 
 end

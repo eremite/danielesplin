@@ -19,13 +19,13 @@ class PhotosControllerTest < ActionController::TestCase
 
   test 'create invalid' do
     Photo.any_instance.stubs(save: false)
-    post :create, photo: {}
+    post :create, photo: valid_attributes
     assert_template :new
   end
 
   test 'create valid' do
     Photo.any_instance.stubs(save: true)
-    post :create, photo: {}
+    post :create, photo: valid_attributes
     assert_redirected_to new_photo_url
   end
 
@@ -40,20 +40,20 @@ class PhotosControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Photo.any_instance.stubs(valid?: false)
-    put :update, id: @photo.id, photo: {}
+    Photo.any_instance.stubs(update_attributes: false)
+    put :update, id: @photo.id, photo: valid_attributes
     assert_template :edit
   end
 
   test 'update valid' do
-    Photo.any_instance.stubs(valid?: true)
-    put :update, id: @photo.id, photo: {}
+    Photo.any_instance.stubs(update_attributes: true)
+    put :update, id: @photo.id, photo: valid_attributes
     assert_redirected_to photos_url
   end
 
   test 'update valid with redirect' do
-    Photo.any_instance.stubs(valid?: true)
-    put :update, id: @photo.id, photo: {}, redirect_to: '/'
+    Photo.any_instance.stubs(update_attributes: true)
+    put :update, id: @photo.id, photo: valid_attributes, redirect_to: '/'
     assert_redirected_to '/'
   end
 
@@ -65,6 +65,16 @@ class PhotosControllerTest < ActionController::TestCase
   test 'reprocess' do
     put :reprocess, id: @photo.id
     assert_redirected_to @photo
+  end
+
+
+  private
+
+  def valid_attributes
+    {
+      at: Time.zone.now,
+      description: 'Description',
+    }
   end
 
 end

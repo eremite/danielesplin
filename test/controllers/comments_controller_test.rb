@@ -18,13 +18,13 @@ class CommentsControllerTest < ActionController::TestCase
 
   test 'create invalid' do
     Comment.any_instance.stubs(save: false)
-    post :create, comment: {}
+    post :create, comment: valid_attributes
     assert_template :new
   end
 
   test 'create valid' do
     Comment.any_instance.stubs(save: true)
-    post :create, comment: {}
+    post :create, comment: valid_attributes
     assert_redirected_to blog_posts_url
   end
 
@@ -34,20 +34,30 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Comment.any_instance.stubs(valid?: false)
-    put :update, id: comments(:base).id, comment: {}
+    Comment.any_instance.stubs(update_attributes: false)
+    put :update, id: comments(:base).id, comment: valid_attributes
     assert_template :edit
   end
 
   test 'update valid' do
-    Comment.any_instance.stubs(valid?: true)
-    put :update, id: comments(:base).id, comment: {}
+    Comment.any_instance.stubs(update_attributes: true)
+    put :update, id: comments(:base).id, comment: valid_attributes
     assert_redirected_to blog_posts_url
   end
 
   test 'destroy' do
     delete :destroy, id: comments(:base).id
     assert_redirected_to blog_posts_url
+  end
+
+
+  private
+
+  def valid_attributes
+    {
+      entry_id: entries(:base).id,
+      body: 'Body',
+    }
   end
 
 end

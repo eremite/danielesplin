@@ -24,7 +24,7 @@ class BlogPostsController < ApplicationController
   private
 
   def safe_params
-    params.require(:entry).permit(:at, :body, :public)
+    params.require(:entry).permit(:at, :body)
   end
 
 end

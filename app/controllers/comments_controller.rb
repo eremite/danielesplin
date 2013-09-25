@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
 
-  load_and_authorize_resource
+  load_resource except: :create
+  authorize_resource
 
   def index
     @comments = @comments.created_at_desc.page(params[:page])

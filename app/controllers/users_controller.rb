@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
 
-  load_and_authorize_resource
+  load_resource except: :create
+  authorize_resource
 
   def create
+    @user = User.new(safe_params)
     if @user.save
       redirect_to users_url, notice: 'User created.'
     else

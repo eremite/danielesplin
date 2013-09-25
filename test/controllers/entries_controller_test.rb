@@ -20,19 +20,19 @@ class EntriesControllerTest < ActionController::TestCase
 
   test 'create invalid' do
     Entry.any_instance.stubs(save: false)
-    post :create, entry: {}
+    post :create, entry: valid_attributes
     assert_template :new
   end
 
   test 'create valid' do
     Entry.any_instance.stubs(save: true)
-    post :create, entry: {}
+    post :create, entry: valid_attributes
     assert_redirected_to entries_url
   end
 
   test 'create valid with redirect' do
     Entry.any_instance.stubs(save: true)
-    post :create, entry: {}, redirect_to: '/blog_posts'
+    post :create, entry: valid_attributes, redirect_to: '/blog_posts'
     assert_redirected_to '/blog_posts'
   end
 
@@ -42,20 +42,20 @@ class EntriesControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Entry.any_instance.stubs(valid?: false)
-    put :update, id: @entry.id, entry: {}
+    Entry.any_instance.stubs(update_attributes: false)
+    put :update, id: @entry.id, entry: valid_attributes
     assert_template :edit
   end
 
   test 'update valid' do
-    Entry.any_instance.stubs(valid?: true)
-    put :update, id: @entry.id, entry: {}
+    Entry.any_instance.stubs(update_attributes: true)
+    put :update, id: @entry.id, entry: valid_attributes
     assert_redirected_to entries_url
   end
 
   test 'update valid with redirect' do
     Entry.any_instance.stubs(save: true)
-    put :update, id: @entry.id, entry: {}, redirect_to: '/blog_posts'
+    put :update, id: @entry.id, entry: valid_attributes, redirect_to: '/blog_posts'
     assert_redirected_to '/blog_posts'
   end
 
@@ -67,6 +67,17 @@ class EntriesControllerTest < ActionController::TestCase
   test 'baby_body' do
     get :baby_body, id: @entry.id, format: :json
     assert_response :success
+  end
+
+
+  private
+
+  def valid_attributes
+    {
+      at: Time.zone.now,
+      body: 'Body',
+      baby_body: 'Baby',
+    }
   end
 
 end

@@ -1,6 +1,7 @@
 class PhotosController < ApplicationController
 
-  load_and_authorize_resource
+  load_resource except: :create
+  authorize_resource
 
   def index
     @photos = @photos.created_at_desc.page(params[:page])

@@ -24,14 +24,24 @@ class BlogPostsControllerTest < ActionController::TestCase
 
   test 'create invalid' do
     Entry.any_instance.stubs(save: false)
-    post :create, entry: entries(:base).attributes
+    post :create, entry: valid_attributes
     assert_template :new
   end
 
   test 'create valid' do
     Entry.any_instance.stubs(save: true)
-    post :create, entry: entries(:base).attributes
+    post :create, entry: valid_attributes
     assert_redirected_to blog_posts_url
+  end
+
+
+  private
+
+  def valid_attributes
+    {
+      at: Time.zone.now,
+      body: 'Body',
+    }
   end
 
 end

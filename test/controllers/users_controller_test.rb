@@ -17,14 +17,14 @@ class UsersControllerTest < ActionController::TestCase
   test 'create invalid' do
     login_as(users(:admin))
     User.any_instance.stubs(save: false)
-    post :create, user: {}
+    post :create, user: valid_attributes
     assert_template :new
   end
 
   test 'create valid' do
     login_as(users(:admin))
     User.any_instance.stubs(save: true)
-    post :create, user: {}
+    post :create, user: valid_attributes
     assert_redirected_to users_url
   end
 
@@ -36,15 +36,15 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'update invalid' do
     login_as(users(:base))
-    User.any_instance.stubs(valid?: false)
-    put :update, id: users(:base).id, user: {}
+    User.any_instance.stubs(update_attributes: false)
+    put :update, id: users(:base).id, user: valid_attributes
     assert_template :edit
   end
 
   test 'update valid' do
     login_as(users(:base))
-    User.any_instance.stubs(valid?: true)
-    put :update, id: users(:base).id, user: {}
+    User.any_instance.stubs(update_attributes: true)
+    put :update, id: users(:base).id, user: valid_attributes
     assert_redirected_to edit_user_url(users(:base))
   end
 
@@ -52,6 +52,18 @@ class UsersControllerTest < ActionController::TestCase
     login_as(users(:admin))
     delete :destroy, id: users(:base).id
     assert_redirected_to users_url
+  end
+
+
+  private
+
+  def valid_attributes
+    {
+      :name => 'Name',
+      :email => 'e@mai.l',
+      :password => 'secret123',
+      :password_confirmation => 'secret123',
+    }
   end
 
 end
