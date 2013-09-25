@@ -12,6 +12,8 @@ jQuery ->
     altField: '.datetimepicker-hidden',
     altFieldTimeOnly: false,
     useLocalTimezone: true,
+    showTimezone: false,
+    showSecond: false,
     onSelect: ->
       if ($('#entry_baby_body').length)
         $.get '/entries/baby_body', { at: $('#entry_at').val() }, (body) ->
