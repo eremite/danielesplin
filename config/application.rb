@@ -55,10 +55,6 @@ module Danielesplin
     # https://gist.github.com/343843
     config.email_regex = /\A(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\Z/i
 
-    # Make heroku happy
-    # https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
-    config.assets.initialize_on_precompile = false
-
     # Configure generators values
     config.generators do |g|
       g.haml true
