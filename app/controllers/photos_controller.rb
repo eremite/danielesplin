@@ -38,7 +38,7 @@ class PhotosController < ApplicationController
   private
 
   def safe_params
-    params.require(:photo).permit(:at, :description, :image, :entry_id, :hidden)
+    params.require(:photo).permit!
   end
 
 end
