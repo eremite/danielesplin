@@ -29,7 +29,7 @@ class Entry < ActiveRecord::Base
   def existing_baby_body
     baby = User.where(role: 'baby').first
     return nil if baby.nil? || at.nil?
-    baby.entries.where(:at => at.beginning_of_day..at.end_of_day).first.try(:body)
+    baby.entries.where(:at => at.beginning_of_day..at.end_of_day).pluck(:body).join(' ')
   end
 
 
@@ -37,19 +37,21 @@ class Entry < ActiveRecord::Base
 
   def create_baby_entry
     baby = User.where(role: 'baby').first
-    if baby
-      baby.entries.where(:at => at).destroy_all
+    if baby && existing_baby_body != baby_body
+      baby.entries.where(:at => at.beginning_of_day..at.end_of_day).destroy_all
       baby.entries.create({
         at: at,
         body: baby_body,
       })
     end
+    true
   end
 
   def auto_assign_photos
     if at.present?
       self.photos = Photo.where(hidden: false, at: at.beginning_of_day..at.end_of_day)
     end
+    true
   end
 
 end
