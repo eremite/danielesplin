@@ -13,10 +13,11 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
-gem 'pg'
-gem 'rails_12factor'
+gem 'mysql2'
 gem 'redcarpet'
 gem 'sass-rails'
+
+# gem 'seed_dump'
 
 gem 'coffee-rails'
 gem 'uglifier'
