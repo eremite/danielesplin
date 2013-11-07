@@ -17,6 +17,8 @@ gem 'mysql2'
 gem 'redcarpet'
 gem 'sass-rails'
 
+gem 'therubyracer' # For precompiling assets
+
 # gem 'seed_dump'
 
 gem 'coffee-rails'
