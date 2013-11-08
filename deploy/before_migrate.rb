@@ -1,3 +1,7 @@
+Chef::Log.debug("node: #{new_resource.inspect}")
+Chef::Log.debug("node: #{new_resource.environment.inspect}")
+Chef::Log.debug("node: #{node.inspect}")
+
 node[:deploy].each do |application, deploy|
   deploy = node[:deploy][application]
 
