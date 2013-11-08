@@ -20,5 +20,6 @@
 /public/system
 /public/uploads
 
-# Ignore config
-config/database.yml
+# Ignore application configuration
+/config/database.yml
+/config/application.yml

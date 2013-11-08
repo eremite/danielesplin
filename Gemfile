@@ -19,6 +19,8 @@ gem 'sass-rails'
 
 gem 'therubyracer' # For precompiling assets
 
+gem 'figaro'
+
 # gem 'seed_dump'
 
 gem 'coffee-rails'
