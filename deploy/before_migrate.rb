@@ -1,7 +1,4 @@
-include_recipe 'deploy'
-
 node[:deploy].each do |application, deploy|
-  deploy = node[:deploy][application]
 
   Chef::Log.info("Precompiling assets for RAILS_ENV=#{deploy[:rails_env]}...")
   execute 'rake assets:precompile' do
