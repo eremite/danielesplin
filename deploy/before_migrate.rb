@@ -14,7 +14,4 @@ template "#{resource.current_path}/shared/config/application.yml" do
   group resource.group
   owner resource.user
   variables(:environment_variables => resource.params[:deploy_data]['environment_variables'])
-  only_if do
-    File.exists?("#{resource.current_path}") && File.exists?("#{resource.current_path}/shared/config/")
-  end
 end
