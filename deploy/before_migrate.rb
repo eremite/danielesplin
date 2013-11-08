@@ -15,7 +15,7 @@ node[:deploy].each do |application, deploy|
     mode '0660'
     group deploy[:group]
     owner deploy[:user]
-    variables(environment_variables: deploy[:environment_variables])
+    variables(:environment_variables => deploy[:environment_variables])
     only_if do
       File.exists?("#{deploy[:deploy_to]}") && File.exists?("#{deploy[:deploy_to]}/shared/config/")
     end
