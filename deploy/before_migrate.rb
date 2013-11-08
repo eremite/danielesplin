@@ -8,7 +8,7 @@ execute 'rake assets:precompile' do
   environment 'RAILS_ENV' => rails_environment
 end
 
-template "#{resource.current_path}/shared/config/application.yml" do
+template "#{resource.shared_path}/config/application.yml" do
   source "#{resource.current_path}/deploy/templates/application.yml.erb"
   mode '0660'
   group resource.group
