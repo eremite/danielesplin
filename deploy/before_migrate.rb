@@ -1,14 +1,6 @@
 resource = new_resource
 rails_environment = resource.environment['RAILS_ENV']
 
-Chef::Log.info("Precompiling assets for RAILS_ENV=#{rails_environment}...")
-execute 'rake assets:precompile' do
-  cwd resource.current_path
-  command 'bundle exec rake assets:precompile'
-  environment 'RAILS_ENV' => rails_environment
-  only_if { ::File.exists?(resource.current_path)}
-end
-
 file "#{resource.shared_path}/config/application.yml" do
   owner resource.user
   group resource.group
@@ -17,3 +9,12 @@ file "#{resource.shared_path}/config/application.yml" do
   action :create
   only_if { ::File.exists?(resource.current_path)}
 end
+
+Chef::Log.info("Precompiling assets for RAILS_ENV=#{rails_environment}...")
+execute 'rake assets:precompile' do
+  cwd resource.current_path
+  command 'bundle exec rake assets:precompile'
+  environment 'RAILS_ENV' => rails_environment
+  only_if { ::File.exists?(resource.current_path)}
+end
+
