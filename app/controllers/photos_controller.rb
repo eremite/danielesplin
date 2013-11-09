@@ -10,9 +10,16 @@ class PhotosController < ApplicationController
   def create
     @photo = current_user.photos.new(safe_params)
     if @photo.save
-      redirect_to new_photo_url, notice: 'Photo saved.'
+      respond_to do |format|
+        format.html do
+          render :json => @photo.to_jq_upload.to_json, :content_type => 'text/html', :layout => false
+        end
+        format.json do
+          render :json => @photo.to_jq_upload.to_json
+        end
+      end
     else
-      render :new
+      render :json => [{:error => 'There was a problem saving the photo'}], :status => 304
     end
   end
 

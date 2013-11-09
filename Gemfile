@@ -17,6 +17,8 @@ gem 'mysql2'
 gem 'redcarpet'
 gem 'sass-rails'
 
+gem 'jquery-fileupload-rails'
+
 gem 'therubyracer' # For precompiling assets
 
 gem 'figaro'

@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require garlic
 //= require jquery-ui-timepicker-addon
+//= require jquery-fileupload
 //= require jquery.fancybox
 //= require jquery.autosize
 //= require_tree .

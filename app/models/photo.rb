@@ -49,6 +49,19 @@ class Photo < ActiveRecord::Base
     image.recreate_versions! if image?
   end
 
+  def to_jq_upload
+    {
+      files: [{
+        'name' => image.filename || "Photo#{id}",
+        'size' => image.size,
+        'url' => image.url,
+        'thumbnail_url' => image.url(:small),
+        'delete_url' => "/photos/#{id}",
+        'delete_type' => 'DELETE'
+      }]
+    }
+  end
+
 
   private
 
