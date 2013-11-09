@@ -6,6 +6,7 @@ execute 'rake assets:precompile' do
   cwd resource.current_path
   command 'bundle exec rake assets:precompile'
   environment 'RAILS_ENV' => rails_environment
+  only_if { ::File.exists?(resource.current_path)}
 end
 
 file "#{resource.shared_path}/config/application.yml" do
@@ -14,4 +15,5 @@ file "#{resource.shared_path}/config/application.yml" do
   mode '0660'
   content resource.params[:deploy_data]['environment_variables'].map { |k, v| "#{k.upcase}: #{v}" }.join("\n")
   action :create
+  only_if { ::File.exists?(resource.current_path)}
 end
