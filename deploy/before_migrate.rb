@@ -8,10 +8,10 @@ execute 'rake assets:precompile' do
   environment 'RAILS_ENV' => rails_environment
 end
 
-template "#{resource.shared_path}/config/application.yml" do
-  source 'application.yml.erb'
-  mode '0660'
-  group resource.group
+file "#{resource.shared_path}/config/application.yml" do
   owner resource.user
-  variables(:environment_variables => resource.params[:deploy_data]['environment_variables'])
+  group resource.group
+  mode '0660'
+  content resource.params[:deploy_data]['environment_variables'].map { |k, v| "#{k.upcase}: #{v}" }.join("\n")
+  action :create
 end
