@@ -7,12 +7,16 @@ class PhotosController < ApplicationController
     @photos = @photos.created_at_desc.page(params[:page])
   end
 
+  def old_new
+    @photo = Photo.new
+  end
+
   def create
     @photo = current_user.photos.new(safe_params)
     if @photo.save
       respond_to do |format|
         format.html do
-          render :json => @photo.to_jq_upload.to_json, :content_type => 'text/html', :layout => false
+          redirect_to old_new_photos_url
         end
         format.json do
           render :json => @photo.to_jq_upload.to_json

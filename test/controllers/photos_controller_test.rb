@@ -12,6 +12,11 @@ class PhotosControllerTest < ActionController::TestCase
     assert_template :index
   end
 
+  test 'old_new' do
+    get :old_new
+    assert_template :old_new
+  end
+
   test 'new' do
     get :new
     assert_template :new

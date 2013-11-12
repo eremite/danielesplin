@@ -13,6 +13,9 @@ Danielesplin::Application.routes.draw do
   resources :users
 
   resources :photos do
+    collection do
+      get :old_new
+    end
     member do
       put :reprocess
     end

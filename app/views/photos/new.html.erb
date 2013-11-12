@@ -1,5 +1,13 @@
+<%- title 'Upload Photos' %>
+
+<p class='pull-right'>
+  <%= link_to old_new_photos_path, class: 'btn btn-success' do %>
+    <i class='icon-white icon-plus'></i>
+    Old Upload Form
+  <% end %>
+</p>
+
 <div class="container">
-  <h2>Upload file</h2>
   <%= form_for Photo.new, :html => { :multipart => true, :id => 'fileupload'  } do |f| %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
