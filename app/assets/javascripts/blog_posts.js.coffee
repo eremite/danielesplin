@@ -1,3 +1,5 @@
 jQuery ->
 
-  $('.fancybox').fancybox()
+  $('.fancybox').fancybox({
+    preload: 50,
+  })
