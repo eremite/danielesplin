@@ -19,11 +19,11 @@ class PhotosController < ApplicationController
           redirect_to old_new_photos_url
         end
         format.json do
-          render :json => @photo.to_jq_upload.to_json
+          render :json => { :files => [@photo.to_jq_upload] }.to_json
         end
       end
     else
-      render :json => [{:error => 'There was a problem saving the photo'}], :status => 304
+      render :json => { :files => [@photo.to_jq_upload.merge(:error => @photo.errors.full_messages.to_sentence)] }.to_json
     end
   end
 

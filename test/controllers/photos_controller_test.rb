@@ -25,13 +25,19 @@ class PhotosControllerTest < ActionController::TestCase
   test 'create invalid' do
     Photo.any_instance.stubs(save: false)
     post :create, photo: valid_attributes
-    assert_template :new
+    assert_response :success
   end
 
   test 'create valid' do
     Photo.any_instance.stubs(save: true)
     post :create, photo: valid_attributes
-    assert_redirected_to new_photo_url
+    assert_redirected_to old_new_photos_url
+  end
+
+  test 'create valid json' do
+    Photo.any_instance.stubs(save: true)
+    post :create, photo: valid_attributes, format: 'json'
+    assert_response :success
   end
 
   test 'show' do

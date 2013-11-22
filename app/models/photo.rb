@@ -51,14 +51,12 @@ class Photo < ActiveRecord::Base
 
   def to_jq_upload
     {
-      files: [{
-        'name' => image.filename || "Photo#{id}",
-        'size' => image.size,
-        'url' => image.url,
-        'thumbnail_url' => image.url(:small),
-        'delete_url' => "/photos/#{id}",
-        'delete_type' => 'DELETE'
-      }]
+      'name' => image.filename || "Photo#{id}",
+      'size' => image.size,
+      'url' => image.url,
+      'thumbnailUrl' => image.url(:small),
+      'deleteUrl' => "/photos/#{id}",
+      'deleteType' => 'DELETE'
     }
   end
 
