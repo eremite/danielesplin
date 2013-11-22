@@ -15,3 +15,13 @@ jQuery ->
   $('#fileupload').fileupload({
     paramName: 'photo[image]',
   })
+
+# Not sure why/if this has to be global...
+fileUploadErrors = {
+  maxFileSize: 'File is too big',
+  minFileSize: 'File is too small',
+  acceptFileTypes: 'Filetype not allowed',
+  maxNumberOfFiles: 'Max number of files exceeded',
+  uploadedBytes: 'Uploaded bytes exceed file size',
+  emptyResult: 'Empty file upload result',
+}

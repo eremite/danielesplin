@@ -1,51 +1,3 @@
-<%- title 'Upload Photos' %>
-
-<p class='pull-right'>
-  <%= link_to old_new_photos_path, class: 'btn btn-success' do %>
-    <i class='icon-white icon-plus'></i>
-    Old Upload Form
-  <% end %>
-</p>
-
-<div class="container">
-  <%= form_for Photo.new, :html => { :multipart => true, :id => 'fileupload'  } do |f| %>
-    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-    <div class="row fileupload-buttonbar">
-      <div class="span7">
-        <!-- The fileinput-button span is used to style the file input field as button -->
-        <span class="btn btn-success fileinput-button">
-          <i class="icon-plus icon-white"></i>
-          <span>Add files...</span>
-          <%= f.file_field :image, multiple: true %>
-        </span>
-      </div>
-      <div class="span5">
-        <!-- The global progress bar -->
-        <div class="progress progress-success progress-striped active fade">
-          <div class="bar" style="width:0%;"></div>
-        </div>
-      </div>
-    </div>
-    <!-- The loading indicator is shown during image processing -->
-    <div class="fileupload-loading"></div>
-    <br>
-    <!-- The table listing the files available for upload/download -->
-    <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-    </table>
-  <% end %>
-
-</div>
-<script>
-  var fileUploadErrors = {
-  maxFileSize: 'File is too big',
-  minFileSize: 'File is too small',
-  acceptFileTypes: 'Filetype not allowed',
-  maxNumberOfFiles: 'Max number of files exceeded',
-  uploadedBytes: 'Uploaded bytes exceed file size',
-  emptyResult: 'Empty file upload result'
-  };
-</script>
-
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
   {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -77,6 +29,7 @@
   </tr>
   {% } %}
 </script>
+
 <!-- The template to display files available for download -->
 <script id="template-download" type="text/x-tmpl">
   {% for (var i=0, file; file=o.files[i]; i++) { %}

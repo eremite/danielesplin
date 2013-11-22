@@ -1,0 +1,25 @@
+- title 'Upload Photos'
+
+%p.pull-right
+  = link_to old_new_photos_path, class: 'btn btn-success' do
+    %i.icon-plus.icon-white
+    Old Upload Form
+
+.container
+  = form_for Photo.new, :html => { :multipart => true, :id => 'fileupload'  } do |f|
+    .row.fileupload-buttonbar
+      .span7
+        %span.btn.btn-success.fileinput-button
+          %i.icon-plus.icon-white
+          %span Add files...
+          = f.file_field :image, multiple: true
+      .span5
+        .progress.progress-success.progress-striped.active.fade
+          .bar{ style: 'width:0%;' }
+    .fileupload-loading
+    %br
+
+    %table.table.table-striped
+      %tbody.files{ data: { toggle: 'modal-gallery', target: '#modal-gallery' } }
+
+= render 'jquery_file_upload_templates'
