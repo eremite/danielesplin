@@ -13,6 +13,7 @@ jQuery ->
 
   # jQuery File Upload
   $('#fileupload').fileupload({
+    autoUpload: true,
     paramName: 'photo[image]',
   })
   $('#fileupload').bind 'fileuploadsubmit', (e, data) ->
