@@ -15,6 +15,17 @@ jQuery ->
   $('#fileupload').fileupload({
     paramName: 'photo[image]',
   })
+  $('#fileupload').bind 'fileuploadsubmit', (e, data) ->
+    inputs = data.context.find(':input')
+    data.formData = inputs.serializeArray()
+
+  $('#add-google-plus-remote-image-url').click ->
+    placeholder = {
+      google_plus_remote_image_url: prompt('Paste in the Google+ URL'),
+      size: 10000,
+      type: 'jpg',
+    }
+    $('#fileupload').fileupload('add', { files: [placeholder] })
 
 # Not sure why/if this has to be global...
 fileUploadErrors = {

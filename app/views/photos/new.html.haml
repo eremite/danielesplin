@@ -11,8 +11,12 @@
       .span7
         %span.btn.btn-success.fileinput-button
           %i.icon-plus.icon-white
-          %span Add files...
+          %span Add Files
           = f.file_field :image, multiple: true
+        %span.btn.btn-success#add-google-plus-remote-image-url
+          %i.icon-plus.icon-white
+          %span Add URL
+
       .span5
         .progress.progress-success.progress-striped.active.fade
           .bar{ style: 'width:0%;' }
