@@ -4,7 +4,7 @@ class EntriesControllerTest < ActionController::TestCase
 
   def setup
     user = users(:admin)
-    @entry = user.entries.create!(body: 'body')
+    @entry = user.entries.create!(body: 'body', at: Time.zone.now)
     login_as(user)
   end
 
@@ -34,6 +34,11 @@ class EntriesControllerTest < ActionController::TestCase
     Entry.any_instance.stubs(save: true)
     post :create, entry: valid_attributes, redirect_to: '/blog_posts'
     assert_redirected_to '/blog_posts'
+  end
+
+  test 'show' do
+    get :show, id: @entry.id
+    assert_template :show
   end
 
   test 'edit' do
