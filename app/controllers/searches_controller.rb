@@ -4,7 +4,7 @@ class SearchesController < ApplicationController
 
   # TODO test
   def index
-    @entries = @entries.where(Entry.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
+    @entries = @entries.at_desc.where(Entry.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
   end
 
 end
