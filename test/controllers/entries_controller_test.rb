@@ -69,11 +69,6 @@ class EntriesControllerTest < ActionController::TestCase
     assert_redirected_to entries_url
   end
 
-  test 'baby_body' do
-    get :baby_body, id: @entry.id, format: :json
-    assert_response :success
-  end
-
 
   private
 
@@ -81,7 +76,6 @@ class EntriesControllerTest < ActionController::TestCase
     {
       at: Time.zone.now,
       body: 'Body',
-      baby_body: 'Baby',
     }
   end
 

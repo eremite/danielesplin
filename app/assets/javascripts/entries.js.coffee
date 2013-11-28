@@ -14,13 +14,9 @@ jQuery ->
     useLocalTimezone: true,
     showTimezone: false,
     showSecond: false,
-    onSelect: ->
-      if ($('#entry_baby_body').length)
-        $.get '/entries/baby_body', { at: $('#entry_at').val() }, (body) ->
-          $('#entry_baby_body').val(body)
 
   # Enable autofocus
   $('.autofocus:first').focus()
 
   # Enable autosize
-  $('textarea#entry_body, textarea#entry_baby_body').autosize()
+  $('textarea#entry_body').autosize()

@@ -15,7 +15,7 @@ class Api::EntriesController < ApiController
   private
 
   def safe_params
-    params.require(:entry).permit(:at, :body, :public, :baby_body)
+    params.require(:entry).permit(:at, :body, :public)
   end
 
 end

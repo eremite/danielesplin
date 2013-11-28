@@ -6,6 +6,7 @@ Danielesplin::Application.routes.draw do
 
   resources :blog_posts
   resources :comments
+  resources :entries
   resources :pages
   resources :searches
   resources :thoughts
@@ -18,12 +19,6 @@ Danielesplin::Application.routes.draw do
     end
     member do
       put :reprocess
-    end
-  end
-
-  resources :entries do
-    collection do
-      get :baby_body
     end
   end
 

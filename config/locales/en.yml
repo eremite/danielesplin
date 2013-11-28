@@ -26,6 +26,5 @@ en:
   activerecord:
     attributes:
       entry:
-        baby_body: 'Baby Journal'
       user:
         api_key: 'API Key'

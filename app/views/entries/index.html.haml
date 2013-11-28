@@ -24,9 +24,5 @@
               Delete
           %h3=l entry.at, format: :long
           .body
-            - if current_baby && entry.try(:existing_baby_body).present?
-              .baby.pull-right.well
-                :markdown
-                  #{entry.existing_baby_body}
             :markdown
               #{entry.body}
