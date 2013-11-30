@@ -41,4 +41,15 @@ class User < ActiveRecord::Base
     role == 'baby'
   end
 
+  def guest?
+    role == 'guest'
+  end
+
+  def users_whose_entries_i_can_edit
+    return [] if guest?
+    users = [self]
+    users += User.where(:role => 'baby') if parent?
+    users
+  end
+
 end
