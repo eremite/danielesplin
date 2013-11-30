@@ -16,5 +16,4 @@
       = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .form-actions
     %button.btn.btn-primary{ type: 'submit', tabindex: 4 } Save
-    = hidden_field_tag :redirect_to, request.referrer.presence || photos_path
     = link_to 'Cancel', entries_path, class: 'btn', tabindex: 5

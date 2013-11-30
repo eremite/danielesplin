@@ -21,8 +21,7 @@ class EntriesController < ApplicationController
   def create
     @entry = Entry.new(safe_params)
     if @entry.save
-      params.delete(:redirect_to) if params[:redirect_to] == root_url
-      redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
+      redirect_to new_entry_url
     else
       render :new
     end
@@ -50,7 +49,7 @@ class EntriesController < ApplicationController
   private
 
   def safe_params
-    params.require(:entry).permit(:at, :user, :body, :public)
+    params.require(:entry).permit(:at, :user_id, :body, :public)
   end
 
 end
