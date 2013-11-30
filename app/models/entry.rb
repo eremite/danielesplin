@@ -9,10 +9,13 @@ class Entry < ActiveRecord::Base
 
   validates :body, presence: true
 
+  paginates_per 14
+
   scope :at_desc, -> { order(arel_table[:at].desc) }
   scope :public, -> { where(public: true) }
   scope :private, -> { where(public: false) }
   scope :published, lambda { |*b| where(!!b.first ? arel_table[:at].lt(Time.zone.now) : arel_table[:at].gt(Time.zone.now) ) }
+  scope :before, -> (ends_at) { where(arel_table[:at].lt(ends_at)) }
 
 
   def title

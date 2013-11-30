@@ -4,17 +4,14 @@ class EntriesController < ApplicationController
   authorize_resource
 
   def index
-    @interval = 1.week
     begin
-      @starts_at = Time.zone.parse(params[:starts_at])
+      @ends_on = Date.strptime(params[:ends_on].to_s, '%m/%d/%Y')
     rescue ArgumentError, TypeError
-      flash[:error] = 'Invalid date' if params[:starts_at].present?
-      @starts_at = Time.zone.now
+      flash[:error] = 'Invalid date' if params[:ends_on].present?
+      @ends_on = Time.zone.now.to_date
     end
-    @starts_at = (@starts_at - @starts_at.wday.day).beginning_of_day
-    @ends_at = @starts_at + @interval - 1.second
-    entries = @entries.private.at_desc.where(at: @starts_at..@ends_at)
-    @grouped_entries = entries.group_by { |e| e.at.to_date }
+    @entry_user = User.where(id: params[:user_id]).first || current_user
+    @entries = Entry.where(user: @entry_user).private.at_desc.before(@ends_on).page(params[:page])
   end
 
   def new

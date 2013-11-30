@@ -15,6 +15,9 @@ jQuery ->
     showTimezone: false,
     showSecond: false,
 
+  # Enable datepicker
+  $('.datepicker').datepicker()
+
   # Enable autofocus
   $('.autofocus:first').focus()
 

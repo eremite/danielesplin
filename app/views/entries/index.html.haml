@@ -1,28 +1,27 @@
 - title 'Journal'
 
-%p.pull-right
-  %br
-  = link_to new_entry_path, class: 'btn btn-success' do
+.row
+  = link_to new_entry_path, class: 'btn btn-success pull-right' do
     %i.icon-white.icon-plus
     New Entry
+  = form_tag nil, method: :get, class: 'form-inline pull-right', style: 'margin-right: 1em' do
+    = text_field_tag :ends_on, l(@ends_on), class: 'datepicker span2'
+    = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'span2' }
+    = submit_tag 'Go', class: 'btn btn-mini btn-primary'
 
-= render 'date_pagination'
-
-.clearfix
-  - if @grouped_entries.empty?
-    %p Nothing yet.
-  - else
-    - @grouped_entries.each do |day, entries|
-      - entries.each do |entry|
-        = div_for entry do
-          .btn-group.pull-right
-            = link_to [:edit, entry], class: 'btn btn-small' do
-              %i.icon-edit
-              Edit
-            = link_to entry, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
-              %i.icon-trash
-              Delete
-          %h3=l entry.at, format: :long
-          .body
-            :markdown
-              #{entry.body}
+- if @entries.empty?
+  %p.row Nothing yet.
+- else
+  - @entries.each do |entry|
+    = div_for entry, class: 'row span12' do
+      .btn-group.pull-right
+        = link_to [:edit, entry], class: 'btn btn-small' do
+          %i.icon-edit
+          Edit
+        = link_to entry, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
+          %i.icon-trash
+          Delete
+      %h3=l entry.at, format: :long
+      .body
+        :markdown
+          #{entry.body}
