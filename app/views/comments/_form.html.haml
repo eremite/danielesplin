@@ -1,4 +1,4 @@
-= form_for @comment, class: 'form-horizontal', html: { data: { persist: 'garlic' } } do |f|
+= form_for @comment, class: 'form-horizontal' do |f|
   %p.text-error
     = f.object.errors.full_messages.to_sentence
   .control-group
