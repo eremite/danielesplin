@@ -8,8 +8,7 @@ class Ability
       can :manage, Comment, user_id: user.id
       if user.parent?
         can :manage, Photo
-        can :manage, Entry, user_id: user.id
-        can :manage, Entry, public: true
+        can :manage, Entry
         can :manage, :blog_post
         can :manage, :report
         can :manage, User
