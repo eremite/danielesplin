@@ -11,7 +11,7 @@ class EntriesController < ApplicationController
       @ends_on = Time.zone.now.to_date
     end
     @entry_user = User.where(id: params[:user_id]).first || current_user
-    @entries = Entry.where(user: @entry_user).private.at_desc.before(@ends_on).page(params[:page])
+    @entries = Entry.where(user: @entry_user).private.at_desc.before(@ends_on.end_of_day).page(params[:page])
   end
 
   def new
