@@ -13,7 +13,7 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
-gem 'mysql2'
+gem 'pg'
 gem 'redcarpet'
 gem 'sass-rails'
 
