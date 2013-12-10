@@ -1,3 +1,4 @@
+resource = new_resource
 execute 'delayed_job restart' do
   cwd release_path
   command 'delayed_job restart'
