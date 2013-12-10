@@ -2,30 +2,24 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.2'
 
 gem 'bcrypt-ruby'
 gem 'cancan'
 gem 'carrierwave'
+gem 'coffee-rails'
+gem 'figaro'
 gem 'fog'
 gem 'font-awesome-rails'
 gem 'haml-rails'
+gem 'jquery-fileupload-rails'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'pg'
 gem 'redcarpet'
 gem 'sass-rails'
-
-gem 'jquery-fileupload-rails'
-
 gem 'therubyracer' # For precompiling assets
-
-gem 'figaro'
-
-# gem 'seed_dump'
-
-gem 'coffee-rails'
 gem 'uglifier'
 
 group :production do
