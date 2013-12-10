@@ -41,6 +41,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    daemons (1.1.9)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     erubis (2.7.0)
     excon (0.13.4)
     execjs (1.4.0)
@@ -183,6 +189,8 @@ DEPENDENCIES
   cancan
   carrierwave
   coffee-rails
+  daemons
+  delayed_job_active_record
   figaro
   fog
   font-awesome-rails
