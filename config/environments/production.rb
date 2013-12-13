@@ -67,4 +67,22 @@ Danielesplin::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    user_name: Figaro.env.email_username.to_s,
+    password: Figaro.env.email_password.to_s,
+    authentication: 'plain',
+    enable_starttls_auto: true,
+  }
+
+  Whatever::Application.config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[danielesplin] ",
+      :sender_address => %{<exceptions@danielesplin.org>},
+      :exception_recipients => [Figaro.env.email_username.to_s],
+    }
+
 end
