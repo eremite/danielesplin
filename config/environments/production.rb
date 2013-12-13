@@ -78,7 +78,7 @@ Danielesplin::Application.configure do
     enable_starttls_auto: true,
   }
 
-  Whatever::Application.config.middleware.use ExceptionNotification::Rack,
+  config.middleware.use ExceptionNotification::Rack,
     :email => {
       :email_prefix => "[danielesplin] ",
       :sender_address => %{<exceptions@danielesplin.org>},
