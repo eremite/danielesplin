@@ -1,7 +1,6 @@
 class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
-  process_in_background :image
   store_in_background :image
 
   attr_accessor :rotate, :skip_versioning
