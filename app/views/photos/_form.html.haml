@@ -34,14 +34,6 @@
     .controls
       .offset1 or
       = f.text_field :google_plus_remote_image_url, placeholder: 'Upload from Google+ URL'
-  - if f.object.new_record?
-    .control-group
-      .controls
-        = f.label :skip_versioning, class: 'control-label' do
-          = f.check_box :skip_versioning
-          Skip Automatic Thumbnail Generation
-        %span.help-block
-          Try this if it keeps timing out when you try to upload. You'll have to reprocess the image later.
   .form-actions
     %button.btn.btn-primary{ type: 'submit'} Save
     = hidden_field_tag :redirect_to, request.referrer.presence || photos_path

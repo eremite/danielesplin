@@ -13,6 +13,7 @@ class PhotosController < ApplicationController
 
   def create
     @photo = current_user.photos.new(safe_params)
+    @photo.skip_versioning = '1'
     if @photo.save
       respond_to do |format|
         format.html do
