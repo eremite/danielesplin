@@ -18,6 +18,12 @@ class Ability
         else
           can :read, Thought
         end
+      elsif user.grandparent?
+        can :read, Photo
+        can :read, Entry, public: true
+        can :read, Entry, public: false, user_id: User.where(role: 'baby').pluck(:id)
+        can :read, Entry, public: false, user_id: User.where(role: 'father').pluck(:id), at: Time.at(0)..Time.zone.parse('2000-01-01')
+        can :index, :blog_post
       else
         can :read, Photo
         can :read, Entry, public: true

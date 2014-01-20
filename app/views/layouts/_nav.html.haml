@@ -3,7 +3,7 @@
     .container
 
       %ul.nav
-        - if can? :create, Entry
+        - if can?(:create, Entry) || current_user.grandparent?
           %li{class: controller.controller_name == 'entries' && 'active'}
             = link_to entries_path do
               %i.icon-book

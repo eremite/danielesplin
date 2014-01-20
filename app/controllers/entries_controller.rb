@@ -10,7 +10,15 @@ class EntriesController < ApplicationController
       flash[:error] = 'Invalid date' if params[:ends_on].present?
       @ends_on = Time.zone.now.to_date
     end
-    @entry_user = User.where(id: params[:user_id]).first || current_user
+    @entry_user = User.where(id: params[:user_id]).first
+    if current_user.grandparent?
+      @entry_user ||= User.where(role: 'baby').first
+      if !@entry_user.baby?
+        @ends_on = Time.zone.parse('2000-01-01') if @ends_on > Time.zone.parse('2000-01-01')
+      end
+    else
+      @entry_user ||= current_user
+    end
     @entries = Entry.where(user: @entry_user).private.at_desc.before(@ends_on.end_of_day).page(params[:page])
   end
 

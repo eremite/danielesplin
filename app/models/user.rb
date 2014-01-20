@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  ROLES = %w(father mother baby guest)
+  ROLES = %w(father mother baby grandparent guest)
 
   has_secure_password
 
@@ -45,10 +45,16 @@ class User < ActiveRecord::Base
     role == 'guest'
   end
 
+  def grandparent?
+    role == 'grandparent'
+  end
+
   def users_whose_entries_i_can_edit
-    return [] if guest?
-    users = [self]
-    users += User.where(:role => 'baby') if parent?
+    users = []
+    return users if guest?
+    users << self if parent? || baby?
+    users += User.where(:role => 'baby') if parent? || grandparent?
+    users += User.where(:role => 'father') if grandparent?
     users
   end
 
