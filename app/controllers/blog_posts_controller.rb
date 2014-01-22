@@ -7,7 +7,7 @@ class BlogPostsController < ApplicationController
   end
 
   def new
-    @entry = Entry.public.new(params[:entry])
+    @entry = Entry.public.new(safe_params)
     @entry.at ||= Time.zone.now
   end
 
@@ -24,7 +24,7 @@ class BlogPostsController < ApplicationController
   private
 
   def safe_params
-    params.require(:entry).permit(:at, :body)
+    params.permit(entry: [:at, :body])[:entry]
   end
 
 end
