@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
 
-  default from: Figaro.env.email_username.to_s
+  default from: Rails.application.secrets.email_username.to_s
 
   def comment_notification(comment)
     @comment = comment

@@ -58,9 +58,6 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     ffi (1.4.0)
-    figaro (0.7.0)
-      bundler (~> 1.0)
-      rails (>= 3, < 5)
     fog (1.19.0)
       builder
       excon (~> 0.31.0)
@@ -202,7 +199,6 @@ DEPENDENCIES
   daemons
   delayed_job_active_record
   exception_notification
-  figaro
   fog
   font-awesome-rails
   guard

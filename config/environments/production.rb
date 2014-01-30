@@ -72,8 +72,8 @@ Danielesplin::Application.configure do
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'gmail.com',
-    user_name: Figaro.env.email_username.to_s,
-    password: Figaro.env.email_password.to_s,
+    user_name: Rails.application.secrets.email_username.to_s,
+    password: Rails.application.secrets.email_password.to_s,
     authentication: 'plain',
     enable_starttls_auto: true,
   }
@@ -82,7 +82,7 @@ Danielesplin::Application.configure do
     :email => {
       :email_prefix => "[danielesplin] ",
       :sender_address => %{<exceptions@danielesplin.org>},
-      :exception_recipients => [Figaro.env.email_username.to_s],
+      :exception_recipients => [Rails.application.secrets.email_username.to_s],
     }
 
 end
