@@ -167,6 +167,7 @@ GEM
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
     slop (3.4.7)
+    spring (1.1.0)
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -226,6 +227,7 @@ DEPENDENCIES
   rb-inotify
   redcarpet
   sass-rails
+  spring
   therubyracer
   uglifier
   unicorn
