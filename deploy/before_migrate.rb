@@ -4,7 +4,7 @@ file "#{resource.shared_path}/config/secrets.yml" do
   owner resource.user
   group resource.group
   mode '0660'
-  content "production:\n  #{resource.params[:deploy_data]['secrets'].map { |k, v| "#{k.upcase}: '#{v}'" }.join("\n")}"
+  content "production:\n#{resource.params[:deploy_data]['secrets'].map { |k, v| "  #{k.upcase}: '#{v}'" }.join("\n")}"
   action :create
   only_if { ::File.exists?(resource.shared_path) }
 end
