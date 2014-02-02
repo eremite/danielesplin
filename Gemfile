@@ -25,6 +25,8 @@ gem 'sass-rails'
 gem 'therubyracer' # For precompiling assets
 gem 'uglifier'
 
+gem 'yaml_db', github: 'jetthoughts/yaml_db'
+
 group :production do
   gem 'unicorn'
 end
