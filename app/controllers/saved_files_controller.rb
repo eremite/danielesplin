@@ -15,12 +15,19 @@ class SavedFilesController < ApplicationController
           redirect_to saved_files_url
         end
         format.json do
-          logger.debug("### #{@saved_file.to_jq_upload.inspect}") #TODO: remove debug code
           render :json => { :files => [@saved_file.to_jq_upload] }.to_json
         end
       end
     else
       render :json => { :files => [@saved_file.to_jq_upload.merge(:error => @saved_file.errors.full_messages.to_sentence)] }.to_json
+    end
+  end
+
+  def update
+    if @saved_file.update_attributes(safe_params)
+      redirect_to saved_files_url, notice: 'File saved.'
+    else
+      render :edit
     end
   end
 

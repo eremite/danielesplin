@@ -35,6 +35,23 @@ class SavedFilesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'edit' do
+    get :edit, id: @saved_file.id
+    assert_template :edit
+  end
+
+  test 'update invalid' do
+    SavedFile.any_instance.stubs(save: false)
+    patch :update, id: @saved_file.id, saved_file: valid_attributes
+    assert_response :success
+  end
+
+  test 'update valid' do
+    SavedFile.any_instance.stubs(save: true)
+    patch :update, id: @saved_file.id, saved_file: valid_attributes
+    assert_redirected_to saved_files_url
+  end
+
   test 'destroy' do
     delete :destroy, id: @saved_file.id
     assert_redirected_to saved_files_url

@@ -1,0 +1,21 @@
+- title 'Edit File'
+
+= form_for @saved_file, class: 'form-horizontal', html: { multipart: true } do |f|
+  .control-group
+    = f.label :attachment
+    .controls
+      - if f.object.attachment
+        = f.object.attachment.file.try(:filename)
+      or
+      = f.file_field :attachment
+  .control-group
+    = f.label :saved_file_category_id, class: 'control-label'
+    .controls
+      = f.collection_select :saved_file_category_id, SavedFileCategory.name_asc, :id, :name
+  .control-group
+    = f.label :description, class: 'control-label'
+    .controls
+      = f.text_area :description, rows: 3, class: 'span8'
+  .form-actions
+    %button.btn.btn-primary{ type: 'submit' } Save
+    = link_to 'Cancel', saved_files_path, class: 'btn'

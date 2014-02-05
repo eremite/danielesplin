@@ -1,6 +1,11 @@
 %li
+  - if saved_file.saved_file_category
+    = saved_file.saved_file_category.try(:name)
+    &mdash;
   - if saved_file.attachment
     = link_to saved_file.attachment.file.try(:filename), saved_file.attachment.url
+  &ndash;
+  = link_to 'edit', [:edit, saved_file]
   &ndash;
   = link_to saved_file, method: :delete, data: { confirm: 'Are you sure you want to delete this file?' } do
     delete
