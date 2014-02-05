@@ -1,0 +1,14 @@
+- title 'Files'
+
+- if can? :create, SavedFile
+  %p.pull-right
+    %br
+    = link_to new_saved_file_path, class: 'btn btn-success' do
+      %i.icon-white.icon-plus
+      Upload Files
+
+%ul
+  = render @saved_files
+
+%p.clearfix
+  = paginate @saved_files

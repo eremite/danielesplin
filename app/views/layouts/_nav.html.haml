@@ -32,6 +32,7 @@
               %li= link_to 'Comments', comments_path
               - if can? :create, Thought
                 %li= link_to 'Thoughts', thoughts_path
+              %li= link_to 'Files', saved_files_path
               %li= link_to 'Offline', '/offline.html'
 
       %ul.nav.pull-right

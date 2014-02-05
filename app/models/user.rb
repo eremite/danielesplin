@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :thoughts
   has_many :comments
+  has_many :saved_files
 
   validates :email,
     presence: true,

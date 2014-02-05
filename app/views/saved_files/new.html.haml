@@ -1,22 +1,13 @@
-- title 'Upload Photos'
-
-%p.pull-right
-  = link_to old_new_photos_path, class: 'btn btn-success' do
-    %i.icon-plus.icon-white
-    Old Upload Form
+- title 'Upload Files'
 
 .container
-  = form_for Photo.new, :html => { :multipart => true  } do |f|
+  = form_for SavedFile.new, :html => { :multipart => true, :id => 'fileupload'  } do |f|
     .row.fileupload-buttonbar
       .span7
         %span.btn.btn-success.fileinput-button
           %i.icon-plus.icon-white
           %span Add Files
-          = f.file_field :image, multiple: true
-        %span.btn.btn-success#add-google-plus-remote-image-url
-          %i.icon-plus.icon-white
-          %span Add URL
-
+          = f.file_field :attachment, multiple: true
       .span5
         .progress.progress-success.progress-striped.active.fade
           .bar{ style: 'width:0%;' }
@@ -27,3 +18,6 @@
       %tbody.files{ data: { toggle: 'modal-gallery', target: '#modal-gallery' } }
 
 = render 'jquery_file_upload_templates'
+
+.row
+  %p.span12= link_to 'All files', saved_files_path

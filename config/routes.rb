@@ -8,6 +8,7 @@ Danielesplin::Application.routes.draw do
   resources :comments
   resources :entries
   resources :pages
+  resources :saved_files
   resources :searches
   resources :thoughts
   resources :upload_batches

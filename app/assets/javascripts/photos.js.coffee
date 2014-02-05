@@ -12,11 +12,11 @@ jQuery ->
   .trigger('change')
 
   # jQuery File Upload
-  $('#fileupload').fileupload({
+  $('form.new_photo').fileupload({
     autoUpload: true,
     paramName: 'photo[image]',
   })
-  $('#fileupload').bind 'fileuploadsubmit', (e, data) ->
+  $('form.new_photo').bind 'fileuploadsubmit', (e, data) ->
     inputs = data.context.find(':input')
     data.formData = inputs.serializeArray()
 
@@ -26,7 +26,7 @@ jQuery ->
       size: 10000,
       type: 'jpg',
     }
-    $('#fileupload').fileupload('add', { files: [placeholder] })
+    $('form.new_photo').fileupload('add', { files: [placeholder] })
 
 # Not sure why/if this has to be global...
 fileUploadErrors = {

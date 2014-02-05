@@ -13,6 +13,7 @@ class Ability
         can :manage, :report
         can :manage, User
         can :manage, Comment
+        can :manage, SavedFile
         if user.father?
           can :manage, Thought
         else
