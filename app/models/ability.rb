@@ -14,6 +14,7 @@ class Ability
         can :manage, User
         can :manage, Comment
         can :manage, SavedFile
+        can :manage, SavedFileCategory
         if user.father?
           can :manage, Thought
         else

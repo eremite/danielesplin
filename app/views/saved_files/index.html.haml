@@ -6,6 +6,9 @@
     = link_to new_saved_file_path, class: 'btn btn-success' do
       %i.icon-white.icon-plus
       Upload Files
+    = link_to saved_file_categories_path, class: 'btn btn-success' do
+      %i.icon-white.icon-plus
+      Manage Categories
 
 %ul
   = render @saved_files
