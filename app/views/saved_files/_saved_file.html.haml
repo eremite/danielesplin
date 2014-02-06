@@ -1,7 +1,4 @@
 %li
-  - if saved_file.saved_file_category
-    = saved_file.saved_file_category.try(:name)
-    &mdash;
   - if saved_file.attachment
     = link_to saved_file.attachment.file.try(:filename), saved_file.attachment.url
   &ndash;

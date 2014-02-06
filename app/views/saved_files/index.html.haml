@@ -1,17 +1,37 @@
-- title 'Files'
+- title "#{@saved_file_category.try(:name)} Files".squish
 
 - if can? :create, SavedFile
   %p.pull-right
     %br
+    - if @saved_file_category
+      = link_to saved_files_path, class: 'btn btn-success' do
+        All Categories
     = link_to new_saved_file_path, class: 'btn btn-success' do
       %i.icon-white.icon-plus
       Upload Files
     = link_to saved_file_categories_path, class: 'btn btn-success' do
-      %i.icon-white.icon-plus
       Manage Categories
 
-%ul
-  = render @saved_files
+- if params[:category_id]
 
-%p.clearfix
-  = paginate @saved_files
+  %ul= render @saved_files
+  %p.clearfix
+    = paginate @saved_files
+
+- else
+
+  %h3 Categories
+  %ul
+    - @saved_file_categories.each do |category|
+      %li
+        = link_to category.name, saved_files_path(category_id: category.id)
+        &ndash;
+        = pluralize category.saved_files.count, 'file'
+
+  - if @saved_files.any?
+    %h3 Uncategorized files
+
+    %ul= render @saved_files
+
+    %p.clearfix
+      = paginate @saved_files

@@ -4,6 +4,13 @@ class SavedFilesController < ApplicationController
   authorize_resource
 
   def index
+    @saved_file_category = SavedFileCategory.where(id: params[:category_id]).first
+    if @saved_file_category
+      @saved_files = @saved_files.where(saved_file_category_id: @saved_file_category.id)
+    else
+      @saved_file_categories = SavedFileCategory.name_asc
+      @saved_files = @saved_files.where(saved_file_category_id: nil).created_at_desc.page(params[:page])
+    end
     @saved_files = @saved_files.created_at_desc.page(params[:page])
   end
 
