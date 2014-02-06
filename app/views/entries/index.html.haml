@@ -4,6 +4,8 @@
   = form_tag nil, method: :get, class: 'form-inline pull-left' do
     = text_field_tag :ends_on, l(@ends_on), class: 'datepicker span2'
     = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'span2' }
+
+    = text_field_tag :term, params[:term], class: 'span2', :placeholder => 'Search'
     = submit_tag 'Go', class: 'btn btn-mini btn-primary'
   - if can? :create, Entry
     = link_to new_entry_path, class: 'btn btn-success pull-right' do
@@ -23,7 +25,14 @@
           = link_to entry, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
             %i.icon-trash
             Delete
-      %h3=l entry.at, format: :long
-      .body
-        :markdown
-          #{entry.body}
+      - if params[:term].present?
+        %h3= link_to l(entry.at, format: :long), entry
+        %p= entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>").html_safe
+      - else
+        %h3=l entry.at, format: :long
+        .body
+          :markdown
+            #{entry.body}
+
+  %p.clearfix
+    = paginate @entries

@@ -20,6 +20,9 @@ class EntriesController < ApplicationController
       @entry_user ||= current_user
     end
     @entries = Entry.where(user: @entry_user).private.at_desc.before(@ends_on.end_of_day).page(params[:page])
+    if params[:term].present?
+      @entries = @entries.where(Entry.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
+    end
   end
 
   def new

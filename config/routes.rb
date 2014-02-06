@@ -10,7 +10,6 @@ Danielesplin::Application.routes.draw do
   resources :pages
   resources :saved_files
   resources :saved_file_categories
-  resources :searches
   resources :thoughts
   resources :upload_batches
   resources :users
