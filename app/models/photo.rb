@@ -20,11 +20,7 @@ class Photo < ActiveRecord::Base
 
 
   def self.unblogged
-    excluded_ids = []
-    Entry.all.each do |entry|
-      excluded_ids += entry.photos.map(&:id)
-    end
-    Photo.where(arel_table[:id].not_in(excluded_ids))
+    includes(:entry_photos).where( :entry_photos => { :photo_id => nil } )
   end
 
   def google_plus_remote_image_url=(value)
