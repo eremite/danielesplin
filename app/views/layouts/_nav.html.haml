@@ -19,6 +19,18 @@
               %i.icon-camera
               Photos
         - if can? :index, :report
+          %li.dropdown
+            = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+              %i.icon-list
+              Misc
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'Users', users_path
+              - if can? :create, Thought
+                %li= link_to 'Thoughts', thoughts_path
+              %li= link_to 'Files', saved_files_path
+              %li= link_to 'Offline', '/offline.html'
+        - if can? :index, :report
           %li.dropdown{class: controller.controller_name == 'reports' && 'active'}
             = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
               %i.icon-list
@@ -26,14 +38,9 @@
               %b.caret
             %ul.dropdown-menu
               %li= link_to 'Statistics', statistics_report_path
-              %li= link_to 'Users', users_path
               %li= link_to 'Untimed Photos', untimed_photos_report_path
               %li= link_to 'Unblogged Photos', unblogged_photos_report_path
               %li= link_to 'Comments', comments_path
-              - if can? :create, Thought
-                %li= link_to 'Thoughts', thoughts_path
-              %li= link_to 'Files', saved_files_path
-              %li= link_to 'Offline', '/offline.html'
 
       %ul.nav.pull-right
         %li.divider-vertical
