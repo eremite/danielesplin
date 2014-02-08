@@ -1,11 +1,10 @@
 require 'net/http'
 desc 'Imports entries. FILE=file.txt'
 task :import => :environment do
-  # SITE_URL = URI.parse('http://0.0.0.0:3000/api/entries')
-  SITE_URL = URI.parse('http://www.danielesplin.org/api/entries')
-  # API_KEY = 'EAT_YOUR_VEGGIES'
-  API_KEY = 'CHEESE_IS_TASTY'
-  REGEXP = %r{\s*#+\s+\b?(?<date>\d{1,2}/\d{1,2}/\d{2,4})}
+  SITE_URL = URI.parse('http://localhost:3000/api/entries')
+  # SITE_URL = URI.parse('http://www.danielesplin.org/api/entries')
+  API_KEY = 'api_key'
+  REGEXP = %r{\s*#+\s+\b?(?<date>\d{1,2}/\d{1,2}/\d{2,4}(\s*.*)?)}
   STRPTIME = '%m/%d/%Y'
   # REGEXP = %r{\s*#+\s+\b?(?<date>\w+\s+\d{1,2},\s+\d{2,4})}
   # STRPTIME = '%B %d, %Y'
@@ -23,24 +22,36 @@ task :import => :environment do
   File.readlines(file_name).each do |line|
     if (match = REGEXP.match(line))
       if at.present? && body.present?
-        puts "New entry for #{I18n.l(at)}."
-        data = {
-          'api_key' => API_KEY,
-          'entry[at]' => at,
-          'entry[body]' => body.gsub(/\s*#{NEWLINE}/, "\n\n").strip,
-        }
-        Net::HTTP.post_form(SITE_URL, data)
+        submit_to_api(at, body)
         at = nil
         body = ''
       end
       begin
-        date = match[:date].gsub(%r{/(\d{2})\Z}, '/20\1')
-        at = Time.strptime(date, STRPTIME)
+        date = match[:date].gsub(%r{/(\d{2})\Z}, '/19\1')
+        at =
+          if date.split.size > 1
+            DateTime.strptime(date, '%m/%d/%Y %H:%M%p')
+          else
+            Time.strptime(date, STRPTIME)
+          end
       rescue ArgumentError
-        puts "#{match[:date]} is invalid date."
+        puts "!!! #{match[:date]} is invalid date."
       end
     else
       body << (line.squish.blank? ? NEWLINE : "#{line.squish} ")
     end
   end
+  submit_to_api(at, body)
+
+end
+
+def submit_to_api(at, body)
+  body = body.gsub(/\s*#{NEWLINE}/, "\n\n").strip
+  puts "#{at} | #{body.first(50)} ... #{body.last(50)}".squish
+  data = {
+    'api_key' => API_KEY,
+    'entry[at]' => at,
+    'entry[body]' => body,
+  }
+  Net::HTTP.post_form(SITE_URL, data)
 end
