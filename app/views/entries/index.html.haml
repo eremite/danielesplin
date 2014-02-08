@@ -26,10 +26,10 @@
             %i.icon-trash
             Delete
       - if params[:term].present?
-        %h3= link_to l(entry.at, format: :long), entry
+        %h3= link_to date_with_significant_time(entry.at), entry
         %p= entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>").html_safe
       - else
-        %h3=l entry.at, format: :long
+        %h3= date_with_significant_time(entry.at)
         .body
           :markdown
             #{entry.body}
