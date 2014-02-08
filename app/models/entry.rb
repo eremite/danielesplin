@@ -9,7 +9,7 @@ class Entry < ActiveRecord::Base
 
   validates :body, presence: true
 
-  paginates_per 14
+  paginates_per 25
 
   scope :at_desc, -> { order(arel_table[:at].desc) }
   scope :public, -> { where(public: true) }
