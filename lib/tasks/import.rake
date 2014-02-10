@@ -4,7 +4,7 @@ task :import => :environment do
   SITE_URL = URI.parse('http://localhost:3000/api/entries')
   # SITE_URL = URI.parse('http://www.danielesplin.org/api/entries')
   API_KEY = 'api_key'
-  REGEXP = %r{\s*#+\s+\b?(?<date>\d{1,2}/\d{1,2}/\d{2,4}(\s*.*)?)}
+  REGEXP = %r{\s*#+\s+\b?(?<date>\d{1,2}/\d{1,2}/\d{2,4})(\s*(?<extra>.*))?}
   STRPTIME = '%m/%d/%Y'
   # REGEXP = %r{\s*#+\s+\b?(?<date>\w+\s+\d{1,2},\s+\d{2,4})}
   # STRPTIME = '%B %d, %Y'
@@ -27,13 +27,9 @@ task :import => :environment do
         body = ''
       end
       begin
-        date = match[:date].gsub(%r{/(\d{2})\Z}, '/19\1')
-        at =
-          if date.split.size > 1
-            DateTime.strptime(date, '%m/%d/%Y %H:%M%p')
-          else
-            Time.strptime(date, STRPTIME)
-          end
+        date = match[:date].gsub(%r{/(\d{2})\Z}, '/20\1')
+        at = Time.strptime(date, STRPTIME)
+        body << match[:extra] if match[:extra].present?
       rescue ArgumentError
         puts "!!! #{match[:date]} is invalid date."
       end
