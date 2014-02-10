@@ -1,7 +1,6 @@
 class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
-  process_in_background :image
 
   attr_accessor :rotate, :skip_versioning
 
@@ -16,6 +15,7 @@ class Photo < ActiveRecord::Base
 
   before_validation :auto_assign_entries, if: ->(photo) { photo.entry_ids.blank? }
   before_validation :handle_hidden
+  after_create :reprocess
   after_update :reprocess, if: lambda { |p| p.rotate.present? }
 
 
@@ -45,6 +45,7 @@ class Photo < ActiveRecord::Base
   def reprocess
     image.recreate_versions! if image?
   end
+  handle_asynchronously :reprocess
 
   def to_jq_upload
     {
