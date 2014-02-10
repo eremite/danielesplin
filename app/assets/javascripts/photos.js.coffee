@@ -26,7 +26,8 @@ jQuery ->
       size: 10000,
       type: 'jpg',
     }
-    $('form.new_photo').fileupload('add', { files: [placeholder] })
+    if (placeholder.google_plus_remote_image_url && placeholder.google_plus_remote_image_url.length)
+      $('form.new_photo').fileupload('add', { files: [placeholder] })
 
 # Not sure why/if this has to be global...
 fileUploadErrors = {

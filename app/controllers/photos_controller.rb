@@ -7,6 +7,10 @@ class PhotosController < ApplicationController
     @photos = @photos.created_at_desc.page(params[:page])
   end
 
+  def new
+    @photos = Photo.where(created_at: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day)
+  end
+
   def old_new
     @photo = Photo.new
   end

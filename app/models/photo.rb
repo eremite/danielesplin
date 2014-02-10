@@ -54,10 +54,8 @@ class Photo < ActiveRecord::Base
     {
       'name' => image.filename || "Photo#{id}",
       'size' => image.size,
-      'url' => image.url,
-      'thumbnailUrl' => image.url(:small),
-      'deleteUrl' => "/photos/#{id}",
-      'deleteType' => 'DELETE'
+      'image_url' => image.url,
+      'photo_url' => "/photos/#{id}",
     }
   end
 

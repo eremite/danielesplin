@@ -26,4 +26,8 @@
     %table.table.table-striped
       %tbody.files{ data: { toggle: 'modal-gallery', target: '#modal-gallery' } }
 
+  - if @photos.any?
+    %ul.thumbnails
+      = render @photos
+
 = render 'jquery_file_upload_templates'
