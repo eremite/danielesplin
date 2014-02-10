@@ -16,7 +16,7 @@ class Photo < ActiveRecord::Base
   before_validation :auto_assign_entries, if: ->(photo) { photo.entry_ids.blank? }
   before_validation :handle_hidden
   after_create :process
-  after_update :reprocess, if: lambda { |p| p.rotate.present? }
+  after_update :process, if: lambda { |p| p.rotate.present? }
 
 
   def self.unblogged
@@ -42,14 +42,10 @@ class Photo < ActiveRecord::Base
     ] + Entry.public.at_desc.limit(50).map { |e| [e.dated_title, e.id] }
   end
 
-  def reprocess
-    self.skip_versioning = nil
+  def process
     image.recreate_versions! if image?
   end
-
-  def process
-    delay.reprocess
-  end
+  handle_asynchronously :process
 
   def to_jq_upload
     {
