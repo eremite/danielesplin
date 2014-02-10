@@ -5,4 +5,5 @@ CarrierWave.configure do |config|
     aws_secret_access_key: Rails.application.secrets.fog_secret.to_s,
   }
   config.fog_directory = Rails.application.secrets.fog_bucket.to_s
+  config.cache_dir = 'system/tmp'
 end
