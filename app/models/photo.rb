@@ -43,6 +43,7 @@ class Photo < ActiveRecord::Base
   end
 
   def reprocess
+    self.skip_versioning = nil
     image.recreate_versions! if image?
   end
 

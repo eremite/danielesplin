@@ -46,7 +46,7 @@ class PhotosController < ApplicationController
   end
 
   def reprocess
-    @photo.reprocess
+    @photo.process
     redirect_to @photo
   end
 

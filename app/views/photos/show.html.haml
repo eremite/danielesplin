@@ -17,7 +17,7 @@
 
 .pull-left
   = link_to @photo.image.url, title: l(@photo.at) do
-    - if @photo.image.medium.present?
+    - if @photo.image.version_exists?(:medium)
       = image_tag @photo.image.medium.url, class: 'img-rounded'
     - else
       %span.badge.badge-important Unprocessed...
