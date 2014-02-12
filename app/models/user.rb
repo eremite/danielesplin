@@ -53,14 +53,13 @@ class User < ActiveRecord::Base
   def users_whose_entries_i_can_edit
     users = []
     return users if guest?
-    users << self if parent? || baby?
-    users += User.where(role: 'baby') if parent? || grandparent?
     if parent?
       users += User.where(role: %w(father mother))
     elsif grandparent?
       users += User.where(role: 'father')
     end
-    users.uniq
+    users += User.where(role: 'baby')
+    users
   end
 
 end
