@@ -54,9 +54,13 @@ class User < ActiveRecord::Base
     users = []
     return users if guest?
     users << self if parent? || baby?
-    users += User.where(:role => 'baby') if parent? || grandparent?
-    users += User.where(:role => 'father') if grandparent?
-    users
+    users += User.where(role: 'baby') if parent? || grandparent?
+    if parent?
+      users += User.where(role: %w(father mother))
+    elsif grandparent?
+      users += User.where(role: 'father')
+    end
+    users.uniq
   end
 
 end
