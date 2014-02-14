@@ -15,5 +15,6 @@
     %span.help-block.pull-right
       = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .form-actions
+    = hidden_field_tag :redirect_to, request.referrer || entries_path
     %button.btn.btn-primary{ type: 'submit', tabindex: 4 } Save
     = link_to 'Cancel', entries_path, class: 'btn', tabindex: 5
