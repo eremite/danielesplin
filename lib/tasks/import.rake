@@ -20,6 +20,8 @@ task :import => :environment do
   at = nil
 
   File.readlines(file_name).each do |line|
+    line.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => '')
+    line.encode!('UTF-8', 'UTF-16')
     if (match = REGEXP.match(line))
       if at.present? && body.present?
         submit_to_api(at, body)
