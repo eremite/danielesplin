@@ -14,6 +14,11 @@
  *= require jquery.fileupload-ui
  *= require jquery.fancybox
  *= require font-awesome
- *= require_self
- *= require_tree .
+ *= require blog_posts.css.scss
+ *= require comments.css.scss
+ *= require entries.css.scss
+ *= require layout.css.scss
+ *= require pages.css.scss
+ *= require photos.css.scss
+ *= require thoughts.css.scss
  */

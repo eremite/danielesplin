@@ -1,0 +1,8 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+base:
+  title: Vitamin D
+  slug: vitamin-d
+  published_at: 2014-06-17 21:58:58
+  bite: You need it.
+  full_plate: You body makes it from the sun.

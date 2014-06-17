@@ -15,6 +15,7 @@ class Ability
         can :manage, Comment
         can :manage, SavedFile
         can :manage, SavedFileCategory
+        can :manage, NutritionalPost
         if user.father?
           can :manage, Thought
         else
@@ -33,6 +34,7 @@ class Ability
       end
     end
     can :index, :page
+    can :read, NutritionalPost
     if format == 'rss'
       can :index, :blog_post
     end

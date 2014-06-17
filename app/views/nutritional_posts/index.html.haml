@@ -1,0 +1,7 @@
+- @nutritional_posts.each do |post|
+  %h1= link_to post.title, public_nutritional_post_path(post)
+  #{post.bite.html_safe}
+  - if params[:full_plate].present?
+    %br
+    #{post.full_plate.html_safe}
+  %hr
