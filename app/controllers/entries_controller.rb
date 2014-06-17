@@ -27,6 +27,7 @@ class EntriesController < ApplicationController
 
   def new
     @entry.at = Time.zone.now
+    @entry.user = current_user
   end
 
   def create
