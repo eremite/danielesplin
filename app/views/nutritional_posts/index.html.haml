@@ -7,6 +7,8 @@
       %i.icon-white.icon-plus
       New Post
 
+%br.clearfix
+
 - @nutritional_posts.each do |post|
   %h1
     - if can? :edit, post
@@ -17,6 +19,9 @@
         = link_to post, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this post?' } do
           %i.icon-trash
           Delete
-    = link_to post.title, post
+    = link_to post do
+      = post.title
+      - if post.published_at
+        %small= l post.published_at
   #{post.bite.html_safe}
   %hr

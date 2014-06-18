@@ -7,11 +7,11 @@ class NutritionalPost < ActiveRecord::Base
   before_validation :set_slug, on: :create
 
   scope :created_at_desc, lambda { order(arel_table[:created_at].desc) }
-  scope :published, lambda { where(arel_table[:published_at].not_eq(nil)) }
+  scope :published, lambda { |*b| where(!!b.first ? arel_table[:published_at].lt(Time.zone.now) : arel_table[:published_at].gt(Time.zone.now) ) }
 
 
   def published?
-    !!published_at
+    published_at.present? && !published_at.future?
   end
 
 

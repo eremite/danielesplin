@@ -50,7 +50,7 @@ class NutritionalPostsController < ApplicationController
   private
 
   def safe_params
-    params.require(:nutritional_post).permit(:published, :title, :bite, :full_plate)
+    params.require(:nutritional_post).permit(:published_at, :title, :bite, :full_plate)
   end
 
 end

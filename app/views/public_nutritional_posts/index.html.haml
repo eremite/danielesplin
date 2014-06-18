@@ -1,7 +1,10 @@
 - @nutritional_posts.each do |post|
-  %h1= link_to post.title, public_nutritional_post_path(post.slug)
-  #{post.bite.html_safe}
-  - if params[:full_plate].present?
-    %br
-    #{post.full_plate.html_safe}
-  %hr
+  = div_for post, class: 'col span_10_of_12' do
+    %h1= link_to post.title, public_nutritional_post_path(post.slug)
+    :markdown
+      #{post.bite}
+    - if params[:full_plate].present?
+      %br
+      :markdown
+        #{post.full_plate}
+    %hr
