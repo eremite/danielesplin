@@ -1,8 +1,8 @@
 Danielesplin::Application.routes.draw do
 
   constraints(host: /nutritionalbites/) do
-    get '/', to: 'nutritional_posts#index', as: 'public_nutritional_posts'
-    get '/:id', to: 'nutritional_posts#show', as: 'public_nutritional_post'
+    get '/', to: 'public_nutritional_posts#index', as: 'public_nutritional_posts'
+    get '/:id', to: 'public_nutritional_posts#show', as: 'public_nutritional_post'
   end
 
   namespace :api do
@@ -12,9 +12,10 @@ Danielesplin::Application.routes.draw do
   resources :blog_posts
   resources :comments
   resources :entries
+  resources :nutritional_posts
   resources :pages
-  resources :saved_files
   resources :saved_file_categories
+  resources :saved_files
   resources :thoughts
   resources :upload_batches
   resources :users

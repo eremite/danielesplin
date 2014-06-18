@@ -28,3 +28,5 @@ en:
       entry:
       user:
         api_key: 'API Key'
+      nutritional_post:
+        published_at: 'Publication Date'

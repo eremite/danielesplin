@@ -34,7 +34,6 @@ class Ability
       end
     end
     can :index, :page
-    can :read, NutritionalPost
     if format == 'rss'
       can :index, :blog_post
     end

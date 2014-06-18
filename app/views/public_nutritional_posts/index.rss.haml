@@ -1,0 +1,19 @@
+!!! XML
+%rss{:version => '2.0'}
+  %channel
+    %title Nutritional Bites
+    %link= root_url
+    %description
+      Bites of deliciously referenced nutritional information.
+    %language en-us
+    %pubDate= Time.now.rfc822
+
+    - @posts.each do |post|
+      %item
+        %title= post.title
+        %description
+          %h3= post.title
+          #{post.bite.html_safe}
+        %link= post_url(post)
+        %guid= post_url(post)
+        %pubDate= post.created_at.rfc822

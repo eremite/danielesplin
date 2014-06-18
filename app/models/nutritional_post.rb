@@ -10,10 +10,6 @@ class NutritionalPost < ActiveRecord::Base
   scope :published, lambda { where(arel_table[:published_at].not_eq(nil)) }
 
 
-  def to_param
-    slug
-  end
-
   def published?
     !!published_at
   end

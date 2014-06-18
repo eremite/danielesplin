@@ -1,7 +1,18 @@
+- if can? :create, NutritionalPost
+  = link_to new_nutritional_post_path, class: 'btn btn-success pull-right' do
+    %i.icon-white.icon-plus
+    New Post
+
 - @nutritional_posts.each do |post|
-  %h1= link_to post.title, public_nutritional_post_path(post)
+  %h1
+    - if can? :edit, post
+      .btn-group.pull-right
+        = link_to [:edit, post], class: 'btn btn-small' do
+          %i.icon-edit
+          Edit
+        = link_to post, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this post?' } do
+          %i.icon-trash
+          Delete
+    = link_to post.title, post
   #{post.bite.html_safe}
-  - if params[:full_plate].present?
-    %br
-    #{post.full_plate.html_safe}
   %hr

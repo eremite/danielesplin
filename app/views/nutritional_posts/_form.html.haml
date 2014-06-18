@@ -1,0 +1,26 @@
+= form_for @nutritional_post, class: 'form-horizontal' do |f|
+  %p.text-error
+    = f.object.errors.full_messages.to_sentence
+  .control-group
+    = f.label :published_at, class: 'control-label'
+    .controls
+      = text_field_tag :published_at, l(f.object.published_at), class: 'datetimepicker', tabindex: 1
+      = f.hidden_field :published_at, value: l(f.object.published_at, format: :db), class: 'datetimepicker-hidden'
+  .control-group
+    = f.label :title, class: 'control-label'
+    .controls
+      = f.text_field :title, class: 'span12', tabindex: 2
+  .control-group
+    = f.label :bite, class: 'control-label'
+    .controls
+      = f.text_area :bite, rows: 3, class: 'span12', tabindex: 3
+  .control-group
+    = f.label :full_plate, class: 'control-label'
+    .controls
+      = f.text_area :full_plate, rows: 10, class: 'span12', tabindex: 4
+    %span.help-block.pull-right
+      = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
+  .form-actions
+    = hidden_field_tag :redirect_to, request.referrer || entries_path
+    %button.btn.btn-primary{ type: 'submit', tabindex: 4 } Save
+    = link_to 'Cancel', nutritional_posts_path, class: 'btn', tabindex: 5
