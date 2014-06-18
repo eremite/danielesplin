@@ -1,7 +1,11 @@
-- if can? :create, NutritionalPost
-  = link_to new_nutritional_post_path, class: 'btn btn-success pull-right' do
-    %i.icon-white.icon-plus
-    New Post
+.btn-group.pull-right
+  = link_to 'http://nutritionalbites.org', class: 'btn btn-info' do
+    %i.icon-smile
+    Nutritional Bites
+  - if can? :create, NutritionalPost
+    = link_to new_nutritional_post_path, class: 'btn btn-success' do
+      %i.icon-white.icon-plus
+      New Post
 
 - @nutritional_posts.each do |post|
   %h1
