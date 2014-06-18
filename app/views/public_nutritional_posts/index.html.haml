@@ -1,5 +1,5 @@
 - @nutritional_posts.each do |post|
-  = div_for post, class: 'col span_10_of_12' do
+  = div_for post do
     %h1= link_to post.title, public_nutritional_post_path(post.slug)
     :markdown
       #{post.bite}

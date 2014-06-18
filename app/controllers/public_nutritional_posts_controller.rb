@@ -7,7 +7,7 @@ class PublicNutritionalPostsController < ApplicationController
   end
 
   def show
-    @nutritional_post = NutritionalPost.published(true).where(slug: params[:id]).first!
+    @nutritional_post = NutritionalPost.published(true).where(slug: params[:slug]).first!
   end
 
 end

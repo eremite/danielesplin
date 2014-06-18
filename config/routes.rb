@@ -2,7 +2,7 @@ Danielesplin::Application.routes.draw do
 
   constraints(host: /nutritionalbites/) do
     get '/', to: 'public_nutritional_posts#index', as: 'public_nutritional_posts'
-    get '/:id', to: 'public_nutritional_posts#show', as: 'public_nutritional_post'
+    get '/posts/:slug', to: 'public_nutritional_posts#show', as: 'public_nutritional_post'
   end
 
   namespace :api do
