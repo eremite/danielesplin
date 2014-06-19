@@ -25,7 +25,7 @@ gem 'uglifier'
 gem 'yaml_db', github: 'jetthoughts/yaml_db'
 
 group :production do
-  gem 'unicorn'
+  gem 'puma'
 end
 
 group :development, :test do
