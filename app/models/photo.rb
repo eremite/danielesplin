@@ -39,7 +39,7 @@ class Photo < ActiveRecord::Base
     [
       ['Default', nil],
       ['None (hidden)', 0],
-    ] + Entry.public.at_desc.limit(50).map { |e| [e.dated_title, e.id] }
+    ] + Entry.blog.at_desc.limit(50).map { |e| [e.dated_title, e.id] }
   end
 
   def process
@@ -68,7 +68,7 @@ class Photo < ActiveRecord::Base
 
   def auto_assign_entries
     if at.present?
-      self.entries = Entry.public.where(at: at.beginning_of_day..at.end_of_day)
+      self.entries = Entry.blog.where(at: at.beginning_of_day..at.end_of_day)
     end
   end
 

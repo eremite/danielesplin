@@ -10,7 +10,7 @@
       = link_to blog_posts_path, class: 'btn btn-info' do
         %i.icon-white.icon-picture
         Published
-    - elsif Entry.public.published(false).count > 0
+    - elsif Entry.blog.published(false).count > 0
       = link_to blog_posts_path(unpublished: true), class: 'btn btn-info' do
         %i.icon-white.icon-calendar
         Scheduled

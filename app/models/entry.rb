@@ -12,8 +12,8 @@ class Entry < ActiveRecord::Base
   paginates_per 25
 
   scope :at_desc, -> { order(arel_table[:at].desc) }
-  scope :public, -> { where(public: true) }
-  scope :private, -> { where(public: false) }
+  scope :blog, -> { where(public: true) }
+  scope :journal, -> { where(public: false) }
   scope :published, lambda { |*b| where(!!b.first ? arel_table[:at].lt(Time.zone.now) : arel_table[:at].gt(Time.zone.now) ) }
   scope :before, -> (ends_at) { where(arel_table[:at].lteq(ends_at)) }
 

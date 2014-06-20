@@ -3,13 +3,13 @@
 %dl.dl-horizontal
 
   %dt Daniel's Entries
-  %dd= number_with_delimiter User.where(role: 'father').first.entries.private.count
+  %dd= number_with_delimiter User.where(role: 'father').first.entries.journal.count
 
   %dt Erika's Entries
-  %dd= number_with_delimiter User.where(role: 'mother').first.entries.private.count
+  %dd= number_with_delimiter User.where(role: 'mother').first.entries.journal.count
 
   %dt Blog Posts
-  %dd= number_with_delimiter Entry.public.count
+  %dd= number_with_delimiter Entry.blog.count
 
   %dt Photos
   %dd= number_with_delimiter Photo.count

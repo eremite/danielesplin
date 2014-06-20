@@ -13,7 +13,7 @@
         %title= entry.title
         %description
           %p= entry.title
-          %p 
+          %p
             - if entry.photos.count > 0
               Includes #{pluralize(entry.photos.count, 'picture')}!
             - else

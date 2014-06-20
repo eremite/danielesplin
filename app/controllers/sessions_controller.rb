@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         flash[:notice] = thought.body
       end
       if can? :create, Entry
-        todays_entry = user.entries.private.where(:at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).first
+        todays_entry = user.entries.journal.where(:at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).first
         redirect_to todays_entry ? [:edit, todays_entry] : new_entry_url
       else
         redirect_to blog_posts_url
