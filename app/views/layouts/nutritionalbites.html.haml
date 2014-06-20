@@ -69,6 +69,10 @@
         %p
           &mdash; Erika Esplin, RD, CD
 
+        .navbar
+          .col{ style: 'width: 100%' }
+            = link_to 'Ask a Dietitian', [:new, :nutritional_contact]
+
         %p.muted.disclaimer
           All content within this website is for informational purposes only.
           Even general nutrition information and ideas may not be appropriate
@@ -77,25 +81,6 @@
 
     .col.span_9_of_12
       .navbar
-        -# .section.group
-        -#   - page = "#{controller.controller_name}##{controller.action_name}"
-        -#   - page << "?full" if params[:full_plate].present?
-        -#   .col.span_1_of_4{ class: %w(pages#index).include?(page) && 'active' }
-        -#     = link_to 'Home', root_path
-        -#   - if admin?
-        -#     .col.span_1_of_4{ class: %w(posts#index posts#show).include?(page) && 'active' }
-        -#       = link_to 'All Posts', admin_posts_path
-        -#     .col.span_1_of_4{ class: %w(posts#new posts#edit).include?(page) && 'active' }
-        -#       = link_to 'New Post', new_admin_post_path
-        -#     .col.span_1_of_4{ class: %w(contacts#index).include?(page) && 'active' }
-        -#       = link_to 'Contacts', admin_contacts_path
-        -#   - else
-        -#     .col.span_1_of_4{ class: %w(posts#index).include?(page) && 'active' }
-        -#       = link_to 'Bite-sized', posts_path, title: 'Summarized Info'
-        -#     .col.span_1_of_4{ class: %w(posts#index?full posts#show).include?(page) && 'active' }
-        -#       = link_to 'Full Plate', posts_path(:full_plate => true), title: 'Summary and Notes'
-        -#     .col.span_1_of_4{ class: %w(contacts#new).include?(page) && 'active' }
-        -#       = link_to 'Ask a Dietitian', new_contact_path
 
       - flash.each do |key, message|
         %div{class: key}= message

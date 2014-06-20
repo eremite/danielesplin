@@ -13,6 +13,7 @@ Danielesplin::Application.routes.draw do
   resources :comments
   resources :entries
   resources :nutritional_posts
+  resources :nutritional_contacts
   resources :pages
   resources :saved_file_categories
   resources :saved_files
