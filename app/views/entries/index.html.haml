@@ -9,7 +9,7 @@
     = submit_tag 'Go', class: 'btn btn-mini btn-primary'
   - if can? :create, Entry
     = link_to new_entry_path, class: 'btn btn-success pull-right' do
-      %i.icon-white.icon-plus
+      %i.fa.fa-inverse.fa-plus
       New Entry
 
 - if @entries.empty?
@@ -20,10 +20,10 @@
       - if can? :edit, entry
         .btn-group.pull-right
           = link_to [:edit, entry], class: 'btn btn-small' do
-            %i.icon-edit
+            %i.fa.fa-edit
             Edit
           = link_to entry, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
-            %i.icon-trash
+            %i.fa.fa-trash-o
             Delete
       - if params[:term].present?
         %h3= link_to date_with_significant_time(entry.at), entry

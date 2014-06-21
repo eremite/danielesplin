@@ -3,16 +3,16 @@
 - if can? :update, Photo
   .btn-group.pull-right
     = link_to new_blog_post_path(entry: { at: @photo.at }), class: 'btn btn-small' do
-      %i.icon-plus
+      %i.fa.fa-plus
       New Blog Post
     = link_to [:reprocess, @photo], class: 'btn btn-small', method: :put do
-      %i.icon-picture
+      %i.fa.fa-picture-o
       Reprocess
     = link_to [:edit, @photo], class: 'btn btn-small' do
-      %i.icon-edit
+      %i.fa.fa-edit
       Edit
     = link_to @photo, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this photo?' } do
-      %i.icon-trash
+      %i.fa.fa-trash-o
       Delete
 
 .pull-left

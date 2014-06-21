@@ -3,7 +3,7 @@
     .thumbnail.btn-hover
       - if can? :update, photo
         = link_to [:edit, photo], class: 'btn btn-small', title: 'Edit Photo' do
-          %i.icon-edit
+          %i.fa.fa-edit
       - group = 'group' if local_assigns[:group].nil?
       = link_to photo.image.url, class: 'fancybox', rel: group, title: photo.description do
         - if photo.image.small.present?

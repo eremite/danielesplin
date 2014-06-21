@@ -6,22 +6,22 @@
         - if can?(:create, Entry) || current_user.grandparent?
           %li{class: controller.controller_name == 'entries' && 'active'}
             = link_to entries_path do
-              %i.icon-book
+              %i.fa.fa-book
               Journal
         - if can? :index, :blog_post
           %li{class: controller.controller_name == 'blog_posts' && 'active'}
             = link_to blog_posts_path do
-              %i.icon-picture
+              %i.fa.fa-picture-o
               Blog
         - if can? :manage, Photo
           %li{class: %w(photos upload_batches).include?(controller.controller_name) && 'active'}
             = link_to photos_path do
-              %i.icon-camera
+              %i.fa.fa-camera
               Photos
         - if can? :index, :report
           %li.dropdown
             = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-              %i.icon-list
+              %i.fa.fa-list
               Misc
               %b.caret
             %ul.dropdown-menu
@@ -35,7 +35,7 @@
         - if can? :index, :report
           %li.dropdown{class: controller.controller_name == 'reports' && 'active'}
             = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-              %i.icon-list
+              %i.fa.fa-file-o
               Reports
               %b.caret
             %ul.dropdown-menu

@@ -2,7 +2,7 @@
 
 .btn-group.pull-right
   = link_to @thought, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } do
-    %i.icon-trash
+    %i.fa.fa-trash-o
     Delete
 
 = form_for @thought do |f|

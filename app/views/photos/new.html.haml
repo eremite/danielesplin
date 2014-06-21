@@ -2,7 +2,7 @@
 
 %p.pull-right
   = link_to old_new_photos_path, class: 'btn btn-success' do
-    %i.icon-plus.icon-white
+    %i.fa.fa-plus.fa-inverse
     Old Upload Form
 
 .container
@@ -10,11 +10,11 @@
     .row.fileupload-buttonbar
       .span7
         %span.btn.btn-success.fileinput-button
-          %i.icon-plus.icon-white
+          %i.fa.fa-plus.fa-inverse
           %span Add Files
           = f.file_field :image, multiple: true
         %span.btn.btn-success#add-google-plus-remote-image-url
-          %i.icon-plus.icon-white
+          %i.fa.fa-plus.fa-inverse
           %span Add URL
 
       .span5

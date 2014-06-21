@@ -14,7 +14,7 @@
     </td>
     <td class="start">{% if (!o.options.autoUpload) { %}
       <button class="btn btn-primary">
-        <i class="icon-upload icon-white"></i>
+        <i class="fa-upload fa-inverse"></i>
         <span>{%=locale.fileupload.start%}</span>
       </button>
       {% } %}</td>
@@ -23,7 +23,7 @@
     {% } %}
     <td class="cancel">{% if (!i) { %}
       <button class="btn btn-warning">
-        <i class="icon-ban-circle icon-white"></i>
+        <i class="fa-ban fa-inverse"></i>
         <span>{%=locale.fileupload.cancel%}</span>
       </button>
       {% } %}</td>
@@ -52,7 +52,7 @@
         {% } %}
       <td class="delete">
         <button class="btn btn-danger" data-type="DELETE" data-url="{%=file.photo_url%}">
-          <i class="icon-trash icon-white"></i>
+          <i class="fa-trash-o fa-inverse"></i>
           <span>{%=locale.fileupload.destroy%}</span>
         </button>
       </td>
