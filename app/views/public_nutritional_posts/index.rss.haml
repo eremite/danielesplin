@@ -8,12 +8,12 @@
     %language en-us
     %pubDate= Time.now.rfc822
 
-    - @posts.each do |post|
+    - @nutritional_posts.each do |post|
       %item
         %title= post.title
         %description
           %h3= post.title
           #{post.bite.html_safe}
-        %link= post_url(post)
-        %guid= post_url(post)
+        %link= public_nutritional_post_path(post)
+        %guid= public_nutritional_post_path(post)
         %pubDate= post.created_at.rfc822
