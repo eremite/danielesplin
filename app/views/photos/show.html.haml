@@ -5,9 +5,6 @@
     = link_to new_blog_post_path(entry: { at: @photo.at }), class: 'btn btn-small' do
       %i.fa.fa-plus
       New Blog Post
-    = link_to [:reprocess, @photo], class: 'btn btn-small', method: :put do
-      %i.fa.fa-picture-o
-      Reprocess
     = link_to [:edit, @photo], class: 'btn btn-small' do
       %i.fa.fa-edit
       Edit
@@ -17,11 +14,7 @@
 
 .pull-left
   = link_to @photo.image.url, title: l(@photo.at) do
-    - if @photo.image.version_exists?(:medium)
-      = image_tag @photo.image.medium.url, class: 'img-rounded'
-    - else
-      %span.badge.badge-important Unprocessed...
-      = image_tag @photo.image.url, class: 'img-polaroid'
+    = image_tag @photo.resize_url(:medium), class: 'img-rounded'
 
 .pull-left{style: 'padding-left: 1em'}
   :markdown

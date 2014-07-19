@@ -45,11 +45,6 @@ class PhotosController < ApplicationController
     redirect_to photos_url, notice: 'Photo destroyed.'
   end
 
-  def reprocess
-    @photo.process
-    redirect_to @photo
-  end
-
 
   private
 

@@ -19,7 +19,7 @@
     = f.label :image, class: 'control-label'
     .controls
       - if f.object.image?
-        = image_tag(f.object.image.small.url, class: 'img-polaroid')
+        = image_tag(f.object.resize_url(:small), class: 'img-polaroid')
         = f.label :rotate_left, class: 'radio' do
           = f.radio_button :rotate, :left
           Rotate Left

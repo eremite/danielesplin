@@ -58,7 +58,7 @@
           - else
             - photo = entry.photos.first
             = link_to photo.image.url, class: 'fancybox', rel: "group-#{entry.at.to_date}", title: photo.description do
-              = image_tag photo.image.medium.url, class: 'img-rounded'
+              = image_tag photo.resize_url(:medium), class: 'img-rounded'
       .comments
         = render entry.comments.created_at_asc
         = form_for entry.comments.new do |f|

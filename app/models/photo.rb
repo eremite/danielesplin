@@ -15,13 +15,13 @@ class Photo < ActiveRecord::Base
 
   before_validation :auto_assign_entries, if: ->(photo) { photo.entry_ids.blank? }
   before_validation :handle_hidden
-  after_create :process
   after_update :process, if: lambda { |p| p.rotate.present? }
 
 
   def self.unblogged
     includes(:entry_photos).where( :entry_photos => { :photo_id => nil } )
   end
+
 
   def google_plus_remote_image_url=(value)
     if value.present?
@@ -45,7 +45,23 @@ class Photo < ActiveRecord::Base
   def process
     image.recreate_versions! if image?
   end
-  handle_asynchronously :process
+
+  def resize_url(size)
+    params = {
+      key: Rails.application.config.embedly_key,
+      url: image.url,
+    }
+    params[:width] = params[:height] =
+      case size
+      when :small
+        120
+      when :medium
+        480
+      when :large
+        1024
+      end
+    "https://i.embed.ly/1/display/resize?#{params.to_param}"
+  end
 
   def to_jq_upload
     {

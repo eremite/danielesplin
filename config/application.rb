@@ -62,5 +62,7 @@ module Danielesplin
       g.stylesheets false
     end
 
+    config.embedly_key = ENV['EMBEDLY_KEY'].to_s
+
   end
 end

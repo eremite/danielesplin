@@ -31,18 +31,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-
-  # Create different versions of your uploaded files:
-  version :small, if: :generate_versions? do
-    process :resize_to_fit => [120, 120]
-  end
-  version :medium, if: :generate_versions? do
-    process :resize_to_fit => [480, 480]
-  end
-  version :large, if: :generate_versions? do
-    process :resize_to_fit => [1024, 1024]
-  end
-
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list

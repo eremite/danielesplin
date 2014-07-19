@@ -25,9 +25,6 @@ Danielesplin::Application.routes.draw do
     collection do
       get :old_new
     end
-    member do
-      put :reprocess
-    end
   end
 
   resources :sessions
