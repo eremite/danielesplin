@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html manifest='/offline-cache.manifest'>
-
+<html manifest='/offline/cache.manifest'>
   <head>
     <meta charset='utf-8' />
     <title>Offline Journal</title>
-    <link rel='stylesheet' href="/assets/application.css" />
-    <script src='/assets/application.js'></script>
+    <link href='/offline/jquery-ui.css' media='screen' rel='stylesheet' />
+    <link href='/offline/jquery-ui-timepicker-addon.css' media='screen' rel='stylesheet' />
+    <link href='/offline/offline.css' media='screen' rel='stylesheet' />
+    <script src='/offline/jquery.js'></script>
+    <script src='/offline/jquery-ui.js'></script>
+    <script src='/offline/jquery-ui-timepicker-addon.js'></script>
+    <script src='/offline/offline.js'></script>
     <!-- localStorage['entries'] = JSON.stringify([]) -->
   </head>
 
@@ -36,14 +40,14 @@
         <div class='control-group'>
           <label class="control-label" for="entry_at">Date</label>
           <div class='controls'>
-            <input class="datetimepicker" id="at" name="at" tabindex="1" type="text" value="8/15/2013  3:12pm" />
-            <input class="datetimepicker-hidden" id="entry_at" name="entry[at]" type="hidden" value="2013-08-15 03:12:33 pm -0600" />
+            <input class="datetimepicker" id="at" name="at" tabindex="1" type="text" value="" />
+            <input class="datetimepicker-hidden" id="entry_at" name="entry[at]" type="hidden" value="" />
           </div>
         </div>
         <div class='control-group'>
           <label class="control-label" for="entry_body">Content</label>
           <div class='controls'>
-            <textarea class="span12 autofocus" cols="40" id="entry_body" name="entry[body]" rows="10" tabindex="3"></textarea>
+            <textarea class="span12 autofocus" id="entry_body" name="entry[body]" rows="30" tabindex="3"></textarea>
           </div>
         </div>
         <div class='control-group'>

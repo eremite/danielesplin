@@ -1,0 +1,15 @@
+body {
+  background-color: black;
+  background: -webkit-linear-gradient(0deg, #20002e 20%, #000000 100%);
+  background: linear-gradient(0deg, #20002e 20%, #000000 100%);
+}
+.content {
+  background-color: white;
+  padding: 0 20px;
+}
+.pull-right {
+  float: right;
+}
+.span12 {
+  width: 80%;
+}

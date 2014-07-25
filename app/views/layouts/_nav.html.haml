@@ -29,7 +29,7 @@
               - if can? :create, Thought
                 %li= link_to 'Thoughts', thoughts_path
               %li= link_to 'Files', saved_files_path
-              %li= link_to 'Offline', '/offline.html'
+              %li= link_to 'Offline', '/offline'
               - if can? :manage, NutritionalPost
                 %li= link_to 'Nutritional Bites', nutritional_posts_path
         - if can? :index, :report
