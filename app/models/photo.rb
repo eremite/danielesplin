@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
-  attr_accessor :rotate, :skip_versioning
+  attr_accessor :skip_versioning
 
   belongs_to :user
   belongs_to :entry
@@ -15,7 +15,6 @@ class Photo < ActiveRecord::Base
 
   before_validation :auto_assign_entries, if: ->(photo) { photo.entry_ids.blank? }
   before_validation :handle_hidden
-  after_update :process, if: lambda { |p| p.rotate.present? }
 
 
   def self.unblogged

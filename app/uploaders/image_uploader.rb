@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class ImageUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
   # include Sprockets::Helpers::RailsHelper
@@ -38,7 +37,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   process :extract_at
-  process :rotate
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
@@ -53,32 +51,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def extract_at
-    manipulate! do |img|
-      date = img['EXIF:DateTimeOriginal'].to_s.squish
-      if date.present?
-        begin
-          model.at = Time.zone.parse(date.sub(':', '-').sub(':', '-'))
-        rescue ArgumentError, TypeError
-          Rails.logger.error "#{date} is an invalid date."
-        end
+    if content_type.to_s[/jpe?g/]
+      begin
+        model.at = Time.zone.parse(EXIFR::JPEG.new(file.file).date_time.to_s.first(20))
+      rescue ArgumentError, TypeError
+        Rails.logger.error "#{date} is an invalid date."
       end
-      img
-    end
-  end
-
-  def rotate
-    manipulate! do |img|
-      if model.rotate.present?
-        case model.rotate
-        when 'left'
-          img.rotate '-90'
-        when 'right'
-          img.rotate '+90'
-        end
-      else
-        img.auto_orient
-      end
-      img
     end
   end
 

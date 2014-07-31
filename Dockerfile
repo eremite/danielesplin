@@ -6,7 +6,7 @@ ENV LC_ALL en_US.UTF-8
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y build-dep ruby2.0
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git libpq-dev postgresql-client libmagickwand-dev imagemagick
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git libpq-dev postgresql-client
 RUN DEBIAN_FRONTEND=noninteractive apt-get clean
 
 ENV RUBY_VERSION 2.1.2
