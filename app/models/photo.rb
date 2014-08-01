@@ -53,7 +53,7 @@ class Photo < ActiveRecord::Base
     params[:width] = params[:height] =
       case size
       when :small
-        120
+        240
       when :medium
         480
       when :large
