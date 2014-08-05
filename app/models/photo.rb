@@ -50,10 +50,10 @@ class Photo < ActiveRecord::Base
       key: Rails.application.config.embedly_key,
       url: image.url,
     }
-    params[:width] = params[:height] =
+    params[:height] =
       case size
       when :small
-        240
+        200
       when :medium
         480
       when :large
