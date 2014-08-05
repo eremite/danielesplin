@@ -1,6 +1,6 @@
 - if photo.image?
   %li
-    .thumbnail.btn-hover
+    .thumbnail.btn-hover{ class: photo.entries.count.zero? && 'unblogged' }
       - if can? :update, photo
         = link_to [:edit, photo], class: 'btn btn-small', title: 'Edit Photo' do
           %i.fa.fa-edit
