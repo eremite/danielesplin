@@ -3,6 +3,7 @@ class BlogPostsController < ApplicationController
   authorize_resource :class => false
 
   def index
+    current_user.try(:log, 'blog')
     @entries = Entry.blog.at_desc.published(params[:unpublished].blank?).page(params[:page]).per(7)
   end
 

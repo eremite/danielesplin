@@ -19,9 +19,9 @@
     .well.well-small
       - limit = 3
       %p
-        - LogEntry.logins.includes(:user).where('users.role' => 'guest').created_at_desc.limit(limit).each_with_index do |log_entry, i|
+        - LogEntry.blogs.includes(:user).where('users.role' => 'guest').created_at_desc.limit(limit).each_with_index do |log_entry, i|
           #{log_entry.user.try(:name)}#{',' unless i.zero?}
-          = 'logged in' if i.zero?
+          = 'checked the blog' if i.zero?
           = time_ago_in_words log_entry.created_at
           ago#{';' unless i + 1 == limit}
       %p{:style => 'margin-top: 0'}
