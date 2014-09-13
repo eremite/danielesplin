@@ -1,13 +1,11 @@
-FROM phusion/baseimage
+FROM progrium/cedarish:cedar
 MAINTAINER Daniel Esplin <daniel@custombit.com>
 
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y build-dep ruby2.0
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git libpq-dev postgresql-client
-RUN DEBIAN_FRONTEND=noninteractive apt-get clean
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install libyaml-dev libreadline-dev
 
 ENV RUBY_VERSION 2.1.2
 ENV RUBYGEMS_VERSION 2.2.2
@@ -23,4 +21,4 @@ ADD Gemfile Gemfile
 ADD Gemfile.lock Gemfile.lock
 RUN bundle install
 
-WORKDIR /code/danielesplin/
+WORKDIR /data/danielesplin/
