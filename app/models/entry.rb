@@ -33,7 +33,7 @@ class Entry < ActiveRecord::Base
 
   def auto_assign_photos
     if at.present?
-      self.photos = Photo.where(hidden: false, at: at.beginning_of_day..at.end_of_day)
+      self.photos = Photo.where(hidden: false, created_at: at.beginning_of_day..at.end_of_day)
     end
     true
   end

@@ -82,9 +82,7 @@ class Photo < ActiveRecord::Base
   end
 
   def auto_assign_entries
-    if at.present?
-      self.entries = Entry.blog.where(at: at.beginning_of_day..at.end_of_day)
-    end
+    self.entries = Entry.blog.where(at: created_at.beginning_of_day..created_at.end_of_day)
   end
 
 end
