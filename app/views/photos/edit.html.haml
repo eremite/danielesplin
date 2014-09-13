@@ -9,4 +9,10 @@
     %i.fa.fa-trash-o
     Delete
 
+%p.clearfix
+
+.pull-right
+  = link_to @photo.image.url, title: l(@photo.at) do
+    = image_tag @photo.resize_url(:medium), class: 'img-rounded'
+
 = render 'form'
