@@ -26,6 +26,7 @@ en:
   activerecord:
     attributes:
       entry:
+        tag_list: 'Tags'
       user:
         api_key: 'API Key'
       nutritional_post:

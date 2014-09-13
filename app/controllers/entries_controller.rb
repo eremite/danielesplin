@@ -23,6 +23,9 @@ class EntriesController < ApplicationController
     if params[:term].present?
       @entries = @entries.where(Entry.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
     end
+    if params[:tag].present?
+      @entries = @entries.tagged_with(params[:tag])
+    end
   end
 
   def new
@@ -61,7 +64,7 @@ class EntriesController < ApplicationController
   private
 
   def safe_params
-    params.require(:entry).permit(:at, :user_id, :body, :public)
+    params.require(:entry).permit(:at, :user_id, :body, :public, :tag_list)
   end
 
 end

@@ -21,6 +21,7 @@ gem 'redcarpet'
 gem 'sass-rails'
 gem 'therubyracer' # For precompiling assets
 gem 'uglifier'
+gem 'acts-as-taggable-on'
 
 gem 'yaml_db', github: 'jetthoughts/yaml_db'
 

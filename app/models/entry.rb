@@ -1,5 +1,7 @@
 class Entry < ActiveRecord::Base
 
+  acts_as_taggable
+
   belongs_to :user
   has_many :comments
   has_many :entry_photos
