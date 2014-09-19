@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
 
-  load_resource except: :create
+  load_resource except: [:new, :create]
   authorize_resource
 
   def index
@@ -29,14 +29,23 @@ class EntriesController < ApplicationController
   end
 
   def new
-    @entry.at = Time.zone.now
-    @entry.user = current_user
+    @entry = Entry.new(safe_params)
+    @entry.at ||= Time.zone.now
+    @entry.user ||= current_user
   end
 
   def create
     @entry = Entry.new(safe_params)
     if @entry.save
-      redirect_to new_entry_url
+      if @entry.at < 1.week.ago
+        redirect_to new_entry_url(entry: { :at => @entry.at + 1.day })
+      elsif @entry.user.try(:mother?)
+        redirect_to new_entry_url(entry: { :user_id => User.where(role: 'baby').first.id })
+      elsif @entry.user.try(:baby?)
+        redirect_to :entries
+      else
+        redirect_to [:new, :entry]
+      end
     else
       render :new
     end
@@ -64,7 +73,7 @@ class EntriesController < ApplicationController
   private
 
   def safe_params
-    params.require(:entry).permit(:at, :user_id, :body, :public, :tag_list)
+    params.permit(entry: [:at, :user_id, :body, :tag_list])[:entry]
   end
 
 end
