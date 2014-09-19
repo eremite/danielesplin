@@ -25,7 +25,7 @@ class CommentsControllerTest < ActionController::TestCase
   test 'create valid' do
     Comment.any_instance.stubs(save: true)
     post :create, comment: valid_attributes
-    assert_redirected_to blog_posts_url
+    assert_redirected_to :posts
   end
 
   test 'edit' do
@@ -42,12 +42,12 @@ class CommentsControllerTest < ActionController::TestCase
   test 'update valid' do
     Comment.any_instance.stubs(update_attributes: true)
     put :update, id: comments(:base).id, comment: valid_attributes
-    assert_redirected_to blog_posts_url
+    assert_redirected_to :posts
   end
 
   test 'destroy' do
     delete :destroy, id: comments(:base).id
-    assert_redirected_to blog_posts_url
+    assert_redirected_to :posts
   end
 
 
@@ -55,7 +55,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   def valid_attributes
     {
-      entry_id: entries(:base).id,
+      post_id: posts(:base).id,
       body: 'Body',
     }
   end

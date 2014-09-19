@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(safe_params)
     if @comment.save
-      redirect_to blog_posts_url, notice: 'Comment saved.'
+      redirect_to :posts, notice: 'Comment saved.'
     else
       render :new
     end
@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update_attributes(safe_params)
-      redirect_to blog_posts_url, notice: 'Comment updated.'
+      redirect_to :posts, notice: 'Comment updated.'
     else
       render :edit
     end
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to blog_posts_url, notice: 'Comment deleted.'
+    redirect_to :posts, notice: 'Comment deleted.'
   end
 
 

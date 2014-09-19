@@ -9,7 +9,7 @@ class Ability
       if user.parent?
         can :manage, Photo
         can :manage, Entry
-        can :manage, :blog_post
+        can :manage, Post
         can :manage, :report
         can :manage, User
         can :manage, Comment
@@ -26,16 +26,17 @@ class Ability
         can :read, Entry, public: true
         can :read, Entry, public: false, user_id: User.where(role: 'baby').pluck(:id)
         can :read, Entry, public: false, user_id: User.where(role: 'father').pluck(:id), at: Time.at(0)..Time.zone.parse('2000-01-01')
-        can :index, :blog_post
+        can :index, Post
       else
         can :read, Photo
         can :read, Entry, public: true
-        can :index, :blog_post
+        can :index, Post
       end
     end
+    can :read, NutritionalPost
     can :index, :page
     if format == 'rss'
-      can :index, :blog_post
+      can :index, Post
     end
   end
 

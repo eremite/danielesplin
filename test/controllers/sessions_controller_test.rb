@@ -20,7 +20,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_difference lambda { LogEntry.logins.count } do
       post :create, email: u.email
     end
-    assert_redirected_to blog_posts_url
+    assert_redirected_to :posts
     assert_equal u.id, session['user_id']
   end
 

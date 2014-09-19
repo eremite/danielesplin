@@ -2,7 +2,7 @@
 
 - if can? :update, Photo
   .btn-group.pull-right
-    = link_to new_blog_post_path(entry: { at: @photo.at }), class: 'btn btn-small' do
+    = link_to new_post_path(post: { at: @photo.at }), class: 'btn btn-small' do
       %i.fa.fa-plus
       New Blog Post
     = link_to [:edit, @photo], class: 'btn btn-small' do

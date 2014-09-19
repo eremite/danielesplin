@@ -6,9 +6,9 @@ jQuery ->
 
   $('#photo_hidden').change ->
     if $(this).prop('checked')
-      $('#photo_entry_ids').hide('slow')
+      $('#photo_post_ids').hide('slow')
     else
-      $('#photo_entry_ids').show('slow')
+      $('#photo_post_ids').show('slow')
   .trigger('change')
 
   # jQuery File Upload

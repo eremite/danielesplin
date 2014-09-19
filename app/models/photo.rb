@@ -6,19 +6,19 @@ class Photo < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :entry
-  has_many :entry_photos
-  has_many :entries, through: :entry_photos
+  has_many :post_photos
+  has_many :posts, through: :post_photos
 
   scope :at_asc, -> { order(arel_table[:at].asc) }
   scope :at_desc, -> { order(arel_table[:at].desc) }
   scope :created_at_desc, -> { order(arel_table[:created_at].desc) }
 
   before_validation :handle_hidden
-  after_save :auto_assign_entries, if: ->(photo) { photo.entry_ids.blank? }
+  after_save :auto_assign_entries, if: ->(photo) { photo.post_ids.blank? }
 
 
   def self.unblogged
-    includes(:entry_photos).where( :entry_photos => { :photo_id => nil } )
+    includes(:post_photos).where( :post_photos => { :photo_id => nil } )
   end
 
 
@@ -32,13 +32,6 @@ class Photo < ActiveRecord::Base
 
   def google_plus_remote_image_url
     remote_image_url
-  end
-
-  def entry_options_for_select
-    [
-      ['Default', nil],
-      ['None (hidden)', 0],
-    ] + Entry.blog.at_desc.limit(50).map { |e| [e.dated_title, e.id] }
   end
 
   def process
@@ -76,13 +69,13 @@ class Photo < ActiveRecord::Base
 
   def handle_hidden
     if hidden?
-      self.entries = []
-      self.entry_ids = []
+      self.posts = []
+      self.post_ids = []
     end
   end
 
   def auto_assign_entries
-    self.entries = Entry.blog.where(at: created_at.beginning_of_day..created_at.end_of_day)
+    self.posts = Post.where(at: created_at.beginning_of_day..created_at.end_of_day)
   end
 
 end
