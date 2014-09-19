@@ -1,9 +1,3 @@
 - title 'Edit'
 
 = render 'form'
-
-- if @entry.photos.present?
-  - if @entry.photos.size > 1
-    %ul.thumbnails
-      - @entry.photos.at_asc.each do |photo|
-        = render photo if photo.image?

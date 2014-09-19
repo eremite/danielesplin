@@ -4,4 +4,3 @@ base:
   user: admin
   body: Content
   at: <%= Time.zone.now %>
-  public: false

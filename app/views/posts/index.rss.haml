@@ -2,22 +2,22 @@
 %rss{:version => '2.0'}
   %channel
     %title Daniel &amp; Erika's blog
-    %link= blog_posts_url
+    %link= posts_url
     %description
       The (private) blog of Daniel and Erika Esplin in St. George, Utah.
     %language en-us
     %pubDate= Time.now.rfc822
 
-    - @entries.each do |entry|
+    - @posts.each do |post|
       %item
-        %title= entry.title
+        %title= post.title
         %description
-          %p= entry.title
+          %p= post.title
           %p
-            - if entry.photos.count > 0
-              Includes #{pluralize(entry.photos.count, 'picture')}!
+            - if post.photos.count > 0
+              Includes #{pluralize(post.photos.count, 'picture')}!
             - else
               No pictures. :(
-        %link= blog_posts_url
-        %guid= entry.id
-        %pubDate= entry.at.rfc822
+        %link= posts_url
+        %guid= post.id
+        %pubDate= post.at.rfc822

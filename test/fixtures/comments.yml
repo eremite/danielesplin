@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 base:
-  entry: base
+  post: base
   user: base
   body: MyText

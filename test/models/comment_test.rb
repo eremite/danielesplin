@@ -10,7 +10,7 @@ class CommentTest < ActiveSupport::TestCase
     assert_difference -> { ActionMailer::Base.deliveries.size } do
       Comment.create!({
         user: users(:base),
-        entry: entries(:base),
+        post: posts(:base),
         body: 'Body',
       })
     end

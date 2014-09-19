@@ -9,7 +9,9 @@ Danielesplin::Application.routes.draw do
     resources :entries
   end
 
-  resources :blog_posts
+  resources :posts
+  get '/blog_posts', to: redirect('/posts')
+  get '/blog_posts.rss', to: redirect('/posts.rss')
   resources :comments
   resources :entries
   resources :nutritional_posts

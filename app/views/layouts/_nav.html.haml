@@ -8,9 +8,9 @@
             = link_to entries_path do
               %i.fa.fa-book
               Journal
-        - if can? :index, :blog_post
-          %li{class: controller.controller_name == 'blog_posts' && 'active'}
-            = link_to blog_posts_path do
+        - if can? :index, Post
+          %li{class: controller.controller_name == 'posts' && 'active'}
+            = link_to :posts do
               %i.fa.fa-picture-o
               Blog
         - if can? :manage, Photo

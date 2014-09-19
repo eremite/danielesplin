@@ -9,7 +9,7 @@
   %dd= number_with_delimiter User.where(role: 'mother').first.entries.journal.count
 
   %dt Blog Posts
-  %dd= number_with_delimiter Entry.blog.count
+  %dd= number_with_delimiter Post.count
 
   %dt Photos
   %dd= number_with_delimiter Photo.count

@@ -52,12 +52,6 @@ class EntriesControllerTest < ActionController::TestCase
     assert_redirected_to entries_url
   end
 
-  test 'update valid with redirect' do
-    Entry.any_instance.stubs(save: true)
-    put :update, id: @entry.id, entry: valid_attributes, redirect_to: '/blog_posts'
-    assert_redirected_to '/blog_posts'
-  end
-
   test 'destroy' do
     delete :destroy, id: @entry.id
     assert_redirected_to entries_url

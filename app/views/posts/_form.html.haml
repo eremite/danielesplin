@@ -1,4 +1,4 @@
-= form_for @entry, url: blog_posts_path, class: 'form-horizontal' do |f|
+= form_for @post, class: 'form-horizontal' do |f|
   .control-group
     = f.label :at, class: 'control-label'
     .controls
@@ -12,4 +12,4 @@
       = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .form-actions
     %button.btn.btn-primary{ type: 'submit', tabindex: 3} Save
-    = link_to 'Cancel', entries_path, class: 'btn', tabindex: 4
+    = link_to 'Cancel', :posts, class: 'btn', tabindex: 4

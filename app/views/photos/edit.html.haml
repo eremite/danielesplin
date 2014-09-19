@@ -2,7 +2,7 @@
 
 .btn-group.pull-right
   - if can? :create, Entry, public: true
-    = link_to new_blog_post_path(entry: { at: @photo.at }), class: 'btn btn-small' do
+    = link_to new_post_path(post: { at: @photo.at }), class: 'btn btn-small' do
       %i.fa.fa-plus
       New Blog Post
   = link_to @photo, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this photo?' } do

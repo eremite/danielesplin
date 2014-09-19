@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BlogPostsControllerTest < ActionController::TestCase
+class PostsControllerTest < ActionController::TestCase
 
   def setup
     login_as(users(:admin))
@@ -23,15 +23,15 @@ class BlogPostsControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    Entry.any_instance.stubs(save: false)
-    post :create, entry: valid_attributes
+    Post.any_instance.stubs(save: false)
+    post :create, post: valid_attributes
     assert_template :new
   end
 
   test 'create valid' do
-    Entry.any_instance.stubs(save: true)
-    post :create, entry: valid_attributes
-    assert_redirected_to blog_posts_url
+    Post.any_instance.stubs(save: true)
+    post :create, post: valid_attributes
+    assert_redirected_to :posts
   end
 
 

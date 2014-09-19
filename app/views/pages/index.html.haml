@@ -13,7 +13,7 @@
       %p We live with our daughter in Santa Clara, Utah.
 
     - if logged_in?
-      = link_to 'See the blog!', blog_posts_path if can? :index, :blog_post
+      = link_to 'See the blog!', posts_path if can? :index, :posts
     - else
       = form_tag sessions_path, class: 'form-inline' do
         = email_field_tag :email, params[:email], class: 'autofocus span3', placeholder: 'Email'

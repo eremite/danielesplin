@@ -11,8 +11,3 @@
   .body
     :markdown
       #{@entry.body}
-    - if @entry.photos.present?
-      %ul.thumbnails
-        - @entry.photos.at_asc.each do |photo|
-          - if photo.image?
-            = render photo
