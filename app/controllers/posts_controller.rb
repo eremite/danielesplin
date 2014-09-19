@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  load_resource except: :create
+  load_resource except: [:new, :create]
   authorize_resource
 
   def index

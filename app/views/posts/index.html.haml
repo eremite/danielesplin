@@ -1,6 +1,6 @@
 - title 'Blog', false
 
-- if can? :create, :post
+- if can? :create, Post
   %p.pull-right{:style => 'margin-right: 1rem'}
     %br
     = link_to [:new, :post], class: 'btn btn-success' do

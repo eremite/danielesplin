@@ -1,5 +1,15 @@
 class MovePublicEntriesToPosts < ActiveRecord::Migration
 
+  class EntryPhoto < ActiveRecord::Base
+    belongs_to :entry
+    belongs_to :photo
+  end
+
+  class PostPhoto < ActiveRecord::Base
+    belongs_to :post
+    belongs_to :photo
+  end
+
   class Entry < ActiveRecord::Base
     has_many :comments
     has_many :entry_photos
