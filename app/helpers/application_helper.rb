@@ -6,11 +6,7 @@ module ApplicationHelper
   end
 
   def date_with_significant_time(date)
-    if date == date.beginning_of_day
-      l(date.to_date, format: :long)
-    else
-      l(date, format: :long)
-    end
+    l(date == date.beginning_of_day ? date.to_date : date, format: :long)
   end
 
 end

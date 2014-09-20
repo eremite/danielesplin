@@ -6,7 +6,7 @@ en:
     formats:
       default: '%m/%d/%Y'
       short: '%b %d'
-      long: '%B %d, %Y'
+      long: '%A, %B %-d, %Y'
   time:
     formats:
       default: '%-m/%-d/%Y %l:%M%p'
