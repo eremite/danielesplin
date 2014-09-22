@@ -4,8 +4,8 @@
   = form_tag nil, method: :get, class: 'form-inline pull-left' do
     = text_field_tag :ends_on, l(@ends_on), class: 'datepicker span2'
     = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'span2' }
-
-    = select nil, :tag, Entry.entry_tag_counts.pluck(:name).sort, { include_blank: 'Any tag', selected: params[:tag] }
+    - if can? :create, Entry
+      = select nil, :tag, Entry.entry_tag_counts.pluck(:name).sort, { include_blank: 'Any tag', selected: params[:tag] }
     = text_field_tag :term, params[:term], class: 'span2', :placeholder => 'Search'
     = submit_tag 'Go', class: 'btn btn-mini btn-primary'
   - if can? :create, Entry
