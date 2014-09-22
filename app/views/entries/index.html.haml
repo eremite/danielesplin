@@ -5,7 +5,7 @@
     = text_field_tag :ends_on, l(@ends_on), class: 'datepicker span2'
     = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'span2' }
 
-    = select nil, :tag, ActsAsTaggableOn::Tag.pluck(:name).sort, { include_blank: 'Any tag', selected: params[:tag] }
+    = select nil, :tag, Entry.entry_tag_counts.pluck(:name).sort, { include_blank: 'Any tag', selected: params[:tag] }
     = text_field_tag :term, params[:term], class: 'span2', :placeholder => 'Search'
     = submit_tag 'Go', class: 'btn btn-mini btn-primary'
   - if can? :create, Entry
@@ -32,8 +32,8 @@
       - else
         %h3= date_with_significant_time(entry.at)
         .body
-          - if entry.tags.present?
-            - entry.tag_list.each do |tag_name|
+          - if entry.entry_tags.present?
+            - entry.entry_tag_list.each do |tag_name|
               .label.label-info.pull-right{ style: 'margin: 0 0.2em' }
                 = link_to tag_name, entries_path(tag: tag_name)
           :markdown

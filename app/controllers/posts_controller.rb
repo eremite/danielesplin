@@ -42,7 +42,7 @@ class PostsController < ApplicationController
   private
 
   def safe_params
-    params.permit(post: [:at, :body])[:post]
+    params.permit(post: [:at, :body, :post_tag_list])[:post]
   end
 
 end

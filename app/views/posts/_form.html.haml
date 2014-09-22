@@ -10,6 +10,10 @@
       = f.text_area :body, rows: 10, tabindex: 2
     %span.help-block.pull-right
       = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
+  .control-group
+    = f.label :post_tag_list, class: 'control-label'
+    .controls
+      = f.text_field :post_tag_list
   .form-actions
     %button.btn.btn-primary{ type: 'submit', tabindex: 3} Save
     = link_to 'Cancel', :posts, class: 'btn', tabindex: 4

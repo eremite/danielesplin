@@ -1,6 +1,6 @@
 class Entry < ActiveRecord::Base
 
-  acts_as_taggable
+  acts_as_taggable_on :entry_tags
 
   belongs_to :user
 

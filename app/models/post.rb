@@ -1,5 +1,7 @@
 class Post < ActiveRecord::Base
 
+  acts_as_taggable_on :post_tags
+
   has_many :comments
   has_many :post_photos
   has_many :photos, through: :post_photos

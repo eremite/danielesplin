@@ -15,9 +15,9 @@
     %span.help-block.pull-right
       = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .control-group
-    = f.label :tag_list, class: 'control-label'
+    = f.label :entry_tag_list, class: 'control-label'
     .controls
-      = f.text_field :tag_list
+      = f.text_field :entry_tag_list
   .form-actions
     = hidden_field_tag :redirect_to, request.referrer || entries_path
     %button.btn.btn-primary{ type: 'submit', tabindex: 4 } Save
