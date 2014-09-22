@@ -30,6 +30,12 @@
           = 'commented' if i.zero?
           = time_ago_in_words comment.created_at
           ago#{';' unless i + 1 == limit}
+      %p
+        = form_tag nil, method: :get, class: 'form-inline', style: 'margin: 0' do
+          = text_field_tag :ends_on, l(@ends_on), class: 'datepicker span2'
+          = select nil, :tag, Post.post_tag_counts.pluck(:name).sort, { include_blank: 'Any tag', selected: params[:tag] }
+          = text_field_tag :term, params[:term], class: 'span3', :placeholder => 'Search'
+          = submit_tag 'Go', class: 'btn btn-mini btn-primary'
 
 - if @posts.empty?
   .row.clearfix

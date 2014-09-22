@@ -5,7 +5,17 @@ class PostsController < ApplicationController
 
   def index
     current_user.try(:log, 'blog')
+    begin
+      @ends_on = Date.strptime(params[:ends_on].to_s, '%m/%d/%Y')
+    rescue ArgumentError, TypeError
+      flash[:error] = 'Invalid date' if params[:ends_on].present?
+      @ends_on = Time.zone.now.to_date
+    end
     @posts = Post.at_desc.published(params[:unpublished].blank?).page(params[:page])
+    @posts = @posts.before(@ends_on.end_of_day) if params[:ends_on].present?
+    if params[:tag].present?
+      @posts = @posts.tagged_with(params[:tag], on: :post_tags)
+    end
   end
 
   def new
