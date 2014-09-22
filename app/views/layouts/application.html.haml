@@ -1,5 +1,5 @@
 !!!
-%html
+%html{ lang: 'en' }
 
   %head
     %title
@@ -9,8 +9,12 @@
         Daniel &amp; Erika
     %meta{ 'http-equiv' => 'Content-Type', content: 'text/html; charset=utf-8' }
     %link{ rel: 'alternate', title: 'Daniel & Erika Esplin', href: posts_url(format: 'rss'), type: 'application/rss+xml' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css'
     = stylesheet_link_tag :application
     = javascript_include_tag :application
+    = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'
     = csrf_meta_tag
     = yield(:head)
 
