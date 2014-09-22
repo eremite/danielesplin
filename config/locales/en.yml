@@ -29,6 +29,8 @@ en:
         entry_tag_list: 'Tags'
       post:
         post_tag_list: 'Tags'
+      photo:
+        photo_tag_list: 'Tags'
       user:
         api_key: 'API Key'
       nutritional_post:

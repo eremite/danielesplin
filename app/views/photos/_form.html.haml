@@ -26,6 +26,10 @@
     .controls
       .offset1 or
       = f.text_field :google_plus_remote_image_url, placeholder: 'Upload from Google+ URL'
+  .control-group
+    = f.label :photo_tag_list, class: 'control-label'
+    .controls
+      = f.text_area :photo_tag_list
   .form-actions
     %button.btn.btn-primary{ type: 'submit'} Save
     = hidden_field_tag :redirect_to, request.referrer.presence || photos_path

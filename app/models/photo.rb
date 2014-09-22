@@ -1,5 +1,7 @@
 class Photo < ActiveRecord::Base
 
+  acts_as_taggable_on :photo_tags
+
   mount_uploader :image, ImageUploader
 
   attr_accessor :skip_versioning
