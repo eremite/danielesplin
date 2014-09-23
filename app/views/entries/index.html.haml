@@ -1,17 +1,33 @@
 - title 'Journal'
 
-.row.span12
-  = form_tag nil, method: :get, class: 'form-inline pull-left' do
-    = text_field_tag :ends_on, l(@ends_on), class: 'datepicker span2'
-    = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'span2' }
-    - if can? :create, Entry
-      = select nil, :tag, Entry.entry_tag_counts.pluck(:name).sort, { include_blank: 'Any tag', selected: params[:tag] }
-    = text_field_tag :term, params[:term], class: 'span2', :placeholder => 'Search'
-    = submit_tag 'Go', class: 'btn btn-mini btn-primary'
+- content_for :sidebar do
+
   - if can? :create, Entry
-    = link_to new_entry_path, class: 'btn btn-success pull-right' do
+    = link_to [:new, :entry], class: 'btn btn-success btn-block' do
       %i.fa.fa-inverse.fa-plus
-      New Entry
+      New Journal Entry
+
+  %hr
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Search
+    .panel-body
+      = form_tag nil, method: :get, role: 'form' do
+        .form-group
+          = label_tag :ends_on, 'Date'
+          = text_field_tag :ends_on, l(@ends_on), class: 'datepicker form-control'
+        .form-group
+          = label_tag :user
+          = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
+        - if can? :create, Entry
+          .form-group
+            = label_tag :tag
+            = select nil, :tag, Entry.entry_tag_counts.pluck(:name).sort, { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
+        .form-group
+          = label_tag :term
+          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
+        = submit_tag 'Search', class: 'btn btn-primary btn-block'
 
 - if @entries.empty?
   %p.row Nothing yet.
