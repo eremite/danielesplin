@@ -33,10 +33,10 @@
             %h1 #{yield(:title)}
           = render 'layouts/flash_hash'
         - if content_for? :sidebar
-          .col-md-9
-            = yield
-          .col-md-3
+          .col-md-3.pull-right
             = yield :sidebar
+          .col-md-9.pull-right
+            = yield
         - else
           = yield
 
