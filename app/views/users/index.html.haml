@@ -1,9 +1,9 @@
 - title 'Users Report'
 
-- if can? :create, User
-  %p.pull-right
-    = link_to new_user_path, class: 'btn btn-success' do
-      %i.fa.fa-plus.fa-inverse
+- content_for :sidebar do
+  - if can? :create, User
+    = link_to [:new, :user], class: 'btn btn-success btn-block' do
+      %i.fa.fa-inverse.fa-plus
       New User
 
 %table.table
