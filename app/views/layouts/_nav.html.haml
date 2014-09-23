@@ -8,16 +8,16 @@
 
 .collapse.navbar-collapse#navbar
   %ul.nav.navbar-nav
-    - if can?(:create, Entry) || current_user.grandparent?
-      %li{class: controller.controller_name == 'entries' && 'active'}
-        = link_to entries_path do
-          %i.fa.fa-book
-          Journal
     - if can? :index, Post
       %li{class: controller.controller_name == 'posts' && 'active'}
         = link_to :posts do
           %i.fa.fa-picture-o
           Blog
+    - if can?(:create, Entry) || current_user.grandparent?
+      %li{class: controller.controller_name == 'entries' && 'active'}
+        = link_to entries_path do
+          %i.fa.fa-book
+          Journal
     - if can? :manage, Photo
       %li{class: %w(photos upload_batches).include?(controller.controller_name) && 'active'}
         = link_to photos_path do
