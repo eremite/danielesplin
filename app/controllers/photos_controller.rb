@@ -4,7 +4,6 @@ class PhotosController < ApplicationController
   authorize_resource
 
   def index
-    @tags = Photo.tag_counts_on(:photo_tags)
     if params[:tag].present?
       @photos = @photos.tagged_with(params[:tag], on: :photo_tags)
     end

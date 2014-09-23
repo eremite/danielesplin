@@ -1,17 +1,26 @@
 - title 'Photos'
 
-- tag_cloud(@tags, %w(1 2 3 4)) do |tag, frequency|
-  = link_to tag.name, photos_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
+- content_for :sidebar do
 
-- if can? :create, Photo
-  %p.pull-right
-    %br
-    = link_to new_photo_path, class: 'btn btn-success' do
+  - if can? :create, Photo
+
+    = link_to [:new, :photo], class: 'btn btn-success btn-block' do
       %i.fa.fa-inverse.fa-plus
       New Photo
-    = link_to new_upload_batch_path, class: 'btn btn-success' do
+
+    = link_to new_upload_batch_path, class: 'btn btn-success btn-block' do
       %i.fa.fa-inverse.fa-asterisk
       New Batch
+
+  %hr
+
+  - if Photo.photo_tag_counts.present?
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Tags
+      .panel-body
+        - tag_cloud(Photo.tag_counts_on(:photo_tags), %w(1 2 3 4)) do |tag, frequency|
+          = link_to tag.name, photos_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
 
 %ul.thumbnails
   = render @photos
