@@ -13,6 +13,9 @@ class PostsController < ApplicationController
     end
     @posts = Post.at_desc.published(params[:unpublished].blank?).page(params[:page])
     @posts = @posts.before(@ends_on.end_of_day) if params[:ends_on].present?
+    if params[:term].present?
+      @posts = @posts.where(Post.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
+    end
     if params[:tag].present?
       @posts = @posts.tagged_with(params[:tag], on: :post_tags)
     end
