@@ -20,9 +20,11 @@
 
   %body{ id: "#{controller.controller_name.dasherize}-controller" }
 
-    %header.header
-      - if current_user
-        = render 'layouts/nav'
+    - if current_user
+      %header
+        .navbar.navbar-default{ role: 'navigation' }
+          .container
+            = render 'layouts/nav'
 
     %section.container
       .row

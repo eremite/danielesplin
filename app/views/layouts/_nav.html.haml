@@ -1,57 +1,63 @@
-.navbar.navbar-default{ role: 'navigation' }
-  .container
-    .collapse.navbar-collapse
-      %ul.nav.navbar-nav
-        - if can?(:create, Entry) || current_user.grandparent?
-          %li{class: controller.controller_name == 'entries' && 'active'}
-            = link_to entries_path do
-              %i.fa.fa-book
-              Journal
-        - if can? :index, Post
-          %li{class: controller.controller_name == 'posts' && 'active'}
-            = link_to :posts do
-              %i.fa.fa-picture-o
-              Blog
-        - if can? :manage, Photo
-          %li{class: %w(photos upload_batches).include?(controller.controller_name) && 'active'}
-            = link_to photos_path do
-              %i.fa.fa-camera
-              Photos
-        - if can? :index, :report
-          %li.dropdown
-            = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-              %i.fa.fa-list
-              Misc
-              %b.caret
-            %ul.dropdown-menu
-              %li= link_to 'Users', users_path
-              - if can? :create, Thought
-                %li= link_to 'Thoughts', thoughts_path
-              %li= link_to 'Files', saved_files_path
-              %li= link_to 'Offline', '/offline'
-              - if can? :manage, NutritionalPost
-                %li= link_to 'Nutritional Bites', nutritional_posts_path
-        - if can? :index, :report
-          %li.dropdown{class: controller.controller_name == 'reports' && 'active'}
-            = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-              %i.fa.fa-file-o
-              Reports
-              %b.caret
-            %ul.dropdown-menu
-              %li= link_to 'Statistics', statistics_report_path
-              %li= link_to 'Untimed Photos', untimed_photos_report_path
-              %li= link_to 'Unblogged Photos', unblogged_photos_report_path
-              %li= link_to 'Comments', comments_path
+.navbar-header
+  %button.navbar-toggle.collapsed{ data: { toggle: 'collapse', target: '#navbar' } }
+    %span.sr-only Toggle Navigation
+    %span.icon-bar
+    %span.icon-bar
+    %span.icon-bar
+  = link_to 'Daniel & Erika', :root, class: 'navbar-brand'
 
-      %ul.nav.navbar-nav.navbar-right
-        %li.dropdown
-          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-            %i.fa.fa-user
-            = current_user.name
-            %b.caret
-          %ul.dropdown-menu
-            %li
-              = link_to 'Edit Profile', [:edit, current_user]
-            %li.divider
-            %li
-              = link_to 'Log Out', logout_path, method: :delete
+.collapse.navbar-collapse#navbar
+  %ul.nav.navbar-nav
+    - if can?(:create, Entry) || current_user.grandparent?
+      %li{class: controller.controller_name == 'entries' && 'active'}
+        = link_to entries_path do
+          %i.fa.fa-book
+          Journal
+    - if can? :index, Post
+      %li{class: controller.controller_name == 'posts' && 'active'}
+        = link_to :posts do
+          %i.fa.fa-picture-o
+          Blog
+    - if can? :manage, Photo
+      %li{class: %w(photos upload_batches).include?(controller.controller_name) && 'active'}
+        = link_to photos_path do
+          %i.fa.fa-camera
+          Photos
+    - if can? :index, :report
+      %li.dropdown
+        = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+          %i.fa.fa-list
+          Misc
+          %b.caret
+        %ul.dropdown-menu
+          %li= link_to 'Users', users_path
+          - if can? :create, Thought
+            %li= link_to 'Thoughts', thoughts_path
+          %li= link_to 'Files', saved_files_path
+          %li= link_to 'Offline', '/offline'
+          - if can? :manage, NutritionalPost
+            %li= link_to 'Nutritional Bites', nutritional_posts_path
+    - if can? :index, :report
+      %li.dropdown{class: controller.controller_name == 'reports' && 'active'}
+        = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+          %i.fa.fa-file-o
+          Reports
+          %b.caret
+        %ul.dropdown-menu
+          %li= link_to 'Statistics', statistics_report_path
+          %li= link_to 'Untimed Photos', untimed_photos_report_path
+          %li= link_to 'Unblogged Photos', unblogged_photos_report_path
+          %li= link_to 'Comments', comments_path
+
+  %ul.nav.navbar-nav.navbar-right
+    %li.dropdown
+      = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+        %i.fa.fa-user
+        = current_user.name
+        %b.caret
+      %ul.dropdown-menu
+        %li
+          = link_to 'Edit Profile', [:edit, current_user]
+        %li.divider
+        %li
+          = link_to 'Log Out', logout_path, method: :delete
