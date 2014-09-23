@@ -25,11 +25,16 @@
         = render 'layouts/nav'
 
     %section.container
-      - if @show_title && content_for?(:title)
-        .page-header
-          %h1 #{yield(:title)}
-      = render 'layouts/flash_hash'
-      = yield
+      .row
+        - if @show_title && content_for?(:title)
+          .page-header{ style: 'margin-top: 0' }
+            %h1 #{yield(:title)}
+          = render 'layouts/flash_hash'
+        .col-md-9
+          = yield
+        .col-md-3
+          - if content_for? :sidebar
+            = yield :sidebar
 
     %footer.container
       %p.text-center.text-muted &copy; #{Time.zone.now.year} Daniel &amp; Erika Esplin
