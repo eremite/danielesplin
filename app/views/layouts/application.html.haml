@@ -24,13 +24,12 @@
       - if current_user
         = render 'layouts/nav'
 
-    .content.container
+    %section.container
       - if @show_title && content_for?(:title)
         .page-header
           %h1 #{yield(:title)}
       = render 'layouts/flash_hash'
       = yield
 
-    %footer.footer
-      .container
-        %p &copy; #{Time.zone.now.year} Daniel &amp; Erika Esplin
+    %footer.container
+      %p.text-center.text-muted &copy; #{Time.zone.now.year} Daniel &amp; Erika Esplin
