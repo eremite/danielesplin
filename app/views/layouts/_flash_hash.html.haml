@@ -1,7 +1,15 @@
-- flash.each do |key, message|                                                    
-  -# Bootstrap has warning, error, success and info; Rails has alert and notice  
-  - key = :error if key == :alert                                                
-  - key = :success if key == :notice                                             
-  %div{:class => "alert alert-#{key}"}                                           
-    %button.close{data: { dismiss: 'alert' }} &times;                        
-    = message                                                                    
+- flash.each do |key, message|
+  -# Bootstrap has warning, error, success and info; Rails has alert and notice
+  - key = 'danger' if key == 'error'
+  - key = 'success' if key == 'notice'
+  .alert.alert-dismissible{ class: "alert-#{key}" }
+    %button.close{data: { dismiss: 'alert' }} &times;
+    %strong
+      - case key
+      - when 'success'
+        %i.fa.fa-smile-o
+        #{['Nice', 'Good Work', 'Way to go', 'Excellent', 'Hooray', 'Awesome', 'Hen in a hat. Hooray! Hooray', 'Superb', "That's great"].sample}!
+      - when 'danger'
+        %i.fa.fa-frown-o
+        #{['Oh No', 'Not Good', 'Not cool', 'Problem', 'Uh, oh', 'Very sad', 'Bad news'].sample}!
+    = message

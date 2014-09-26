@@ -28,10 +28,7 @@
 
     %section.container
       .row
-        - if @show_title && content_for?(:title)
-          .page-header{ style: 'margin-top: 0' }
-            %h1 #{yield(:title)}
-          = render 'layouts/flash_hash'
+        = render 'layouts/flash_hash'
         - if content_for? :sidebar
           .col-md-3.col-md-push-9
             = yield :sidebar
