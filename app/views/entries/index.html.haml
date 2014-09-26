@@ -30,30 +30,44 @@
         = submit_tag 'Search', class: 'btn btn-primary btn-block'
 
 - if @entries.empty?
-  %p.row Nothing yet.
+  .jumbotron
+    %h2 No results found
+    %p Maybe search for something else?
+    %p
+      Or
+      = link_to 'try the blog!', :posts
 - else
   - @entries.each do |entry|
-    = div_for entry, class: 'row span12' do
-      - if can? :edit, entry
-        .btn-group.pull-right
-          = link_to [:edit, entry], class: 'btn btn-small' do
-            %i.fa.fa-edit
-            Edit
-          = link_to entry, class: 'btn btn-small', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
-            %i.fa.fa-trash-o
-            Delete
-      - if params[:term].present?
-        %h3= link_to date_with_significant_time(entry.at), entry
-        %p= entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>").html_safe
-      - else
-        %h3= date_with_significant_time(entry.at)
-        .body
-          - if entry.entry_tags.present?
-            - entry.entry_tag_list.each do |tag_name|
-              .label.label-info.pull-right{ style: 'margin: 0 0.2em' }
-                = link_to tag_name, entries_path(tag: tag_name)
-          :markdown
-            #{entry.body}
+    = div_for entry, class: 'well' do
+      .row
+        .col-md-12
+          .pull-right
+            - if can? :edit, entry
+              .btn-group
+                = link_to [:edit, entry], class: 'btn btn-default btn-xs' do
+                  %i.fa.fa-edit
+                  Edit
+                = link_to entry, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
+                  %i.fa.fa-trash-o
+                  Delete
+            - if entry.entry_tags.present?
+              .list-group{ style: 'margin-top: 0.5em' }
+                - entry.entry_tag_list.each do |tag_name|
+                  = link_to tag_name, entries_path(tag: tag_name), class: 'list-group-item list-group-item-success'
+          %h2.h2
+            = link_to entry, style: 'color: inherit' do
+              = l entry.created_at.to_date, format: :long
+              - if entry.created_at != entry.created_at.beginning_of_day
+                %small
+                  at
+                  = l entry.created_at, format: '%l:%M%p'
+          - if params[:term].present?
+            %p
+              &hellip;
+              = entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>").html_safe
+              &hellip;
+          - else
+            :markdown
+              #{entry.body}
 
-  %p.clearfix
-    = paginate @entries
+  = paginate @entries

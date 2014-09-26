@@ -6,8 +6,4 @@ module ApplicationHelper
     @show_title = show_title
   end
 
-  def date_with_significant_time(date)
-    l(date == date.beginning_of_day ? date.to_date : date, format: :long)
-  end
-
 end
