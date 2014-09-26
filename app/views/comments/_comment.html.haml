@@ -1,11 +1,15 @@
-%blockquote
-  %span.pull-right.muted=l comment.created_at
-  .btn-group.pull-right
+.list-group-item
+  .btn-group.pull-right{ style: 'margin-left: 0.5em' }
     - if can? :edit, comment
-      = link_to [:edit, comment], class: 'btn btn-mini', title: 'Edit' do
+      = link_to [:edit, comment], class: 'btn btn-default btn-xs', title: 'Edit' do
         %i.fa.fa-edit
     - if can? :destroy, comment
-      = link_to comment, class: 'btn btn-mini', title: 'Delete', method: :delete, data: { confirm: 'Are you sure you want to delete this comment?' } do
+      = link_to comment, class: 'btn btn-default btn-xs', title: 'Delete', method: :delete, data: { confirm: 'Are you sure you want to delete this comment?' } do
         %i.fa.fa-trash-o
   = comment.body
-  %small= comment.user.try(:name)
+  .pull-right.text-muted
+    &mdash;
+    = comment.user.try(:name)
+    %small
+      at
+      =l comment.created_at

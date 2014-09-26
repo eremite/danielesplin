@@ -1,12 +1,12 @@
 .unblogged {
   border-color: #f89406;
 }
-// .btn-hover {
-//   .btn {
-//     position: absolute;
-//     display: none;
-//   }
-//   &:hover .btn {
-//     display: block;
-//   }
-// }
+.btn-hover {
+  .btn {
+    position: absolute;
+    display: none;
+  }
+  &:hover .btn {
+    display: block;
+  }
+}
