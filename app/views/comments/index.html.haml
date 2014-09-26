@@ -1,12 +1,12 @@
 - title 'Comments'
 
+-# TODO: Remove this action.
 
 - if @comments.empty?
   %p No comments.
 - else
-  - @comments.each do |comment|
-    %h3= link_to comment.post.title, comment.post
-    = render comment
+  .list-groups
+    - @comments.each do |comment|
+      = render commenH
 
-%p.clearfix
-  = paginate @comments
+= paginate @comments
