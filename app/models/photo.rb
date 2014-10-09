@@ -16,7 +16,7 @@ class Photo < ActiveRecord::Base
   scope :created_at_desc, -> { order(arel_table[:created_at].desc) }
 
   before_validation :handle_hidden
-  after_save :auto_assign_entries, if: ->(photo) { photo.post_ids.blank? }
+  after_save :auto_assign_posts, if: ->(photo) { photo.post_ids.blank? && !photo.hidden? }
 
 
   def self.unblogged
@@ -76,7 +76,7 @@ class Photo < ActiveRecord::Base
     end
   end
 
-  def auto_assign_entries
+  def auto_assign_posts
     self.posts = Post.where(at: created_at.beginning_of_day..created_at.end_of_day)
   end
 
