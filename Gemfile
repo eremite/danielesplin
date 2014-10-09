@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.1'
 
+gem 'acts-as-taggable-on'
 gem 'bcrypt-ruby'
 gem 'cancan'
 gem 'carrierwave'
@@ -17,11 +18,10 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'pg'
+gem 'rails_12factor'
 gem 'redcarpet'
 gem 'sass-rails'
-gem 'therubyracer' # For precompiling assets
 gem 'uglifier'
-gem 'acts-as-taggable-on'
 
 gem 'yaml_db', github: 'jetthoughts/yaml_db'
 
