@@ -1,31 +1,32 @@
-= form_for @user, class: 'form-horizontal' do |f|
+= form_for @user, html: { class: 'form-horizontal' } do |f|
   = @user.errors.full_messages.to_sentence
-  .control-group
-    = f.label :name, class: 'control-label'
-    .controls
-      = f.text_field :name
-  .control-group
-    = f.label :email, class: 'control-label'
-    .controls
-      = f.text_field :email
-  .control-group
-    = f.label :password, 'New Password', class: 'control-label'
-    .controls
-      = f.password_field :password
-  .control-group
-    = f.label :password_confirmation, 'Confirm New Password', class: 'control-label'
-    .controls
-      = f.password_field :password_confirmation
+  .form-group
+    = f.label :name, class: 'control-label col-sm-2'
+    .col-sm-10
+      = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :email, class: 'control-label col-md-2'
+    .col-md-10
+      = f.text_field :email, class: 'form-control'
+  .form-group
+    = f.label :password, 'New Password', class: 'control-label col-md-2'
+    .col-md-10
+      = f.password_field :password, class: 'form-control'
+  .form-group
+    = f.label :password_confirmation, 'Confirm New Password', class: 'control-label col-md-2'
+    .col-md-10
+      = f.password_field :password_confirmation, class: 'form-control'
   - if can? :change_role, f.object
-    .control-group
-      = f.label :role
-      .controls
-        = f.select :role, User::ROLES.map { |role| [role.titleize, role] }
+    .form-group
+      = f.label :role, class: 'control-label col-md-2'
+      .col-md-10
+        = f.select :role, User::ROLES.map { |role| [role.titleize, role] }, {}, class: 'form-control'
   - if can? :change_api_key, f.object
-    .control-group
-      = f.label :api_key
-      .controls
-        = f.text_field :api_key
-  .form-actions
-    %button.btn.btn-primary{ type: 'submit'} Save
-    = link_to 'Cancel', can?(:index, Entry) ? entries_path : posts_path, class: 'btn'
+    .form-group
+      = f.label :api_key, class: 'control-label col-md-2'
+      .col-md-10
+        = f.text_field :api_key, class: 'form-control'
+  .form-group
+    .col-md-offset-2.col-md-10
+      %button.btn.btn-primary{ type: 'submit'} Save
+      = link_to 'Cancel', can?(:index, Entry) ? entries_path : posts_path, class: 'btn'
