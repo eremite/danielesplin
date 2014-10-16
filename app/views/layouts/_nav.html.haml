@@ -19,7 +19,7 @@
           %i.fa.fa-book
           Journal
     - if can? :manage, Photo
-      %li{class: %w(photos upload_batches).include?(controller.controller_name) && 'active'}
+      %li{class: controller.controller_name == 'photos' && 'active'}
         = link_to photos_path do
           %i.fa.fa-camera
           Photos

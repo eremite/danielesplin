@@ -20,7 +20,6 @@ Danielesplin::Application.routes.draw do
   resources :saved_file_categories
   resources :saved_files
   resources :thoughts
-  resources :upload_batches
   resources :users
 
   resources :photos do

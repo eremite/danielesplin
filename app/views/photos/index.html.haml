@@ -8,10 +8,6 @@
       %i.fa.fa-inverse.fa-plus
       New Photo
 
-    = link_to new_upload_batch_path, class: 'btn btn-success btn-block' do
-      %i.fa.fa-inverse.fa-asterisk
-      New Batch
-
   %hr
 
   - if Photo.photo_tag_counts.present?
