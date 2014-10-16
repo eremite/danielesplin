@@ -32,6 +32,7 @@
       entries = $.parseJSON(localStorage['entries']);
       entry = {
         title: '' + $('#api_key').val() + ' ' + $('#at').val(),
+        body: $('#entry_body').val(),
         data: $(this).serialize()
       };
       entries.push(entry);
@@ -41,32 +42,25 @@
     });
 
     return $('a#sync-with-server').on('click', function(e) {
-      var entry, _i, _len, _ref;
-      _ref = $.parseJSON(localStorage['entries']);
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        entry = _ref[_i];
+      var entries, entry, i, length;
+      entries = $.parseJSON(localStorage['entries']);
+      for (i = 0, length = entries.length; i < length; i++) {
+        entry = entries[i];
         $.ajax({
           type: 'POST',
           url: '/api/entries',
           data: entry.data,
           success: function() {
-            var entries;
-            entries = $.parseJSON(localStorage['entries']);
-            entries = $.map(entries, function(n, i) {
-              if (n.data === entry.data) {
-                return null;
-              } else {
-                return n;
-              }
-            });
-            localStorage['entries'] = JSON.stringify(entries);
-            return renderEntries();
+            console.log('Uploaded', entry);
           },
           error: function(data) {
-            return alert(data.responseText);
+            alert(data.responseText);
+            $('ul.errors').append('<li>' + entry.title + ' - ' + entry.body + '</li>');
           }
         });
       }
+      localStorage['entries'] = JSON.stringify([]);
+      renderEntries();
       return e.preventDefault();
     });
   });
