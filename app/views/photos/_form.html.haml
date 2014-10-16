@@ -1,36 +1,27 @@
-= form_for @photo, class: 'form-horizontal' do |f|
-  .control-group
-    = f.label :at, class: 'control-label'
-    .controls
-      = text_field_tag :at, l(f.object.at), class: 'datetimepicker'
+= form_for @photo, html: { class: 'form-horizontal' } do |f|
+  .form-group
+    = f.label :at, class: 'control-label col-md-2'
+    .col-md-10
+      = text_field_tag :at, l(f.object.at), class: 'datetimepicker form-control'
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
-  .control-group
-    = f.label :post_ids, 'Blog Posts'
-    .controls
-      = f.label :hidden do
-        = f.check_box :hidden
-        = Photo.human_attribute_name(:hidden)
-      = f.collection_select :post_ids, Post.at_desc, :id, :dated_title, { include_blank: 'Any that match the date' }, { :multiple => true }
-  .control-group
-    = f.label :description, class: 'control-label'
-    .controls
-      = f.text_area :description, :rows => 3
-  .control-group
-    = f.label :image, class: 'control-label'
-    .controls
-      = f.file_field :image
-      = f.hidden_field :image_cache
-    .controls
-      .offset1 or
-      = f.text_field :remote_image_url, placeholder: 'Upload via URL'
-    .controls
-      .offset1 or
-      = f.text_field :google_plus_remote_image_url, placeholder: 'Upload from Google+ URL'
-  .control-group
-    = f.label :photo_tag_list, class: 'control-label'
-    .controls
-      = f.text_area :photo_tag_list
-  .form-actions
-    %button.btn.btn-primary{ type: 'submit'} Save
-    = hidden_field_tag :redirect_to, request.referrer.presence || photos_path
-    = link_to 'Cancel', photos_path, class: 'btn'
+  .form-group
+    = f.label :post_ids, 'Blog Posts', class: 'control-label col-md-2'
+    .col-md-10
+      .checkbox
+        = f.label :hidden do
+          = f.check_box :hidden
+          = Photo.human_attribute_name(:hidden)
+      = f.collection_select :post_ids, Post.at_desc, :id, :dated_title, { include_blank: 'Any that match the date' }, { multiple: true, class: 'form-control' }
+  .form-group
+    = f.label :description, class: 'control-label col-md-2'
+    .col-md-10
+      = f.text_area :description, rows: 3, class: 'form-control'
+  .form-group
+    = f.label :photo_tag_list, class: 'control-label col-md-2'
+    .col-md-10
+      = f.text_field :photo_tag_list, class: 'form-control'
+  .form-group
+    .col-md-offset-2.col-md-10
+      %button.btn.btn-primary{ type: 'submit'} Save
+      = hidden_field_tag :redirect_to, request.referrer.presence || photos_path
+      = link_to 'Cancel', photos_path, class: 'btn'
