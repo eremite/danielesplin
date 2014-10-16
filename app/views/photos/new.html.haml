@@ -1,10 +1,5 @@
 - title 'Upload Photos'
 
-%p.pull-right
-  = link_to old_new_photos_path, class: 'btn btn-success' do
-    %i.fa.fa-plus.fa-inverse
-    Old Upload Form
-
 .container
   = form_for Photo.new, :html => { :multipart => true  } do |f|
     .row.fileupload-buttonbar
