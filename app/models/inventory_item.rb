@@ -2,6 +2,9 @@ class InventoryItem < ActiveRecord::Base
 
   acts_as_taggable_on :inventory_item_tags
 
+  has_many :inventory_item_photos
+  has_many :photos, through: :inventory_item_photos
+
   validates :name, presence: true
 
   scope :on_desc, -> { order(arel_table[:on].desc) }

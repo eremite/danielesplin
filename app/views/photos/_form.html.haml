@@ -5,13 +5,17 @@
       = text_field_tag :at, l(f.object.at), class: 'datetimepicker form-control'
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .form-group
-    = f.label :post_ids, 'Blog Posts', class: 'control-label col-md-2'
+    = f.label :post_ids, nil, class: 'control-label col-md-2'
     .col-md-10
       .checkbox
         = f.label :hidden do
           = f.check_box :hidden
           = Photo.human_attribute_name(:hidden)
       = f.collection_select :post_ids, Post.at_desc, :id, :dated_title, { include_blank: 'Any that match the date' }, { multiple: true, class: 'form-control' }
+  .form-group
+    = f.label :inventory_item_ids, nil, class: 'control-label col-md-2'
+    .col-md-10
+      = f.collection_select :inventory_item_ids, InventoryItem.on_desc, :id, :name, { include_blank: 'None' }, { multiple: true, class: 'form-control' }
   .form-group
     = f.label :description, class: 'control-label col-md-2'
     .col-md-10

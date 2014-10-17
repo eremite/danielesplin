@@ -27,12 +27,7 @@ class InventoryItemsControllerTest < ActionController::TestCase
   test 'create valid' do
     InventoryItem.any_instance.stubs(save: true)
     post :create, inventory_item: valid_attributes
-    assert_redirected_to new_entry_url
-  end
-
-  test 'show' do
-    get :show, id: @inventory_item.id
-    assert_template :show
+    assert_redirected_to :inventory_items
   end
 
   test 'edit' do
@@ -49,12 +44,12 @@ class InventoryItemsControllerTest < ActionController::TestCase
   test 'update valid' do
     InventoryItem.any_instance.stubs(update_attributes: true)
     put :update, id: @inventory_item.id, inventory_item: valid_attributes
-    assert_redirected_to inventory_items_url
+    assert_redirected_to :inventory_items
   end
 
   test 'destroy' do
     delete :destroy, id: @inventory_item.id
-    assert_redirected_to inventory_items_url
+    assert_redirected_to :inventory_items
   end
 
 

@@ -10,6 +10,8 @@ class Photo < ActiveRecord::Base
   belongs_to :entry
   has_many :post_photos
   has_many :posts, through: :post_photos
+  has_many :inventory_item_photos
+  has_many :inventory_items, through: :inventory_item_photos
 
   scope :at_asc, -> { order(arel_table[:at].asc) }
   scope :at_desc, -> { order(arel_table[:at].desc) }

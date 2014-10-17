@@ -8,3 +8,8 @@
       Delete
 
 = render 'form'
+
+- if @inventory_item.photos.any?
+  .row
+    .col-md-12
+      = render @inventory_item.photos

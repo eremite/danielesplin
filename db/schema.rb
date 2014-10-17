@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017200956) do
+ActiveRecord::Schema.define(version: 20141017220457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 20141017200956) do
   end
 
   add_index "entries", ["user_id"], name: "index_entries_on_user_id", using: :btree
+
+  create_table "inventory_item_photos", force: true do |t|
+    t.integer  "inventory_item_id"
+    t.integer  "photo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "inventory_item_photos", ["inventory_item_id"], name: "index_inventory_item_photos_on_inventory_item_id", using: :btree
+  add_index "inventory_item_photos", ["photo_id"], name: "index_inventory_item_photos_on_photo_id", using: :btree
 
   create_table "inventory_items", force: true do |t|
     t.string   "name"
