@@ -1,0 +1,65 @@
+- title 'Household Inventory'
+
+- content_for :sidebar do
+
+  - if can? :create, InventoryItem
+    = link_to [:new, :inventory_item], class: 'btn btn-success btn-block' do
+      %i.fa.fa-plus.fa-inverse
+      New Item
+
+  %hr
+
+  %table.table.table-striped.table-condensed
+    %thead
+      %tr
+        %th Count
+        %th= InventoryItem.human_attribute_name(:cost)
+        %th= InventoryItem.human_attribute_name(:value)
+    %tbody
+      %tr
+        %td= number_with_delimiter InventoryItem.count
+        %td= number_to_currency InventoryItem.sum(:cost).to_f / 100
+        %td= number_to_currency InventoryItem.sum(:value).to_f / 100
+
+  - if InventoryItem.inventory_item_tag_counts.present?
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Tags
+      .panel-body
+        - tag_cloud(InventoryItem.tag_counts_on(:inventory_item_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
+          = link_to tag.name, inventory_items_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Search
+    .panel-body
+      = form_tag nil, method: :get, role: 'form' do
+        .form-group
+          = label_tag :ends_on, 'Date'
+          = date_field_tag :ends_on, l(@ends_on, format: :db), class: 'form-control'
+        .form-group
+          = label_tag :term
+          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
+        = submit_tag 'Search', class: 'btn btn-primary btn-block'
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= InventoryItem.human_attribute_name(:name)
+      %th= InventoryItem.human_attribute_name(:on)
+      %th= InventoryItem.human_attribute_name(:cost)
+      %th= InventoryItem.human_attribute_name(:value)
+      %th= InventoryItem.human_attribute_name(:inventory_item_tag_list)
+  %tbody
+    - @inventory_items.each do |inventory_item|
+      %tr
+        %td= link_to inventory_item.name, [:edit, inventory_item]
+        %td= l inventory_item.on
+        %td= number_to_currency inventory_item.cost_in_dollars
+        %td= number_to_currency inventory_item.value_in_dollars
+        %td
+          - inventory_item.inventory_item_tag_list.each do |tag_name|
+            %span.label.label-default{ style: 'margin-left: 0.5em' }
+              = link_to tag_name, inventory_items_path(tag: tag_name), style: 'color: inherit'
+
+= paginate @inventory_items

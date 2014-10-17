@@ -16,6 +16,7 @@ class Ability
         can :manage, SavedFile
         can :manage, SavedFileCategory
         can :manage, NutritionalPost
+        can :manage, InventoryItem
         if user.father?
           can :manage, Thought
         else

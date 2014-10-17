@@ -1,0 +1,8 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+base:
+  name: Chair
+  'on': 2014-10-17
+  description: A really comfy chair
+  cost: 10000
+  value: 1000

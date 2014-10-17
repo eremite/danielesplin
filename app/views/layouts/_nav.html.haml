@@ -37,6 +37,8 @@
           %li= link_to 'Offline', '/offline'
           - if can? :manage, NutritionalPost
             %li= link_to 'Nutritional Bites', nutritional_posts_path
+          - if can? :manage, InventoryItem
+            %li= link_to 'Household Inventory', :inventory_items
     - if can? :index, :report
       %li.dropdown{class: controller.controller_name == 'reports' && 'active'}
         = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do

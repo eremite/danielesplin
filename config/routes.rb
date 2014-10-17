@@ -11,6 +11,7 @@ Danielesplin::Application.routes.draw do
 
   resources :comments
   resources :entries
+  resources :inventory_items
   resources :nutritional_contacts
   resources :nutritional_posts
   resources :pages
