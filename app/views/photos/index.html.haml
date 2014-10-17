@@ -18,8 +18,10 @@
         - tag_cloud(Photo.tag_counts_on(:photo_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
           = link_to tag.name, photos_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
 
-%ul.thumbnails
-  = render @photos
+.row
+  .col-md-12
+    = render @photos
 
-%p.clearfix
-  = paginate @photos
+.row
+  .col-md-12
+    = paginate @photos
