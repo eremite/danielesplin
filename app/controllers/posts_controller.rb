@@ -48,7 +48,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to entries_url, notice: 'Post destroyed.'
+    redirect_to :posts, notice: 'Post destroyed.'
   end
 
 
