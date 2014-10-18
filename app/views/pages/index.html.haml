@@ -1,21 +1,42 @@
-.row
-  .span3
+.hidden-xs.hidden-sm
+  %br
+  %br
+
+.jumbotron.row
+
+  .col-md-3.col-md-push-9
+    - if logged_in?
+      - if can? :index, Post
+        = link_to 'See the blog!', [:posts], class: 'btn btn-primary btn-block'
+      - if can? :index, Photo
+        = link_to 'Photos: Look and See', [:photos], class: 'btn btn-warning btn-block'
+      - if can? :index, Entry
+        = link_to 'Browse the Journal', [:entries], class: 'btn btn-info btn-block'
+      - if can? :new, Entry
+        = link_to 'Create Journal Entry', [:new, :entry], class: 'btn btn-success btn-block'
+    - else
+      = form_tag sessions_path do
+        .form-group
+          = label_tag :email, nil, class: 'control-label'
+          = email_field_tag :email, params[:email], class: 'autofocus form-control', placeholder: 'Email'
+        .form-group
+          = label_tag :password, nil, class: 'control-label'
+          = password_field_tag :password, nil, class: 'form-control', placeholder: 'Password'
+        .form-group
+          = submit_tag 'Log in', class: 'btn btn-primary btn-block'
+
+  .col-md-3.col-md-pull-3
+
     %h1.name-container
       .daniel Daniel
       .amp &amp;
       .erika Erika
 
-  .span9
+  .col-md-6.col-md-pull-3.description
 
-    .description
-      %p Daniel Esplin is a cofounder of #{link_to('Custom Bit', 'http://custombit.com')}.
-      %p Erika Esplin is a #{link_to('Registered Dietitian', 'http://eatright.org')}.
-      %p We live with our daughter in Santa Clara, Utah.
-
-    - if logged_in?
-      = link_to 'See the blog!', posts_path if can? :index, :posts
-    - else
-      = form_tag sessions_path, class: 'form-inline' do
-        = email_field_tag :email, params[:email], class: 'autofocus span3', placeholder: 'Email'
-        = password_field_tag :password, nil, class: 'span3', placeholder: 'Password'
-        = submit_tag 'Log in', class: 'btn btn-primary'
+    .hidden-xs.hidden-sm
+      %br
+      %br
+    %p Daniel Esplin is a cofounder of #{link_to('Custom Bit', 'http://custombit.com')}.
+    %p Erika Esplin is a #{link_to('Registered Dietitian', 'http://eatright.org')}.
+    %p We live with our daughter in Santa Clara, Utah.

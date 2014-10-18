@@ -1,22 +1,60 @@
-body {
-  background-color: black;
-  background: -webkit-linear-gradient(0deg, #20002e 20%, #000000 100%);
-  background: linear-gradient(0deg, #20002e 20%, #000000 100%);
-}
+// body {
+//   background-color: black;
+//   background: -webkit-linear-gradient(0deg, #20002e 20%, #000000 100%);
+//   background: linear-gradient(0deg, #20002e 20%, #000000 100%);
+// }
 
-.content {
-  background-color: white;
-  padding: 0 20px;
-}
+// .content {
+//   background-color: white;
+//   padding: 0 20px;
+// }
 
-.footer {
-  text-align: center;
-}
+// .footer {
+//   text-align: center;
+// }
 
-blockquote p {
-  font-size: inherit;
-}
+// blockquote p {
+//   font-size: inherit;
+// }
 
-.label a {
-  color: white;
+// .label a {
+//   color: white;
+// }
+
+#pages-controller {
+
+  .jumbotron {
+    .name-container {
+      margin-left: 30px;
+      position: relative;
+      font-family: 'Courier New', 'Lucida Console', 'Monaco', monospace;
+      font-size: 40px;
+      line-height: 40px;
+      text-transform: uppercase;
+      height: 6em;
+      font-weight: bold;
+      .erika {
+        position: absolute;
+        top: 3em;
+        left: 0;
+      }
+      .amp {
+        position: absolute;
+        top: 88px;
+        left: 30px;
+        font-size: 100px;
+        line-height: 100px;
+        font-weight: bolder;
+        color: rgba(80, 0, 80, 0.3);
+      }
+      .daniel {
+        position: absolute;
+        top: 0;
+        left: 1.2em;
+        width: 1em;
+        word-wrap: break-word;
+      }
+    }
+  }
+
 }

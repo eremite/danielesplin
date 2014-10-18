@@ -1,9 +1,9 @@
 - title 'Thoughts'
 
-.btn-group.pull-right
-  = link_to thoughts_path(:kind => 'past'), class: 'btn' do
+- content_for :sidebar do
+  = link_to thoughts_path(:kind => 'past'), class: 'btn btn-success btn-block' do
     Past
-  = link_to thoughts_path(:kind => 'future'), class: 'btn' do
+  = link_to thoughts_path(:kind => 'future'), class: 'btn btn-info btn-block' do
     Future
 
 = form_for @thought do |f|

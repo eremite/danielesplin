@@ -1,5 +1,5 @@
 !!!
-%html
+%html{ lang: 'en' }
 
   %head
     %title
@@ -9,24 +9,33 @@
         Daniel &amp; Erika
     %meta{ 'http-equiv' => 'Content-Type', content: 'text/html; charset=utf-8' }
     %link{ rel: 'alternate', title: 'Daniel & Erika Esplin', href: posts_url(format: 'rss'), type: 'application/rss+xml' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css'
     = stylesheet_link_tag :application
     = javascript_include_tag :application
+    = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'
     = csrf_meta_tag
     = yield(:head)
 
   %body{ id: "#{controller.controller_name.dasherize}-controller" }
 
-    %header.header
-      - if current_user
-        = render 'layouts/nav'
+    - if current_user
+      %header
+        .navbar.navbar-default{ role: 'navigation' }
+          .container
+            = render 'layouts/nav'
 
-    .content.container
-      - if @show_title && content_for?(:title)
-        .page-header
-          %h1 #{yield(:title)}
-      = render 'layouts/flash_hash'
-      = yield
+    %section.container
+      .row
+        = render 'layouts/flash_hash'
+        - if content_for? :sidebar
+          .col-md-3.col-md-push-9
+            = yield :sidebar
+          .col-md-9.col-md-pull-3
+            = yield
+        - else
+          = yield
 
-    %footer.footer
-      .container
-        %p &copy; #{Time.zone.now.year} Daniel &amp; Erika Esplin
+    %footer.container
+      %p.text-center.text-muted &copy; #{Time.zone.now.year} Daniel &amp; Erika Esplin

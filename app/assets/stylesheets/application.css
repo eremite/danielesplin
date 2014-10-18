@@ -8,17 +8,12 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require bootstrap
  *= require jquery-ui
  *= require jquery-ui-timepicker-addon
  *= require jquery.fileupload-ui
  *= require jquery.fancybox
  *= require font-awesome
  *= require posts.css.scss
- *= require comments.css.scss
- *= require entries.css.scss
  *= require layout.css.scss
- *= require pages.css.scss
  *= require photos.css.scss
- *= require thoughts.css.scss
  */

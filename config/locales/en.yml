@@ -7,6 +7,7 @@ en:
       default: '%m/%d/%Y'
       short: '%b %d'
       long: '%A, %B %-d, %Y'
+      db: '%Y-%m-%d'
   time:
     formats:
       default: '%-m/%-d/%Y %l:%M%p'
@@ -18,6 +19,7 @@ en:
 
   attributes:
     at: 'Date'
+    'on': 'Date'
     kind: 'Type'
     body: 'Content'
     created_at: 'Created'
@@ -31,7 +33,15 @@ en:
         post_tag_list: 'Tags'
       photo:
         photo_tag_list: 'Tags'
+        post_ids: 'Blog Posts'
+        inventory_item_ids: 'Inventory'
+      inventory_item:
+        cost_in_dollars: 'Cost'
+        value_in_dollars: 'Value'
+        inventory_item_tag_list: 'Tags'
       user:
         api_key: 'API Key'
       nutritional_post:
         published_at: 'Publication Date'
+    models:
+      inventory_item: 'Inventory Item'
