@@ -1,25 +1,20 @@
-// body {
-//   background-color: black;
-//   background: -webkit-linear-gradient(0deg, #20002e 20%, #000000 100%);
-//   background: linear-gradient(0deg, #20002e 20%, #000000 100%);
-// }
+blockquote {
+  font-size: inherit;
+}
 
-// .content {
-//   background-color: white;
-//   padding: 0 20px;
-// }
-
-// .footer {
-//   text-align: center;
-// }
-
-// blockquote p {
-//   font-size: inherit;
-// }
-
-// .label a {
-//   color: white;
-// }
+// Photos
+.unblogged {
+  border-color: #f89406;
+}
+.btn-hover {
+  .btn {
+    position: absolute;
+    display: none;
+  }
+  &:hover .btn {
+    display: block;
+  }
+}
 
 #pages-controller {
 
