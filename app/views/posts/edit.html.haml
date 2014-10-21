@@ -1,3 +1,10 @@
 - title 'Edit Blog Post'
 
 = render 'form'
+
+- photos = @post.photos.at_asc
+- if photos.present?
+  .row
+    .col-md-12
+      - photos.each do |photo|
+        = render photo if photo.image?
