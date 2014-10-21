@@ -26,8 +26,9 @@
       .panel-heading
         %h3.panel-title Tags
       .panel-body
-        - tag_cloud(InventoryItem.tag_counts_on(:inventory_item_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
-          = link_to tag.name, inventory_items_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
+        .list-group{ style: 'margin-top: 0.5em' }
+          - InventoryItem.tag_counts_on(:inventory_item_tags).order(:name).each do |tag|
+            = link_to tag.name, inventory_items_path(tag: tag.name), class: 'list-group-item'
 
   .panel.panel-default
     .panel-heading
