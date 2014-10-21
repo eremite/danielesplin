@@ -10,6 +10,10 @@ class InventoryItem < ActiveRecord::Base
   scope :on_desc, -> { order(arel_table[:on].desc) }
   scope :before, -> (ends_on) { where(arel_table[:on].lteq(ends_on)) }
 
+  def summary
+    [name.presence, I18n.l(on).presence, inventory_item_tags.pluck(:name).join(', ')].compact.join(' - ')
+  end
+
   def cost_in_dollars
     cost.to_i / 100.0
   end

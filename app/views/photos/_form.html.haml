@@ -15,7 +15,7 @@
   .form-group
     = f.label :inventory_item_ids, nil, class: 'control-label col-md-2'
     .col-md-10
-      = f.collection_select :inventory_item_ids, InventoryItem.on_desc, :id, :name, { include_blank: 'None' }, { multiple: true, class: 'form-control' }
+      = f.collection_select :inventory_item_ids, InventoryItem.on_desc, :id, :summary, { include_blank: 'None' }, { multiple: true, class: 'form-control' }
   .form-group
     = f.label :description, class: 'control-label col-md-2'
     .col-md-10
