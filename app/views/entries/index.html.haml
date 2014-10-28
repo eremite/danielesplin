@@ -56,11 +56,11 @@
                   = link_to tag_name, entries_path(tag: tag_name), class: 'list-group-item list-group-item-success'
           %h2.h2
             = link_to entry, style: 'color: inherit' do
-              = l entry.created_at.to_date, format: :long
-              - if entry.created_at != entry.created_at.beginning_of_day
+              = l entry.at.to_date, format: :long
+              - if entry.at != entry.at.beginning_of_day
                 %small
                   at
-                  = l entry.created_at, format: '%l:%M%p'
+                  = l entry.at, format: '%l:%M%p'
           - if params[:term].present?
             .row
               .col-md-12

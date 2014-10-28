@@ -11,11 +11,11 @@
 .row
   .col-md-12
     %h2.h2
-      = l @entry.created_at.to_date, format: :long
-      - if @entry.created_at != @entry.created_at.beginning_of_day
+      = l @entry.at.to_date, format: :long
+      - if @entry.at != @entry.at.beginning_of_day
         %small
           at
-          = l @entry.created_at, format: '%l:%M%p'
+          = l @entry.at, format: '%l:%M%p'
     :markdown
       #{@entry.body}
 
