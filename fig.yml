@@ -4,19 +4,25 @@ web:
     - .:/usr/src/app
   ports:
     - "80:3000"
+    - "25:25"
   links:
     - db
   environment:
-    DB_NAME: danielesplin
-    EMAIL_USERNAME: email@example.com
-    EMAIL_PASSWORD: 'password'
-    FOG_SECRET: ssssssssssssssssssssssssssssssssssssssss
-    FOG_KEY: KKKKKKKKKKKKKKKKKKKK
-    FOG_BUCKET: bucket-name
-    SECRET_KEY_BASE: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-    DB_HOST: dbname.rds.amazonaws.com
-    DB_USERNAME: db_username
-    DB_PASSWORD: db_password
+    DB_NAME: db_name
+    FOG_SECRET: hmS/Vz5Jh8tC25pQrtToc8bmH7AQ8XZ0dm264LUg
+    FOG_KEY: NXVNVFID3CQSF5CEADOD
+    FOG_BUCKET: bucket-assets
+    SECRET_KEY_BASE: 8d669787efefbda19377777842980abd41db7777bd7789fc423e392bf3d5c387213028c1240cb9d3f3ff7fa58540b8d283ed0bdce8e063af760fe1b29cb239ee
+    DB_HOST: database.rds.amazonaws.com
+    DB_USERNAME: dbusername
+    DB_PASSWORD: dbpassword
+    FROM_EMAIL: noreply@example.com
+    EXCEPTION_EMAIL: exceptions@example.com
+    SMTP_ADDRESS: smtp.amazonaws.com
+    SMTP_PORT: 25
+    SMTP_USERNAME: AXVNOVMRBB4MX43M6OMN
+    SMTP_PASSWORD: Ai4ZWMShhfKyiXkPJrhPl0bUmpM
+    # RAILS_ENV: production
 
 db:
   image: "postgres:latest"

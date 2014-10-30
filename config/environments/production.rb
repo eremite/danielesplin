@@ -69,21 +69,13 @@ Danielesplin::Application.configure do
   config.active_support.deprecation = :notify
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'gmail.com',
-    user_name: Rails.application.secrets.email_username.to_s,
-    password: Rails.application.secrets.email_password.to_s,
-    authentication: 'plain',
-    enable_starttls_auto: true,
-  }
+  config.action_mailer.smtp_settings = Rails.application.secrets.smtp_credentials
 
   config.middleware.use ExceptionNotification::Rack,
     :email => {
       :email_prefix => "[danielesplin] ",
-      :sender_address => %{<exceptions@danielesplin.org>},
-      :exception_recipients => [Rails.application.secrets.email_username.to_s],
+      :sender_address => [Rails.application.secrets.emails['from'].to_s],
+      :exception_recipients => [Rails.application.secrets.emails['exceptions'].to_s],
     }
 
 end
