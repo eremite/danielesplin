@@ -43,6 +43,7 @@ class Photo < ActiveRecord::Base
   end
 
   def resize_url(size)
+    return "#{size}.jpg" if Rails.env.development?
     params = {
       key: Rails.application.config.embedly_key,
       url: image.url,
