@@ -74,8 +74,8 @@ Danielesplin::Application.configure do
   config.middleware.use ExceptionNotification::Rack,
     :email => {
       :email_prefix => "[danielesplin] ",
-      :sender_address => [Rails.application.secrets.emails['from'].to_s],
-      :exception_recipients => [Rails.application.secrets.emails['exceptions'].to_s],
+      :sender_address => [Rails.application.secrets.emails[:from].to_s],
+      :exception_recipients => [Rails.application.secrets.emails[:exceptions].to_s],
     }
 
 end
