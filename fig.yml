@@ -4,7 +4,7 @@ web:
     - .:/usr/src/app
   ports:
     - "80:3000"
-    - "25:25"
+    - "587:587"
   links:
     - db
   environment:
@@ -19,10 +19,9 @@ web:
     FROM_EMAIL: noreply@example.com
     EXCEPTION_EMAIL: exceptions@example.com
     SMTP_ADDRESS: smtp.amazonaws.com
-    SMTP_PORT: 25
+    SMTP_PORT: 587
     SMTP_USERNAME: AXVNOVMRBB4MX43M6OMN
     SMTP_PASSWORD: Ai4ZWMShhfKyiXkPJrhPl0bUmpM
-    # RAILS_ENV: production
 
 db:
   image: "postgres:latest"
