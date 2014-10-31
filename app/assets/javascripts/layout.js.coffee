@@ -1,9 +1,33 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-
 jQuery ->
 
+  # Autofocus
+  $('.autofocus:first').focus()
+
+  # Fancybox
+  $('.fancybox').fancybox({
+    preload: 50,
+  })
+
+  # Autosize
+  $('textarea#post_body, textarea#entry_body').autosize()
+
+  # Datetimepicker
+  $('.datetimepicker').datetimepicker
+    dateFormat: 'm/d/yy',
+    timeFormat: 'h:mmtt',
+    ampm: true,
+    altFormat: 'yy-mm-dd',
+    altTimeFormat: 'hh:mm:ss TT z',
+    altField: '.datetimepicker-hidden',
+    altFieldTimeOnly: false,
+    useLocalTimezone: true,
+    showTimezone: false,
+    showSecond: false,
+
+  # Datepicker
+  $('.datepicker').datepicker()
+
+  # Photos: toggle post_ids
   $('#photo_hidden').change ->
     if $(this).prop('checked')
       $('#photo_post_ids').hide('slow')
@@ -19,7 +43,12 @@ jQuery ->
   $('form.new_photo').bind 'fileuploadsubmit', (e, data) ->
     inputs = data.context.find(':input')
     data.formData = inputs.serializeArray()
+  $('form.new_saved_file').fileupload({
+    autoUpload: true,
+    paramName: 'saved_file[attachment]',
+  })
 
+  # Photos: remote image url
   $('#add-google-plus-remote-image-url').click ->
     placeholder = {
       google_plus_remote_image_url: prompt('Paste in the Google+ URL'),
