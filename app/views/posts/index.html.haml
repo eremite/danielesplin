@@ -66,6 +66,17 @@
               = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
             = submit_tag 'Search', class: 'btn btn-primary btn-block'
 
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Calendar
+        .panel-body
+          %ul
+            - if first_post_at = Post.order(Post.arel_table[:at].asc).first.try(:at)
+              - i_at = Time.zone.now.end_of_month
+              - until first_post_at > i_at
+                %li= link_to l(i_at, format: '%B %Y'), posts_path(ends_on: l(i_at))
+                - i_at -= 1.month
+
 - if @posts.empty?
   .jumbotron
     %h2 Nothing to see here.
