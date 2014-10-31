@@ -24,12 +24,12 @@
           %h3.panel-title Visitors
         .panel-body
           %ul.ul-unstyled
-            - LogEntry.blogs.includes(:user).where('users.role' => 'guest').created_at_desc.limit(8).each_with_index do |log_entry, i|
+            - User.where.not(id: current_user.id).viewed_blog_at_desc.limit(8).each do |user|
               %li
-                %strong= log_entry.user.try(:name)
+                %strong= user.name
                 &mdash;
-                = time_tag log_entry.created_at, is: 'relative-time', title: l(log_entry.created_at) do
-                  = time_ago_in_words log_entry.created_at
+                = time_tag user.viewed_blog_at, is: 'relative-time', title: l(user.viewed_blog_at) do
+                  = time_ago_in_words user.viewed_blog_at
                   ago
 
       .panel.panel-default

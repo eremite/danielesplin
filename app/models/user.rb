@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   validates :api_key, uniqueness: true, allow_blank: true
 
   scope :guest, -> { where(role: :guest) }
+  scope :viewed_blog_at_desc, -> { where.not(viewed_blog_at: nil).order(arel_table[:viewed_blog_at].desc) }
 
 
   def log(action)
