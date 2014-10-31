@@ -1,23 +1,6 @@
 CACHE MANIFEST
-# Thu Oct 16 16:56:07 MDT 2014
+# :r !date
+# Fri Oct 31 14:20:48 MDT 2014
 
-/assets/images/ui-bg_flat_0_aaaaaa_40x100.png
-/assets/images/ui-bg_flat_75_ffffff_40x100.png
-/assets/images/ui-bg_glass_55_fbf9ee_1x400.png
-/assets/images/ui-bg_glass_65_ffffff_1x400.png
-/assets/images/ui-bg_glass_75_dadada_1x400.png
-/assets/images/ui-bg_glass_75_e6e6e6_1x400.png
-/assets/images/ui-bg_glass_95_fef1ec_1x400.png
-/assets/images/ui-bg_highlight-soft_75_cccccc_1x100.png
-/assets/images/ui-icons_222222_256x240.png
-/assets/images/ui-icons_2e83ff_256x240.png
-/assets/images/ui-icons_454545_256x240.png
-/assets/images/ui-icons_888888_256x240.png
-/assets/images/ui-icons_cd0a0a_256x240.png
-/offline/jquery-ui.css
-/offline/jquery-ui-timepicker-addon.css
-/offline/offline.css
 /offline/jquery.js
-/offline/jquery-ui.js
-/offline/jquery-ui-timepicker-addon.js
 /offline/offline.js

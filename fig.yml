@@ -8,7 +8,7 @@ web:
   links:
     - db
   environment:
-    DB_NAME: db_name
+    DB_NAME: danielesplin
     FOG_SECRET: hmS/Vz5Jh8tC25pQrtToc8bmH7AQ8XZ0dm264LUg
     FOG_KEY: NXVNVFID3CQSF5CEADOD
     FOG_BUCKET: bucket-assets

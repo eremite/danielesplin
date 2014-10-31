@@ -3,66 +3,41 @@
   <head>
     <meta charset='utf-8' />
     <title>Offline Journal</title>
-    <link href='/offline/jquery-ui.css' media='screen' rel='stylesheet' />
-    <link href='/offline/jquery-ui-timepicker-addon.css' media='screen' rel='stylesheet' />
-    <link href='/offline/offline.css' media='screen' rel='stylesheet' />
     <script src='/offline/jquery.js'></script>
-    <script src='/offline/jquery-ui.js'></script>
-    <script src='/offline/jquery-ui-timepicker-addon.js'></script>
     <script src='/offline/offline.js'></script>
     <!-- localStorage['entries'] = JSON.stringify([]) -->
   </head>
 
-  <body id='offline-controller'>
-    <header class='header'></header>
-    <div class='content container'>
+  <body>
+    <h1>Offline Journal</h1>
 
-      <div class='page-header'>
-        <a href="/entries" class="pull-right">Back to online app</a>
-        <h1>Offline Journal</h1>
-      </div>
-
-      <div class="well well-small">
-        <ul class='entries'></ul>
-        <ul class='errors'></ul>
-        <p class="pull-right">
-          <a href="#" id="sync-with-server" class="btn btn-success">
-            <i class='icon-white icon-refresh'></i>
-            Sync With Server
-          </a>
-        </p>
-      </div>
-
-      <form accept-charset="UTF-8" class="new_entry" id="new_entry" method="post">
-        <div style="margin:0;padding:0;display:inline">
-          <input name="utf8" type="hidden" value="&#x2713;" />
-          <input name="authenticity_token" type="hidden" value="QsIJ+RhZ2m3ZCmoBYQrK9eq716J3dmPFhewGSqlWgN4=" />
-        </div>
-        <div class='control-group'>
-          <label class="control-label" for="entry_at">Date</label>
-          <div class='controls'>
-            <input class="datetimepicker" id="at" name="at" tabindex="1" type="text" value="" />
-            <input class="datetimepicker-hidden" id="entry_at" name="entry[at]" type="hidden" value="" />
-          </div>
-        </div>
-        <div class='control-group'>
-          <label class="control-label" for="entry_body">Content</label>
-          <div class='controls'>
-            <textarea class="span12 autofocus" id="entry_body" name="entry[body]" rows="30" tabindex="3"></textarea>
-          </div>
-        </div>
-        <div class='control-group'>
-          <label class="control-label" for="api_key">API Key</label>
-          <div class='controls'>
-            <input type="text" id="api_key" name="api_key" tabindex="4"></textarea>
-          </div>
-        </div>
-        <div class='form-actions'>
-          <button class='btn btn-primary' tabindex='5' type='submit'>Save</button>
-        </div>
-      </form>
-
+    <div>
+      <ul class='entries'></ul>
+      <ul class='errors'></ul>
+      <p>
+        <a href="#" id="sync-with-server">Sync With Server</a>
+      </p>
     </div>
+
+    <form accept-charset="UTF-8" class="new_entry" id="new_entry" method="post">
+      <p>
+        <label for="entry_at">Date</label>
+        <input id="entry_at" name="entry[at]" type="date" value="" />
+      </p>
+      <p>
+        <label for="api_key">Name</label>
+        <input type="text" id="api_key" name="api_key" />
+      </p>
+      <p>
+        <label for="entry_body">Content</label>
+        <br />
+        <textarea id="entry_body" name="entry[body]" rows="30" style="width: 60%"></textarea>
+      </p>
+      <p>
+        <button type='submit'>Save</button>
+      </p>
+    </form>
+
   </body>
 
 </html>
