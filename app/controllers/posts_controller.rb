@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   def index
     current_user.try(:log, 'blog')
-    current_user.touch(:viewed_blog_at)
+    current_user.try(:touch, :viewed_blog_at)
     begin
       @ends_on = Date.strptime(params[:ends_on].to_s, '%m/%d/%Y')
     rescue ArgumentError, TypeError
