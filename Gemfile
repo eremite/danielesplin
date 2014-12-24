@@ -35,10 +35,6 @@ group :development, :test do
   gem 'rb-inotify', :require => false
 end
 
-group :development do
-  gem 'spring'
-end
-
 group :test do
   gem 'mocha'
 end
