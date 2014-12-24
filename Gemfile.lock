@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/jetthoughts/yaml_db.git
-  revision: 5f73cbd14adee939adf08574ec3bf6e05ee55889
-  specs:
-    yaml_db (0.2.3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -199,6 +193,9 @@ GEM
     uglifier (2.5.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    yaml_db (0.3.0)
+      rails (>= 3.0, < 4.3)
+      rake (>= 0.8.7)
 
 PLATFORMS
   ruby
@@ -232,4 +229,4 @@ DEPENDENCIES
   sass-rails
   spring
   uglifier
-  yaml_db!
+  yaml_db

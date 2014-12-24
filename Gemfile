@@ -22,8 +22,7 @@ gem 'rails_12factor'
 gem 'redcarpet'
 gem 'sass-rails'
 gem 'uglifier'
-
-gem 'yaml_db', github: 'jetthoughts/yaml_db'
+gem 'yaml_db'
 
 group :production do
   gem 'puma'
