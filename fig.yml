@@ -1,7 +1,7 @@
 web:
   build: .
-  volumes:
-    - .:/usr/src/app
+  volumes_from:
+    - data
   ports:
     - "80:3000"
     - "587:587"
