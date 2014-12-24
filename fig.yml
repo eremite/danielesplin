@@ -24,10 +24,11 @@ web:
     SMTP_PASSWORD: Ai4ZWMShhfKyiXkPJrhPl0bUmpM
 
 db:
-  image: "postgres:latest"
+  image: "mysql:5.5"
   ports:
-    - "5432:5432"
+    - "3306:3306"
   volumes_from:
     - db_data
   environment:
-    LC_ALL: C.UTF-8
+    MYSQL_ROOT_PASSWORD: docker
+  command: mysqld --user=mysql --datadir=/var/lib/mysql/5.5

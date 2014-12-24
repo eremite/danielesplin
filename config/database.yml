@@ -1,7 +1,10 @@
 development: &default
-  adapter: postgresql
-  username: postgres
+  adapter: mysql2
+  username: root
   password: docker
+  # adapter: postgresql
+  # username: postgres
+  # password: docker
   host: db_1
   database: <%= ENV['DB_NAME'] %>
 
