@@ -5,7 +5,7 @@ development: &default
   # adapter: postgresql
   # username: postgres
   # password: docker
-  host: db_1
+  host: db
   database: <%= ENV['DB_NAME'] %>
 
 test:
