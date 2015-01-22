@@ -58,6 +58,15 @@ jQuery ->
     if (placeholder.google_plus_remote_image_url && placeholder.google_plus_remote_image_url.length)
       $('form.new_photo').fileupload('add', { files: [placeholder] })
 
+  # Photo: insert tag
+  $('span.insert-into-photo-tag-list').click ->
+    input = $('input#photo_photo_tag_list')
+    if input.val()
+      input.val("#{input.val()}, #{this.innerHTML}")
+    else
+      input.val(this.innerHTML)
+    $(this).remove()
+
 # Not sure why/if this has to be global...
 fileUploadErrors = {
   maxFileSize: 'File is too big',
