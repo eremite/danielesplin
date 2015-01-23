@@ -6,6 +6,11 @@
     = link_to [:new, :entry], class: 'btn btn-success btn-block' do
       %i.fa.fa-inverse.fa-plus
       New Journal Entry
+  - current_user.users_whose_entries_i_can_edit.each do |user|
+    - next if user.id == current_user.id
+    = link_to entries_path(user_id: user.id), class: 'btn btn-warning btn-block' do
+      %i.fa.fa-inverse.fa-book
+        #{user.name}'s Journal
 
   %hr
 
