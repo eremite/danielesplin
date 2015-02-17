@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.6'
 
 gem 'acts-as-taggable-on'
+gem 'aws-ses', '~> 0.6.0'
 gem 'bcrypt-ruby'
 gem 'cancan'
 gem 'carrierwave'

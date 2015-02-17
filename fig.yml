@@ -18,10 +18,8 @@ web:
     DB_PASSWORD: dbpassword
     FROM_EMAIL: noreply@example.com
     EXCEPTION_EMAIL: exceptions@example.com
-    SMTP_ADDRESS: smtp.amazonaws.com
-    SMTP_PORT: 587
-    SMTP_USERNAME: AXVNOVMRBB4MX43M6OMN
-    SMTP_PASSWORD: Ai4ZWMShhfKyiXkPJrhPl0bUmpM
+    SES_KEY: AKVNVHAF4ID2KC5IEIWD
+    SES_SECRET: unC9xH21bS4VgSVkyxt9hAPY8uF2ER854HGRSovW
 
 db:
   image: "mysql:5.5"
