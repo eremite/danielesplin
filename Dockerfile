@@ -1,5 +1,4 @@
 FROM ruby:2.2.0
-MAINTAINER Daniel Esplin <daniel@danielesplin.org>
 
 ENV LC_ALL C.UTF-8
 
