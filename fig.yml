@@ -8,6 +8,7 @@ web:
   links:
     - db
   environment:
+
     DB_NAME: danielesplin
     FOG_SECRET: hmS/Vz5Jh8tC25pQrtToc8bmH7AQ8XZ0dm264LUg
     FOG_KEY: NXVNVFID3CQSF5CEADOD
@@ -20,6 +21,7 @@ web:
     EXCEPTION_EMAIL: exceptions@example.com
     SES_KEY: AKVNVHAF4ID2KC5IEIWD
     SES_SECRET: unC9xH21bS4VgSVkyxt9hAPY8uF2ER854HGRSovW
+    EMBEDLY_KEY: embedlykey
 
 db:
   image: "mysql:5.5"

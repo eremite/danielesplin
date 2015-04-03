@@ -62,7 +62,7 @@ module Danielesplin
       g.stylesheets false
     end
 
-    config.embedly_key = ENV['EMBEDLY_KEY'].to_s
+    config.embedly_key = secrets[:embedly_key]
 
   end
 end
