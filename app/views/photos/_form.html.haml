@@ -24,7 +24,7 @@
     = f.label :photo_tag_list, class: 'control-label col-md-2'
     .col-md-10
       %p
-        - Photo.photo_tag_counts.order('taggings_count DESC').limit(7).where.not(id: f.object.photo_tags.pluck(:id)).each do |tag|
+        - Photo.photo_tag_counts.order('taggings_count DESC').limit(10).where.not(id: f.object.photo_tags.pluck(:id)).each do |tag|
           %span.label.label-default.insert-into-photo-tag-list{ style: 'cursor: pointer' }= tag.name
       = f.text_field :photo_tag_list, class: 'form-control'
   .form-group
