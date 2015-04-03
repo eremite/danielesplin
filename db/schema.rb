@@ -11,41 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141031214024) do
+ActiveRecord::Schema.define(version: 20150403230943) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "comments", force: true do |t|
-    t.integer  "user_id"
-    t.text     "body"
+  create_table "comments", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.text     "body",       limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "post_id"
+    t.integer  "post_id",    limit: 4
   end
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   limit: 4,     default: 0, null: false
+    t.integer  "attempts",   limit: 4,     default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "entries", force: true do |t|
-    t.integer  "user_id"
-    t.text     "body"
+  create_table "entries", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.text     "body",       limit: 65535
     t.datetime "at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -53,9 +50,9 @@ ActiveRecord::Schema.define(version: 20141031214024) do
 
   add_index "entries", ["user_id"], name: "index_entries_on_user_id", using: :btree
 
-  create_table "inventory_item_photos", force: true do |t|
-    t.integer  "inventory_item_id"
-    t.integer  "photo_id"
+  create_table "inventory_item_photos", force: :cascade do |t|
+    t.integer  "inventory_item_id", limit: 4
+    t.integer  "photo_id",          limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -63,54 +60,44 @@ ActiveRecord::Schema.define(version: 20141031214024) do
   add_index "inventory_item_photos", ["inventory_item_id"], name: "index_inventory_item_photos_on_inventory_item_id", using: :btree
   add_index "inventory_item_photos", ["photo_id"], name: "index_inventory_item_photos_on_photo_id", using: :btree
 
-  create_table "inventory_items", force: true do |t|
-    t.string   "name"
+  create_table "inventory_items", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.date     "on"
-    t.text     "description"
-    t.integer  "cost"
-    t.integer  "value"
+    t.text     "description", limit: 65535
+    t.integer  "cost",        limit: 4
+    t.integer  "value",       limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "log_entries", force: true do |t|
-    t.integer  "user_id"
-    t.string   "action"
+  create_table "log_entries", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "action",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "log_entries", ["user_id"], name: "index_log_entries_on_user_id", using: :btree
 
-  create_table "nutritional_posts", force: true do |t|
-    t.string   "title"
-    t.string   "slug"
-    t.datetime "published_at"
-    t.text     "bite"
-    t.text     "full_plate"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "photos", force: true do |t|
+  create_table "photos", force: :cascade do |t|
     t.datetime "at"
-    t.text     "description"
+    t.text     "description",      limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.string   "image"
-    t.integer  "entry_id"
-    t.boolean  "hidden",           default: false
-    t.string   "image_tmp"
-    t.boolean  "image_processing"
+    t.integer  "user_id",          limit: 4
+    t.string   "image",            limit: 255
+    t.integer  "entry_id",         limit: 4
+    t.boolean  "hidden",           limit: 1,     default: false
+    t.string   "image_tmp",        limit: 255
+    t.boolean  "image_processing", limit: 1
   end
 
   add_index "photos", ["entry_id"], name: "index_photos_on_entry_id", using: :btree
   add_index "photos", ["user_id"], name: "index_photos_on_user_id", using: :btree
 
-  create_table "post_photos", force: true do |t|
-    t.integer  "post_id"
-    t.integer  "photo_id"
+  create_table "post_photos", force: :cascade do |t|
+    t.integer  "post_id",    limit: 4
+    t.integer  "photo_id",   limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -118,37 +105,37 @@ ActiveRecord::Schema.define(version: 20141031214024) do
   add_index "post_photos", ["photo_id"], name: "index_post_photos_on_photo_id", using: :btree
   add_index "post_photos", ["post_id"], name: "index_post_photos_on_post_id", using: :btree
 
-  create_table "posts", force: true do |t|
-    t.text     "body"
+  create_table "posts", force: :cascade do |t|
+    t.text     "body",       limit: 65535
     t.datetime "at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "saved_file_categories", force: true do |t|
-    t.string   "name"
+  create_table "saved_file_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "saved_files", force: true do |t|
-    t.integer  "user_id"
-    t.text     "description"
-    t.string   "attachment"
+  create_table "saved_files", force: :cascade do |t|
+    t.integer  "user_id",                limit: 4
+    t.text     "description",            limit: 65535
+    t.string   "attachment",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "saved_file_category_id"
+    t.integer  "saved_file_category_id", limit: 4
   end
 
   add_index "saved_files", ["saved_file_category_id"], name: "index_saved_files_on_saved_file_category_id", using: :btree
   add_index "saved_files", ["user_id"], name: "index_saved_files_on_user_id", using: :btree
 
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id",        limit: 4
+    t.integer  "taggable_id",   limit: 4
+    t.string   "taggable_type", limit: 255
+    t.integer  "tagger_id",     limit: 4
+    t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
     t.datetime "created_at"
   end
@@ -156,16 +143,16 @@ ActiveRecord::Schema.define(version: 20141031214024) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
   add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
-  create_table "tags", force: true do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
+  create_table "tags", force: :cascade do |t|
+    t.string  "name",           limit: 255
+    t.integer "taggings_count", limit: 4,   default: 0
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
-  create_table "thoughts", force: true do |t|
-    t.integer  "user_id"
-    t.string   "body"
+  create_table "thoughts", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "body",       limit: 255
     t.date     "on"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -173,14 +160,14 @@ ActiveRecord::Schema.define(version: 20141031214024) do
 
   add_index "thoughts", ["user_id"], name: "index_thoughts_on_user_id", using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
+  create_table "users", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.string   "email",           limit: 255
+    t.string   "password_digest", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "role",            default: "guest"
-    t.string   "api_key"
+    t.string   "role",            limit: 255, default: "guest"
+    t.string   "api_key",         limit: 255
     t.datetime "viewed_blog_at"
   end
 

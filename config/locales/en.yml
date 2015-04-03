@@ -41,7 +41,5 @@ en:
         inventory_item_tag_list: 'Tags'
       user:
         api_key: 'API Key'
-      nutritional_post:
-        published_at: 'Publication Date'
     models:
       inventory_item: 'Inventory Item'
