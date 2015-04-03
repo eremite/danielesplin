@@ -15,4 +15,4 @@ COPY . /data/danielesplin
 RUN RAILS_ENV=production bin/rake assets:precompile
 
 EXPOSE 3000
-CMD ["rails", "server"]
+CMD ["rails", "server", "-b", "0.0.0.0"]

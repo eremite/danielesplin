@@ -19,14 +19,16 @@ class EntriesControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    Entry.any_instance.stubs(save: false)
-    post :create, entry: valid_attributes
+    Entry.stub_any_instance :save, false do
+      post :create, entry: valid_attributes
+    end
     assert_template :new
   end
 
   test 'create valid' do
-    Entry.any_instance.stubs(save: true)
-    post :create, entry: valid_attributes
+    Entry.stub_any_instance :save, true do
+      post :create, entry: valid_attributes
+    end
     assert_redirected_to new_entry_url
   end
 
@@ -41,14 +43,16 @@ class EntriesControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Entry.any_instance.stubs(update_attributes: false)
-    put :update, id: @entry.id, entry: valid_attributes
+    Entry.stub_any_instance :update_attributes, false do
+      put :update, id: @entry.id, entry: valid_attributes
+    end
     assert_template :edit
   end
 
   test 'update valid' do
-    Entry.any_instance.stubs(update_attributes: true)
-    put :update, id: @entry.id, entry: valid_attributes
+    Entry.stub_any_instance :update_attributes, true do
+      put :update, id: @entry.id, entry: valid_attributes
+    end
     assert_redirected_to entries_url
   end
 

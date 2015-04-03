@@ -17,14 +17,16 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    Comment.any_instance.stubs(save: false)
-    post :create, comment: valid_attributes
+    Comment.stub_any_instance :save, false do
+      post :create, comment: valid_attributes
+    end
     assert_template :new
   end
 
   test 'create valid' do
-    Comment.any_instance.stubs(save: true)
-    post :create, comment: valid_attributes
+    Comment.stub_any_instance :save, true do
+      post :create, comment: valid_attributes
+    end
     assert_redirected_to :posts
   end
 
@@ -34,14 +36,16 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Comment.any_instance.stubs(update_attributes: false)
-    put :update, id: comments(:base).id, comment: valid_attributes
+    Comment.stub_any_instance :update_attributes, false do
+      put :update, id: comments(:base).id, comment: valid_attributes
+    end
     assert_template :edit
   end
 
   test 'update valid' do
-    Comment.any_instance.stubs(update_attributes: true)
-    put :update, id: comments(:base).id, comment: valid_attributes
+    Comment.stub_any_instance :update_attributes, true do
+      put :update, id: comments(:base).id, comment: valid_attributes
+    end
     assert_redirected_to :posts
   end
 

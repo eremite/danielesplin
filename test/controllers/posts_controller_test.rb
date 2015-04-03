@@ -23,14 +23,16 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    Post.any_instance.stubs(save: false)
-    post :create, post: valid_attributes
+    Post.stub_any_instance :save, false do
+      post :create, post: valid_attributes
+    end
     assert_template :new
   end
 
   test 'create valid' do
-    Post.any_instance.stubs(save: true)
-    post :create, post: valid_attributes
+    Post.stub_any_instance :save, true do
+      post :create, post: valid_attributes
+    end
     assert_redirected_to :posts
   end
 

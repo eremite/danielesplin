@@ -13,26 +13,30 @@ class SavedFileCategoriesControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    SavedFileCategory.any_instance.stubs(save: false)
-    post :create, saved_file_category: valid_attributes
+    SavedFileCategory.stub_any_instance :save, false do
+      post :create, saved_file_category: valid_attributes
+    end
     assert_response :success
   end
 
   test 'create valid' do
-    SavedFileCategory.any_instance.stubs(save: true)
-    post :create, saved_file_category: valid_attributes
+    SavedFileCategory.stub_any_instance :save, true do
+      post :create, saved_file_category: valid_attributes
+    end
     assert_redirected_to saved_file_categories_url
   end
 
   test 'update invalid' do
-    SavedFileCategory.any_instance.stubs(save: false)
-    patch :update, id: @saved_file_category.id, saved_file_category: valid_attributes
+    SavedFileCategory.stub_any_instance :save, false do
+      patch :update, id: @saved_file_category.id, saved_file_category: valid_attributes
+    end
     assert_response :success
   end
 
   test 'update valid' do
-    SavedFileCategory.any_instance.stubs(save: true)
-    patch :update, id: @saved_file_category.id, saved_file_category: valid_attributes
+    SavedFileCategory.stub_any_instance :save, true do
+      patch :update, id: @saved_file_category.id, saved_file_category: valid_attributes
+    end
     assert_redirected_to saved_file_categories_url
   end
 

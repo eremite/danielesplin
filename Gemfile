@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.1'
 
 gem 'acts-as-taggable-on'
 gem 'aws-ses', '~> 0.6.0'
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'cancan'
 gem 'carrierwave'
 gem 'coffee-rails'
@@ -19,7 +19,6 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'mysql2'
-gem 'pg'
 gem 'rails_12factor'
 gem 'redcarpet'
 gem 'sass-rails'
@@ -31,12 +30,10 @@ group :production do
 end
 
 group :development, :test do
-  gem 'guard'
-  gem 'guard-minitest'
-  gem 'rb-fsevent', :require => false
-  gem 'rb-inotify', :require => false
+  gem 'quiet_assets', '~> 1.1.0'
+  gem 'byebug', '~> 3.5.1'
 end
 
 group :test do
-  gem 'mocha'
+  gem 'minitest-stub_any_instance', '~> 1.0.0'
 end

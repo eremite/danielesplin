@@ -19,14 +19,16 @@ class InventoryItemsControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    InventoryItem.any_instance.stubs(save: false)
-    post :create, inventory_item: valid_attributes
+    InventoryItem.stub_any_instance :save, false do
+      post :create, inventory_item: valid_attributes
+    end
     assert_template :new
   end
 
   test 'create valid' do
-    InventoryItem.any_instance.stubs(save: true)
-    post :create, inventory_item: valid_attributes
+    InventoryItem.stub_any_instance :save, true do
+      post :create, inventory_item: valid_attributes
+    end
     assert_redirected_to :inventory_items
   end
 
@@ -36,14 +38,16 @@ class InventoryItemsControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    InventoryItem.any_instance.stubs(update_attributes: false)
-    put :update, id: @inventory_item.id, inventory_item: valid_attributes
+    InventoryItem.stub_any_instance :update_attributes, false do
+      put :update, id: @inventory_item.id, inventory_item: valid_attributes
+    end
     assert_template :edit
   end
 
   test 'update valid' do
-    InventoryItem.any_instance.stubs(update_attributes: true)
-    put :update, id: @inventory_item.id, inventory_item: valid_attributes
+    InventoryItem.stub_any_instance :update_attributes, true do
+      put :update, id: @inventory_item.id, inventory_item: valid_attributes
+    end
     assert_redirected_to :inventory_items
   end
 

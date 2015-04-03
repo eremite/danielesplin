@@ -13,14 +13,16 @@ class ThoughtsControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    Thought.any_instance.stubs(save: false)
-    post :create, thought: valid_attributes
+    Thought.stub_any_instance :save, false do
+      post :create, thought: valid_attributes
+    end
     assert_template :edit
   end
 
   test 'create valid' do
-    Thought.any_instance.stubs(save: true)
-    post :create, thought: valid_attributes
+    Thought.stub_any_instance :save, true do
+      post :create, thought: valid_attributes
+    end
     assert_redirected_to thoughts_url
   end
 
@@ -30,14 +32,16 @@ class ThoughtsControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Thought.any_instance.stubs(update_attributes: false)
-    put :update, id: thoughts(:base).id, thought: valid_attributes
+    Thought.stub_any_instance :update_attributes, false do
+      put :update, id: thoughts(:base).id, thought: valid_attributes
+    end
     assert_template :edit
   end
 
   test 'update valid' do
-    Thought.any_instance.stubs(update_attributes: true)
-    put :update, id: thoughts(:base).id, thought: valid_attributes
+    Thought.stub_any_instance :update_attributes, true do
+      put :update, id: thoughts(:base).id, thought: valid_attributes
+    end
     assert_redirected_to thoughts_url
   end
 

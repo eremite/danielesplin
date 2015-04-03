@@ -23,20 +23,23 @@ class PhotosControllerTest < ActionController::TestCase
   end
 
   test 'create invalid' do
-    Photo.any_instance.stubs(save: false)
-    post :create, photo: valid_attributes
+    Photo.stub_any_instance :save, false do
+      post :create, photo: valid_attributes
+    end
     assert_response :success
   end
 
   test 'create valid' do
-    Photo.any_instance.stubs(save: true)
-    post :create, photo: valid_attributes
+    Photo.stub_any_instance :save, true do
+      post :create, photo: valid_attributes
+    end
     assert_redirected_to old_new_photos_url
   end
 
   test 'create valid json' do
-    Photo.any_instance.stubs(save: true)
-    post :create, photo: valid_attributes, format: 'json'
+    Photo.stub_any_instance :save, true do
+      post :create, photo: valid_attributes, format: 'json'
+    end
     assert_response :success
   end
 
@@ -51,20 +54,23 @@ class PhotosControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Photo.any_instance.stubs(update_attributes: false)
-    put :update, id: @photo.id, photo: valid_attributes
+    Photo.stub_any_instance :update_attributes, false do
+      put :update, id: @photo.id, photo: valid_attributes
+    end
     assert_template :edit
   end
 
   test 'update valid' do
-    Photo.any_instance.stubs(update_attributes: true)
-    put :update, id: @photo.id, photo: valid_attributes
+    Photo.stub_any_instance :update_attributes, true do
+      put :update, id: @photo.id, photo: valid_attributes
+    end
     assert_redirected_to photos_url
   end
 
   test 'update valid with redirect' do
-    Photo.any_instance.stubs(update_attributes: true)
-    put :update, id: @photo.id, photo: valid_attributes, redirect_to: '/'
+    Photo.stub_any_instance :update_attributes, true do
+      put :update, id: @photo.id, photo: valid_attributes, redirect_to: '/'
+    end
     assert_redirected_to '/'
   end
 

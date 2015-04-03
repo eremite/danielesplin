@@ -16,15 +16,17 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'create invalid' do
     login_as(users(:admin))
-    User.any_instance.stubs(save: false)
-    post :create, user: valid_attributes
+    User.stub_any_instance :save, false do
+      post :create, user: valid_attributes
+    end
     assert_template :new
   end
 
   test 'create valid' do
     login_as(users(:admin))
-    User.any_instance.stubs(save: true)
-    post :create, user: valid_attributes
+    User.stub_any_instance :save, true do
+      post :create, user: valid_attributes
+    end
     assert_redirected_to users_url
   end
 
@@ -36,15 +38,17 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'update invalid' do
     login_as(users(:base))
-    User.any_instance.stubs(update_attributes: false)
-    put :update, id: users(:base).id, user: valid_attributes
+    User.stub_any_instance :update_attributes, false do
+      put :update, id: users(:base).id, user: valid_attributes
+    end
     assert_template :edit
   end
 
   test 'update valid' do
     login_as(users(:base))
-    User.any_instance.stubs(update_attributes: true)
-    put :update, id: users(:base).id, user: valid_attributes
+    User.stub_any_instance :update_attributes, true do
+      put :update, id: users(:base).id, user: valid_attributes
+    end
     assert_redirected_to edit_user_url(users(:base))
   end
 
