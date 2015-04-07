@@ -12,7 +12,7 @@ class Comment < ActiveRecord::Base
   private
 
   def send_comment_notification
-    Notifier.comment_notification(self).deliver
+    Notifier.comment_notification(self).deliver_now
   end
 
 end
