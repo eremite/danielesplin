@@ -1,0 +1,3 @@
+%p
+  - tag_counts.order('taggings_count DESC').limit(10).where.not(id: existing_tags.pluck(:id)).each do |tag|
+    %span.label.label-default.insert-into-tag-list{ style: 'cursor: pointer' }= tag.name

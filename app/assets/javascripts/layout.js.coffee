@@ -58,9 +58,9 @@ jQuery ->
     if (placeholder.google_plus_remote_image_url && placeholder.google_plus_remote_image_url.length)
       $('form.new_photo').fileupload('add', { files: [placeholder] })
 
-  # Photo: insert tag
-  $('span.insert-into-photo-tag-list').click ->
-    input = $('input#photo_photo_tag_list')
+  # Make inserting common tags easier.
+  $('span.insert-into-tag-list').click ->
+    input = $(this).parent().siblings('input')
     if input.val()
       input.val("#{input.val()}, #{this.innerHTML}")
     else

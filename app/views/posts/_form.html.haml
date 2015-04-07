@@ -16,6 +16,7 @@
   .form-group
     = f.label :post_tag_list, class: 'control-label col-md-2'
     .col-md-10
+      = render partial: '/shared/suggested_tags', locals: { tag_counts: Post.post_tag_counts, existing_tags: f.object.post_tags }
       = f.text_field :post_tag_list, value: f.object.post_tag_list.to_s, class: 'form-control'
   .form-group
     .col-md-offset-2.col-md-10
