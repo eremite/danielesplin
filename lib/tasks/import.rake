@@ -30,10 +30,15 @@ task :import => :environment do
       end
       begin
         date = match[:date].gsub(%r{/(\d{2})\Z}, '/20\1')
-        at = Time.strptime(date, STRPTIME)
-        body << match[:extra] if match[:extra].present?
+        at =
+          if match[:extra].to_s.match(/(?<time>\d{1,2}:\d{1,2}pm)/)
+            DateTime.strptime("#{date} #{Regexp.last_match[:time]} Mountain Time (US & Canada)", "%m/%d/%Y %I:%M%p %Z").in_time_zone
+          else
+            Date.strptime(date, STRPTIME).in_time_zone
+          end
+        # body << match[:extra] if match[:extra].present?
       rescue ArgumentError
-        puts "!!! #{match[:date]} is invalid date."
+        puts "!!! #{match[:date]} #{match[:extra]} is invalid date."
       end
     else
       body << (line.squish.blank? ? NEWLINE : "#{line.squish} ")
