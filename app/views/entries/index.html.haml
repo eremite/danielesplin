@@ -29,6 +29,10 @@
           .form-group
             = label_tag :tag
             = select nil, :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
+        .checkbox
+          %label
+            = check_box_tag :random, '1', params[:random]
+            Random
         .form-group
           = label_tag :term
           = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'

@@ -19,13 +19,17 @@ class EntriesController < ApplicationController
     else
       @entry_user ||= current_user
     end
-    @entries = Entry.where(user: @entry_user).at_desc.before(@ends_on.end_of_day).page(params[:page])
+    @entries = Entry.where(user: @entry_user).at_desc.before(@ends_on.end_of_day)
     if params[:term].present?
       @entries = @entries.where(Entry.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
     end
     if params[:tag].present?
       @entries = @entries.tagged_with(params[:tag], on: :entry_tags)
     end
+    if params[:random]
+      @entries = @entries.where(id: @entries.sample.try(:id))
+    end
+    @entries = @entries.page(params[:page])
   end
 
   def new
