@@ -10,6 +10,7 @@
  *
  *= require jquery-ui
  *= require jquery-ui-timepicker-addon
+ *= require jquery.fileupload
  *= require jquery.fileupload-ui
  *= require jquery.fancybox
  *= require font-awesome
