@@ -23,6 +23,11 @@
         = link_to photos_path do
           %i.fa.fa-camera
           Photos
+    - if can? :manage, Note
+      %li{class: controller.controller_name == 'notes' && 'active'}
+        = link_to :notes do
+          %i.fa.fa-file-text-o
+          Notes
     - if can? :index, :report
       %li.dropdown
         = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do

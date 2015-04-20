@@ -4,12 +4,13 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  has_many :comments
   has_many :entries
   has_many :log_entries
+  has_many :notes
   has_many :photos
-  has_many :thoughts
-  has_many :comments
   has_many :saved_files
+  has_many :thoughts
 
   validates :email,
     presence: true,

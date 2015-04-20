@@ -1,0 +1,23 @@
+= form_for @note, html: { class: 'form-horizontal' } do |f|
+  - if f.object.errors.any?
+    .form-group.alert.alert-danger
+      = f.object.errors.full_messages.to_sentence
+  .form-group
+    = f.label :title, class: 'control-label col-md-2 autofocus'
+    .col-md-10
+      = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :body, class: 'control-label col-md-2'
+    .col-md-10
+      = f.text_area :body, rows: 10, class: 'form-control'
+      %span.help-block.pull-right
+        = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
+  .form-group
+    = f.label :note_tag_list, class: 'control-label col-md-2'
+    .col-md-10
+      = render partial: '/shared/suggested_tags', locals: { tag_counts: Note.note_tag_counts, existing_tags: f.object.note_tags }
+      = f.text_field :note_tag_list, value: f.object.note_tag_list.to_s, class: 'form-control'
+  .form-group
+    .col-md-offset-2.col-md-10
+      %button.btn.btn-primary{ type: 'submit' } Save
+      = link_to 'Cancel', :notes, class: 'btn'

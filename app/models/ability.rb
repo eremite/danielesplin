@@ -17,6 +17,7 @@ class Ability
         can :manage, SavedFileCategory
         can :manage, InventoryItem
         if user.father?
+          can :manage, Note
           can :manage, Thought
         else
           can :read, Thought

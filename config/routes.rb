@@ -7,6 +7,7 @@ Danielesplin::Application.routes.draw do
   resources :comments
   resources :entries
   resources :inventory_items
+  resources :notes
   resources :pages
   resources :saved_file_categories
   resources :saved_files
