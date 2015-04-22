@@ -9,6 +9,9 @@ class NotesController < ApplicationController
     else
       @notes = current_user.notes
     end
+    if params[:kind].present?
+      @notes = @notes.where(kind: params[:kind])
+    end
     if params[:term].present?
       @notes = @notes.where(Note.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
     end
@@ -63,7 +66,7 @@ class NotesController < ApplicationController
   private
 
   def safe_params
-    params.permit(note: [:user_id, :title, :body, :note_tag_list, :finished_at])[:note]
+    params.permit(note: [:user_id, :title, :body, :note_tag_list, :finished_at, :kind])[:note]
   end
 
 end

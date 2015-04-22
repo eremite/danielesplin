@@ -18,6 +18,9 @@
           = label_tag :user
           = select nil, :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, { selected: params[:user_id] || current_user.id.to_s }, { class: 'form-control' }
         .form-group
+          = label_tag :kind
+          = select_tag :kind, options_for_select([nil] + Note.pluck(:kind).uniq.compact, params[:kind]), { class: 'form-control' }
+        .form-group
           = label_tag :term
           = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
         .form-group
@@ -66,7 +69,9 @@
                 = link_to note, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this note?' } do
                   %i.fa.fa-trash-o
                   Delete
-          %strong= link_to note.title, [:edit, note], style: 'color: inherit'
+          %strong
+            = link_to [:edit, note], style: 'color: inherit' do
+              #{note.kind}: #{note.title}
           - note.note_tag_list.each do |tag_name|
             %span.label.label-default{ style: 'margin-left: 0.5em' }
               = link_to tag_name, [:notes, { tag: tag_name }], style: 'color: inherit'
