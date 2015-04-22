@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420230213) do
+ActiveRecord::Schema.define(version: 20150422034504) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -80,11 +80,12 @@ ActiveRecord::Schema.define(version: 20150420230213) do
   add_index "log_entries", ["user_id"], name: "index_log_entries_on_user_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "title",      limit: 255
-    t.text     "body",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "user_id",     limit: 4
+    t.string   "title",       limit: 255
+    t.text     "body",        limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.datetime "finished_at"
   end
 
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree

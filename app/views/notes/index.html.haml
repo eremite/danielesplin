@@ -20,6 +20,9 @@
         .form-group
           = label_tag :term
           = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
+        .form-group
+          = label_tag :finished
+          = select_tag :finished, options_for_select(%w(Unfinished Finished Either), params[:finished]), { class: 'form-control' }
         .checkbox
           %label
             = check_box_tag :random, '1', params[:random]
@@ -50,6 +53,12 @@
         .col-md-12
           .pull-right
             - if can? :edit, note
+              - if note.finished_at.present?
+                = link_to [note, { note: { finished_at: nil } }], method: :patch, class: 'btn btn-default btn-xs' do
+                  Unfinish
+              - else
+                = link_to [note, { note: { finished_at: Time.zone.now } }], method: :patch, class: 'btn btn-default btn-xs' do
+                  Finish
               .btn-group
                 = link_to [:edit, note], class: 'btn btn-default btn-xs' do
                   %i.fa.fa-edit

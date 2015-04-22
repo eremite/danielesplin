@@ -15,6 +15,15 @@ class NotesController < ApplicationController
     if params[:tag].present?
       @notes = @notes.tagged_with(params[:tag], on: :note_tags)
     end
+    @notes =
+      case params[:finished].to_s
+      when 'Finished'
+        @notes.where.not(finished_at: nil)
+      when 'Unfinished', ''
+        @notes.where(finished_at: nil)
+      else
+        @notes
+      end
     if params[:random]
       @notes = @notes.where(id: @notes.sample.try(:id))
     end
@@ -54,7 +63,7 @@ class NotesController < ApplicationController
   private
 
   def safe_params
-    params.permit(note: [:user_id, :title, :body, :note_tag_list])[:note]
+    params.permit(note: [:user_id, :title, :body, :note_tag_list, :finished_at])[:note]
   end
 
 end
