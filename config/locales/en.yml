@@ -41,5 +41,7 @@ en:
         inventory_item_tag_list: 'Tags'
       user:
         api_key: 'API Key'
+      note:
+        note_tag_list: 'Tags'
     models:
       inventory_item: 'Inventory Item'
