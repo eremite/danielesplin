@@ -6,6 +6,9 @@
     = link_to [:new, :note], class: 'btn btn-success btn-block' do
       %i.fa.fa-inverse.fa-plus
       New Note
+  = link_to [:notes, { finished: 'Finished' }], class: 'btn btn-warning btn-block' do
+    %i.fa.fa-file-text-o
+    Finished Notes
 
   %hr
 
