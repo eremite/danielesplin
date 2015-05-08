@@ -9,7 +9,7 @@ class PrintBatchesController < ApplicationController
   def print
     @user = User.find(params[:user_id])
     starts_on = Time.zone.parse("#{params[:year]}-01-01")
-    @entries = @user.entries.where(at: starts_on..starts_on.end_of_year)
+    @entries = @user.entries.at_asc.where(at: starts_on..starts_on.end_of_year)
     render :print, layout: false
   end
 

@@ -8,6 +8,7 @@ class Entry < ActiveRecord::Base
 
   paginates_per 30
 
+  scope :at_asc, -> { order(arel_table[:at].asc) }
   scope :at_desc, -> { order(arel_table[:at].desc) }
   scope :before, -> (ends_at) { where(arel_table[:at].lteq(ends_at)) }
 
