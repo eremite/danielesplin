@@ -16,7 +16,8 @@ Danielesplin::Application.routes.draw do
 
   resources :print_batches, only: [:index] do
     collection do
-      get :print
+      get :entries
+      get :posts
     end
   end
 

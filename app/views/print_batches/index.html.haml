@@ -1,3 +1,15 @@
+%h2 Blog
+
+- if start_year = Post.at_desc.last.try(:at).try(:year)
+  .col-sm-2
+    .panel.panel-default
+      .panel-heading
+        %h3.text-center Blog
+      - (start_year..Time.zone.now.year).each do |year|
+        .list-group
+          %strong.text-center
+            = link_to year, [:posts, :print_batches, { year: year }], class: 'list-group-item'
+
 - @users.each do |user|
   .col-sm-2
     .panel.panel-default
@@ -9,4 +21,4 @@
       .list-group
         - (start_year..end_year).each do |year|
           %strong.text-center
-            = link_to year, [:print, :print_batches, { user_id: user.id, year: year }], class: 'list-group-item'
+            = link_to year, [:entries, :print_batches, { user_id: user.id, year: year }], class: 'list-group-item'
