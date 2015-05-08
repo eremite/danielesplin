@@ -13,10 +13,10 @@
     = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
     = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css'
     = stylesheet_link_tag :application
-    = javascript_include_tag :application
     = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'
+    = javascript_include_tag :application
     = csrf_meta_tag
-    = yield(:head)
+    = yield :head if content_for? :head
 
   %body{ id: "#{controller.controller_name.dasherize}-controller" }
 

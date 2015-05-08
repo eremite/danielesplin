@@ -14,6 +14,12 @@ Danielesplin::Application.routes.draw do
   resources :thoughts
   resources :users
 
+  resources :print_batches, only: [:index] do
+    collection do
+      get :print
+    end
+  end
+
   resources :posts
   get '/blog_posts', to: redirect('/posts')
   get '/blog_posts.rss', to: redirect('/posts.rss')

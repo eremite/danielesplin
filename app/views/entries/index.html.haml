@@ -11,6 +11,9 @@
     = link_to entries_path(user_id: user.id), class: 'btn btn-warning btn-block' do
       %i.fa.fa-inverse.fa-book
         #{user.name}'s Journal
+  = link_to :print_batches, class: 'btn btn-info btn-block' do
+    %i.fa.fa-inverse.fa-print
+    Print by Year
 
   %hr
 

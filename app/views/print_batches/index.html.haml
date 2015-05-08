@@ -1,0 +1,12 @@
+- @users.each do |user|
+  .col-sm-2
+    .panel.panel-default
+      .panel-heading
+        %h3.text-center= user.name
+      - start_year = user.entries.at_desc.last.try(:at).try(:year)
+      - next if start_year.nil?
+      - end_year = Time.zone.now.year
+      .list-group
+        - (start_year..end_year).each do |year|
+          %strong.text-center
+            = link_to year, [:print, :print_batches, { user_id: user.id, year: year }], class: 'list-group-item'

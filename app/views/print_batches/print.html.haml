@@ -1,0 +1,9 @@
+%h1
+  = @user.name
+  = params[:year]
+
+- @entries.each do |entry|
+  %h3= l entry.at
+  :markdown
+    #{entry.body}
+
