@@ -27,11 +27,7 @@ class Photo < ActiveRecord::Base
 
 
   def google_plus_remote_image_url=(value)
-    if value.present?
-      parts = value.split('/')
-      parts[-2] = 'd'
-      self.remote_image_url = parts.join('/')
-    end
+    self.remote_image_url = value.to_s.sub(/=w(\d+)-h(\d+)/, '=w9999-h9999').presence
   end
 
   def google_plus_remote_image_url
