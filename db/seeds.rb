@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+if File.exists?('db/data.yml')
+  puts 'Loading db/data.yml'
+  Rake::Task['db:data:load'].invoke
+end
