@@ -7,21 +7,9 @@ web:
     - "587:587"
   links:
     - db
-  environment:
-
-    DB_NAME: danielesplin
-    FOG_SECRET: hmS/Vz5Jh8tC25pQrtToc8bmH7AQ8XZ0dm264LUg
-    FOG_KEY: NXVNVFID3CQSF5CEADOD
-    FOG_BUCKET: bucket-assets
-    SECRET_KEY_BASE: 8d669787efefbda19377777842980abd41db7777bd7789fc423e392bf3d5c387213028c1240cb9d3f3ff7fa58540b8d283ed0bdce8e063af760fe1b29cb239ee
-    DB_HOST: database.rds.amazonaws.com
-    DB_USERNAME: dbusername
-    DB_PASSWORD: dbpassword
-    FROM_EMAIL: noreply@example.com
-    EXCEPTION_EMAIL: exceptions@example.com
-    SES_KEY: AKVNVHAF4ID2KC5IEIWD
-    SES_SECRET: unC9xH21bS4VgSVkyxt9hAPY8uF2ER854HGRSovW
-    EMBEDLY_KEY: embedlykey
+  env_file:
+    - .docker.env
+    - .docker_overrides.env
 
 db:
   image: "mysql:5.5"

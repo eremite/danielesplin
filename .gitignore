@@ -5,3 +5,4 @@
 /.sass-cache/*
 /public/system
 /public/uploads
+/.docker_overrides.env
