@@ -29,7 +29,10 @@ class UsersController < ApplicationController
   private
 
   def safe_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :api_key)
+    permitted_attributes = [:name, :email, :password, :password_confirmation]
+    permitted_attributes << :role if can? :change_role, @user
+    permitted_attributes << :api_key if can? :change_api_key, @user
+    params.require(:user).permit(*permitted_attributes)
   end
 
 end
