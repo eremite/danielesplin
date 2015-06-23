@@ -73,7 +73,7 @@
                   %i.fa.fa-trash-o
                   Delete
           %strong
-            = link_to [:edit, note], style: 'color: inherit' do
+            = link_to note, style: 'color: inherit' do
               #{note.kind}: #{note.title}
           - note.note_tag_list.each do |tag_name|
             %span.label.label-default{ style: 'margin-left: 0.5em' }

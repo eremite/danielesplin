@@ -32,6 +32,11 @@ class NotesControllerTest < ActionController::TestCase
     assert_redirected_to :notes
   end
 
+  test 'show' do
+    get :show, id: @note.id
+    assert_template :show
+  end
+
   test 'edit' do
     get :edit, id: @note.id
     assert_template :edit
