@@ -45,10 +45,6 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   private
 
-  def generate_versions?(photo)
-    model.skip_versioning != '1'
-  end
-
   def extract_at
     if content_type.to_s[/jpe?g/]
       begin

@@ -4,8 +4,6 @@ class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
-  attr_accessor :skip_versioning
-
   belongs_to :user
   belongs_to :entry
   has_many :post_photos
@@ -32,10 +30,6 @@ class Photo < ActiveRecord::Base
 
   def google_plus_remote_image_url
     remote_image_url
-  end
-
-  def process
-    image.recreate_versions! if image?
   end
 
   def resize_url(size)
