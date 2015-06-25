@@ -6,6 +6,8 @@
     - if can? :update, photo
       = link_to [:edit, photo], class: 'btn btn-success btn-small visible-xs-block', title: 'Edit Photo' do
         %i.fa.fa-edit
+      = link_to [:edit, photo], class: 'btn btn-success btn-small hidden-xs', title: 'Edit Photo' do
+        %i.fa.fa-edit
     - group = 'group' if local_assigns[:group].nil?
     = link_to photo.image.url, class: 'fancybox', rel: group, title: photo.description do
       = image_tag photo.resize_url(:small), class: 'img-rounded img-responsive', alt: photo.description.to_s
