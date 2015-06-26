@@ -50,6 +50,15 @@ class Photo < ActiveRecord::Base
     "https://i.embed.ly/1/display/resize?#{params.to_param}"
   end
 
+  def crop_url(params)
+    return 'small.jpg' if Rails.env.development?
+    params.merge!({
+      key: Rails.application.config.embedly_key,
+      url: image.url,
+    })
+    "https://i.embed.ly/1/display/crop?#{params.to_param}"
+  end
+
   def to_jq_upload
     {
       'name' => image.filename || "Photo#{id}",

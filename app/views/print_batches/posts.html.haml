@@ -3,12 +3,12 @@
   = params[:year]
 
 - @posts.each do |post|
-  %h3= l post.at
+  %h3{ style: 'float: right' }= l post.at
   :markdown
     #{post.body}
   - post.photos.at_asc.each do |photo|
     %figure{ style: 'float: left; margin: 0 0.25em' }
-      = image_tag photo.resize_url(:medium), :width => '400px'
-      %figcaption{ style: 'min-height: 1.5em; width: 400px' }
+      = image_tag photo.crop_url(width: 200, height: 200)
+      %figcaption{ style: 'min-height: 1.5em; width: 200px' }
         = photo.description
   %br{ :style => 'clear: both' }
