@@ -12,14 +12,15 @@ class PostsController < ApplicationController
       flash[:error] = 'Invalid date' if params[:ends_on].present?
       @ends_on = Time.zone.now.to_date
     end
-    @posts = Post.at_desc.published(params[:unpublished].blank?).page(params[:page])
-    @posts = @posts.before(@ends_on.end_of_day) if params[:ends_on].present?
+    @past_posts = Post.at_desc.past.page(params[:page])
+    @past_posts = @past_posts.before(@ends_on.end_of_day) if params[:ends_on].present?
     if params[:term].present?
-      @posts = @posts.where(Post.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
+      @past_posts = @past_posts.where(Post.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
     end
     if params[:tag].present?
-      @posts = @posts.tagged_with(params[:tag], on: :post_tags)
+      @past_posts = @past_posts.tagged_with(params[:tag], on: :post_tags)
     end
+    @future_posts = Post.at_desc.future
   end
 
   def new
