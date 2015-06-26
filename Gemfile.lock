@@ -164,8 +164,6 @@ GEM
     fog-xml (0.1.1)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-rails (4.1.0.0)
-      railties (>= 3.2, < 5.0)
     formatador (0.2.5)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
@@ -289,7 +287,6 @@ DEPENDENCIES
   exception_notification
   exifr
   fog
-  font-awesome-rails
   haml-rails
   jquery-fileupload-rails (~> 0.4.5)
   jquery-rails (~> 4.0.3)

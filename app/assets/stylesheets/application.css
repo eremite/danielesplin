@@ -13,6 +13,5 @@
  *= require jquery.fileupload
  *= require jquery.fileupload-ui
  *= require jquery.fancybox
- *= require font-awesome
  *= require_tree .
  */

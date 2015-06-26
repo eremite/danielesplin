@@ -10,12 +10,13 @@
     %meta{ 'http-equiv' => 'Content-Type', content: 'text/html; charset=utf-8' }
     %link{ rel: 'alternate', title: 'Daniel & Erika Esplin', href: posts_url(format: 'rss'), type: 'application/rss+xml' }
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
-    - bootstrap_version = '3.3.5'
-    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{bootstrap_version}/css/bootstrap.min.css"
-    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{bootstrap_version}/css/bootstrap-theme.min.css"
+    - versions = { bootstrap: '3.3.5', font_awesome: '4.3.0' }
+    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/css/bootstrap.min.css"
+    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/css/bootstrap-theme.min.css"
+    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/#{versions[:font_awesome]}/css/font-awesome.min.css"
     = stylesheet_link_tag :application
     = javascript_include_tag :application
-    = javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{bootstrap_version}/js/bootstrap.min.js"
+    = javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/js/bootstrap.min.js"
     = csrf_meta_tag
     = yield :head if content_for? :head
 
