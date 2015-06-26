@@ -16,6 +16,7 @@ class Ability
         can :manage, SavedFile
         can :manage, SavedFileCategory
         can :manage, InventoryItem
+        can :manage, PostPhoto
         can :manage, :print_batch
         if user.father?
           can :manage, Note

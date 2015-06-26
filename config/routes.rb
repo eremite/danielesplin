@@ -13,6 +13,7 @@ Danielesplin::Application.routes.draw do
   resources :saved_files
   resources :thoughts
   resources :users
+  resources :post_photos, only: [:create, :destroy]
 
   resources :print_batches, only: [:index] do
     collection do

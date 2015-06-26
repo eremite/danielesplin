@@ -40,6 +40,8 @@ class Photo < ActiveRecord::Base
     }
     params[:height] =
       case size
+      when :thumbnail
+        100
       when :small
         200
       when :medium
