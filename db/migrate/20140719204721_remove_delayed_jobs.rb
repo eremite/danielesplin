@@ -1,5 +1,5 @@
 class RemoveDelayedJobs < ActiveRecord::Migration
-  def self.down
+  def self.up
     drop_table :delayed_jobs
   end
 
