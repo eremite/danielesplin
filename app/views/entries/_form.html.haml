@@ -9,8 +9,12 @@
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .form-group
     = f.label :user_id, class: 'control-label col-md-2'
-    .col-md-10
-      = f.collection_select :user_id, current_user.users_whose_entries_i_can_edit, :id, :name, {}, { tabindex: 2, class: 'form-control' }
+    .col-md-6
+      .btn-group.btn-group-justified{ data: { toggle: 'buttons' } }
+        - current_user.users_whose_entries_i_can_edit.each do |user|
+          = f.label nil, class: "btn btn-default #{f.object.user == user ? 'active' : ''}" do
+            = f.radio_button :user_id, user.id, autocomplete: 'off'
+            #{user.name}
   .form-group
     = f.label :body, class: 'control-label col-md-2'
     .col-md-10
