@@ -1,0 +1,42 @@
+log_entries_1:
+  action: login
+  created_at: 2015-07-31 18:04:52.000000000 Z
+  id: 1
+  updated_at: 2015-07-31 18:04:52.000000000 Z
+  user_id: 1
+log_entries_2:
+  action: blog
+  created_at: 2015-07-31 18:09:41.000000000 Z
+  id: 2
+  updated_at: 2015-07-31 18:09:41.000000000 Z
+  user_id: 1
+log_entries_3:
+  action: blog
+  created_at: 2015-07-31 18:09:53.000000000 Z
+  id: 3
+  updated_at: 2015-07-31 18:09:53.000000000 Z
+  user_id: 1
+log_entries_4:
+  action: blog
+  created_at: 2015-07-31 18:10:17.000000000 Z
+  id: 4
+  updated_at: 2015-07-31 18:10:17.000000000 Z
+  user_id: 1
+log_entries_5:
+  action: blog
+  created_at: 2015-07-31 18:11:37.000000000 Z
+  id: 5
+  updated_at: 2015-07-31 18:11:37.000000000 Z
+  user_id: 1
+log_entries_6:
+  action: blog
+  created_at: 2015-07-31 18:11:41.000000000 Z
+  id: 6
+  updated_at: 2015-07-31 18:11:41.000000000 Z
+  user_id: 1
+log_entries_7:
+  action: blog
+  created_at: 2015-07-31 18:11:50.000000000 Z
+  id: 7
+  updated_at: 2015-07-31 18:11:50.000000000 Z
+  user_id: 1

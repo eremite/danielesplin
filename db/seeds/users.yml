@@ -1,0 +1,50 @@
+users_1:
+  api_key: Father
+  created_at: 2015-07-31 18:04:36.000000000 Z
+  email: info@custombit.com
+  id: 1
+  name: info@custombit.com
+  password_digest: "$2a$10$tNXs5ov.clKCaezcj0MdQOi6WKWHAHjon9wWcqIll06Xa.GNzyg9q"
+  role: father
+  updated_at: 2015-07-31 18:21:14.000000000 Z
+  viewed_blog_at: 2015-07-31 18:21:14.000000000 Z
+users_2:
+  api_key: ''
+  created_at: 2015-07-31 18:05:15.000000000 Z
+  email: mother@example.com
+  id: 2
+  name: Mother
+  password_digest: "$2a$10$b6rop.zXS70bpJoXEqZJN.1Bm5/dIxmqVPmgg4uriMU4OyV8rGnHa"
+  role: mother
+  updated_at: 2015-07-31 18:40:10.000000000 Z
+  viewed_blog_at: 
+users_3:
+  api_key: ''
+  created_at: 2015-07-31 18:08:05.000000000 Z
+  email: firstborn@example.com
+  id: 3
+  name: Firstborn
+  password_digest: "$2a$10$0XiSxE.b7v3caWgQjzFinewn5S4ZhMjSG5wjo65vZSXCMUppaGsRa"
+  role: baby
+  updated_at: 2015-07-31 18:40:03.000000000 Z
+  viewed_blog_at: 
+users_4:
+  api_key: ''
+  created_at: 2015-07-31 18:08:27.000000000 Z
+  email: child@example.com
+  id: 4
+  name: Child
+  password_digest: "$2a$10$qomBUL3RRn0VaD9sZkiaGekQ3OtMZuc35QNNsLwG3cgkVGwP.Irzu"
+  role: baby
+  updated_at: 2015-07-31 18:39:53.000000000 Z
+  viewed_blog_at: 
+users_5:
+  api_key: 
+  created_at: 2015-07-31 18:08:44.000000000 Z
+  email: guest@example.com
+  id: 5
+  name: Guest
+  password_digest: "$2a$10$2dMz5MDZ9LBAak5D9EX3iuT8llGz707tTEtTqjy4/y0SwupemQhYe"
+  role: guest
+  updated_at: 2015-07-31 18:08:44.000000000 Z
+  viewed_blog_at: 

@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-if File.exists?('db/data.yml')
-  puts 'Loading db/data.yml'
-  Rake::Task['db:data:load'].invoke
-end
+puts 'Loading fixtures.'
+ENV['FIXTURES_PATH'] = 'db/seeds'
+Rake::Task['db:fixtures:load'].invoke
