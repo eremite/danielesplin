@@ -27,9 +27,11 @@ class EntriesControllerTest < ActionController::TestCase
 
   test 'create valid' do
     Entry.stub_any_instance :save, true do
-      post :create, entry: valid_attributes
+      Entry.stub_any_instance :after_create_redirect_url, [:entries] do
+        post :create, entry: valid_attributes
+      end
     end
-    assert_redirected_to new_entry_url
+    assert_redirected_to :entries
   end
 
   test 'show' do

@@ -41,15 +41,7 @@ class EntriesController < ApplicationController
   def create
     @entry = Entry.new(safe_params)
     if @entry.save
-      if @entry.at < 1.week.ago
-        redirect_to new_entry_url(entry: { :at => @entry.at + 1.day })
-      elsif @entry.user.try(:mother?)
-        redirect_to new_entry_url(entry: { :user_id => User.where(role: 'baby').first.id })
-      elsif @entry.user.try(:baby?)
-        redirect_to :entries
-      else
-        redirect_to [:new, :entry]
-      end
+      redirect_to @entry.after_create_redirect_url
     else
       render :new
     end
