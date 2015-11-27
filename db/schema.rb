@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508202251) do
+ActiveRecord::Schema.define(version: 20151127180405) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -83,9 +83,9 @@ ActiveRecord::Schema.define(version: 20150508202251) do
     t.integer  "user_id",          limit: 4
     t.string   "image",            limit: 255
     t.integer  "entry_id",         limit: 4
-    t.boolean  "hidden",           limit: 1,     default: false
+    t.boolean  "hidden",                         default: false
     t.string   "image_tmp",        limit: 255
-    t.boolean  "image_processing", limit: 1
+    t.boolean  "image_processing"
   end
 
   add_index "photos", ["entry_id"], name: "index_photos_on_entry_id", using: :btree
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20150508202251) do
     t.string   "role",            limit: 255, default: "guest"
     t.string   "api_key",         limit: 255
     t.datetime "viewed_blog_at"
+    t.datetime "born_at"
   end
 
   add_index "users", ["role"], name: "index_users_on_role", using: :btree

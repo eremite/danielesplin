@@ -26,6 +26,12 @@
           = label_tag :ends_on, 'Date'
           = text_field_tag :ends_on, l(@ends_on), class: 'datepicker form-control'
         .form-group
+          %label{ style: 'display: block' } Age
+          .col-md-6
+            = text_field_tag :age_months, params[:age_months], placeholder: 'Months', class: 'form-control'
+          .col-md-6
+            = text_field_tag :age_years, params[:age_years], placeholder: 'Years', class: 'form-control'
+        .form-group
           = label_tag :user
           = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
         - if can? :create, Entry

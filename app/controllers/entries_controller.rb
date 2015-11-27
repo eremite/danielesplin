@@ -19,6 +19,9 @@ class EntriesController < ApplicationController
     else
       @entry_user ||= current_user
     end
+    if @entry_user.born_at.present? && (params[:age_months].present? || params[:age_years].present?)
+      @ends_on = @entry_user.born_at + params[:age_months].to_i.months + params[:age_years].to_i.years
+    end
     @entries = Entry.where(user: @entry_user).at_desc.before(@ends_on.end_of_day)
     if params[:term].present?
       @entries = @entries.where(Entry.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))

@@ -28,6 +28,11 @@
       = f.label :api_key, class: 'control-label col-md-2'
       .col-md-10
         = f.text_field :api_key, class: 'form-control'
+  - if can? :change_born_at, f.object
+    .form-group
+      = f.label :born_at, class: 'control-label col-md-2'
+      .col-md-10
+        = f.date_field :born_at, class: 'form-control'
   .form-group
     .col-md-offset-2.col-md-10
       %button.btn.btn-primary{ type: 'submit'} Save
