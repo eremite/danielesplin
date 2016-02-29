@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y mysql-client nodejs --no-install-recomm
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY Gemfile* /usr/src/app/
+RUN bundle config --global jobs 8
 RUN bundle install --system
 
 COPY . /usr/src/app
