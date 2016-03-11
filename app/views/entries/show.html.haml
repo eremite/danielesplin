@@ -16,6 +16,8 @@
         %small
           at
           = l @entry.at, format: '%l:%M%p'
+      - if @entry.user.born_at.present?
+        %small (#{distance_of_time_in_words(@entry.user.born_at, @entry.at)} old)
     :markdown
       #{@entry.body}
 
