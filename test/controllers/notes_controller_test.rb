@@ -26,10 +26,8 @@ class NotesControllerTest < ActionController::TestCase
   end
 
   test 'create valid' do
-    Note.stub_any_instance :save, true do
-      post :create, note: @note.attributes
-    end
-    assert_redirected_to :notes
+    post :create, note: @note.attributes
+    assert_redirected_to [:edit, assigns(:note)]
   end
 
   test 'show' do
@@ -53,7 +51,7 @@ class NotesControllerTest < ActionController::TestCase
     Note.stub_any_instance :update_attributes, true do
       put :update, id: @note.id, note: @note.attributes
     end
-    assert_redirected_to :notes
+    assert_redirected_to [:edit, @note]
   end
 
   test 'destroy' do

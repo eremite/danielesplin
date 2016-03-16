@@ -40,7 +40,7 @@ class NotesController < ApplicationController
   def create
     @note = current_user.notes.new(safe_params)
     if @note.save
-      redirect_to :notes, notice: 'Note saved.'
+      redirect_to [:edit, @note], notice: 'Note saved.'
     else
       render :new
     end
@@ -51,7 +51,7 @@ class NotesController < ApplicationController
 
   def update
     if @note.update_attributes(safe_params)
-      redirect_to :notes, notice: 'Note saved.'
+      redirect_to [:edit, @note], notice: 'Note saved.'
     else
       render :edit
     end
