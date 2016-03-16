@@ -1,8 +1,18 @@
-FROM ruby:2.2.0
+FROM ruby:2.3.0-alpine
 
 ENV LC_ALL C.UTF-8
 
-RUN apt-get update && apt-get install -y mysql-client nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apk add --update --upgrade \
+  build-base \
+  libxml2-dev \
+  libxslt-dev \
+  mysql-dev \
+  nodejs \
+  tzdata \
+  && rm -rf /var/cache/apk/*
+
+# Use libxml2, libxslt a packages from alpine for building nokogiri
+RUN bundle config build.nokogiri --use-system-libraries
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
