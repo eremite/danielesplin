@@ -66,7 +66,15 @@ class NotesController < ApplicationController
   private
 
   def safe_params
-    params.permit(note: [:user_id, :title, :body, :note_tag_list, :finished_at, :kind])[:note]
+    params.permit(note: [
+      :body,
+      :finished_at,
+      :kind,
+      :meta,
+      :note_tag_list,
+      :title,
+      :user_id,
+    ])[:note]
   end
 
 end

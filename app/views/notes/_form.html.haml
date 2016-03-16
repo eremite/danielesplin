@@ -20,6 +20,10 @@
       %span.help-block.pull-right
         = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .form-group
+    = f.label :meta, class: 'control-label col-md-2'
+    .col-md-10
+      = f.text_area :meta, rows: 3, class: 'form-control', tabindex: 4
+  .form-group
     = f.label :note_tag_list, class: 'control-label col-md-2'
     .col-md-10
       = render partial: '/shared/suggested_tags', locals: { tag_counts: Note.note_tag_counts, existing_tags: f.object.note_tags }
