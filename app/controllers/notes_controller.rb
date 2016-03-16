@@ -30,6 +30,7 @@ class NotesController < ApplicationController
     if params[:random]
       @notes = @notes.where(id: @notes.sample.try(:id))
     end
+    @notes = @notes.order(Note.arel_table[:updated_at].desc)
     @notes = @notes.page(params[:page])
   end
 
