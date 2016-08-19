@@ -1,12 +1,9 @@
 development: &default
   adapter: mysql2
-  username: root
-  password: docker
-  # adapter: postgresql
-  # username: postgres
-  # password: docker
-  host: db
   database: <%= ENV['DB_NAME'] %>
+  host: <%= ENV['DB_HOST'] %>
+  password: <%= "'#{ENV['DB_PASSWORD']}'" %>
+  username: <%= ENV['DB_USERNAME'] %>
 
 test:
   <<: *default
@@ -14,7 +11,3 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV['DB_NAME'] %>
-  host: <%= ENV['DB_HOST'] %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= "'#{ENV['DB_PASSWORD']}'" %>
