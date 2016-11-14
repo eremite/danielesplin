@@ -26,7 +26,9 @@
   .form-group
     = f.label :note_tag_list, class: 'control-label col-md-2'
     .col-md-10
-      = render partial: '/shared/suggested_tags', locals: { tag_counts: Note.note_tag_counts, existing_tags: f.object.note_tags }
+      %p
+        - Note.note_tag_counts.order('taggings_count DESC').where.not(id: f.object.note_tags.pluck(:id)).each do |tag|
+          %span.label.label-default.insert-into-tag-list{ style: 'cursor: pointer' }= tag.name
       = f.text_field :note_tag_list, value: f.object.note_tag_list.to_s, class: 'form-control', tabindex: 4
   .form-group
     .col-md-offset-2.col-md-10
