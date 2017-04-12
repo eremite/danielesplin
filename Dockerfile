@@ -21,7 +21,6 @@ RUN bundle config --global jobs 8
 RUN bundle install --system
 
 COPY . /usr/src/app
-RUN RAILS_ENV=production bin/rake assets:precompile
 
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
