@@ -62,8 +62,6 @@ module Danielesplin
       g.stylesheets false
     end
 
-    config.embedly_key = secrets[:embedly_key]
-
     config.active_record.raise_in_transactional_callbacks = true
 
   end

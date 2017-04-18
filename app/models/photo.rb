@@ -32,28 +32,6 @@ class Photo < ActiveRecord::Base
     remote_image_url
   end
 
-  # TODO: Remove
-  def resize_url(size)
-    return "#{size}.jpg" if Rails.env.development?
-    params = {
-      key: Rails.application.config.embedly_key,
-      url: image.url,
-    }
-    params[:height] =
-      case size
-      when :thumbnail
-        100
-      when :small
-        200
-      when :medium
-        480
-      when :large
-        1024
-      end
-    "https://i.embed.ly/1/display/resize?#{params.to_param}"
-    image.url
-  end
-
   def to_jq_upload
     {
       'name' => image.filename || "Photo#{id}",
