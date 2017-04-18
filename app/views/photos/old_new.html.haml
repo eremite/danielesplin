@@ -5,7 +5,7 @@
   .thumbnail.pull-right
     %p Most Recent Photo
     = link_to most_recent_photo do
-      = image_tag most_recent_photo.resize_url(:small), class: 'img-rounded'
+      = image_tag most_recent_photo.photo.url, class: 'img-rounded', size: '200px'
     %p= most_recent_photo.description
 
 = render :partial => 'form'

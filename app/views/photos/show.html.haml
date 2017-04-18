@@ -37,7 +37,7 @@
 .panel.panel-default
   .panel-body
     = link_to @photo.image.url, title: l(@photo.at) do
-      = image_tag @photo.resize_url(:medium), class: 'img-rounded center-block'
+      = image_tag @photo.image.url, class: 'img-rounded center-block', size: '480px'
   .panel-footer
     :markdown
       #{@photo.description}

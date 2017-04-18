@@ -19,4 +19,4 @@
           - classes << 'unblogged' if photo.posts.count.zero?
           .thumbnail{ class: classes }
             = link_to [PostPhoto, { post_photo: { photo_id: photo.id, post_id: @post.id } }], method: :post, title: photo.description do
-              = image_tag photo.resize_url(:thumbnail), class: 'img-rounded img-responsive', alt: photo.description.to_s
+              = image_tag photo.image.url, class: 'img-rounded img-responsive', alt: photo.description.to_s, size: '100px'

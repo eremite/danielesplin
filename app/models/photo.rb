@@ -32,6 +32,7 @@ class Photo < ActiveRecord::Base
     remote_image_url
   end
 
+  # TODO: Remove
   def resize_url(size)
     return "#{size}.jpg" if Rails.env.development?
     params = {
@@ -50,6 +51,7 @@ class Photo < ActiveRecord::Base
         1024
       end
     "https://i.embed.ly/1/display/resize?#{params.to_param}"
+    image.url
   end
 
   def to_jq_upload
