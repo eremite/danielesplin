@@ -10,7 +10,7 @@ class Post < ActiveRecord::Base
 
   validates :body, presence: true
 
-  paginates_per 7
+  paginates_per 3
 
   scope :at_asc, -> { order(arel_table[:at].asc) }
   scope :at_desc, -> { order(arel_table[:at].desc) }

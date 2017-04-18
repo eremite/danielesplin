@@ -4,6 +4,8 @@ class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  paginates_per 20
+
   belongs_to :user
   belongs_to :entry
   has_many :post_photos

@@ -6,7 +6,7 @@ class Entry < ActiveRecord::Base
 
   validates :body, presence: true
 
-  paginates_per 30
+  paginates_per 7
 
   scope :at_asc, -> { order(arel_table[:at].asc) }
   scope :at_desc, -> { order(arel_table[:at].desc) }
