@@ -10,4 +10,4 @@
         %i.fa.fa-edit
     - group = 'group' if local_assigns[:group].nil?
     = link_to photo.image.url, class: 'fancybox', rel: group, title: photo.description do
-      = image_tag photo.photo.url, class: 'img-rounded img-responsive', alt: photo.description.to_s, width: '200px'
+      = image_tag photo.image.url, class: 'img-rounded img-responsive', alt: photo.description.to_s, width: '200px'
