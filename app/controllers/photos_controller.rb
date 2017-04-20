@@ -14,16 +14,12 @@ class PhotosController < ApplicationController
     @photos = Photo.where(created_at: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day)
   end
 
-  def old_new
-    @photo = Photo.new
-  end
-
   def create
     @photo = current_user.photos.new(safe_params)
     if @photo.save
       respond_to do |format|
         format.html do
-          redirect_to old_new_photos_url
+          redirect_to :photos
         end
         format.json do
           render :json => { :files => [@photo.to_jq_upload] }.to_json

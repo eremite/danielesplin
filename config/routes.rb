@@ -26,11 +26,7 @@ Danielesplin::Application.routes.draw do
   get '/blog_posts', to: redirect('/posts')
   get '/blog_posts.rss', to: redirect('/posts.rss')
 
-  resources :photos do
-    collection do
-      get :old_new
-    end
-  end
+  resources :photos, except: %i(new)
 
   resources :sessions
   delete 'logout', to: 'sessions#destroy', as: 'logout'
