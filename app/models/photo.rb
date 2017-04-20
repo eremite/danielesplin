@@ -26,14 +26,6 @@ class Photo < ActiveRecord::Base
   end
 
 
-  def google_plus_remote_image_url=(value)
-    self.remote_image_url = value.to_s.sub(/=w(\d+)-h(\d+)/, '=w9999-h9999').presence
-  end
-
-  def google_plus_remote_image_url
-    remote_image_url
-  end
-
   def to_jq_upload
     {
       'name' => image.filename || "Photo#{id}",

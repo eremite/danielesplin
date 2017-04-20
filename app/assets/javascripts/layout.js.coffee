@@ -48,16 +48,6 @@ jQuery ->
     paramName: 'saved_file[attachment]',
   })
 
-  # Photos: remote image url
-  $('#add-google-plus-remote-image-url').click ->
-    placeholder = {
-      google_plus_remote_image_url: prompt('Paste in the Google+ URL'),
-      size: 10000,
-      type: 'jpg',
-    }
-    if (placeholder.google_plus_remote_image_url && placeholder.google_plus_remote_image_url.length)
-      $('form.new_photo').fileupload('add', { files: [placeholder] })
-
   # Make inserting common tags easier.
   $('span.insert-into-tag-list').click ->
     input = $(this).parent().siblings('input')
