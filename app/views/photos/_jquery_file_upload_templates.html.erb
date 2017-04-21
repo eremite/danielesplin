@@ -1,60 +1,60 @@
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
   {% for (var i=0, file; file=o.files[i]; i++) { %}
-  <tr class="template-upload fade">
-    <td class="preview"><span class="fade"></span></td>
-    <td class="name"><span>{%=file.name%}</span></td>
-    <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-    {% if (file.error) { %}
-    <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
-    {% } else if (o.files.valid && !i) { %}
-    <td>
-      <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
-    </td>
-    <td class="start">{% if (!o.options.autoUpload) { %}
-      <button class="btn btn-primary">
-        <i class="fa fa-upload fa-inverse"></i>
-        <span>{%=locale.fileupload.start%}</span>
-      </button>
-      {% } %}</td>
-    {% } else { %}
-    <td colspan="2"></td>
+    <div class="template-upload fade row" style="margin-top: 1em">
+      <div class="preview col-xs-12"><span class="fade"></span></div>
+      <div class="col-xs-8 text-center">
+        <span class="name">{%=file.name%}</span>
+      </div>
+      <div class="col-xs-4 text-center">
+        <span class="size text-muted">{%=o.formatFileSize(file.size)%}</span>
+      </div>
+      {% if (file.error) { %}
+        <div class="error col-xs-12 text-danger">
+          <span class="label label-important">{%=locale.fileupload.error%}</span>
+          <p>{%=locale.fileupload.errors[file.error] || file.error%}</p>
+        </div>
+      {% } else if (o.files.valid && !i) { %}
+        <div class="progress progress-success progress-striped active">
+          <div class="bar" style="width:0%;"></div>
+        </div>
+      {% } %}
+      {% if (!i) { %}
+        <button class="btn btn-warning btn-block">
+          <i class="fa fa-ban fa-inverse"></i>
+          <span>{%=locale.fileupload.cancel%}</span>
+        </button>
+      {% } %}
+    </div>
     {% } %}
-    <td class="cancel">{% if (!i) { %}
-      <button class="btn btn-warning">
-        <i class="fa fa-ban fa-inverse"></i>
-        <span>{%=locale.fileupload.cancel%}</span>
-      </button>
-      {% } %}</td>
-  </tr>
-  {% } %}
-</script>
+  </script>
 
 <!-- The template to display files available for download -->
 <script id="template-download" type="text/x-tmpl">
   {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
+    <div class="template-download fade row" style="margin-top: 1em">
       {% if (file.error) { %}
-        <td></td>
-        <td class="name"><span>{%=file.name%}</span></td>
-        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-        <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
-        {% } else { %}
-        <td class="preview">{% if (file.photo_url) { %}
-          <a href="{%=file.photo_url%}" title="{%=file.name%}" rel="gallery"><img width="100px" src="{%=file.image_url%}"></a>
-          {% } %}</td>
-        <td class="name">
-          <a href="{%=file.photo_url%}" title="{%=file.name%}" rel="{%=file.photo_url&&'gallery'%}">{%=file.name%}</a>
-        </td>
-        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-        <td colspan="2"></td>
-        {% } %}
-      <td class="delete">
-        <button class="btn btn-danger" data-type="DELETE" data-url="{%=file.photo_url%}">
-          <i class="fa fa-trash-o fa-inverse"></i>
-          <span>{%=locale.fileupload.destroy%}</span>
-        </button>
-      </td>
-    </tr>
+        <div class="col-xs-12">
+          <span class="name">{%=file.name%}</span>
+          <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </div>
+        <div class="error col-xs-12 text-danger">
+          <span class="label label-important">{%=locale.fileupload.error%}</span>
+          <p>{%=locale.fileupload.errors[file.error] || file.error%}</p>
+        </div>
+      {% } else { %}
+        <div class="preview col-xs-12">
+          {% if (file.photo_url) { %}
+            <img src="{%=file.image_url%}" class="img-responsive img-rounded center-block">
+          {% } %}
+        </div>
+        <div class="col-xs-8 text-center">
+          <span class="name">{%=file.name%}</span>
+        </div>
+        <div class="col-xs-4 text-center">
+          <span class="size text-muted">{%=o.formatFileSize(file.size)%}</span>
+        </div>
+      {% } %}
+    </div>
     {% } %}
 </script>
