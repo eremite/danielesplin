@@ -5,6 +5,6 @@
 - photos = Photo.unblogged.created_at_desc.where(at: 2.weeks.ago..1.minute.from_now ).limit(10)
 - if photos.present?
   .row
-    .col-md-12
+    .col-md-12.photo-container
       - photos.each do |photo|
         = render photo if photo.image?

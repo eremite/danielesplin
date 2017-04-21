@@ -24,7 +24,7 @@
           = link_to tag.name, photos_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
 
 .row
-  .col-md-12
+  .col-md-12.photo-container
     = render @photos
 
 .row

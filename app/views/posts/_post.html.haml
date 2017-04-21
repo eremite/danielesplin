@@ -13,17 +13,17 @@
         =l post.at.to_date, format: :long
       :markdown
         #{post.body}
-  .row
-    .col-md-12
-      - if post.photos.present?
+  - if post.photos.present?
+    .row
+      .col-md-12
         - if post.photos.size > 1
-          - post.photos.at_asc.each do |photo|
-            - if photo.image?
-              = render photo, :group => "group-#{post.at.to_date}"
+          .photo-container
+            - post.photos.at_asc.each do |photo|
+              = render photo, group: "group-#{post.at.to_date}" if photo.image?
         - else
           - photo = post.photos.first
           = link_to photo.image.url, class: 'fancybox', rel: "group-#{post.at.to_date}", title: photo.description do
-            = image_tag photo.image.url, class: 'img-rounded', size: '480px'
+            = image_tag photo.image.url, class: 'img-rounded img-responsive text-block'
   .row
     .col-md-12
       .list-group

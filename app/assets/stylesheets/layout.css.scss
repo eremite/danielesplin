@@ -15,6 +15,21 @@ blockquote {
     display: block;
   }
 }
+.photo-container {
+  display: flex;
+  flex-wrap: wrap;
+  .photo {
+    align-items: center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+}
+@media (min-width: 992px) {
+  .photo-container .photo {
+    width: 25%;
+  }
+}
 
 #pages-controller {
 

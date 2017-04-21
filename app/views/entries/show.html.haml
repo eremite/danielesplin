@@ -24,7 +24,7 @@
 - photos = Photo.where(at: @entry.at.beginning_of_day..@entry.at.end_of_day).at_asc
 - if photos.present?
   .row
-    .col-md-12
+    .col-md-12.photo-container
       - photos.each do |photo|
         - if photo.image?
           = render photo, group: "group-#{@entry.at.to_date}"
