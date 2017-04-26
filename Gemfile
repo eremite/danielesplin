@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6'
+gem 'rails', '4.2.8'
 
 gem 'acts-as-taggable-on'
 gem 'aws-ses', '~> 0.6.0'
