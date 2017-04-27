@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+# System Under Test
+touch .docker_overrides.env
+docker-compose build
+docker-compose run --rm web sh -c "
+while ! nc -z db 3306; do echo 'Waiting for db'; sleep 1; done
+bundle exec rake db:create db:schema:load test RAILS_ENV=test
+"
+EXIT_STATUS=$?
+docker-compose down
+exit $EXIT_STATUS
