@@ -7,3 +7,6 @@ phases:
   build:
     commands:
       - ./bin/sut
+artifacts:
+  files:
+    - '**/*'
