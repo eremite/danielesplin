@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+touch .docker_overrides.env
+docker-compose run --rm web sh -c "
+while ! nc -z db 3306; do echo 'Waiting for db'; sleep 1; done
+bundle exec rake db:setup
+"
