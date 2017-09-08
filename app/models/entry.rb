@@ -1,4 +1,4 @@
-class Entry < ActiveRecord::Base
+class Entry < ApplicationRecord
 
   acts_as_taggable_on :entry_tags
 

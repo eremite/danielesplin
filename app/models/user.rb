@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   ROLES = %w(father mother baby grandparent guest)
 

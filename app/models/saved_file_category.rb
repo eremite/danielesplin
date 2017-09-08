@@ -1,4 +1,4 @@
-class SavedFileCategory < ActiveRecord::Base
+class SavedFileCategory < ApplicationRecord
 
   has_many :saved_files
 

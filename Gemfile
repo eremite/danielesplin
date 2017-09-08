@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.9'
+gem 'rails', '5.0.6'
 
 gem 'acts-as-taggable-on'
 gem 'aws-ses', '~> 0.6.0'
@@ -11,11 +11,11 @@ gem 'coffee-rails'
 gem 'daemons'
 gem 'exception_notification'
 gem 'exifr'
-gem 'fog'
+gem 'fog-aws'
 gem 'haml-rails'
-gem 'jquery-fileupload-rails', '~> 0.4.5'
-gem 'jquery-rails', '~> 4.0.3'
-gem 'jquery-ui-rails', '~> 5.0.3'
+gem 'jquery-fileupload-rails'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'mysql2'
@@ -29,10 +29,9 @@ group :production do
 end
 
 group :development, :test do
-  gem 'quiet_assets', '~> 1.1.0'
-  gem 'byebug', '~> 3.5.1'
+  gem 'byebug'
 end
 
 group :test do
-  gem 'minitest-stub_any_instance', '~> 1.0.0'
+  gem 'minitest-stub_any_instance'
 end

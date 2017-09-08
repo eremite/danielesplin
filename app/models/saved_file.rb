@@ -1,4 +1,4 @@
-class SavedFile < ActiveRecord::Base
+class SavedFile < ApplicationRecord
 
   mount_uploader :attachment, AttachmentUploader
 

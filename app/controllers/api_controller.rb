@@ -1,7 +1,7 @@
 class ApiController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token
-  before_filter :verify_api_key
+  skip_before_action :verify_authenticity_token
+  before_action :verify_api_key
 
   private
 

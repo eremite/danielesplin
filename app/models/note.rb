@@ -1,4 +1,4 @@
-class Note < ActiveRecord::Base
+class Note < ApplicationRecord
 
   acts_as_taggable_on :note_tags
 

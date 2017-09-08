@@ -1,4 +1,4 @@
-class Thought < ActiveRecord::Base
+class Thought < ApplicationRecord
 
   belongs_to :user
 
