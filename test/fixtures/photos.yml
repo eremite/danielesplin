@@ -1,4 +1,4 @@
 base:
   user: base
-  at: <%= Time.zone.now %>
+  at: <%= Time.zone.now.to_datetime %>
   description: Funky

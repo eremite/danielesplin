@@ -3,4 +3,4 @@
 base:
   user: admin
   body: Content
-  at: <%= Time.zone.now %>
+  at: <%= Time.zone.now.to_datetime %>
