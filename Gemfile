@@ -5,7 +5,7 @@ gem 'rails', '5.1.4'
 gem 'acts-as-taggable-on'
 gem 'aws-ses'
 gem 'bcrypt'
-gem 'cancan'
+gem 'cancancan'
 gem 'carrierwave'
 gem 'coffee-rails'
 gem 'daemons'
@@ -30,6 +30,7 @@ end
 
 group :development, :test do
   gem 'byebug'
+  gem 'listen'
 end
 
 group :test do
