@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.6'
+gem 'rails', '5.1.4'
 
 gem 'acts-as-taggable-on'
-gem 'aws-ses', '~> 0.6.0'
+gem 'aws-ses'
 gem 'bcrypt'
 gem 'cancan'
 gem 'carrierwave'
