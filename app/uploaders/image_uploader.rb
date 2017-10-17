@@ -1,5 +1,5 @@
 # encoding: utf-8
-
+require 'exifr/jpeg'
 class ImageUploader < CarrierWave::Uploader::Base
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
