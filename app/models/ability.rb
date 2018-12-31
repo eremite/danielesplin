@@ -21,11 +21,6 @@ class Ability
         if user.father?
           can :manage, Note
         end
-      elsif user.grandparent?
-        can :read, Photo
-        can :read, Entry, user_id: User.where(role: 'baby').pluck(:id)
-        can :read, Entry, user_id: User.where(role: 'father').pluck(:id), at: Time.at(0)..Time.zone.parse('2000-01-01')
-        can :read, Post
       else
         can :read, Photo
         can :read, Post
