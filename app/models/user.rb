@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :photos
   has_many :saved_files
-  has_many :thoughts
 
   validates :email,
     presence: true,

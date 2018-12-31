@@ -11,7 +11,6 @@ Danielesplin::Application.routes.draw do
   resources :pages
   resources :saved_file_categories
   resources :saved_files
-  resources :thoughts
   resources :users
   resources :post_photos, only: [:create, :destroy]
 

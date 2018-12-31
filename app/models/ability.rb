@@ -20,9 +20,6 @@ class Ability
         can :manage, :print_batch
         if user.father?
           can :manage, Note
-          can :manage, Thought
-        else
-          can :read, Thought
         end
       elsif user.grandparent?
         can :read, Photo
