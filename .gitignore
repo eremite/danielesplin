@@ -1,8 +1,8 @@
 /.bundle
+/.env
+/.sass-cache/*
 /db/data.yml
 /log
-/tmp
-/.sass-cache/*
 /public/system
 /public/uploads
-/.docker_overrides.env
+/tmp
