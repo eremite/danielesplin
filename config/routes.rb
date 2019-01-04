@@ -32,15 +32,6 @@ Danielesplin::Application.routes.draw do
   get 'logout', to: 'sessions#destroy'
   get 'login', to: 'sessions#new', as: 'login'
 
-  # Dir['app/views/pages/*'].map { |f| File.basename(f, '.html.haml') }.each do |page|
-  #   match "#{page}_page" => "pages##{page}"
-  # end
-
-  Dir['app/views/reports/*'].map { |f| File.basename(f, '.html.haml') }.each do |page|
-    next if page.starts_with?('_')
-    match "#{page}_report" => "reports##{page}", via: [:get, :post]
-  end
-
   root :to => 'pages#index'
 
 end
