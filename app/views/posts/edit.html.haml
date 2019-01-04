@@ -4,19 +4,5 @@
 
 - if (photos = @post.photos.at_asc).present?
   .row
-    .col-md-12
-      %h4 Photos for this Post
-      - photos.each do |photo|
-        = render photo if photo.image?
-
-- if @post.at.future?
-  .row
-    .col-md-12
-      %h4 Add Photos
-      - Photo.created_at_desc.limit(20).each do |photo|
-        - if photo.image?
-          - classes = ['pull-left']
-          - classes << 'unblogged' if photo.posts.count.zero?
-          .thumbnail{ class: classes }
-            = link_to [PostPhoto, { post_photo: { photo_id: photo.id, post_id: @post.id } }], method: :post, title: photo.description do
-              = image_tag photo.image.url, class: 'img-rounded img-responsive', alt: photo.description.to_s, size: '100px'
+    .col-md-12.photo-container
+      = render photos
