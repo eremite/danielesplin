@@ -17,4 +17,4 @@
 //= require jquery-fileupload
 //= require jquery.fancybox
 //= require jquery.autosize
-//= require_tree .
+//= require layout

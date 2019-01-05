@@ -1,18 +1,18 @@
-jQuery ->
+$(document).ready(function() {
 
-  # Autofocus
+  // Autofocus
   $('.autofocus:first').focus()
 
-  # Fancybox
+  // Fancybox
   $('.fancybox').fancybox({
     preload: 50,
   })
 
-  # Autosize
+  // Autosize
   $('textarea#post_body, textarea#entry_body').autosize()
 
-  # Datetimepicker
-  $('.datetimepicker').datetimepicker
+  // Datetimepicker
+  $('.datetimepicker').datetimepicker({
     dateFormat: 'm/d/yy',
     timeFormat: 'h:mmtt',
     ampm: true,
@@ -23,41 +23,39 @@ jQuery ->
     useLocalTimezone: true,
     showTimezone: false,
     showSecond: false,
+  })
 
-  # Datepicker
+  // Datepicker
   $('.datepicker').datepicker()
 
-  # Photos: toggle post_ids
-  $('#photo_hidden').change ->
-    if $(this).prop('checked')
-      $('#photo_post_ids').hide('slow')
-    else
-      $('#photo_post_ids').show('slow')
-  .trigger('change')
-
-  # jQuery File Upload
+  // jQuery File Upload
   $('form.new_photo').fileupload({
     autoUpload: true,
     paramName: 'photo[image]',
   })
-  $('form.new_photo').bind 'fileuploadsubmit', (e, data) ->
+  $('form.new_photo').on('fileuploadsubmit', function(e, data) {
     inputs = data.context.find(':input')
     data.formData = inputs.serializeArray()
+  })
   $('form.new_saved_file').fileupload({
     autoUpload: true,
     paramName: 'saved_file[attachment]',
   })
 
-  # Make inserting common tags easier.
-  $('span.insert-into-tag-list').click ->
+  // Make inserting common tags easier.
+  $('span.insert-into-tag-list').on('click', function() {
     input = $(this).parent().siblings('input')
-    if input.val()
-      input.val("#{input.val()}, #{this.innerHTML}")
-    else
+    if (input.val()) {
+      input.val(input.val() + ', ' + this.innerHTML)
+    } else {
       input.val(this.innerHTML)
+    }
     $(this).remove()
+  })
 
-# Not sure why/if this has to be global...
+})
+
+// Not sure why/if this has to be global...
 fileUploadErrors = {
   maxFileSize: 'File is too big',
   minFileSize: 'File is too small',
