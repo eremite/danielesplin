@@ -8,30 +8,30 @@ class PostsControllerTest < ActionController::TestCase
 
   test 'index' do
     get :index
-    assert_template :index
+    assert_response :success
   end
 
   test 'index rss' do
     logout
     get :index, format: 'rss'
-    assert_template :index
+    assert_response :success
   end
 
   test 'new' do
     get :new
-    assert_template :new
+    assert_response :success
   end
 
   test 'create invalid' do
     Post.stub_any_instance :save, false do
-      post :create, post: valid_attributes
+      post :create, params: { post: valid_attributes }
     end
-    assert_template :new
+    assert_response :success
   end
 
   test 'create valid' do
     Post.stub_any_instance :save, true do
-      post :create, post: valid_attributes
+      post :create, params: { post: valid_attributes }
     end
     assert_redirected_to :posts
   end

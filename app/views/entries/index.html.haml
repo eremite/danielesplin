@@ -61,7 +61,7 @@
       %p.text-center
         = pluralize((previous_at.to_date - entry.at.to_date).to_i, 'day') if previous_at.present?
         - previous_at = entry.at
-    = div_for entry, class: 'well' do
+    .well
       .row
         .col-md-12
           .pull-right

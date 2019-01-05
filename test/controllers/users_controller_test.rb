@@ -5,56 +5,56 @@ class UsersControllerTest < ActionController::TestCase
   test 'index' do
     login_as(users(:admin))
     get :index
-    assert_template :index
+    assert_response :success
   end
 
   test 'new' do
     login_as(users(:admin))
     get :new
-    assert_template :new
+    assert_response :success
   end
 
   test 'create invalid' do
     login_as(users(:admin))
     User.stub_any_instance :save, false do
-      post :create, user: valid_attributes
+      post :create, params: { user: valid_attributes }
     end
-    assert_template :new
+    assert_response :success
   end
 
   test 'create valid' do
     login_as(users(:admin))
     User.stub_any_instance :save, true do
-      post :create, user: valid_attributes
+      post :create, params: { user: valid_attributes }
     end
     assert_redirected_to users_url
   end
 
   test 'edit' do
     login_as(users(:base))
-    get :edit, id: users(:base).id
-    assert_template :edit
+    get :edit, params: { id: users(:base).id }
+    assert_response :success
   end
 
   test 'update invalid' do
     login_as(users(:base))
     User.stub_any_instance :update_attributes, false do
-      put :update, id: users(:base).id, user: valid_attributes
+      put :update, params: { id: users(:base).id, user: valid_attributes }
     end
-    assert_template :edit
+    assert_response :success
   end
 
   test 'update valid' do
     login_as(users(:base))
     User.stub_any_instance :update_attributes, true do
-      put :update, id: users(:base).id, user: valid_attributes
+      put :update, params: { id: users(:base).id, user: valid_attributes }
     end
     assert_redirected_to edit_user_url(users(:base))
   end
 
   test 'destroy' do
     login_as(users(:admin))
-    delete :destroy, id: users(:base).id
+    delete :destroy, params: { id: users(:base).id }
     assert_redirected_to users_url
   end
 

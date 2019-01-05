@@ -10,52 +10,52 @@ class NotesControllerTest < ActionController::TestCase
 
   test 'index' do
     get :index
-    assert_template :index
+    assert_response :success
   end
 
   test 'new' do
     get :new
-    assert_template :new
+    assert_response :success
   end
 
   test 'create invalid' do
     Note.stub_any_instance :save, false do
-      post :create, note: @note.attributes
+      post :create, params: { note: @note.attributes }
     end
-    assert_template :new
+    assert_response :success
   end
 
   test 'create valid' do
-    post :create, note: @note.attributes
-    assert_redirected_to [:edit, assigns(:note)]
+    post :create, params: { note: @note.attributes }
+    assert_response :redirect
   end
 
   test 'show' do
-    get :show, id: @note.id
-    assert_template :show
+    get :show, params: { id: @note.id }
+    assert_response :success
   end
 
   test 'edit' do
-    get :edit, id: @note.id
-    assert_template :edit
+    get :edit, params: { id: @note.id }
+    assert_response :success
   end
 
   test 'update invalid' do
     Note.stub_any_instance :update_attributes, false do
-      put :update, id: @note.id, note: @note.attributes
+      put :update, params: { id: @note.id, note: @note.attributes }
     end
-    assert_template :edit
+    assert_response :success
   end
 
   test 'update valid' do
     Note.stub_any_instance :update_attributes, true do
-      put :update, id: @note.id, note: @note.attributes
+      put :update, params: { id: @note.id, note: @note.attributes }
     end
     assert_redirected_to [:edit, @note]
   end
 
   test 'destroy' do
-    delete :destroy, id: @note.id
+    delete :destroy, params: { id: @note.id }
     assert_redirected_to :notes
   end
 

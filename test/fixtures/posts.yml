@@ -2,4 +2,4 @@
 
 base:
   body: Content
-  at: <%= Time.zone.now %>
+  at: <%= Time.current.to_s(:db) %>

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.11'
+gem 'rails', '5.0.7.1'
 
 gem 'acts-as-taggable-on'
 gem 'aws-ses'
@@ -8,7 +8,6 @@ gem 'bcrypt'
 gem 'cancan'
 gem 'carrierwave'
 gem 'daemons'
-gem 'exception_notification'
 gem 'exifr'
 gem 'fog'
 gem 'haml-rails'

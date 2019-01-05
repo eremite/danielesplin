@@ -8,20 +8,20 @@ class PostPhotosControllerTest < ActionController::TestCase
 
   test 'create invalid' do
     PostPhoto.stub_any_instance :save, false do
-      post :create, post_photo: valid_attributes
+      post :create, params: { post_photo: valid_attributes }
     end
     assert_redirected_to [:edit, posts(:base)]
   end
 
   test 'create valid' do
     PostPhoto.stub_any_instance :save, true do
-      post :create, post_photo: valid_attributes
+      post :create, params: { post_photo: valid_attributes }
     end
     assert_redirected_to [:edit, posts(:base)]
   end
 
   test 'destroy' do
-    delete :destroy, id: post_photos(:base).id
+    delete :destroy, params: { id: post_photos(:base).id }
     assert_redirected_to [:edit, posts(:base)]
   end
 

@@ -1,4 +1,4 @@
 base:
   user: base
-  at: <%= Time.zone.now %>
+  at: <%= Time.current.to_s(:db) %>
   description: Funky

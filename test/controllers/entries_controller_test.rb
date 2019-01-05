@@ -10,56 +10,56 @@ class EntriesControllerTest < ActionController::TestCase
 
   test 'index' do
     get :index
-    assert_template :index
+    assert_response :success
   end
 
   test 'new' do
     get :new
-    assert_template :new
+    assert_response :success
   end
 
   test 'create invalid' do
     Entry.stub_any_instance :save, false do
-      post :create, entry: valid_attributes
+      post :create, params: { entry: valid_attributes }
     end
-    assert_template :new
+    assert_response :success
   end
 
   test 'create valid' do
     Entry.stub_any_instance :save, true do
       Entry.stub_any_instance :after_create_redirect_url, [:entries] do
-        post :create, entry: valid_attributes
+        post :create, params: { entry: valid_attributes }
       end
     end
     assert_redirected_to :entries
   end
 
   test 'show' do
-    get :show, id: @entry.id
-    assert_template :show
+    get :show, params: { id: @entry.id }
+    assert_response :success
   end
 
   test 'edit' do
-    get :edit, id: @entry.id
-    assert_template :edit
+    get :edit, params: { id: @entry.id }
+    assert_response :success
   end
 
   test 'update invalid' do
     Entry.stub_any_instance :update_attributes, false do
-      put :update, id: @entry.id, entry: valid_attributes
+      put :update, params: { id: @entry.id, entry: valid_attributes }
     end
-    assert_template :edit
+    assert_response :success
   end
 
   test 'update valid' do
     Entry.stub_any_instance :update_attributes, true do
-      put :update, id: @entry.id, entry: valid_attributes
+      put :update, params: { id: @entry.id, entry: valid_attributes }
     end
     assert_redirected_to entries_url
   end
 
   test 'destroy' do
-    delete :destroy, id: @entry.id
+    delete :destroy, params: { id: @entry.id }
     assert_redirected_to entries_url
   end
 

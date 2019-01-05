@@ -4,14 +4,14 @@ class SessionsControllerTest < ActionController::TestCase
 
   test 'new' do
     get :new
-    assert_template :new
+    assert_response :success
   end
 
   test 'create invalid' do
     User.stub_any_instance :authenticate, nil do
       post :create
     end
-    assert_template :new
+    assert_response :success
     assert_nil session['user_id']
   end
 
@@ -19,7 +19,7 @@ class SessionsControllerTest < ActionController::TestCase
     u = users(:base)
     User.stub_any_instance :authenticate, u do
       assert_difference lambda { LogEntry.logins.count } do
-        post :create, email: u.email
+        post :create, params: { email: u.email }
       end
     end
     assert_redirected_to :posts
@@ -32,7 +32,7 @@ class SessionsControllerTest < ActionController::TestCase
     entry = u.entries.create!(at: Time.zone.now, :body => 'hi')
     User.stub_any_instance :authenticate, u do
       assert_difference lambda { LogEntry.logins.count } do
-        post :create, email: u.email
+        post :create, params: { email: u.email }
       end
     end
     assert_redirected_to [:edit, entry]
@@ -44,7 +44,7 @@ class SessionsControllerTest < ActionController::TestCase
     u.entries.delete_all
     User.stub_any_instance :authenticate, u do
       assert_difference lambda { LogEntry.logins.count } do
-        post :create, email: u.email
+        post :create, params: { email: u.email }
       end
     end
     assert_redirected_to new_entry_url

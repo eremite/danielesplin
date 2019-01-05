@@ -8,17 +8,17 @@ class PrintBatchesControllerTest < ActionController::TestCase
 
   test 'index' do
     get :index
-    assert_template :index
+    assert_response :success
   end
 
   test 'entries' do
-    get :entries, :user_id => users(:admin).id, year: Time.zone.now.year
-    assert_template :entries
+    get :entries, params: { user_id: users(:admin).id, year: Time.zone.now.year }
+    assert_response :success
   end
 
   test 'posts' do
-    get :posts, year: Time.zone.now.year
-    assert_template :posts
+    get :posts, params: { year: Time.zone.now.year }
+    assert_response :success
   end
 
 end

@@ -7,6 +7,7 @@
   :markdown
     #{post.body}
   - post.photos.at_asc.each do |photo|
-    %figure{ style: 'float: left; margin: 0 0.25em' }
-      = image_tag photo.image.url, width: '400px'
+    - if photo.image.present?
+      %figure{ style: 'float: left; margin: 0 0.25em' }
+        = image_tag photo.image.url, width: '400px'
   %br{ :style => 'clear: both' }

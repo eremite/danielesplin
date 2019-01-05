@@ -10,49 +10,49 @@ class InventoryItemsControllerTest < ActionController::TestCase
 
   test 'index' do
     get :index
-    assert_template :index
+    assert_response :success
   end
 
   test 'new' do
     get :new
-    assert_template :new
+    assert_response :success
   end
 
   test 'create invalid' do
     InventoryItem.stub_any_instance :save, false do
-      post :create, inventory_item: valid_attributes
+      post :create, params: { inventory_item: valid_attributes }
     end
-    assert_template :new
+    assert_response :success
   end
 
   test 'create valid' do
     InventoryItem.stub_any_instance :save, true do
-      post :create, inventory_item: valid_attributes
+      post :create, params: { inventory_item: valid_attributes }
     end
     assert_redirected_to :inventory_items
   end
 
   test 'edit' do
-    get :edit, id: @inventory_item.id
-    assert_template :edit
+    get :edit, params: { id: @inventory_item.id }
+    assert_response :success
   end
 
   test 'update invalid' do
     InventoryItem.stub_any_instance :update_attributes, false do
-      put :update, id: @inventory_item.id, inventory_item: valid_attributes
+      put :update, params: { id: @inventory_item.id, inventory_item: valid_attributes }
     end
-    assert_template :edit
+    assert_response :success
   end
 
   test 'update valid' do
     InventoryItem.stub_any_instance :update_attributes, true do
-      put :update, id: @inventory_item.id, inventory_item: valid_attributes
+      put :update, params: { id: @inventory_item.id, inventory_item: valid_attributes }
     end
     assert_redirected_to :inventory_items
   end
 
   test 'destroy' do
-    delete :destroy, id: @inventory_item.id
+    delete :destroy, params: { id: @inventory_item.id }
     assert_redirected_to :inventory_items
   end
 
