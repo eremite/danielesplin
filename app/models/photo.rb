@@ -1,4 +1,4 @@
-class Photo < ActiveRecord::Base
+class Photo < ApplicationRecord
 
   acts_as_taggable_on :photo_tags
 
