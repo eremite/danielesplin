@@ -15,8 +15,6 @@ class Entry < ApplicationRecord
   def after_create_redirect_url
     if at < 1.week.ago
       [:new, :entry, { at: at + 1.day }]
-    elsif user.try(:father?)
-      [:entries, { user_id: User.where(role: 'mother').first.try(:id) }]
     elsif %w(mother baby).include?(user.try(:role))
       child = nil
       User.where(role: 'baby').each do |user|
@@ -24,11 +22,7 @@ class Entry < ApplicationRecord
           child = user and break
         end
       end
-      if child.present?
-        [:new, :entry, { entry: { user_id: child.id } }]
-      else
-        [:entries, { user_id: User.where(role: 'father').first.try(:id) }]
-      end
+      child.present? ? [:new, :entry, { entry: { user_id: child.id } }] : [:entries]
     else
       [:entries]
     end
