@@ -3,7 +3,7 @@
   = params[:year]
 
 - @entries.each do |entry|
-  %h3= l entry.at
+  %h3= l entry.at.to_date, format: :long
   :markdown
     #{entry.body}
 
