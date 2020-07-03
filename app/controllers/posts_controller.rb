@@ -1,8 +1,5 @@
 class PostsController < ApplicationController
 
-  load_resource except: [:new, :create]
-  authorize_resource
-
   def index
     current_user.try(:log, 'blog')
     current_user.try(:touch, :viewed_blog_at)
@@ -38,9 +35,15 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
+  end
+
+  def edit
+    @post = Post.find(params[:id])
   end
 
   def update
+    @post = Post.find(params[:id])
     if @post.update_attributes(safe_params)
       redirect_to :posts, notice: 'Post saved.'
     else
@@ -49,15 +52,19 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:id])
     @post.destroy
     redirect_to :posts, notice: 'Post destroyed.'
   end
-
 
   private
 
   def safe_params
     params.permit(post: [:at, :body, :post_tag_list])[:post]
+  end
+
+  def authorized?
+    current_user&.parent?
   end
 
 end

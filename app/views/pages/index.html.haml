@@ -5,17 +5,13 @@
 .jumbotron.row
 
   .col-md-3.col-md-push-9
-    - if logged_in?
-      - if can? :index, Post
-        = link_to 'See the blog!', [:posts], class: 'btn btn-primary btn-block'
-      - if can? :index, Photo
-        = link_to 'Photos: Look and See', [:photos], class: 'btn btn-warning btn-block'
-      - if can? :index, Entry
-        = link_to 'Browse the Journal', [:entries], class: 'btn btn-info btn-block'
-      - if can? :new, Entry
-        = link_to 'Create Journal Entry', [:new, :entry], class: 'btn btn-success btn-block'
+    - if current_user&.parent?
+      = link_to 'See the blog!', %i(posts), class: 'btn btn-primary btn-block'
+      = link_to 'Photos: Look and See', %i(photos), class: 'btn btn-warning btn-block'
+      = link_to 'Browse the Journal', %i(entries), class: 'btn btn-info btn-block'
+      = link_to 'Create Journal Entry', %i(new entry), class: 'btn btn-success btn-block'
     - else
-      = form_tag sessions_path do
+      = form_tag :sessions do
         .form-group
           = label_tag :email, nil, class: 'control-label'
           = email_field_tag :email, params[:email], class: 'autofocus form-control', placeholder: 'Email'

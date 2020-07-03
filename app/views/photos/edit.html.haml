@@ -2,14 +2,12 @@
 
 - content_for :sidebar do
 
-  - if can? :create, Entry
-    = link_to new_post_path(post: { at: @photo.at }), class: 'btn btn-success btn-block' do
-      %i.fa.fa-plus.fa-inverse
-      New Blog Post
-  - if can? :delete, @photo
-    = link_to @photo, class: 'btn btn-danger btn-block', method: :delete, data: { confirm: 'Are you sure you want to delete this photo?' } do
-      %i.fa.fa-trash-o.fa-inverse
-      Delete
+  = link_to new_post_path(post: { at: @photo.at }), class: 'btn btn-success btn-block' do
+    %i.fa.fa-plus.fa-inverse
+    New Blog Post
+  = link_to @photo, class: 'btn btn-danger btn-block', method: :delete, data: { confirm: 'Are you sure you want to delete this photo?' } do
+    %i.fa.fa-trash-o.fa-inverse
+    Delete
 
   %hr
 

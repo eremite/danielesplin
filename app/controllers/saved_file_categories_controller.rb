@@ -1,8 +1,5 @@
 class SavedFileCategoriesController < ApplicationController
 
-  load_resource except: :create
-  authorize_resource
-
   def index
     @saved_file_categories = SavedFileCategory.name_asc
     @saved_file_category = SavedFileCategory.new
@@ -18,7 +15,12 @@ class SavedFileCategoriesController < ApplicationController
     end
   end
 
+  def edit
+    @saved_file_category = SavedFileCategory.find(params[:id])
+  end
+
   def update
+    @saved_file_category = SavedFileCategory.find(params[:id])
     if @saved_file_category.update_attributes(safe_params)
       redirect_to saved_file_categories_url
     else
@@ -28,15 +30,19 @@ class SavedFileCategoriesController < ApplicationController
   end
 
   def destroy
+    @saved_file_category = SavedFileCategory.find(params[:id])
     @saved_file_category.destroy
     redirect_to saved_file_categories_url, notice: 'Category deleted.'
   end
-
 
   private
 
   def safe_params
     params.require(:saved_file_category).permit!
+  end
+
+  def authorized?
+    current_user&.parent?
   end
 
 end

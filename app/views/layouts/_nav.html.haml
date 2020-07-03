@@ -8,27 +8,24 @@
 
 .collapse.navbar-collapse#navbar
   %ul.nav.navbar-nav
-    - if can? :index, Post
+    - if current_user.parent?
       %li{class: controller.controller_name == 'posts' && 'active'}
         = link_to :posts do
           %i.fa.fa-picture-o
           Blog
-    - if can?(:create, Entry) || current_user.grandparent?
       %li{class: controller.controller_name == 'entries' && 'active'}
         = link_to entries_path do
           %i.fa.fa-book
           Journal
-    - if can? :manage, Photo
       %li{class: controller.controller_name == 'photos' && 'active'}
         = link_to photos_path do
           %i.fa.fa-camera
           Photos
-    - if can? :manage, Note
-      %li{class: controller.controller_name == 'notes' && 'active'}
-        = link_to :notes do
-          %i.fa.fa-file-text-o
-          Notes
-    - if can? :index, :report
+      - if current_user.father?
+        %li{class: controller.controller_name == 'notes' && 'active'}
+          = link_to :notes do
+            %i.fa.fa-file-text-o
+            Notes
       %li.dropdown
         = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
           %i.fa.fa-list
@@ -38,8 +35,7 @@
           %li= link_to 'Users', users_path
           %li= link_to 'Files', saved_files_path
           %li= link_to 'Offline', '/offline'
-          - if can? :manage, InventoryItem
-            %li= link_to 'Household Inventory', :inventory_items
+          %li= link_to 'Household Inventory', :inventory_items
 
   %ul.nav.navbar-nav.navbar-right
     %li.dropdown
@@ -48,8 +44,6 @@
         = current_user.name
         %b.caret
       %ul.dropdown-menu
-        %li
-          = link_to 'Edit Profile', [:edit, current_user]
+        %li= link_to 'Edit Profile', [:edit, current_user]
         %li.divider
-        %li
-          = link_to 'Log Out', logout_path, method: :delete
+        %li= link_to 'Log Out', logout_path, method: :delete

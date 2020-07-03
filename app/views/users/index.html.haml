@@ -1,10 +1,9 @@
 - title 'Users Report'
 
 - content_for :sidebar do
-  - if can? :create, User
-    = link_to [:new, :user], class: 'btn btn-success btn-block' do
-      %i.fa.fa-inverse.fa-plus
-      New User
+  = link_to [:new, :user], class: 'btn btn-success btn-block' do
+    %i.fa.fa-inverse.fa-plus
+    New User
 
 %table.table
   %thead

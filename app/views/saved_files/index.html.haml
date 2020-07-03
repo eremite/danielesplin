@@ -2,15 +2,14 @@
 
 - content_for :sidebar do
 
-  - if can? :create, SavedFile
-    - if @saved_file_category
-      = link_to saved_files_path, class: 'btn btn-success btn-block' do
-        All Categories
-    = link_to new_saved_file_path, class: 'btn btn-success btn-block' do
-      %i.fa.fa-inverse.fa-plus
-      Upload Files
-    = link_to saved_file_categories_path, class: 'btn btn-success btn-block' do
-      Manage Categories
+  - if @saved_file_category
+    = link_to saved_files_path, class: 'btn btn-success btn-block' do
+      All Categories
+  = link_to new_saved_file_path, class: 'btn btn-success btn-block' do
+    %i.fa.fa-inverse.fa-plus
+    Upload Files
+  = link_to saved_file_categories_path, class: 'btn btn-success btn-block' do
+    Manage Categories
 
 - if params[:category_id]
 

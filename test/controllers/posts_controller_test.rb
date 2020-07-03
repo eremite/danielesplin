@@ -11,12 +11,6 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'index rss' do
-    logout
-    get :index, format: 'rss'
-    assert_response :success
-  end
-
   test 'new' do
     get :new
     assert_response :success

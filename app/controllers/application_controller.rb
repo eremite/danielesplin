@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_action :verify_authorized
+
   rescue_from ActionController::MethodNotAllowed, ActionController::UnknownHttpMethod do |exception|
     render text: "ERROR: #{exception.message}", status: Rack::Utils::SYMBOL_TO_STATUS_CODE[:method_not_allowed]
   end
@@ -14,22 +16,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
-  def current_baby
-    @current_baby ||= User.where(role: 'baby').first
-  end
-  helper_method :current_baby
-
-  def logged_in?
-    !!current_user
-  end
-  helper_method :logged_in?
-
-  def current_ability
-    @current_ability ||= Ability.new(current_user, params[:format])
+  def verify_authorized
+    deny_access unless authorized?
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to login_url, alert: 'Permission denied!'
+  def deny_access
+    redirect_to :login, alert: 'Permission denied!'
+  end
+
+  def authorized?
+    false
   end
 
 end

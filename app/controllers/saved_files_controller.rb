@@ -1,9 +1,7 @@
 class SavedFilesController < ApplicationController
 
-  load_resource except: :create
-  authorize_resource
-
   def index
+    @saved_files = SavedFile.all
     @saved_file_category = SavedFileCategory.where(id: params[:category_id]).first
     if @saved_file_category
       @saved_files = @saved_files.where(saved_file_category_id: @saved_file_category.id)
@@ -30,7 +28,12 @@ class SavedFilesController < ApplicationController
     end
   end
 
+  def edit
+    @saved_file = SavedFile.find(params[:id])
+  end
+
   def update
+    @saved_file = SavedFile.find(params[:id])
     if @saved_file.update_attributes(safe_params)
       redirect_to saved_files_url, notice: 'File saved.'
     else
@@ -39,15 +42,19 @@ class SavedFilesController < ApplicationController
   end
 
   def destroy
+    @saved_file = SavedFile.find(params[:id])
     @saved_file.destroy
     redirect_to saved_files_url, notice: 'File deleted.'
   end
-
 
   private
 
   def safe_params
     params.require(:saved_file).permit!
+  end
+
+  def authorized?
+    current_user&.parent?
   end
 
 end

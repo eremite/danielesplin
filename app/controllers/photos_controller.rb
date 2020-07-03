@@ -1,13 +1,10 @@
 class PhotosController < ApplicationController
 
-  load_resource except: :create
-  authorize_resource
-
   def index
+    @photos = Photo.created_at_desc.page(params[:page])
     if params[:tag].present?
       @photos = @photos.tagged_with(params[:tag], on: :photo_tags)
     end
-    @photos = @photos.created_at_desc.page(params[:page])
   end
 
   def new
@@ -30,7 +27,16 @@ class PhotosController < ApplicationController
     end
   end
 
+  def show
+    @photo = Photo.find(params[:id])
+  end
+
+  def edit
+    @photo = Photo.find(params[:id])
+  end
+
   def update
+    @photo = Photo.find(params[:id])
     if @photo.update_attributes(safe_params)
       redirect_to params[:redirect_to].presence || photos_url, notice: 'Photo saved.'
     else
@@ -39,15 +45,19 @@ class PhotosController < ApplicationController
   end
 
   def destroy
+    @photo = Photo.find(params[:id])
     @photo.destroy
     redirect_to photos_url, notice: 'Photo destroyed.'
   end
-
 
   private
 
   def safe_params
     params.require(:photo).permit!
+  end
+
+  def authorized?
+    current_user&.parent?
   end
 
 end

@@ -12,9 +12,9 @@ Rails.application.routes.draw do
   resources :saved_file_categories
   resources :saved_files
   resources :users
-  resources :post_photos, only: [:create, :destroy]
+  resources :post_photos, only: %i[create destroy]
 
-  resources :print_batches, only: [:index] do
+  resources :print_batches, only: :index do
     collection do
       get :entries
       get :posts
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   end
 
   resources :posts
+  resources :public_posts, only: :index
+  get '/posts.rss', to: 'public_posts#index'
   get '/blog_posts', to: redirect('/posts')
   get '/blog_posts.rss', to: redirect('/posts.rss')
 
@@ -32,6 +34,6 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy'
   get 'login', to: 'sessions#new', as: 'login'
 
-  root :to => 'pages#index'
+  root to: 'pages#index'
 
 end

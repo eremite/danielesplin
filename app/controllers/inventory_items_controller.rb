@@ -1,8 +1,5 @@
 class InventoryItemsController < ApplicationController
 
-  load_resource except: [:new, :create]
-  authorize_resource
-
   def index
     begin
       @ends_on = Date.strptime(params[:ends_on].to_s, '%Y-%m-%d')
@@ -37,7 +34,12 @@ class InventoryItemsController < ApplicationController
     end
   end
 
+  def edit
+    @inventory_item = InventoryItem.find(params[:id])
+  end
+
   def update
+    @inventory_item = InventoryItem.find(params[:id])
     if @inventory_item.update_attributes(safe_params)
       redirect_to :inventory_items, notice: "#{InventoryItem.model_name.human} saved."
     else
@@ -46,15 +48,19 @@ class InventoryItemsController < ApplicationController
   end
 
   def destroy
+    @inventory_item = InventoryItem.find(params[:id])
     @inventory_item.destroy
     redirect_to :inventory_items, notice: "#{InventoryItem.model_name.human} deleted."
   end
-
 
   private
 
   def safe_params
     params.permit(inventory_item: [:name, :on, :description, :cost_in_dollars, :value_in_dollars, :inventory_item_tag_list])[:inventory_item]
+  end
+
+  def authorized?
+    current_user&.parent?
   end
 
 end

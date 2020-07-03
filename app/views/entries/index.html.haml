@@ -2,10 +2,9 @@
 
 - content_for :sidebar do
 
-  - if can? :create, Entry
-    = link_to [:new, :entry], class: 'btn btn-success btn-block' do
-      %i.fa.fa-inverse.fa-plus
-      New Journal Entry
+  = link_to %i[new entry], class: 'btn btn-success btn-block' do
+    %i.fa.fa-inverse.fa-plus
+    New Journal Entry
   - current_user.users_whose_entries_i_can_edit.each do |user|
     - next if user.id == current_user.id
     = link_to entries_path(user_id: user.id), class: 'btn btn-warning btn-block' do
@@ -34,10 +33,9 @@
         .form-group
           = label_tag :user
           = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
-        - if can? :create, Entry
-          .form-group
-            = label_tag :tag
-            = select nil, :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
+        .form-group
+          = label_tag :tag
+          = select nil, :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
         .checkbox
           %label
             = check_box_tag :random, '1', params[:random]
@@ -65,14 +63,13 @@
       .row
         .col-md-12
           .pull-right
-            - if can? :edit, entry
-              .btn-group
-                = link_to [:edit, entry], class: 'btn btn-default btn-xs' do
-                  %i.fa.fa-edit
-                  Edit
-                = link_to entry, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
-                  %i.fa.fa-trash-o
-                  Delete
+            .btn-group
+              = link_to [:edit, entry], class: 'btn btn-default btn-xs' do
+                %i.fa.fa-edit
+                Edit
+              = link_to entry, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
+                %i.fa.fa-trash-o
+                Delete
             - if entry.entry_tags.present?
               .list-group{ style: 'margin-top: 0.5em' }
                 - entry.entry_tag_list.each do |tag_name|

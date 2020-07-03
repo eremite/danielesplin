@@ -1,7 +1,5 @@
 class PrintBatchesController < ApplicationController
 
-  authorize_resource :class => false
-
   def index
     @users = User.where(role: %w(father mother baby)).order(User.arel_table[:id].asc)
   end
@@ -17,6 +15,12 @@ class PrintBatchesController < ApplicationController
     starts_on = Time.zone.parse("#{params[:year]}-01-01")
     @posts = Post.at_asc.where(at: starts_on..starts_on.end_of_year)
     render :posts, layout: false
+  end
+
+  private
+
+  def authorized?
+    current_user&.parent?
   end
 
 end

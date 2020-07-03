@@ -2,16 +2,15 @@
 
 - content_for :sidebar do
 
-  - if can? :create, Photo
-    .row
-      = form_for Photo.new, html: { multipart: true  } do |f|
-        .col-md-12.fileupload-buttonbar
-          %span.btn.btn-block.btn-success.fileinput-button
-            %i.fa.fa-plus.fa-inverse
-            %span Upload #{Photo.model_name.human.pluralize}
-            = f.file_field :image, multiple: true
-        .files
-    = render 'jquery_file_upload_templates'
+  .row
+    = form_for Photo.new, html: { multipart: true  } do |f|
+      .col-md-12.fileupload-buttonbar
+        %span.btn.btn-block.btn-success.fileinput-button
+          %i.fa.fa-plus.fa-inverse
+          %span Upload #{Photo.model_name.human.pluralize}
+          = f.file_field :image, multiple: true
+      .files
+  = render 'jquery_file_upload_templates'
 
   %hr
 

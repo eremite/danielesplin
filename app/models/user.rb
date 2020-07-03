@@ -23,10 +23,6 @@ class User < ApplicationRecord
   scope :viewed_blog_at_desc, -> { where.not(viewed_blog_at: nil).order(arel_table[:viewed_blog_at].desc) }
 
 
-  def log(action)
-    log_entries.create(action: action)
-  end
-
   def father?
     role == 'father'
   end
@@ -52,15 +48,21 @@ class User < ApplicationRecord
   end
 
   def users_whose_entries_i_can_edit
-    users = []
-    return users if guest?
-    if parent?
-      users += User.where(role: %w(father mother))
-    elsif grandparent?
-      users += User.where(role: 'father')
-    end
-    users += User.where(role: 'baby')
-    users
+    return [] unless parent?
+    User.where(role: %w[father mother baby])
+  end
+
+  def log(action)
+    log_entries.create(action: action)
+  end
+
+  def entry_for_today
+    entries.find_by(at: Time.current.all_day)
+  end
+
+  def login_redirect
+    return %i[new entry] if parent? && entry_for_today.blank?
+    :public_posts
   end
 
 end

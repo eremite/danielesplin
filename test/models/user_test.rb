@@ -43,10 +43,8 @@ class UserTest < ActiveSupport::TestCase
     baby = users(:baby)
     parent = users(:admin)
     assert guest.users_whose_entries_i_can_edit.empty?
-    assert_equal [baby], baby.users_whose_entries_i_can_edit
     assert parent.users_whose_entries_i_can_edit.include?(parent)
     assert parent.users_whose_entries_i_can_edit.include?(baby)
-    # TODO: Add test for grandparent.
   end
 
 end

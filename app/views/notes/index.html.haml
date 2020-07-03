@@ -2,10 +2,9 @@
 
 - content_for :sidebar do
 
-  - if can? :create, Note
-    = link_to [:new, :note], class: 'btn btn-success btn-block' do
-      %i.fa.fa-inverse.fa-plus
-      New Note
+  = link_to [:new, :note], class: 'btn btn-success btn-block' do
+    %i.fa.fa-inverse.fa-plus
+    New Note
   = link_to [:notes, { finished: 'Finished' }], class: 'btn btn-warning btn-block' do
     %i.fa.fa-file-text-o
     Finished Notes
@@ -58,20 +57,19 @@
       .row
         .col-md-12
           .pull-right
-            - if can? :edit, note
-              - if note.finished_at.present?
-                = link_to [note, { note: { finished_at: nil } }], method: :patch, class: 'btn btn-default btn-xs' do
-                  Unfinish
-              - else
-                = link_to [note, { note: { finished_at: Time.zone.now } }], method: :patch, class: 'btn btn-default btn-xs' do
-                  Finish
-              .btn-group
-                = link_to [:edit, note], class: 'btn btn-default btn-xs' do
-                  %i.fa.fa-edit
-                  Edit
-                = link_to note, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this note?' } do
-                  %i.fa.fa-trash-o
-                  Delete
+            - if note.finished_at.present?
+              = link_to [note, { note: { finished_at: nil } }], method: :patch, class: 'btn btn-default btn-xs' do
+                Unfinish
+            - else
+              = link_to [note, { note: { finished_at: Time.zone.now } }], method: :patch, class: 'btn btn-default btn-xs' do
+                Finish
+            .btn-group
+              = link_to [:edit, note], class: 'btn btn-default btn-xs' do
+                %i.fa.fa-edit
+                Edit
+              = link_to note, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this note?' } do
+                %i.fa.fa-trash-o
+                Delete
           %strong
             = link_to note, style: 'color: inherit' do
               #{note.kind}: #{note.title}

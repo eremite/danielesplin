@@ -3,16 +3,11 @@ require 'test_helper'
 class CommentsControllerTest < ActionController::TestCase
 
   def setup
-    login_as(users(:base))
+    login_as(users(:admin))
   end
 
   test 'index' do
     get :index
-    assert_response :success
-  end
-
-  test 'new' do
-    get :new
     assert_response :success
   end
 
@@ -27,7 +22,7 @@ class CommentsControllerTest < ActionController::TestCase
     Comment.stub_any_instance :save, true do
       post :create, params: { comment: valid_attributes }
     end
-    assert_redirected_to :posts
+    assert_redirected_to :public_posts
   end
 
   test 'edit' do
@@ -46,12 +41,12 @@ class CommentsControllerTest < ActionController::TestCase
     Comment.stub_any_instance :update_attributes, true do
       put :update, params: {id: comments(:base).id, comment: valid_attributes}
     end
-    assert_redirected_to :posts
+    assert_redirected_to :public_posts
   end
 
   test 'destroy' do
     delete :destroy, params: { id: comments(:base).id }
-    assert_redirected_to :posts
+    assert_redirected_to :public_posts
   end
 
 

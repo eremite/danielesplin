@@ -22,7 +22,7 @@
 
   %body{ id: "#{controller.controller_name.dasherize}-controller" }
 
-    - if current_user
+    - if current_user.present?
       %header
         .navbar.navbar-default{ role: 'navigation' }
           .container

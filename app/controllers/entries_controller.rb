@@ -1,8 +1,5 @@
 class EntriesController < ApplicationController
 
-  load_resource except: [:new, :create]
-  authorize_resource
-
   def index
     begin
       @ends_on = Date.strptime(params[:ends_on].to_s, '%m/%d/%Y')
@@ -52,9 +49,15 @@ class EntriesController < ApplicationController
 
   # TODO test
   def show
+    @entry = Entry.find(params[:id])
+  end
+
+  def edit
+    @entry = Entry.find(params[:id])
   end
 
   def update
+    @entry = Entry.find(params[:id])
     if @entry.update_attributes(safe_params)
       params.delete(:redirect_to) if params[:redirect_to] == root_url
       redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
@@ -64,6 +67,7 @@ class EntriesController < ApplicationController
   end
 
   def destroy
+    @entry = Entry.find(params[:id])
     @entry.destroy
     redirect_to entries_url, notice: 'Entry destroyed.'
   end
@@ -73,6 +77,10 @@ class EntriesController < ApplicationController
 
   def safe_params
     params.permit(entry: [:at, :user_id, :body, :entry_tag_list])[:entry]
+  end
+
+  def authorized?
+    current_user&.parent?
   end
 
 end

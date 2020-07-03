@@ -1,8 +1,5 @@
 class PostPhotosController < ApplicationController
 
-  load_resource except: :create
-  authorize_resource
-
   def create
     post_photo = PostPhoto.create(safe_params)
     redirect_to [:edit, post_photo.post]
@@ -19,6 +16,10 @@ class PostPhotosController < ApplicationController
 
   def safe_params
     params.require(:post_photo).permit!
+  end
+
+  def authorized?
+    current_user&.parent?
   end
 
 end

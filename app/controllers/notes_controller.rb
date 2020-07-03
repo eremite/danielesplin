@@ -1,8 +1,5 @@
 class NotesController < ApplicationController
 
-  load_resource except: [:new, :create]
-  authorize_resource
-
   def index
     if params[:user_id].present?
       @notes = @notes.where(user_id: params[:user_id])
@@ -48,9 +45,15 @@ class NotesController < ApplicationController
   end
 
   def show
+    @note = Note.find(params[:id])
+  end
+
+  def edit
+    @note = Note.find(params[:id])
   end
 
   def update
+    @note = Note.find(params[:id])
     if @note.update_attributes(safe_params)
       redirect_to [:edit, @note], notice: 'Note saved.'
     else
@@ -59,10 +62,10 @@ class NotesController < ApplicationController
   end
 
   def destroy
+    @note = Note.find(params[:id])
     @note.destroy
     redirect_to :notes, notice: 'Note destroyed.'
   end
-
 
   private
 
@@ -76,6 +79,10 @@ class NotesController < ApplicationController
       :title,
       :user_id,
     ])[:note]
+  end
+
+  def authorized?
+    current_user&.father?
   end
 
 end

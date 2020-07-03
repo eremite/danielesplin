@@ -2,78 +2,72 @@
 
 - content_for :sidebar do
 
-  - if can? :create, Post
-    = link_to [:new, :post], class: 'btn btn-success btn-block' do
-      %i.fa.fa-plus.fa-inverse
-      New Blog Post
+  = link_to [:new, :post], class: 'btn btn-success btn-block' do
+    %i.fa.fa-plus.fa-inverse New Blog Post
 
-    - if can? :index, :report
+  %hr
 
-      %hr
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Visitors
+    .panel-body
+      %ul.ul-unstyled
+        - User.where.not(id: current_user.id).viewed_blog_at_desc.limit(8).each do |user|
+          %li
+            %strong= user.name
+            &mdash;
+            = time_tag user.viewed_blog_at, is: 'relative-time', title: l(user.viewed_blog_at) do
+              = time_ago_in_words user.viewed_blog_at
+              ago
 
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Visitors
-        .panel-body
-          %ul.ul-unstyled
-            - User.where.not(id: current_user.id).viewed_blog_at_desc.limit(8).each do |user|
-              %li
-                %strong= user.name
-                &mdash;
-                = time_tag user.viewed_blog_at, is: 'relative-time', title: l(user.viewed_blog_at) do
-                  = time_ago_in_words user.viewed_blog_at
-                  ago
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Comments
+    .panel-body
+      %ul.ul-unstyled
+        - Comment.created_at_desc.limit(5).each_with_index do |comment, i|
+          %li
+            %strong= comment.user.try(:name)
+            &mdash;
+            = time_tag comment.created_at, is: 'relative-time', title: l(comment.created_at) do
+              = time_ago_in_words comment.created_at
+              ago
 
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Comments
-        .panel-body
-          %ul.ul-unstyled
-            - Comment.created_at_desc.limit(5).each_with_index do |comment, i|
-              %li
-                %strong= comment.user.try(:name)
-                &mdash;
-                = time_tag comment.created_at, is: 'relative-time', title: l(comment.created_at) do
-                  = time_ago_in_words comment.created_at
-                  ago
+  - if Post.post_tag_counts.present?
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Tags
+      .panel-body
+        - tag_cloud(Post.tag_counts_on(:post_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
+          = link_to tag.name, posts_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
 
-      - if Post.post_tag_counts.present?
-        .panel.panel-default
-          .panel-heading
-            %h3.panel-title Tags
-          .panel-body
-            - tag_cloud(Post.tag_counts_on(:post_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
-              = link_to tag.name, posts_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Search
+    .panel-body
+      = form_tag nil, method: :get, role: 'form' do
+        .form-group
+          = label_tag :ends_on, 'Date'
+          = text_field_tag :ends_on, l(@ends_on), class: 'datepicker form-control'
+        .form-group
+          = label_tag :term
+          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
+        = submit_tag 'Search', class: 'btn btn-primary btn-block'
 
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Search
-        .panel-body
-          = form_tag nil, method: :get, role: 'form' do
-            .form-group
-              = label_tag :ends_on, 'Date'
-              = text_field_tag :ends_on, l(@ends_on), class: 'datepicker form-control'
-            .form-group
-              = label_tag :term
-              = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
-            = submit_tag 'Search', class: 'btn btn-primary btn-block'
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Calendar
+    .panel-body
+      %ul
+        - if first_post_at = Post.order(Post.arel_table[:at].asc).first.try(:at)
+          - i_at = Time.zone.now.end_of_month
+          - until first_post_at > i_at
+            %li= link_to l(i_at, format: '%B %Y'), posts_path(ends_on: l(i_at))
+            - i_at -= 1.month
 
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Calendar
-        .panel-body
-          %ul
-            - if first_post_at = Post.order(Post.arel_table[:at].asc).first.try(:at)
-              - i_at = Time.zone.now.end_of_month
-              - until first_post_at > i_at
-                %li= link_to l(i_at, format: '%B %Y'), posts_path(ends_on: l(i_at))
-                - i_at -= 1.month
+= render @future_posts
 
-
-- if can? :create, Post
-  = render @future_posts
-
-- if @posts.empty?
+- if @past_posts.empty?
   .jumbotron
     %h2 Nothing to see here.
     %p Apparently, we're not that interesting. :)

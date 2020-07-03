@@ -8,7 +8,7 @@
     %language en-us
     %pubDate= Time.now.rfc822
 
-    - @past_posts.each do |post|
+    - @posts.each do |post|
       %item
         %title= post.title
         %description
