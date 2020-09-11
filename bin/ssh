@@ -1,9 +1,6 @@
 #!/usr/bin/env sh
 
-SSH_KEY=".ssh.key"
-
-echo "############ Connecting to ${eb_environment} ############"
 echo "To get a Rails console:"
 printf "  sudo su\n  cd /var/app/current\n  rails console\n"
 sudo chmod 600 .ssh.key
-bin/eb ssh ${eb_environment} --custom 'ssh -i /app/.ssh.key -o StrictHostKeyChecking=no' "$@"
+bin/eb ssh --custom 'ssh -i /app/.ssh.key -o StrictHostKeyChecking=no' "$@"
