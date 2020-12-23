@@ -19,7 +19,6 @@ gem 'mysql2'
 gem 'redcarpet'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'yaml_db'
 
 group :production do
   gem 'puma'
