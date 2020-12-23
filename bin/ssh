@@ -3,4 +3,9 @@
 echo "To get a Rails console:"
 printf "  sudo su\n  cd /var/app/current\n  rails console\n"
 sudo chmod 600 .ssh.key
-bin/eb ssh --custom 'ssh -i /app/.ssh.key -o StrictHostKeyChecking=no' "$@"
+instance_id=$(aws --output text --query EnvironmentResources.Instances[0].Id elasticbeanstalk describe-environment-resources --environment-name danielesplin-1)
+echo $instance_id
+instance_ip=$(aws --output text --query 'Reservations[0].Instances[0].PublicIpAddress' ec2 describe-instances --instance-ids "$instance_id")
+echo $instance_ip
+
+ssh -o StrictHostKeyChecking=no "ec2-user@$instance_ip"
