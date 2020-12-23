@@ -1,5 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 base:
-  user: admin
   description: File
+  saved_file_category: base
+  user: admin

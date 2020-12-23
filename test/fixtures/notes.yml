@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 base:
-  user: manager
+  user: base
   title: Nice Idea
   body: Eat more veggies.

@@ -1,4 +1,4 @@
-FROM ruby:2.3.5-alpine
+FROM ruby:2.5-alpine
 
 ENV LC_ALL C.UTF-8
 
@@ -18,8 +18,7 @@ RUN bundle config build.nokogiri --use-system-libraries
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY Gemfile* /usr/src/app/
-RUN bundle config --global jobs 8
-RUN bundle install --system
+RUN bundle install --system --jobs 4
 
 COPY . /usr/src/app
 

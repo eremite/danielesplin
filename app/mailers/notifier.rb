@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
 
-  default from: Rails.application.secrets.emails[:from].to_s
+  default from: ENV['FROM_EMAIL'].to_s
 
   def comment_notification(comment)
     @comment = comment
