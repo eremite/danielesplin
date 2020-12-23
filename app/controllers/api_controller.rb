@@ -12,8 +12,4 @@ class ApiController < ApplicationController
     end
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
-    render text: 'Access Denied.', status: :unauthorized
-  end
-
 end
