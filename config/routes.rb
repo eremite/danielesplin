@@ -22,8 +22,8 @@ Rails.application.routes.draw do
   end
 
   resources :posts
-  resources :public_posts, only: :index
-  get '/posts.rss', to: 'public_posts#index'
+  resources :visible_posts, only: :index
+  get '/posts.rss', to: 'visible_posts#index'
   get '/blog_posts', to: redirect('/posts')
   get '/blog_posts.rss', to: redirect('/posts.rss')
 

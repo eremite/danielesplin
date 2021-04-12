@@ -22,7 +22,7 @@ class CommentsControllerTest < ActionController::TestCase
     Comment.stub_any_instance :save, true do
       post :create, params: { comment: valid_attributes }
     end
-    assert_redirected_to :public_posts
+    assert_redirected_to :visible_posts
   end
 
   test 'edit' do
@@ -41,12 +41,12 @@ class CommentsControllerTest < ActionController::TestCase
     Comment.stub_any_instance :update_attributes, true do
       put :update, params: {id: comments(:base).id, comment: valid_attributes}
     end
-    assert_redirected_to :public_posts
+    assert_redirected_to :visible_posts
   end
 
   test 'destroy' do
     delete :destroy, params: { id: comments(:base).id }
-    assert_redirected_to :public_posts
+    assert_redirected_to :visible_posts
   end
 
 

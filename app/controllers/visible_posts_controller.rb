@@ -1,4 +1,4 @@
-class PublicPostsController < ApplicationController
+class VisiblePostsController < ApplicationController
 
   def index
     current_user.try(:log, 'blog')

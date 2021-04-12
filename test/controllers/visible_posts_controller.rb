@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublicPostsControllerTest < ActionController::TestCase
+class VisiblePostsControllerTest < ActionController::TestCase
 
   test 'index' do
     login_as(users(:base))
