@@ -1,0 +1,7 @@
+%h1= @list.name
+
+.list-group
+  - @list.items.order(%i[picked_at name]).each do |item|
+    .list-group-item
+      %span.text-muted= l item.picked_at
+      = item.name
