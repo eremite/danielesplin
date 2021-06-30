@@ -22,7 +22,7 @@
 
   %body{ id: "#{controller.controller_name.dasherize}-controller" }
 
-    - if current_user.present?
+    - if current_user.present? && controller.controller_name != 'decider_list_picker'
       %header
         .navbar.navbar-default{ role: 'navigation' }
           .container

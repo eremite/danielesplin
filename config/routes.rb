@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
 
   resources :comments
+  resources :decider_lists, only: %i[index show]
   resources :entries
   resources :inventory_items
   resources :notes
@@ -28,6 +29,10 @@ Rails.application.routes.draw do
   get '/blog_posts.rss', to: redirect('/posts.rss')
 
   resources :photos, except: %i(new)
+
+  get 'pick', to: 'decider_list_picker#index'
+  get 'pick/:id', to: 'decider_list_picker#new'
+  post 'pick/:id', to: 'decider_list_picker#create'
 
   resources :sessions
   delete 'logout', to: 'sessions#destroy', as: 'logout'
