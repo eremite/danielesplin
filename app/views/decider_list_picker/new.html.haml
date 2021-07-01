@@ -1,3 +1,6 @@
-%div{ style: 'margin: 15rem; text-align: center' }
+%div{ style: 'margin-top: 10rem; margin-bottom: 5rem; text-align: center' }
   = form_tag url: "/pick/#{@list.id}" do |f|
-    = submit_tag "Click Me!", class: "btn btn-info btn-lg"
+    = button_tag class: "btn btn-info btn-lg" do
+      Click Me!
+      %br
+      %i.fa.fa-smile-o{ style: 'font-size: 10rem' }
