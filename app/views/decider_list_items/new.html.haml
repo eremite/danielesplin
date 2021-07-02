@@ -1,0 +1,17 @@
+- title "Add to List: #{@item.decider_list.name}"
+
+= form_for [@item.decider_list, @item], html: { class: 'form-horizontal' } do |f|
+  .form-group
+    .col-md-offset-2.col-md-10
+      %h3 Add to List: #{@item.decider_list.name}
+  = f.hidden_field :decider_list_id
+  - if f.object.errors.any?
+    .form-group.alert.alert-danger
+      = f.object.errors.full_messages.to_sentence
+  .form-group
+    = f.label :name, class: 'control-label col-md-2'
+    .col-md-10= f.text_field :name, class: 'form-control'
+  .form-group
+    .col-md-offset-2.col-md-10
+      %button.btn.btn-primary{ type: 'submit' } Save
+      = link_to 'Cancel', @item.decider_list, class: 'btn'

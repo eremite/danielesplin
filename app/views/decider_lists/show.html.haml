@@ -1,7 +1,13 @@
 %h1= @list.name
 
+- content_for :sidebar do
+  = link_to [:new, @list, :decider_list_item], class: 'btn btn-success btn-block' do
+    %i.fa.fa-inverse.fa-plus
+    Add to List
+
 .list-group
   - @list.items.order(%i[picked_at name]).each do |item|
     .list-group-item
       %span.text-muted= l item.picked_at
       = item.name
+      = link_to "Delete", item, class: 'btn btn-default btn-xs pull-right', method: :delete

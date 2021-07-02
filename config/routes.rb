@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   end
 
   resources :comments
-  resources :decider_lists, only: %i[index show]
+  resources :decider_lists, only: %i[index show], shallow: true do
+    resources :decider_list_items, only: %i[new create destroy]
+  end
   resources :entries
   resources :inventory_items
   resources :notes
