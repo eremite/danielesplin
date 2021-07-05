@@ -7,9 +7,10 @@ RUN apk add --update --upgrade \
   libxml2-dev \
   libxslt-dev \
   mysql-dev \
-  nodejs \
-  tzdata \
   netcat-openbsd \
+  nodejs \
+  shared-mime-info \
+  tzdata \
   && rm -rf /var/cache/apk/*
 
 # Use libxml2, libxslt a packages from alpine for building nokogiri

@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.1'
+gem 'rails', '5.2'
 
 gem 'acts-as-taggable-on'
 gem 'aws-ses'
 gem 'bcrypt'
+gem 'bootsnap'
 gem 'carrierwave'
 gem 'daemons'
 gem 'exifr'
@@ -26,6 +27,7 @@ end
 
 group :development, :test do
   gem 'byebug'
+  gem 'listen'
 end
 
 group :test do
