@@ -20,5 +20,6 @@ services:
     image: "mysql:5.5"
     ports:
       - "3306:3306"
+    command: --innodb-file-format=Barracuda --innodb-large-prefix
     environment:
       MYSQL_ROOT_PASSWORD: docker
