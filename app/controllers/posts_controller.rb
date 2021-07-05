@@ -44,7 +44,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    if @post.update_attributes(safe_params)
+    if @post.update(safe_params)
       redirect_to :posts, notice: 'Post saved.'
     else
       render :edit

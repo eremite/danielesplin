@@ -14,8 +14,8 @@
     = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/css/bootstrap.min.css"
     = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/css/bootstrap-theme.min.css"
     = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/#{versions[:font_awesome]}/css/font-awesome.min.css"
-    = stylesheet_link_tag :application
-    = javascript_include_tag :application
+    -# = stylesheet_link_tag :application
+    -# = javascript_include_tag :application
     = javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/js/bootstrap.min.js"
     = csrf_meta_tag
     = yield :head if content_for? :head

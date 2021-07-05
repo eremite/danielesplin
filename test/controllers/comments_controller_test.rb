@@ -31,14 +31,14 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Comment.stub_any_instance :update_attributes, false do
+    Comment.stub_any_instance :update, false do
       put :update, params:{ id: comments(:base).id, comment: valid_attributes }
     end
     assert_response :success
   end
 
   test 'update valid' do
-    Comment.stub_any_instance :update_attributes, true do
+    Comment.stub_any_instance :update, true do
       put :update, params: {id: comments(:base).id, comment: valid_attributes}
     end
     assert_redirected_to :visible_posts

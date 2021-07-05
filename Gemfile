@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2'
+gem 'rails', '6.0'
 
 gem 'acts-as-taggable-on'
 gem 'aws-ses'
@@ -10,15 +10,15 @@ gem 'carrierwave'
 gem 'daemons'
 gem 'exifr'
 gem 'fog-aws'
-gem 'haml-rails'
-gem 'jquery-fileupload-rails'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'haml'
+# gem 'jquery-fileupload-rails'
+# gem 'jquery-rails'
+# gem 'jquery-ui-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'mysql2'
 gem 'redcarpet'
-gem 'sass-rails'
+# gem 'sass-rails'
 gem 'uglifier'
 
 group :production do

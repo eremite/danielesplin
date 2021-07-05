@@ -38,7 +38,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'update invalid' do
     login_as(users(:base))
-    User.stub_any_instance :update_attributes, false do
+    User.stub_any_instance :update, false do
       put :update, params: { id: users(:base).id, user: valid_attributes }
     end
     assert_response :success
@@ -46,7 +46,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'update valid' do
     login_as(users(:base))
-    User.stub_any_instance :update_attributes, true do
+    User.stub_any_instance :update, true do
       put :update, params: { id: users(:base).id, user: valid_attributes }
     end
     assert_redirected_to edit_user_url(users(:base))

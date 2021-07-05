@@ -45,14 +45,14 @@ class EntriesControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Entry.stub_any_instance :update_attributes, false do
+    Entry.stub_any_instance :update, false do
       put :update, params: { id: @entry.id, entry: valid_attributes }
     end
     assert_response :success
   end
 
   test 'update valid' do
-    Entry.stub_any_instance :update_attributes, true do
+    Entry.stub_any_instance :update, true do
       put :update, params: { id: @entry.id, entry: valid_attributes }
     end
     assert_redirected_to entries_url

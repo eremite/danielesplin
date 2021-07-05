@@ -58,7 +58,7 @@ class EntriesController < ApplicationController
 
   def update
     @entry = Entry.find(params[:id])
-    if @entry.update_attributes(safe_params)
+    if @entry.update(safe_params)
       params.delete(:redirect_to) if params[:redirect_to] == root_url
       redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
     else

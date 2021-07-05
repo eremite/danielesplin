@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update_attributes(safe_params)
+    if @comment.update(safe_params)
       redirect_to :visible_posts, notice: 'Comment updated.'
     else
       render :edit

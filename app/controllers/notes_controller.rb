@@ -54,7 +54,7 @@ class NotesController < ApplicationController
 
   def update
     @note = Note.find(params[:id])
-    if @note.update_attributes(safe_params)
+    if @note.update(safe_params)
       redirect_to [:edit, @note], notice: 'Note saved.'
     else
       render :edit

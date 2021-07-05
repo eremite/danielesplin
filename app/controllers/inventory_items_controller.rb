@@ -40,7 +40,7 @@ class InventoryItemsController < ApplicationController
 
   def update
     @inventory_item = InventoryItem.find(params[:id])
-    if @inventory_item.update_attributes(safe_params)
+    if @inventory_item.update(safe_params)
       redirect_to :inventory_items, notice: "#{InventoryItem.model_name.human} saved."
     else
       render :edit

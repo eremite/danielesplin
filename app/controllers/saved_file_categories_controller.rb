@@ -21,7 +21,7 @@ class SavedFileCategoriesController < ApplicationController
 
   def update
     @saved_file_category = SavedFileCategory.find(params[:id])
-    if @saved_file_category.update_attributes(safe_params)
+    if @saved_file_category.update(safe_params)
       redirect_to saved_file_categories_url
     else
       @saved_file_categories = SavedFileCategory.name_asc

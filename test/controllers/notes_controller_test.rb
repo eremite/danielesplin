@@ -41,14 +41,14 @@ class NotesControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    Note.stub_any_instance :update_attributes, false do
+    Note.stub_any_instance :update, false do
       put :update, params: { id: @note.id, note: @note.attributes }
     end
     assert_response :success
   end
 
   test 'update valid' do
-    Note.stub_any_instance :update_attributes, true do
+    Note.stub_any_instance :update, true do
       put :update, params: { id: @note.id, note: @note.attributes }
     end
     assert_redirected_to [:edit, @note]

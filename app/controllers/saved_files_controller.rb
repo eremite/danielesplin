@@ -34,7 +34,7 @@ class SavedFilesController < ApplicationController
 
   def update
     @saved_file = SavedFile.find(params[:id])
-    if @saved_file.update_attributes(safe_params)
+    if @saved_file.update(safe_params)
       redirect_to saved_files_url, notice: 'File saved.'
     else
       render :edit

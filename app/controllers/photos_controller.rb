@@ -37,7 +37,7 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
-    if @photo.update_attributes(safe_params)
+    if @photo.update(safe_params)
       redirect_to params[:redirect_to].presence || photos_url, notice: 'Photo saved.'
     else
       render :edit
