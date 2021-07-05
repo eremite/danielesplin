@@ -1,3 +1,8 @@
+- content_for :sidebar do
+  = link_to %i[new decider_list], class: 'btn btn-success btn-block' do
+    %i.fa.fa-inverse.fa-plus
+    New List
+
 .list-group
   - @lists.each do |list|
     = link_to list.name, list, class: 'list-group-item'

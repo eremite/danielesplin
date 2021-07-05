@@ -1,6 +1,6 @@
 class DeciderList < ApplicationRecord
 
-  has_many :items, class_name: "DeciderListItem"
+  has_many :items, class_name: "DeciderListItem", dependent: :destroy
 
   def pick
     available_items = items.where(picked_at: nil)
