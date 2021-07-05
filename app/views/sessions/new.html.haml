@@ -6,10 +6,10 @@
     %hr
     = form_tag sessions_path do
       .form-group
-        = label_tag :email, 'Email Address', class: 'control-label'
+        = label_tag :email, 'Email Address', class: 'form-label'
         = email_field_tag :email, params[:email], class: 'autofocus form-control'
       .form-group
-        = label_tag :password, nil, class: 'control-label'
+        = label_tag :password, nil, class: 'form-label'
         = password_field_tag :password, nil, class: 'form-control'
       .form-group
         = submit_tag 'Log in', class: 'btn btn-primary btn-block'

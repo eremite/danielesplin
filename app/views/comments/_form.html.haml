@@ -3,7 +3,7 @@
     .form-group.alert.alert-danger
       = f.object.errors.full_messages.to_sentence
   .form-group
-    = f.label :body, class: 'control-label autofocus col-md-2'
+    = f.label :body, class: 'form-label autofocus col-md-2'
     .col-md-10
       = f.text_area :body, rows: 5, class: 'form-control'
   .form-group

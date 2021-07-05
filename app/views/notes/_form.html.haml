@@ -3,28 +3,28 @@
     .form-group.alert.alert-danger
       = f.object.errors.full_messages.to_sentence
   .form-group
-    = f.label :title, class: 'control-label col-md-2 autofocus'
+    = f.label :title, class: 'form-label col-md-2 autofocus'
     .col-md-10
       = f.text_field :title, class: 'form-control', tabindex: 1
   .form-group
-    = f.label :kind, class: 'control-label col-md-2'
+    = f.label :kind, class: 'form-label col-md-2'
     .col-md-10
       %p
         - current_user.notes.pluck(:kind).uniq.compact.each do |kind|
           %span.label.label-default.insert-into-tag-list{ style: 'cursor: pointer; margin-left: 0.5em' }= kind
       = f.text_field :kind, class: 'form-control', tabindex: 2
   .form-group
-    = f.label :body, class: 'control-label col-md-2'
+    = f.label :body, class: 'form-label col-md-2'
     .col-md-10
       = f.text_area :body, rows: 10, class: 'form-control', tabindex: 3
       %span.help-block.pull-right
         = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .form-group
-    = f.label :meta, class: 'control-label col-md-2'
+    = f.label :meta, class: 'form-label col-md-2'
     .col-md-10
       = f.text_area :meta, rows: 3, class: 'form-control', tabindex: 4
   .form-group
-    = f.label :note_tag_list, class: 'control-label col-md-2'
+    = f.label :note_tag_list, class: 'form-label col-md-2'
     .col-md-10
       %p
         - Note.note_tag_counts.order('taggings_count DESC').where.not(id: f.object.note_tags.pluck(:id)).each do |tag|

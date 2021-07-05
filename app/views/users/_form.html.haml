@@ -3,32 +3,32 @@
     .form-group.alert.alert-danger
       = f.object.errors.full_messages.to_sentence
   .form-group
-    = f.label :name, class: 'control-label col-sm-2'
+    = f.label :name, class: 'form-label col-sm-2'
     .col-sm-10
       = f.text_field :name, class: 'form-control'
   .form-group
-    = f.label :email, class: 'control-label col-md-2'
+    = f.label :email, class: 'form-label col-md-2'
     .col-md-10
       = f.text_field :email, class: 'form-control'
   .form-group
-    = f.label :password, 'New Password', class: 'control-label col-md-2'
+    = f.label :password, 'New Password', class: 'form-label col-md-2'
     .col-md-10
       = f.password_field :password, class: 'form-control'
   .form-group
-    = f.label :password_confirmation, 'Confirm New Password', class: 'control-label col-md-2'
+    = f.label :password_confirmation, 'Confirm New Password', class: 'form-label col-md-2'
     .col-md-10
       = f.password_field :password_confirmation, class: 'form-control'
   - if current_user.parent?
     .form-group
-      = f.label :role, class: 'control-label col-md-2'
+      = f.label :role, class: 'form-label col-md-2'
       .col-md-10
         = f.select :role, User::ROLES.map { |role| [role.titleize, role] }, {}, class: 'form-control'
     .form-group
-      = f.label :api_key, class: 'control-label col-md-2'
+      = f.label :api_key, class: 'form-label col-md-2'
       .col-md-10
         = f.text_field :api_key, class: 'form-control'
     .form-group
-      = f.label :born_at, class: 'control-label col-md-2'
+      = f.label :born_at, class: 'form-label col-md-2'
       .col-md-10
         = f.date_field :born_at, class: 'form-control'
   .form-group

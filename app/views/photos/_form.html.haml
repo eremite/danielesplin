@@ -1,11 +1,11 @@
 = form_for @photo, html: { class: 'form-horizontal' } do |f|
   .form-group
-    = f.label :at, class: 'control-label col-md-2'
+    = f.label :at, class: 'form-label col-md-2'
     .col-md-10
       = text_field_tag :at, l(f.object.at), class: 'datetimepicker form-control'
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .form-group
-    = f.label :post_ids, nil, class: 'control-label col-md-2'
+    = f.label :post_ids, nil, class: 'form-label col-md-2'
     .col-md-10
       .checkbox
         = f.label :hidden do
@@ -13,15 +13,15 @@
           = Photo.human_attribute_name(:hidden)
       = f.collection_select :post_ids, Post.at_desc, :id, :dated_title, { include_blank: 'Any that match the date' }, { multiple: true, class: 'form-control' }
   .form-group
-    = f.label :inventory_item_ids, nil, class: 'control-label col-md-2'
+    = f.label :inventory_item_ids, nil, class: 'form-label col-md-2'
     .col-md-10
       = f.collection_select :inventory_item_ids, InventoryItem.on_desc, :id, :summary, { include_blank: 'None' }, { multiple: true, class: 'form-control' }
   .form-group
-    = f.label :description, class: 'control-label col-md-2'
+    = f.label :description, class: 'form-label col-md-2'
     .col-md-10
       = f.text_area :description, rows: 3, class: 'form-control'
   .form-group
-    = f.label :photo_tag_list, class: 'control-label col-md-2'
+    = f.label :photo_tag_list, class: 'form-label col-md-2'
     .col-md-10
       = render partial: '/shared/suggested_tags', locals: { tag_counts: Photo.photo_tag_counts, existing_tags: f.object.photo_tags }
       = f.text_field :photo_tag_list, :value => f.object.photo_tag_list.to_s, class: 'form-control'

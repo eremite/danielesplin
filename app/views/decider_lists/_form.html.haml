@@ -3,7 +3,7 @@
     .form-group.alert.alert-danger
       = f.object.errors.full_messages.to_sentence
   .form-group
-    = f.label :name, class: 'control-label col-md-2'
+    = f.label :name, class: 'form-label col-md-2'
     .col-md-10
       = f.text_field :name, class: 'form-control'
   .form-group

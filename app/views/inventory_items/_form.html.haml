@@ -3,15 +3,15 @@
     .form-group.alert.alert-danger
       = f.object.errors.full_messages.to_sentence
   .form-group
-    = f.label :name, class: 'control-label col-md-2 autofocus'
+    = f.label :name, class: 'form-label col-md-2 autofocus'
     .col-md-10
       = f.text_field :name, class: 'form-control'
   .form-group
-    = f.label :on, class: 'control-label col-md-2'
+    = f.label :on, class: 'form-label col-md-2'
     .col-md-10
       = f.date_field :on, class: 'form-control'
   .form-group
-    = f.label :cost_in_dollars, class: 'control-label col-md-2'
+    = f.label :cost_in_dollars, class: 'form-label col-md-2'
     .col-md-10
       .input-group
         .input-group-addon $
@@ -23,11 +23,11 @@
         .input-group-addon $
         = f.text_field :value_in_dollars, class: 'form-control'
   .form-group
-    = f.label :description, class: 'control-label col-md-2'
+    = f.label :description, class: 'form-label col-md-2'
     .col-md-10
       = f.text_area :description, rows: 3, class: 'form-control'
   .form-group
-    = f.label :inventory_item_tag_list, class: 'control-label col-md-2'
+    = f.label :inventory_item_tag_list, class: 'form-label col-md-2'
     .col-md-10
       = render partial: '/shared/suggested_tags', locals: { tag_counts: InventoryItem.inventory_item_tag_counts, existing_tags: f.object.inventory_item_tags }
       = f.text_field :inventory_item_tag_list, value: f.object.inventory_item_tag_list.to_s, class: 'form-control'

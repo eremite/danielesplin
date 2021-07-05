@@ -3,18 +3,18 @@
     .form-group.alert.alert-danger
       = f.object.errors.full_messages.to_sentence
   .form-group
-    = f.label :at, class: 'control-label col-md-2'
+    = f.label :at, class: 'form-label col-md-2'
     .col-md-10
       = text_field_tag :at, l(f.object.at), class: 'datetimepicker form-control', tabindex: 1
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .form-group
-    = f.label :body, class: 'control-label col-md-2 autofocus'
+    = f.label :body, class: 'form-label col-md-2 autofocus'
     .col-md-10
       = f.text_area :body, rows: 10, tabindex: 2, class: 'form-control'
       %span.help-block.pull-right
         = link_to 'Formatting options', 'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet', target: :blank
   .form-group
-    = f.label :post_tag_list, class: 'control-label col-md-2'
+    = f.label :post_tag_list, class: 'form-label col-md-2'
     .col-md-10
       = render partial: '/shared/suggested_tags', locals: { tag_counts: Post.post_tag_counts, existing_tags: f.object.post_tags }
       = f.text_field :post_tag_list, value: f.object.post_tag_list.to_s, class: 'form-control'

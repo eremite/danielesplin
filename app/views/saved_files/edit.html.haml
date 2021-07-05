@@ -2,16 +2,16 @@
 
 = form_for @saved_file, html: { class: 'form-horizontal', multipart: true } do |f|
   .form-group
-    = f.label :attachment, class: 'control-label col-md-2'
+    = f.label :attachment, class: 'form-label col-md-2'
     .col-md-10
       - if f.object.attachment
         %p.form-control-static= f.object.attachment.file.try(:filename)
   .form-group
-    = f.label :saved_file_category_id, class: 'control-label col-md-2'
+    = f.label :saved_file_category_id, class: 'form-label col-md-2'
     .col-md-10
       = f.collection_select :saved_file_category_id, SavedFileCategory.name_asc, :id, :name, class: 'form-control'
   .form-group
-    = f.label :description, class: 'control-label col-md-2'
+    = f.label :description, class: 'form-label col-md-2'
     .col-md-10
       = f.text_area :description, rows: 3, class: 'form-control'
   .form-group
