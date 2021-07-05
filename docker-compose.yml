@@ -9,6 +9,12 @@ services:
       - "80:3000"
     depends_on:
       - db
+    environment:
+      DB_NAME: danielesplin
+      DB_HOST: db
+      DB_PASSWORD: docker
+      DB_USERNAME: root
+      FROM_EMAIL: test@example.com
 
   db:
     image: "mysql:5.5"

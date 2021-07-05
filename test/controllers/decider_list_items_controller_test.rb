@@ -8,7 +8,7 @@ class DeciderListsControllerTest < ActionController::TestCase
 
   test 'new' do
     get :new
-    assert_response :new
+    assert_response :success
   end
 
 end
