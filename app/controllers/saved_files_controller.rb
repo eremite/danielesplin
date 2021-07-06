@@ -12,19 +12,16 @@ class SavedFilesController < ApplicationController
     @saved_files = @saved_files.created_at_desc.page(params[:page])
   end
 
+  def new
+    @saved_file = current_user.saved_files.new
+  end
+
   def create
     @saved_file = current_user.saved_files.new(safe_params)
     if @saved_file.save
-      respond_to do |format|
-        format.html do
-          redirect_to saved_files_url
-        end
-        format.json do
-          render :json => { :files => [@saved_file.to_jq_upload] }.to_json
-        end
-      end
+      redirect_to :saved_files
     else
-      render :json => { :files => [@saved_file.to_jq_upload.merge(:error => @saved_file.errors.full_messages.to_sentence)] }.to_json
+      render :new
     end
   end
 
@@ -42,15 +39,15 @@ class SavedFilesController < ApplicationController
   end
 
   def destroy
-    @saved_file = SavedFile.find(params[:id])
-    @saved_file.destroy
-    redirect_to saved_files_url, notice: 'File deleted.'
+    saved_file = SavedFile.find(params[:id])
+    saved_file.destroy
+    redirect_to :saved_files, notice: "File deleted."
   end
 
   private
 
   def safe_params
-    params.require(:saved_file).permit!
+    params.require(:saved_file).permit(:attachment, :description, :saved_file_category_id)
   end
 
   def authorized?

@@ -1,23 +1,9 @@
 - title 'Upload Files'
 
-.container
-  = form_for SavedFile.new, :html => { :multipart => true, :id => 'fileupload'  } do |f|
-    .row.fileupload-buttonbar
-      .span7
-        %span.btn.btn-success.fileinput-button
-          %i.fa.fa-plus.fa-inverse
-          %span Add Files
-          = f.file_field :attachment, multiple: true
-      .span5
-        .progress.progress-success.progress-striped.active.fade
-          .bar{ style: 'width:0%;' }
-    .fileupload-loading
-    %br
+- content_for :sidebar do
+  = link_to "All Files", :saved_files, class: 'btn btn-success btn-block'
 
-    %table.table.table-striped
-      %tbody.files{ data: { toggle: 'modal-gallery', target: '#modal-gallery' } }
-
-= render 'jquery_file_upload_templates'
-
-.row
-  %p.span12= link_to 'All files', saved_files_path
+- if SavedFileCategory.any?
+  = render partial: "form", locals: { saved_file: @saved_file }
+- else
+  .alert.alert-danger Create a Category first.

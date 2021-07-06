@@ -1,20 +1,3 @@
 - title 'Edit File'
 
-= form_for @saved_file, html: { class: 'form-horizontal', multipart: true } do |f|
-  .form-group
-    = f.label :attachment, class: 'form-label col-md-2'
-    .col-md-10
-      - if f.object.attachment
-        %p.form-control-static= f.object.attachment.file.try(:filename)
-  .form-group
-    = f.label :saved_file_category_id, class: 'form-label col-md-2'
-    .col-md-10
-      = f.collection_select :saved_file_category_id, SavedFileCategory.name_asc, :id, :name, class: 'form-control'
-  .form-group
-    = f.label :description, class: 'form-label col-md-2'
-    .col-md-10
-      = f.text_area :description, rows: 3, class: 'form-control'
-  .form-group
-    .col-md-offset-2.col-md-10
-      %button.btn.btn-primary{ type: 'submit' } Save
-      = link_to 'Cancel', saved_files_path, class: 'btn'
+= render partial: "form", locals: { saved_file: @saved_file }

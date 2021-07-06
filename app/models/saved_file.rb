@@ -1,6 +1,6 @@
 class SavedFile < ApplicationRecord
 
-  mount_uploader :attachment, AttachmentUploader
+  has_one_attached :attachment
 
   belongs_to :user
   belongs_to :saved_file_category
