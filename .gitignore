@@ -7,3 +7,4 @@
 /public/uploads
 /tmp
 /.ssh.key
+/config/master.key
