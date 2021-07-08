@@ -21,26 +21,23 @@
     = csrf_meta_tag
     = yield :head if content_for? :head
 
-  %body{ id: "#{controller.controller_name.dasherize}-controller" }
+  %body.bg-dark{ id: "#{controller.controller_name.dasherize}-controller" }
+    .container
+      - if current_user.present? && controller.controller_name != 'decider_list_picker'
+        %header= render 'layouts/nav'
 
-    - if current_user.present? && controller.controller_name != 'decider_list_picker'
-      %header
-        .navbar.navbar-default{ role: 'navigation' }
-          .container
-            = render 'layouts/nav'
+      %section.mb-3
+        .row
+          = render 'layouts/flash_hash'
+          - if content_for? :sidebar
+            .col-md-3.order-md-last
+              = yield :sidebar
+            .col-md-9.order-md-first
+              = yield
+          - else
+            .col= yield
 
-    %section.container
-      .row
-        = render 'layouts/flash_hash'
-        - if content_for? :sidebar
-          .col-md-3.col-md-push-9
-            = yield :sidebar
-          .col-md-9.col-md-pull-3
-            = yield
-        - else
-          = yield
-
-    %footer.container
-      %p.text-center.text-muted
-        &copy; #{Time.zone.now.year}
-        = link_to 'Nutritional Bites LLC', 'http://www.nutritionalbites.org'
+      %footer
+        %p.text-center.text-muted
+          &copy; #{Time.zone.now.year}
+          = link_to 'Nutritional Bites LLC', 'http://www.nutritionalbites.org'
