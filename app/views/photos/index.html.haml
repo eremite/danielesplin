@@ -3,14 +3,11 @@
 - content_for :sidebar do
 
   .row
-    = form_for Photo.new, html: { multipart: true  } do |f|
-      .col-md-12.fileupload-buttonbar
-        %span.btn.btn-block.btn-success.fileinput-button
-          %i.fa.fa-plus.fa-inverse
-          %span Upload #{Photo.model_name.human.pluralize}
-          = f.file_field :image, multiple: true
-      .files
-  = render 'jquery_file_upload_templates'
+    = form_with model: PhotoBatch.new, html: { multipart: true  } do |f|
+      .mb-3
+        = f.file_field :images, multiple: true, class: "form-control"
+      .mb-3
+        = f.submit "Save", class: "btn btn-primary"
 
   %hr
 
@@ -22,9 +19,8 @@
         - tag_cloud(Photo.tag_counts_on(:photo_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
           = link_to tag.name, photos_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
 
-.row
-  .col-md-12.photo-container
-    = render @photos
+.row.g-3
+  = render @photos
 
 .row
   .col-md-12

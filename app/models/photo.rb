@@ -2,12 +2,12 @@ class Photo < ApplicationRecord
 
   acts_as_taggable_on :photo_tags
 
-  mount_uploader :image, ImageUploader
+  has_one_attached :image
 
   paginates_per 20
 
   belongs_to :user
-  belongs_to :entry
+  belongs_to :entry, optional: true
   has_many :post_photos
   has_many :posts, through: :post_photos
   has_many :inventory_item_photos

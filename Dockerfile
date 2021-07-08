@@ -4,6 +4,7 @@ ENV LC_ALL C.UTF-8
 
 RUN apk add --update --upgrade \
   build-base \
+  imagemagick \
   libxml2-dev \
   libxslt-dev \
   mysql-dev \

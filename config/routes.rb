@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get '/blog_posts.rss', to: redirect('/posts.rss')
 
   resources :photos, except: %i(new)
+  resources :photo_batches, only: :create
 
   get 'pick', to: 'decider_list_picker#index'
   get 'pick/:id', to: 'decider_list_picker#new'
