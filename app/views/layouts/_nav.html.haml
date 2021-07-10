@@ -8,20 +8,19 @@
         - if current_user.parent?
           %li.nav-item
             = link_to :posts, class: "nav-link #{"active" if controller.controller_name == "posts" }" do
-              %i.fa.fa-picture-o
+              %i.bi-card-image
               Blog
           %li.nav-item
             = link_to :entries, class: "nav-link #{"active" if controller.controller_name == "entries" }" do
-              %i.fa.fa-book
+              %i.bi-book-half
               Journal
           %li.nav-item
             = link_to :photos, class: "nav-link #{"active" if controller.controller_name == "photos" }" do
-              %i.fa.fa-camera
+              %i.bi-camera-fill
               Photos
           - if current_user.father?
             %li.nav-item
               = link_to :notes, class: "nav-link #{"active" if controller.controller_name == "notes" }" do
-                %i.fa.fa-camera
                 Notes
           %li.nav-item.dropdown
             = link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdown", role: "button", data: { "bs-toggle": "dropdown" }, "aria-expanded": false do

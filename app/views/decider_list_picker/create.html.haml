@@ -1,6 +1,6 @@
 %div{ style: 'text-align: center' }
   %h1{ style: "margin-top: 15rem; margin-bottom: 5rem; font-family: #{@item.font}, serif" }= @item.name
   %p{ style: 'margin: 5rem' }
-    %i.fa{ class: "fa-#{@item.icon}", style: 'font-size: 10rem' }
+    %i.fa{ class: "bi-#{@item.icon}", style: 'font-size: 10rem' }
 
   %p= link_to "Pick another", "/pick/#{@item.decider_list_id}", class: "btn btn-default", style: 'margin-bottom: 3rem'

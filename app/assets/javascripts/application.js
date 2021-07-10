@@ -11,3 +11,15 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require activestorage
+//= require_self
+
+// // Make inserting common tags easier.
+// $('span.insert-into-tag-list').on('click', function() {
+//   input = $(this).parent().siblings('input')
+//   if (input.val()) {
+//     input.val(input.val() + ', ' + this.innerHTML)
+//   } else {
+//     input.val(this.innerHTML)
+//   }
+//   $(this).remove()
+// })

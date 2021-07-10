@@ -1,9 +1,9 @@
 - content_for :sidebar do
   = link_to [:edit, @entry], class: 'btn btn-info btn-block' do
-    %i.fa.fa-edit.fa-inverse
-      Edit
+    %i.bi-pencil-fill
+    Edit
   = link_to @entry, class: 'btn btn-danger btn-block', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
-    %i.fa.fa-trash-o.fa-inverse
+    %i.bi-trash-fill
     Delete
 
 .row

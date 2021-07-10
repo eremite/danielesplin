@@ -1,12 +1,12 @@
-.well{ style: post.at.future? && 'border: thin dashed #31708f' }
+.bg-secondary{ style: post.at.future? && 'border: thin dashed #31708f' }
   .row
     .col-md-12
       .btn-group-vertical.pull-right{ style: 'margin-left: 10px' }
         = link_to [:edit, post], class: 'btn btn-default btn-xs' do
-          %i.fa.fa-edit
+          %i.bi-pencil-fill
           Edit
         = link_to post, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this post?' } do
-          %i.fa.fa-trash-o
+          %i.bi-trash-fill
           Delete
       %h5.pull-right{ class: post.at.future? ? 'text-info' : 'text-muted' }
         =l post.at.to_date, format: :long
