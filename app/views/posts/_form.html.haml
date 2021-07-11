@@ -8,9 +8,9 @@
       = text_field_tag :at, l(f.object.at), class: 'datetimepicker form-control', tabindex: 1
       = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
   .form-group
-    = f.label :body, class: 'form-label col-md-2 autofocus'
-    .col-md-10
-      = f.text_area :body, rows: 10, tabindex: 2, class: 'form-control'
+    = f.label :body, class: 'form-label col-md-2'
+    = f.hidden_field :body, id: 'trix-editor-content'
+    <trix-editor input="trix-editor-content" autofocus="true"></trix-editor>
   .form-group
     = f.label :post_tag_list, class: 'form-label col-md-2'
     .col-md-10

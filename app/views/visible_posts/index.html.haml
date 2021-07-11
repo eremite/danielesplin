@@ -6,8 +6,7 @@
       .col-md-12
         %h5.pull-right.text-muted
           =l post.at.to_date, format: :long
-        :markdown
-          #{post.body}
+        = post.body.html_safe
     - if post.photos.present?
       .row
         .col-md-12

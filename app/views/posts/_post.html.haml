@@ -10,8 +10,7 @@
           Delete
       %h5.pull-right{ class: post.at.future? ? 'text-info' : 'text-muted' }
         =l post.at.to_date, format: :long
-      :markdown
-        #{post.body}
+      = post.body.html_safe
   - if post.photos.present?
     .row
       .col-md-12

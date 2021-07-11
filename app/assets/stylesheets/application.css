@@ -17,6 +17,8 @@
 
 trix-toolbar .trix-button-group--file-tools { display: none }
 
+trix-toolbar .trix-button--icon { -webkit-filter: invert(70%); }
+
 /* blockquote { */
 /*   font-size: inherit; */
 /* } */

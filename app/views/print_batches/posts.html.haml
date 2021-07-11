@@ -4,8 +4,7 @@
 
 - @posts.each do |post|
   %h3{ style: 'float: right; font-size: smaller' }= l post.at
-  :markdown
-    #{post.body}
+  = post.body.html_safe
   - post.photos.at_asc.each do |photo|
     - if photo.image.present?
       %figure{ style: 'float: left; margin: 0 0.25em' }

@@ -4,6 +4,5 @@
 
 - @entries.each do |entry|
   %h3= l entry.at.to_date, format: :long
-  :markdown
-    #{entry.body}
+  = entry.body.html_safe
 

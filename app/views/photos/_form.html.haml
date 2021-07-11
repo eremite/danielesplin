@@ -18,8 +18,8 @@
       = f.collection_select :inventory_item_ids, InventoryItem.on_desc, :id, :summary, { include_blank: 'None' }, { multiple: true, class: 'form-control' }
   .form-group
     = f.label :description, class: 'form-label col-md-2'
-    .col-md-10
-      = f.text_area :description, rows: 3, class: 'form-control'
+    = f.hidden_field :description, id: 'trix-editor-content'
+    <trix-editor input="trix-editor-content" autofocus="true"></trix-editor>
   .form-group
     = f.label :photo_tag_list, class: 'form-label col-md-2'
     .col-md-10

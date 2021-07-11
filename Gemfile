@@ -11,7 +11,6 @@ gem 'haml'
 gem 'image_processing'
 gem 'kaminari'
 gem 'mysql2'
-gem 'redcarpet'
 gem 'uglifier'
 
 group :production do
