@@ -25,7 +25,7 @@
           = select_tag :kind, options_for_select([nil] + Note.pluck(:kind).uniq.compact, params[:kind]), { class: 'form-control' }
         .form-group
           = label_tag :term
-          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
+          = text_field_tag :term, params[:term], class: 'form-control', placeholder: 'Search'
         .form-group
           = label_tag :finished
           = select_tag :finished, options_for_select(%w(Unfinished Finished Either), params[:finished]), { class: 'form-control' }
@@ -33,7 +33,8 @@
           %label
             = check_box_tag :random, '1', params[:random]
             Random
-        = submit_tag 'Search', class: 'btn btn-primary'
+        .d-grid
+          = submit_tag 'Search', class: 'btn btn-primary'
 
   %hr
 

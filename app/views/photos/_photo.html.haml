@@ -3,7 +3,7 @@
     .card.h-100.text-dark.bg-light
       = image_tag photo.image.variant(resize_to_limit: [200, 200]), class: "card-img-top"
       .card-body
-        %p.card-text= photo.description.html_safe
+        %p.card-text= photo.description.to_s.html_safe
       .card-footer.d-flex.justify-content-evenly
         = link_to 'Edit', [:edit, photo], class: 'btn btn-sm btn-outline-success'
         = link_to 'Delete', photo, method: :delete, class: 'btn btn-sm btn-outline-danger'
