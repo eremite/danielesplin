@@ -2,17 +2,18 @@
 
 - content_for :sidebar do
 
-  = link_to %i[new entry], class: 'btn btn-success' do
-    %i.bi-plus-lg
-    New Journal Entry
-  - current_user.users_whose_entries_i_can_edit.each do |user|
-    - next if user.id == current_user.id
-    = link_to entries_path(user_id: user.id), class: 'btn btn-warning' do
-      %i.bi-book
-      #{user.name}'s Journal
-  = link_to :print_batches, class: 'btn btn-info' do
-    %i.bi-printer
-    Print by Year
+  .d-grid.gap-2
+    = link_to %i[new entry], class: 'btn btn-success' do
+      %i.bi-plus-lg
+      New Journal Entry
+    - current_user.users_whose_entries_i_can_edit.each do |user|
+      - next if user.id == current_user.id
+      = link_to entries_path(user_id: user.id), class: 'btn btn-warning' do
+        %i.bi-book
+        #{user.name}'s Journal
+    = link_to :print_batches, class: 'btn btn-info' do
+      %i.bi-printer
+      Print by Year
 
   %hr
 
@@ -43,7 +44,7 @@
         .form-group
           = label_tag :term
           = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
-        = submit_tag 'Search', class: 'btn btn-primary btn-block'
+        = submit_tag 'Search', class: 'btn btn-primary'
 
 - if @entries.empty?
   .jumbotron

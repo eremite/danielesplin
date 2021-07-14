@@ -2,12 +2,13 @@
 
 - content_for :sidebar do
 
-  = link_to [:new, :note], class: 'btn btn-success btn-block' do
-    %i.bi-plus-lg
-    New Note
-  = link_to [:notes, { finished: 'Finished' }], class: 'btn btn-warning btn-block' do
-    %i.bi-file-earmark-fill
-    Finished Notes
+  .d-grid.gap-2
+    = link_to [:new, :note], class: 'btn btn-success' do
+      %i.bi-plus-lg
+      New Note
+    = link_to [:notes, { finished: 'Finished' }], class: 'btn btn-warning' do
+      %i.bi-file-earmark-fill
+      Finished Notes
 
   %hr
 
@@ -32,7 +33,7 @@
           %label
             = check_box_tag :random, '1', params[:random]
             Random
-        = submit_tag 'Search', class: 'btn btn-primary btn-block'
+        = submit_tag 'Search', class: 'btn btn-primary'
 
   %hr
 

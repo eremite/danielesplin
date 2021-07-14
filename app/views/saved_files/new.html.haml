@@ -1,7 +1,8 @@
 - title 'Upload Files'
 
 - content_for :sidebar do
-  = link_to "All Files", :saved_files, class: 'btn btn-success btn-block'
+  .d-grid.gap-2
+    = link_to "All Files", :saved_files, class: 'btn btn-success'
 
 - if SavedFileCategory.any?
   = render partial: "form", locals: { saved_file: @saved_file }

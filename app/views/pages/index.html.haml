@@ -6,10 +6,11 @@
 
   .col-md-3.col-md-push-9
     - if current_user&.parent?
-      = link_to 'See the blog!', %i(posts), class: 'btn btn-primary btn-block'
-      = link_to 'Photos: Look and See', %i(photos), class: 'btn btn-warning btn-block'
-      = link_to 'Browse the Journal', %i(entries), class: 'btn btn-info btn-block'
-      = link_to 'Create Journal Entry', %i(new entry), class: 'btn btn-success btn-block'
+      .d-grid.gap-2
+        = link_to 'See the blog!', %i(posts), class: 'btn btn-primary'
+        = link_to 'Photos: Look and See', %i(photos), class: 'btn btn-warning'
+        = link_to 'Browse the Journal', %i(entries), class: 'btn btn-info'
+        = link_to 'Create Journal Entry', %i(new entry), class: 'btn btn-success'
     - else
       = form_tag :sessions do
         .form-group
@@ -19,7 +20,7 @@
           = label_tag :password, nil, class: 'form-label'
           = password_field_tag :password, nil, class: 'form-control', placeholder: 'Password'
         .form-group
-          = submit_tag 'Log in', class: 'btn btn-primary btn-block'
+          = submit_tag 'Log in', class: 'btn btn-primary'
 
   .col-md-3.col-md-pull-3
 

@@ -2,9 +2,10 @@
 
 - content_for :sidebar do
 
-  = link_to [:new, :post], class: 'btn btn-success btn-block' do
-    %i.bi-plus-lg
-    New Blog Post
+  .d-grid.gap-2
+    = link_to [:new, :post], class: 'btn btn-success' do
+      %i.bi-plus-lg
+      New Blog Post
 
   %hr
 
@@ -53,7 +54,7 @@
         .form-group
           = label_tag :term
           = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
-        = submit_tag 'Search', class: 'btn btn-primary btn-block'
+        = submit_tag 'Search', class: 'btn btn-primary'
 
   .panel.panel-default
     .panel-heading

@@ -2,12 +2,13 @@
 
 - content_for :sidebar do
 
-  = link_to new_post_path(post: { at: @photo.at }), class: 'btn btn-success btn-block' do
-    %i.bi-plus-lg
-    New Blog Post
-  = link_to @photo, class: 'btn btn-danger btn-block', method: :delete, data: { confirm: 'Are you sure you want to delete this photo?' } do
-    %i.bi-trash-fill
-    Delete
+  .d-grid.gap-2
+    = link_to new_post_path(post: { at: @photo.at }), class: 'btn btn-success' do
+      %i.bi-plus-lg
+      New Blog Post
+    = link_to @photo, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure you want to delete this photo?' } do
+      %i.bi-trash-fill
+      Delete
 
   %hr
 

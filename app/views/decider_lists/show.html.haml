@@ -1,15 +1,16 @@
 %h1= @list.name
 
 - content_for :sidebar do
-  = link_to [:edit, @list], class: 'btn btn-info btn-block' do
-    %i.bi-pencil-fill
-      Edit List
-  = link_to [:new, @list, :decider_list_item], class: 'btn btn-success btn-block' do
-    %i.bi-plus-lg
-    Add to List
-  = link_to @list, class: 'btn btn-danger btn-block', method: :delete, data: { confirm: 'Are you sure you want to delete this list?' } do
-    %i.bi-trash-fill
-    Delete
+  .d-grid.gap-2
+    = link_to [:edit, @list], class: 'btn btn-info' do
+      %i.bi-pencil-fill
+        Edit List
+    = link_to [:new, @list, :decider_list_item], class: 'btn btn-success' do
+      %i.bi-plus-lg
+      Add to List
+    = link_to @list, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure you want to delete this list?' } do
+      %i.bi-trash-fill
+      Delete
 
 - if @list.items.empty?
   %p.text-muted This list is empty.
