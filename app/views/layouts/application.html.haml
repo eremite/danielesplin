@@ -23,8 +23,8 @@
         %header= render 'layouts/nav'
 
       %section.mb-3
+        = render 'layouts/flash_hash'
         .row
-          = render 'layouts/flash_hash'
           - if content_for? :sidebar
             .col-md-3.order-md-last
               = yield :sidebar
