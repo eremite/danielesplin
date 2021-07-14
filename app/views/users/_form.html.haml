@@ -1,40 +1,32 @@
-= form_for @user, html: { class: 'form-horizontal' } do |f|
+= form_for @user do |f|
   - if f.object.errors.any?
-    .form-group.alert.alert-danger
+    .mb-3.alert.alert-danger
       = f.object.errors.full_messages.to_sentence
-  .form-group
-    = f.label :name, class: 'form-label col-sm-2'
-    .col-sm-10
-      = f.text_field :name, class: 'form-control'
-  .form-group
-    = f.label :email, class: 'form-label col-md-2'
-    .col-md-10
-      = f.text_field :email, class: 'form-control'
-  .form-group
-    = f.label :password, 'New Password', class: 'form-label col-md-2'
-    .col-md-10
-      = f.password_field :password, class: 'form-control'
-  .form-group
-    = f.label :password_confirmation, 'Confirm New Password', class: 'form-label col-md-2'
-    .col-md-10
-      = f.password_field :password_confirmation, class: 'form-control'
+  .mb-3
+    = f.label :name, class: 'form-label'
+    = f.text_field :name, class: 'form-control'
+  .mb-3
+    = f.label :email, class: 'form-label'
+    = f.text_field :email, class: 'form-control'
+  .mb-3
+    = f.label :password, 'New Password', class: 'form-label'
+    = f.password_field :password, class: 'form-control'
+  .mb-3
+    = f.label :password_confirmation, 'Confirm New Password', class: 'form-label'
+    = f.password_field :password_confirmation, class: 'form-control'
   - if current_user.parent?
-    .form-group
-      = f.label :role, class: 'form-label col-md-2'
-      .col-md-10
-        = f.select :role, User::ROLES.map { |role| [role.titleize, role] }, {}, class: 'form-control'
-    .form-group
-      = f.label :api_key, class: 'form-label col-md-2'
-      .col-md-10
-        = f.text_field :api_key, class: 'form-control'
-    .form-group
-      = f.label :born_at, class: 'form-label col-md-2'
-      .col-md-10
-        = f.date_field :born_at, class: 'form-control'
-  .form-group
-    .col-md-offset-2.col-md-10
-      %button.btn.btn-primary{ type: 'submit'} Save
-      - if current_user.parent?
-        = link_to @user, class: 'btn btn-small btn-danger', method: :delete, data: { confirm: 'Are you sure you want to delete this user?' } do
-          Delete
-      = link_to 'Cancel', :root, class: 'btn'
+    .mb-3
+      = f.label :role, class: 'form-label'
+      = f.select :role, User::ROLES.map { |role| [role.titleize, role] }, {}, class: 'form-control'
+    .mb-3
+      = f.label :api_key, class: 'form-label'
+      = f.text_field :api_key, class: 'form-control'
+    .mb-3
+      = f.label :born_at, class: 'form-label'
+      = f.date_field :born_at, class: 'form-control'
+  .mb-3
+    = f.submit 'Save', class: 'btn btn-primary'
+    - if current_user.parent?
+      = link_to @user, class: 'btn btn-small btn-danger ms-3', method: :delete, data: { confirm: 'Are you sure you want to delete this user?' } do
+        Delete
+    = link_to 'Cancel', :root, class: 'btn btn-outline-secondary ms-3'
