@@ -46,6 +46,8 @@
           = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
         = submit_tag 'Search', class: 'btn btn-primary'
 
+  = render partial: '/shared/calendar', locals: { starts_at: @entry_user.entries.order(at: :asc).first&.at, resource: :entries }
+
 - if @entries.empty?
   .jumbotron
     %h2 No results found

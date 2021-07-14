@@ -1,12 +1,7 @@
 class EntriesController < ApplicationController
 
   def index
-    begin
-      @ends_on = Date.strptime(params[:ends_on].to_s, '%m/%d/%Y')
-    rescue ArgumentError, TypeError
-      flash[:error] = 'Invalid date' if params[:ends_on].present?
-      @ends_on = Time.zone.now.to_date
-    end
+    @ends_on = Date.parse(params[:ends_on] || Date.current.to_s)
     @entry_user = User.where(id: params[:user_id]).first
     if current_user.grandparent?
       @entry_user ||= User.where(role: 'baby').first
