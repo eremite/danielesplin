@@ -173,7 +173,6 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    redcarpet (3.4.0)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     slop (3.6.0)
@@ -214,7 +213,6 @@ DEPENDENCIES
   mysql2
   puma
   rails (= 6.1.4)
-  redcarpet
   uglifier
 
 BUNDLED WITH
