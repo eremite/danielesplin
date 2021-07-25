@@ -12,29 +12,25 @@
 
   %hr
 
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title Search
-    .panel-body
-      = form_tag nil, method: :get, role: 'form' do
-        .form-group
-          = label_tag :user
-          = select nil, :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, { selected: params[:user_id] || current_user.id.to_s }, { class: 'form-control' }
-        .form-group
-          = label_tag :kind
-          = select_tag :kind, options_for_select([nil] + Note.pluck(:kind).uniq.compact, params[:kind]), { class: 'form-control' }
-        .form-group
-          = label_tag :term
-          = text_field_tag :term, params[:term], class: 'form-control', placeholder: 'Search'
-        .form-group
-          = label_tag :finished
-          = select_tag :finished, options_for_select(%w(Unfinished Finished Either), params[:finished]), { class: 'form-control' }
-        .checkbox
-          %label
-            = check_box_tag :random, '1', params[:random]
-            Random
-        .d-grid
-          = submit_tag 'Search', class: 'btn btn-primary'
+  %h3 Search
+  = form_with url: :notes, method: :get, role: 'form' do |f|
+    .mb-3
+      = f.label :user_id, class: 'form-input'
+      = f.select :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, { selected: params[:user_id] || current_user.id.to_s }, class: 'form-select'
+    .mb-3
+      = f.label :kind, class: 'form-input'
+      = f.select :kind, [nil] + Note.pluck(:kind).uniq.compact, { selected: params[:kind] }, class: 'form-select'
+    .mb-3
+      = f.label :term, class: 'form-input'
+      = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
+    .mb-3
+      = f.label :finished, class: 'form-input'
+      = f.select :finished, %w(Unfinished Finished Either), { selected: params[:finished] }, { class: 'form-select' }
+    .form-check
+      = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
+      = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Search', class: 'btn btn-primary'
 
   %hr
 

@@ -30,18 +30,16 @@
           - InventoryItem.tag_counts_on(:inventory_item_tags).order(:name).each do |tag|
             = link_to tag.name, inventory_items_path(tag: tag.name), class: 'list-group-item'
 
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title Search
-    .panel-body
-      = form_tag nil, method: :get, role: 'form' do
-        .form-group
-          = label_tag :ends_on, 'Date'
-          = date_field_tag :ends_on, l(@ends_on, format: :db), class: 'form-control'
-        .form-group
-          = label_tag :term
-          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
-        = submit_tag 'Search', class: 'btn btn-primary'
+  %h3 Search
+  = form_with url: :inventory_items, method: :get do |f|
+    .mb-3
+      = f.label :ends_on, 'Date'
+      = f.date_field :ends_on, value: @ends_on, class: 'form-control'
+    .mb-3
+      = f.label :term
+      = f.text_field :term, value: params[:term], class: 'form-control'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Search', class: 'btn btn-primary'
 
 %table.table.table-striped
   %thead

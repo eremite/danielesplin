@@ -12,6 +12,14 @@
     = link_to saved_file_categories_path, class: 'btn btn-success' do
       Manage Categories
 
+  %hr
+  = form_with model: SavedFileCategory.new do |f|
+    .mb-3
+      = f.label :name, class: 'form-label visually-hidden'
+      = f.text_field :name, class: 'form-control'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Add Category', class: 'btn btn-primary'
+
 - if params[:category_id]
 
   %ul= render @saved_files

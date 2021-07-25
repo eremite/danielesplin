@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
 
   def index
+    @notes = Note.all
     if params[:user_id].present?
       @notes = @notes.where(user_id: params[:user_id])
     else

@@ -17,34 +17,30 @@
 
   %hr
 
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title Search
-    .panel-body
-      = form_tag nil, method: :get, role: 'form' do
-        .form-group
-          = label_tag :ends_on, 'Date'
-          = text_field_tag :ends_on, l(@ends_on), class: 'datepicker form-control'
-        .form-group
-          %label{ style: 'display: block' } Age
-          .col-md-6
-            = text_field_tag :age_months, params[:age_months], placeholder: 'Months', class: 'form-control'
-          .col-md-6
-            = text_field_tag :age_years, params[:age_years], placeholder: 'Years', class: 'form-control'
-        .form-group
-          = label_tag :user
-          = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
-        .form-group
-          = label_tag :tag
-          = select nil, :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
-        .checkbox
-          %label
-            = check_box_tag :random, '1', params[:random]
-            Random
-        .form-group
-          = label_tag :term
-          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
-        = submit_tag 'Search', class: 'btn btn-primary'
+  %h3 Search
+  = form_with url: :entries, method: :get do |f|
+    .mb-3
+      = f.label :ends_on, 'Date'
+      = f.date_field :ends_on, value: @ends_on, class: 'form-control'
+    .mb-3
+      = f.label :age_months, "Age"
+      .input-group
+        = f.text_field :age_months, value: params[:age_months], placeholder: 'Months', class: 'form-control'
+        = f.text_field :age_years, value: params[:age_years], placeholder: 'Years', class: 'form-control'
+    .mb-3
+      = f.label :user
+      = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
+    .mb-3
+      = f.label :tag
+      = select nil, :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
+    .form-check
+      = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
+      = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'
+    .mb-3
+      = f.label :term
+      = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Search', class: 'btn btn-primary'
 
   = render partial: '/shared/calendar', locals: { starts_at: @entry_user.entries.order(at: :asc).first&.at, resource: :entries }
 

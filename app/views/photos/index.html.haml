@@ -6,7 +6,7 @@
     = form_with model: PhotoBatch.new, html: { multipart: true  } do |f|
       .mb-3
         = f.file_field :images, multiple: true, class: "form-control"
-      .mb-3
+      .mb-3.d-grid.gap-2
         = f.submit "Save", class: "btn btn-primary"
 
   %hr
