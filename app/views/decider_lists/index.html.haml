@@ -4,6 +4,16 @@
       %i.bi-plus-lg
       New List
 
+  %hr
+  = form_with model: DeciderList.new do |f|
+    - if f.object.errors.any?
+      .alert.alert-danger= f.object.errors.full_messages.to_sentence
+    .mb-3
+      = f.label :name, class: 'form-label visually-hidden'
+      = f.text_field :name, class: 'form-control'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Add List', class: 'btn btn-primary'
+
 .list-group
   - @lists.each do |list|
     = link_to list.name, list, class: 'list-group-item'
