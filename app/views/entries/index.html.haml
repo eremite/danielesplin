@@ -16,7 +16,6 @@
       Print by Year
 
   %hr
-
   %h3 Search
   = form_with url: :entries, method: :get do |f|
     .mb-3
@@ -29,10 +28,10 @@
         = f.text_field :age_years, value: params[:age_years], placeholder: 'Years', class: 'form-control'
     .mb-3
       = f.label :user
-      = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
+      = f.select :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
     .mb-3
       = f.label :tag
-      = select nil, :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
+      = f.select :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
     .form-check
       = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
       = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'
@@ -70,11 +69,10 @@
                 %i.bi-trash-fill
                 Delete
             - if entry.entry_tags.present?
-              .list-group{ style: 'margin-top: 0.5em' }
-                - entry.entry_tag_list.each do |tag_name|
-                  = link_to tag_name, entries_path(tag: tag_name), class: 'list-group-item list-group-item-success'
+              - entry.entry_tag_list.each do |tag_name|
+                = link_to tag_name, entries_path(tag: tag_name), class: 'badge bg-info'
           %h2.h2
-            = link_to entry, style: 'color: inherit' do
+            = link_to [:edit, entry], style: 'color: inherit' do
               = l entry.at.to_date, format: :long
               - if entry.at != entry.at.beginning_of_day
                 %small

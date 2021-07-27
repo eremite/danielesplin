@@ -1,12 +1,35 @@
 - title 'Photos'
 
+#photo-modal.modal.text-dark
+  .modal-dialog.modal-fullscreen
+    .modal-content
+      .modal-body
+        .modal-header
+          %button.btn-close{ type: 'button', data: { bs: { dismiss: 'modal' } } }
+        #photo-carousel.carousel.slide{ data: { bs: { interval: false } } }
+          .carousel-indicators
+            - @photos.each_with_index do |photo, i|
+              %button{ type: 'button', class: i.zero? ? 'active' : '', data: { bs: { target: '#photo-carousel', slide_to: i } } }
+          .carousel-inner
+            - @photos.each_with_index do |photo, i|
+              .carousel-item{ class: i.zero? ? 'active' : '' }
+                = image_tag photo.image, class: 'd-block w-75'
+                .carousel-caption.fs-4= photo.description.to_s.html_safe
+          %button.carousel-control-prev{ type: 'button', data: { bs: { target: '#photo-carousel', slide: 'prev' } } }
+            %span.carousel-control-prev-icon{ aria: { hidden: true } }
+            %span.visually-hidden Previous
+          %button.carousel-control-next{ type: 'button', data: { bs: { target: '#photo-carousel', slide: 'next' } } }
+            %span.carousel-control-next-icon{ aria: { hidden: true } }
+            %span.visually-hidden Next
+
 - content_for :sidebar do
 
   .row
+    %h3.mb-3 Upload Photos
     = form_with model: PhotoBatch.new, html: { multipart: true  } do |f|
       .mb-3
         = f.file_field :images, multiple: true, class: "form-control"
-      .mb-3.d-grid.gap-2
+      .mb-3.d-grid
         = f.submit "Save", class: "btn btn-primary"
 
   %hr

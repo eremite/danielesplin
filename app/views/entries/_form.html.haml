@@ -2,9 +2,10 @@
   - if f.object.errors.any?
     .alert.alert-danger
       = f.object.errors.full_messages.to_sentence
-  .mb-3
-    = f.label :at, class: 'form-label'
-    = f.datetime_field :at, class: "form-control",  tabindex: 1
+  .row.mb-3
+    .col-auto
+      = f.label :at, class: 'form-label'
+      = f.datetime_field :at, class: "form-control",  tabindex: 1
   .mb-3
     = f.label :user_id, class: 'form-label d-block'
     - current_user.users_whose_entries_i_can_edit.each do |user|
@@ -14,11 +15,12 @@
     = f.label :body, class: 'form-label col-md-2'
     = f.hidden_field :body, id: 'trix-editor-content'
     <trix-editor input="trix-editor-content" autofocus="true"></trix-editor>
-  .mb-3
-    = f.label :entry_tag_list, class: 'form-label col-md-2'
-    = render partial: '/shared/suggested_tags', locals: { tag_counts: Entry.entry_tag_counts,
-      existing_tags: f.object.entry_tags, input_name: "entry[entry_tag_list]" }
-    = f.text_field :entry_tag_list, value: f.object.entry_tag_list.to_s, class: 'form-control'
+  .row.mb-3
+    .col-auto
+      = f.label :entry_tag_list, class: 'form-label col-md-2'
+      = render partial: '/shared/suggested_tags', locals: { tag_counts: Entry.entry_tag_counts,
+        existing_tags: f.object.entry_tags, input_name: "entry[entry_tag_list]" }
+      = f.text_field :entry_tag_list, value: f.object.entry_tag_list.to_s, class: 'form-control'
   .mb-3
     = hidden_field_tag :redirect_to, request.referrer || entries_path
     %button.btn.btn-primary{ type: 'submit', tabindex: 4 } Save

@@ -1,33 +1,26 @@
 = form_for @photo, html: { class: 'form-horizontal' } do |f|
-  .form-group
-    = f.label :at, class: 'form-label col-md-2'
-    .col-md-10
-      = text_field_tag :at, l(f.object.at), class: 'datetimepicker form-control'
-      = f.hidden_field :at, value: l(f.object.at, format: :db), class: 'datetimepicker-hidden'
-  .form-group
-    = f.label :post_ids, nil, class: 'form-label col-md-2'
-    .col-md-10
-      .checkbox
-        = f.label :hidden do
-          = f.check_box :hidden
-          = Photo.human_attribute_name(:hidden)
-      = f.collection_select :post_ids, Post.at_desc, :id, :dated_title, { include_blank: 'Any that match the date' }, { multiple: true, class: 'form-control' }
-  .form-group
-    = f.label :inventory_item_ids, nil, class: 'form-label col-md-2'
-    .col-md-10
-      = f.collection_select :inventory_item_ids, InventoryItem.on_desc, :id, :summary, { include_blank: 'None' }, { multiple: true, class: 'form-control' }
-  .form-group
-    = f.label :description, class: 'form-label col-md-2'
+  .row.mb-3
+    .col-auto
+      = f.label :at, class: 'form-label'
+      = f.datetime_field :at, class: 'form-control'
+  .mb-3
+    = f.label :post_ids, nil, class: 'form-label'
+    .form-check
+      = f.check_box :hidden, class: 'form-check-input', id: 'photo_hidden'
+      = f.label :hidden, class: 'form-check-label', for: 'photo_hidden'
+    = f.collection_select :post_ids, Post.at_desc, :id, :dated_title, { include_blank: 'Any that match the date' }, { multiple: true, class: 'form-control' }
+  .mb-3
+    = f.label :inventory_item_ids, nil, class: 'form-label'
+    = f.collection_select :inventory_item_ids, InventoryItem.on_desc, :id, :summary, { include_blank: 'None' }, { multiple: true, class: 'form-control' }
+  .mb-3
+    = f.label :description, class: 'form-label'
     = f.hidden_field :description, id: 'trix-editor-content'
     <trix-editor input="trix-editor-content" autofocus="true"></trix-editor>
-  .form-group
-    = f.label :photo_tag_list, class: 'form-label col-md-2'
-    .col-md-10
-      = render partial: '/shared/suggested_tags', locals: { tag_counts: Photo.photo_tag_counts,
-        existing_tags: f.object.photo_tags, input_name: 'photo[photo_tag_list]' }
-      = f.text_field :photo_tag_list, value: f.object.photo_tag_list.to_s, class: 'form-control'
-  .form-group
-    .col-md-offset-2.col-md-10
-      %button.btn.btn-primary{ type: 'submit'} Save
-      = hidden_field_tag :redirect_to, request.referrer.presence || photos_path
-      = link_to 'Cancel', photos_path, class: 'btn'
+  .mb-3
+    = f.label :photo_tag_list, class: 'form-label'
+    = render partial: '/shared/suggested_tags', locals: { tag_counts: Photo.photo_tag_counts,
+      existing_tags: f.object.photo_tags, input_name: 'photo[photo_tag_list]' }
+    = f.text_field :photo_tag_list, value: f.object.photo_tag_list.to_s, class: 'form-control'
+  .mb-3
+    = f.submit 'Save', class: 'btn btn-primary'
+    = link_to 'Cancel', :photos, class: 'btn btn-outline-secondary'

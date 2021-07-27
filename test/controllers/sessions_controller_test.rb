@@ -11,8 +11,7 @@ class SessionsControllerTest < ActionController::TestCase
     User.stub_any_instance :authenticate, nil do
       post :create
     end
-    assert_response :success
-    assert_nil session['user_id']
+    assert_redirected_to :pages
   end
 
   test 'create valid' do

@@ -1,9 +1,9 @@
 users_1:
   api_key: Father
   created_at: 2015-07-31 18:04:36.000000000 Z
-  email: info@custombit.com
+  email: admin@example.com
   id: 1
-  name: info@custombit.com
+  name: admin@example.com
   password_digest: "$2a$10$tNXs5ov.clKCaezcj0MdQOi6WKWHAHjon9wWcqIll06Xa.GNzyg9q"
   role: father
   updated_at: 2015-07-31 18:21:14.000000000 Z

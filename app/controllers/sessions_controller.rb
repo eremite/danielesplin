@@ -12,8 +12,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to current_user.login_redirect
     else
-      flash.now[:alert] = 'Invalid login or password.'
-      render :new
+      redirect_to :root, alert: 'Invalid login or password.'
     end
   end
 

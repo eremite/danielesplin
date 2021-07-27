@@ -12,25 +12,6 @@ class PhotosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'create invalid' do
-    Photo.stub_any_instance :save, false do
-      post :create, params: { photo: valid_attributes, format: :json }
-    end
-    assert_response :success
-  end
-
-  test 'create valid json' do
-    Photo.stub_any_instance :save, true do
-      post :create, params: { photo: valid_attributes, format: :json }
-    end
-    assert_response :success
-  end
-
-  test 'show' do
-    get :show, params: { id: @photo.id }
-    assert_response :success
-  end
-
   test 'edit' do
     get :edit, params: { id: @photo.id }
     assert_response :success

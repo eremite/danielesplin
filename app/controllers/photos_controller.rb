@@ -7,30 +7,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  def new
-    @photos = Photo.where(created_at: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day)
-  end
-
-  def create
-    @photo = current_user.photos.new(safe_params)
-    if @photo.save
-      respond_to do |format|
-        format.html do
-          redirect_to :photos
-        end
-        format.json do
-          render :json => { :files => [@photo.to_jq_upload] }.to_json
-        end
-      end
-    else
-      render :json => { :files => [@photo.to_jq_upload.merge(:error => @photo.errors.full_messages.to_sentence)] }.to_json
-    end
-  end
-
-  def show
-    @photo = Photo.find(params[:id])
-  end
-
   def edit
     @photo = Photo.find(params[:id])
   end
@@ -38,7 +14,8 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     if @photo.update(safe_params)
-      redirect_to params[:redirect_to].presence || photos_url, notice: 'Photo saved.'
+      next_photo = Photo.where(description: nil).first
+      redirect_to next_photo.present? ? [:edit, next_photo] : :photos
     else
       render :edit
     end
