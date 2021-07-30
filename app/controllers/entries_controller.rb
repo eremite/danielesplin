@@ -21,7 +21,7 @@ class EntriesController < ApplicationController
     if params[:tag].present?
       @entries = @entries.tagged_with(params[:tag], on: :entry_tags)
     end
-    if params[:random]
+    if params[:random].to_i.nonzero?
       @entries = @entries.where(id: @entries.sample.try(:id))
     end
     @entries = @entries.page(params[:page])
@@ -40,11 +40,6 @@ class EntriesController < ApplicationController
     else
       render :new
     end
-  end
-
-  # TODO test
-  def show
-    @entry = Entry.find(params[:id])
   end
 
   def edit

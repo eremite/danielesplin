@@ -1,11 +1,12 @@
-%nav.navbar.navbar-dark.navbar-expand
-  .container-fluid
-    %span.right-align-the-login-form
-    = form_with url: :sessions, class: 'd-md-flex' do |f|
-      = f.email_field :email, value: params[:email], class: 'form-control me-2', placeholder: 'Email'
-      = f.password_field :password, class: 'form-control me-2', placeholder: 'Password'
-      .d-none.d-md-block= f.submit 'Log in', class: 'btn btn-success'
-      .d-grid.d-md-none= f.submit 'Log in', class: 'btn btn-success'
+- if current_user.nil?
+  %nav.navbar.navbar-dark.navbar-expand
+    .container-fluid
+      %span.right-align-the-login-form
+      = form_with url: :sessions, class: 'd-md-flex' do |f|
+        = f.email_field :email, value: params[:email], class: 'form-control me-2', placeholder: 'Email'
+        = f.password_field :password, class: 'form-control me-2', placeholder: 'Password'
+        .d-none.d-md-block= f.submit 'Log in', class: 'btn btn-success'
+        .d-grid.d-md-none= f.submit 'Log in', class: 'btn btn-success'
 
 .row.d-flex.align-items-center.min-vh-100
 

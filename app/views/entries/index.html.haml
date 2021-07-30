@@ -44,12 +44,9 @@
   = render partial: '/shared/calendar', locals: { starts_at: @entry_user.entries.order(at: :asc).first&.at, resource: :entries }
 
 - if @entries.empty?
-  .jumbotron
+  .alert.alert-warning
     %h2 No results found
     %p Maybe search for something else?
-    %p
-      Or
-      = link_to 'try the blog!', :posts
 - else
   - previous_at = nil
   - @entries.each do |entry|
@@ -57,42 +54,28 @@
       %p.text-center
         = pluralize((previous_at.to_date - entry.at.to_date).to_i, 'day') if previous_at.present?
         - previous_at = entry.at
-    .well
-      .row
-        .col-md-12
-          .pull-right
-            .btn-group
-              = link_to [:edit, entry], class: 'btn btn-default btn-xs' do
-                %i.bi-pencil-fill
-                Edit
-              = link_to entry, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
-                %i.bi-trash-fill
-                Delete
-            - if entry.entry_tags.present?
-              - entry.entry_tag_list.each do |tag_name|
-                = link_to tag_name, entries_path(tag: tag_name), class: 'badge bg-info'
-          %h2.h2
-            = link_to [:edit, entry], style: 'color: inherit' do
-              = l entry.at.to_date, format: :long
-              - if entry.at != entry.at.beginning_of_day
-                %small
-                  at
-                  = l entry.at, format: '%l:%M%p'
-          - if params[:term].present?
-            .row
-              .col-md-12
-                %p
-                  &hellip;
-                  = entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>").html_safe
-                  &hellip;
-          - else
-            .row
-              .col-md-12
-                = entry.body.html_safe
-            - photos = Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).at_asc
-            - if photos.present?
-              .row
-                .col-md-12.photo-container
-                  = render photos
+    .d-flex.justify-content-between
+      %div
+        %h2
+          = link_to [:edit, entry], style: 'color: inherit' do
+            = l entry.at.to_date, format: :long
+            - if entry.at != entry.at.beginning_of_day
+              %small
+                at
+                = l entry.at, format: '%l:%M%p'
+      %div
+        - if entry.entry_tags.present?
+          - entry.entry_tag_list.each do |tag_name|
+            = link_to tag_name, entries_path(tag: tag_name), class: 'badge bg-info'
+    - if params[:term].present?
+      %p
+        &hellip;
+        = entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>").html_safe
+        &hellip;
+    - else
+      .mb-4
+        = entry.body.html_safe
+        - photos = Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).at_asc
+        .row.g-3= render photos if photos.present?
 
   = paginate @entries
