@@ -1,0 +1,32 @@
+.modal.text-dark{ id: modal_id}
+  .modal-dialog.modal-fullscreen
+    .modal-content
+      .modal-body
+        .modal-header
+          %h5
+            - photos.each_with_index do |photo, i|
+              %span.carousel-captions.collapse{ id: "#{carousel_id}-caption-#{i}", class: i.zero? && 'show' }
+                = photo.description.to_s.html_safe
+          %button.btn-close{ type: 'button', data: { bs: { dismiss: 'modal' } } }
+        .carousel.slide{ id: carousel_id, data: { bs: { interval: 'false' } } }
+          .carousel-indicators
+            - photos.each_with_index do |photo, i|
+              %button{ type: 'button', class: i.zero? ? 'active' : '', data: { bs: { target:  "##{carousel_id}", slide_to: i } } }
+          .carousel-inner
+            - photos.each_with_index do |photo, i|
+              .carousel-item{ class: i.zero? ? 'active' : '' }
+                = image_tag photo.image, class: 'd-block w-100'
+          %button.carousel-control-prev{ type: 'button', data: { bs: { target: "##{carousel_id}", slide: 'prev' } } }
+            %span.carousel-control-prev-icon{ aria: { hidden: true } }
+            %span.visually-hidden Previous
+          %button.carousel-control-next{ type: 'button', data: { bs: { target: "##{carousel_id}", slide: 'next' } } }
+            %span.carousel-control-next-icon{ aria: { hidden: true } }
+            %span.visually-hidden Next
+
+:javascript
+  document.getElementById('#{carousel_id}').addEventListener('slide.bs.carousel', function (event) {
+    Array.from(document.querySelectorAll('.carousel-captions')).forEach(function(captionElement) {
+      captionElement.classList.remove('show');
+    });
+    document.getElementById('#{carousel_id}-caption-' + event.to).classList.add('show')
+  })

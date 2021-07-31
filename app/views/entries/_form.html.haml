@@ -19,13 +19,13 @@
   .mb-3
     = f.label :body, class: 'form-label col-md-2'
     = f.hidden_field :body, id: 'trix-editor-content'
-    <trix-editor input="trix-editor-content" autofocus="true"></trix-editor>
+    <trix-editor input="trix-editor-content" autofocus="true" tabindex=3></trix-editor>
   .row.mb-3
     .col-auto
       = f.label :entry_tag_list, class: 'form-label col-md-2'
       = render partial: '/shared/suggested_tags', locals: { tag_counts: Entry.entry_tag_counts,
         existing_tags: f.object.entry_tags, input_name: "entry[entry_tag_list]" }
-      = f.text_field :entry_tag_list, value: f.object.entry_tag_list.to_s, class: 'form-control'
+      = f.text_field :entry_tag_list, value: f.object.entry_tag_list.to_s, class: 'form-control', tabindex: 4
   .mb-3
     = hidden_field_tag :redirect_to, request.referrer || entries_path
     %button.btn.btn-primary{ type: 'submit', tabindex: 4 } Save

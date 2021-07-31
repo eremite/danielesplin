@@ -52,7 +52,7 @@
 = render @future_posts
 
 - if @past_posts.empty?
-  .jumbotron
+  .alert.alert-warning
     %h2 Nothing to see here.
     %p Apparently, we're not that interesting. :)
     = link_to 'Show all posts', :posts

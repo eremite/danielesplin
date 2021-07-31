@@ -1,27 +1,5 @@
 - title 'Photos'
 
-#photo-modal.modal.text-dark
-  .modal-dialog.modal-fullscreen
-    .modal-content
-      .modal-body
-        .modal-header
-          %button.btn-close{ type: 'button', data: { bs: { dismiss: 'modal' } } }
-        #photo-carousel.carousel.slide{ data: { bs: { interval: false } } }
-          .carousel-indicators
-            - @photos.each_with_index do |photo, i|
-              %button{ type: 'button', class: i.zero? ? 'active' : '', data: { bs: { target: '#photo-carousel', slide_to: i } } }
-          .carousel-inner
-            - @photos.each_with_index do |photo, i|
-              .carousel-item{ class: i.zero? ? 'active' : '' }
-                = image_tag photo.image, class: 'd-block w-75'
-                .carousel-caption.fs-4= photo.description.to_s.html_safe
-          %button.carousel-control-prev{ type: 'button', data: { bs: { target: '#photo-carousel', slide: 'prev' } } }
-            %span.carousel-control-prev-icon{ aria: { hidden: true } }
-            %span.visually-hidden Previous
-          %button.carousel-control-next{ type: 'button', data: { bs: { target: '#photo-carousel', slide: 'next' } } }
-            %span.carousel-control-next-icon{ aria: { hidden: true } }
-            %span.visually-hidden Next
-
 - content_for :sidebar do
 
   .row
@@ -32,9 +10,15 @@
       .mb-3.d-grid
         = f.submit "Save", class: "btn btn-primary"
 
-  %hr
+  - if @photos.present?
+    %hr
+    .d-grid
+      = render partial: "/shared/carousel_modal",
+        locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
+      = link_to 'Slideshow of this Page', '#', class: 'btn btn-success', data: { bs_toggle: 'modal', bs_target: "#photos-modal" }
 
   - if Photo.photo_tag_counts.present?
+    %hr
     .panel.panel-default
       .panel-heading
         %h3.panel-title Tags
