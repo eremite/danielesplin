@@ -29,12 +29,6 @@
           = time_ago_in_words comment.created_at
           ago
 
-  - if Post.post_tag_counts.present?
-    %hr
-    %h3 Tags
-    - tag_cloud(Post.tag_counts_on(:post_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
-      = link_to tag.name, posts_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
-
   %hr
   %h3 Search
   = form_with url: :posts, method: :get do |f|
@@ -48,6 +42,11 @@
       = f.submit 'Search', class: 'btn btn-primary'
 
   = render partial: '/shared/calendar', locals: { starts_at: Post.order(at: :asc).first&.at, resource: :posts }
+
+  - if Post.post_tag_counts.present?
+    %hr
+    - tag_counts = Post.tag_counts_on(:post_tags).order(taggings_count: :desc)
+    = render partial: 'shared/tag_list', locals: { path: :posts, tag_counts: tag_counts }
 
 = render @future_posts
 
