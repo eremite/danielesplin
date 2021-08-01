@@ -57,7 +57,7 @@
     .d-flex.justify-content-between
       %div
         %h2
-          = link_to [:edit, entry], style: 'color: inherit' do
+          = link_to [:edit, entry], class: 'text-reset' do
             = l entry.at.to_date, format: :long
             - if entry.at != entry.at.beginning_of_day
               %small
@@ -76,6 +76,6 @@
       .mb-4
         = entry.body.html_safe
         - photos = Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).at_asc
-        .row.g-3= render photos if photos.present?
+        .row.g-3.mt-0= render photos if photos.present?
 
   = paginate @entries

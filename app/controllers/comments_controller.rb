@@ -2,10 +2,6 @@ class CommentsController < ApplicationController
 
   before_action :verify_authorized
 
-  def index
-    @comments = Comment.created_at_desc.page(params[:page])
-  end
-
   def create
     @comment = current_user.comments.new(safe_params)
     if @comment.save

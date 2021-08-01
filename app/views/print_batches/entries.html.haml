@@ -1,8 +1,5 @@
-%h1
-  = @user.name
-  = params[:year]
+%h1 #{@user.name} #{params[:year]}
 
 - @entries.each do |entry|
   %h3= l entry.at.to_date, format: :long
   = entry.body.html_safe
-

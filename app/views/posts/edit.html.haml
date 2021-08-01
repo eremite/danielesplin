@@ -3,6 +3,4 @@
 = render 'form'
 
 - if (photos = @post.photos.at_asc).present?
-  .row
-    .col-md-12.photo-container
-      = render photos
+  .row= render photos

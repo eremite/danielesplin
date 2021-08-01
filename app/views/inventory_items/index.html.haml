@@ -59,6 +59,6 @@
         %td
           - inventory_item.inventory_item_tag_list.each do |tag_name|
             %span.label.label-default{ style: 'margin-left: 0.5em' }
-              = link_to tag_name, inventory_items_path(tag: tag_name), style: 'color: inherit'
+              = link_to tag_name, inventory_items_path(tag: tag_name), class: 'text-reset'
 
 = paginate @inventory_items

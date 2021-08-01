@@ -1,22 +1,22 @@
-- if start_year = Post.at_desc.last.try(:at).try(:year)
-  .col-sm-2
-    .panel.panel-default
-      .panel-heading
-        %h3.text-center Blog
-      - (start_year..Time.zone.now.year).each do |year|
-        .list-group
-          %strong.text-center
-            = link_to year, [:posts, :print_batches, { year: year }], class: 'list-group-item'
+.row.text-center
+  - if start_year = Post.at_desc.last.try(:at).try(:year)
+    .col
+      .card.bg-light.text-dark
+        %h3.card-title Blog
+        - (start_year..Time.zone.now.year).each do |year|
+          .list-group.list-group-flush
+            = link_to year, [:posts, :print_batches, { year: year }],
+              class: 'list-group-item list-group-item-action list-group-item-secondary'
 
-- @users.each do |user|
-  .col-sm-2
-    .panel.panel-default
-      .panel-heading
-        %h3.text-center= user.name
-      - start_year = user.entries.at_desc.last.try(:at).try(:year)
-      - next if start_year.nil?
-      - end_year = Time.zone.now.year
-      .list-group
-        - (start_year..end_year).each do |year|
-          %strong.text-center
-            = link_to year, [:entries, :print_batches, { user_id: user.id, year: year }], class: 'list-group-item'
+  - @users.each do |user|
+    - next if user.entries.empty?
+    .col
+      .card.bg-light.text-dark
+        %h3.card-title= user.name
+        - start_year = user.entries.at_desc.last.try(:at).try(:year)
+        - next if start_year.nil?
+        - end_year = Time.zone.now.year
+        .list-group.list-group-flush
+          - (start_year..end_year).each do |year|
+            = link_to year, [:entries, :print_batches, { user_id: user.id, year: year }],
+              class: 'list-group-item list-group-item-action list-group-item-secondary'

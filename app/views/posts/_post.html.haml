@@ -2,18 +2,18 @@
   = render partial: "/shared/carousel_modal", locals: { photos: post.photos, modal_id: "post-#{post.id}-modal", carousel_id: "post-#{post.id}-carousel" }
 
 .mb-4{ class: post.at.future? && 'bg-secondary p-3 rounded' }
-  %h5.float-end
+  %h5.float-end.text-reset
     - css_class = post.at.future? ? 'fst-italic' : ''
     - if post.at.future?
       %span{ class: css_class } Scheduled for
     - if current_user.parent?
-      = link_to l(post.at.to_date, format: :long), [:edit, post], class: css_class, style: 'color: inherit'
+      = link_to l(post.at.to_date, format: :long), [:edit, post], class: [css_class, 'text-reset']
     - else
       = l(post.at.to_date, format: :long)
 
   = post.body.html_safe
 
-  - if post.photos.present?
+  - if post.photos.at_asc.present?
     .row.my-3.text-center
       .col= link_to 'Open Slideshow', '#', class: 'btn btn-lg btn-primary', data: { bs_toggle: 'modal', bs_target: "#post-#{post.id}-modal" }
     .row.mb-3= render post.photos

@@ -43,12 +43,9 @@
           = link_to tag.name, notes_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
 
 - if @notes.empty?
-  .jumbotron
+  .alert.alert-warning
     %h2 No results found
     %p Maybe search for something else?
-    %p
-      Or
-      = link_to 'try the blog!', :posts
 - else
   - @notes.each do |note|
     .well
@@ -69,10 +66,10 @@
                 %i.bi-trash-fill
                 Delete
           %strong
-            = link_to note, style: 'color: inherit' do
+            = link_to note, class: 'text-reset' do
               #{note.kind}: #{note.title}
           - note.note_tag_list.each do |tag_name|
             %span.label.label-default{ style: 'margin-left: 0.5em' }
-              = link_to tag_name, [:notes, { tag: tag_name }], style: 'color: inherit'
+              = link_to tag_name, [:notes, { tag: tag_name }], class: 'text-reset'
 
   = paginate @notes
