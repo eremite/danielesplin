@@ -11,4 +11,5 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require activestorage
+//= require rails-ujs
 //= require_self
