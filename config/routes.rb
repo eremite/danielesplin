@@ -26,9 +26,6 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :visible_posts, only: :index
-  get '/posts.rss', to: 'visible_posts#index'
-  get '/blog_posts', to: redirect('/posts')
-  get '/blog_posts.rss', to: redirect('/posts.rss')
 
   resources :photos, except: %i[new create show]
   resources :photo_batches, only: :create

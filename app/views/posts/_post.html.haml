@@ -11,10 +11,10 @@
     - else
       = l(post.at.to_date, format: :long)
 
-  = post.body.html_safe
+  .mb-3= post.body.html_safe
 
   - if post.photos.at_asc.present?
-    .row.my-3.text-center
+    .row.mb-3.text-center
       .col= link_to 'Open Slideshow', '#', class: 'btn btn-lg btn-primary', data: { bs_toggle: 'modal', bs_target: "#post-#{post.id}-modal" }
     .row.mb-3= render post.photos
 

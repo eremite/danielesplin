@@ -1,5 +1,4 @@
 - if starts_at.present?
-  %hr
   %h3 Calendar
   #calendar-accordion.accordion.text-dark
     - (starts_at.year..Time.current.year).to_a.reverse.each do |year|
