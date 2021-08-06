@@ -1,7 +1,7 @@
 - if photo.image.attached? && photo.image.representable?
   %figure.figure.my-3.mx-1.text-center.d-table
     = link_to photo.image, class: 'd-table-row' do
-      = image_tag photo.image.variant(resize_to_limit: [250, 200]), class: 'figure-img img-fluid img-thumbnail'
+      = image_tag photo.image.variant(resize_to_limit: [250, 200]), class: 'figure-img img-thumbnail'
     %figcaption.figure-caption{ style: 'display: table-caption; caption-side: bottom' }
       = link_to [:edit, photo], class: 'text-white text-decoration-none' do
         - if photo.description.to_s.gsub(/\s/, '').blank?

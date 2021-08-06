@@ -1,8 +1,8 @@
 .d-flex.justify-content-between
   %figure
-    %blockquote.blockquote
-      %p= comment.body
-    %figcaption.blockquote-footer.text-light
+    %blockquote.blockquote.fs-6
+      = comment.body
+    %figcaption.blockquote-footer.text-light.fs-6
       = comment.user&.name
       %small #{l(comment.created_at)}
   - if current_user == comment.user

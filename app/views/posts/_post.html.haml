@@ -16,7 +16,8 @@
   - if post.photos.at_asc.present?
     .row.mb-3.text-center
       .col= link_to 'Open Slideshow', '#', class: 'btn btn-lg btn-primary', data: { bs_toggle: 'modal', bs_target: "#post-#{post.id}-modal" }
-    .row.mb-3= render post.photos
+    .d-flex.flex-wrap.align-items-center
+      = render post.photos
 
   = render post.comments.created_at_asc
   = form_with model: post.comments.new do |f|
