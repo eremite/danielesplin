@@ -22,7 +22,7 @@
     - tag_counts = Photo.tag_counts_on(:photo_tags).order(taggings_count: :desc)
     = render partial: 'shared/tag_list', locals: { path: :photos, tag_counts: tag_counts }
 
-.row.g-3
+.d-flex.flex-wrap.align-items-center
   = render @photos
 
 .row

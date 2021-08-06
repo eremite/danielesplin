@@ -15,7 +15,7 @@
           .carousel-inner
             - photos.each_with_index do |photo, i|
               .carousel-item{ class: i.zero? ? 'active' : '' }
-                = image_tag photo.image, class: 'd-block w-100'
+                = image_tag photo.image, class: 'd-block w-100' if photo.image.attached?
           %button.carousel-control-prev{ type: 'button', data: { bs: { target: "##{carousel_id}", slide: 'prev' } } }
             %span.carousel-control-prev-icon{ aria: { hidden: true } }
             %span.visually-hidden Previous

@@ -4,8 +4,6 @@ class Photo < ApplicationRecord
 
   has_one_attached :image
 
-  paginates_per 20
-
   belongs_to :user
   belongs_to :entry, optional: true
   has_many :post_photos
