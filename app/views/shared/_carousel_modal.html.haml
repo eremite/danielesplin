@@ -1,4 +1,4 @@
-.modal.text-dark{ id: modal_id}
+.modal.text-dark{ id: modal_id, tabindex: "-1" }
   .modal-dialog.modal-fullscreen
     .modal-content
       .modal-body
@@ -11,7 +11,8 @@
         .carousel.carousel-dark.slide{ id: carousel_id, data: { bs: { interval: 'false' } } }
           .carousel-inner
             - photos.each_with_index do |photo, i|
-              .carousel-item{ class: i.zero? ? 'active' : '' }
+              - data = { index: i, modal: modal_id, carousel: carousel_id }
+              .carousel-item{ class: i.zero? && 'active', data: { "carousel-item-photo-#{photo.id}": data } }
                 = image_tag photo.image, class: 'd-block m-auto', style: 'height: 90vh' if photo.image.attached?
           %button.carousel-control-prev{ type: 'button', data: { bs: { target: "##{carousel_id}", slide: 'prev' } } }
             %span.carousel-control-prev-icon{ aria: { hidden: true } }
@@ -24,6 +25,6 @@
   document.getElementById('#{carousel_id}').addEventListener('slide.bs.carousel', function (event) {
     Array.from(document.querySelectorAll('.carousel-captions')).forEach(function(captionElement) {
       captionElement.classList.remove('show');
-    });
+    })
     document.getElementById('#{carousel_id}-caption-' + event.to).classList.add('show')
   })

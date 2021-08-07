@@ -1,6 +1,6 @@
 - if photo.image.attached? && photo.image.representable?
   %figure.figure.my-3.mx-1.text-center.d-table
-    = link_to photo.image, class: 'd-table-row' do
+    = link_to "javascript:openPhoto#{photo.id}()", class: 'd-table-row' do
       = image_tag photo.image.variant(resize_to_limit: [250, 200]), class: 'figure-img img-thumbnail'
     %figcaption.figure-caption{ style: 'display: table-caption; caption-side: bottom' }
       = link_to [:edit, photo], class: 'text-white text-decoration-none' do
@@ -8,3 +8,14 @@
           %em Insert caption here
         - else
           = photo.description.to_s.html_safe
+
+  :javascript
+    function openPhoto#{photo.id} () {
+      var item = document.querySelector("[data-carousel-item-photo-#{photo.id}-index]")
+      var index = item.dataset["carouselItemPhoto-#{photo.id}Index"]
+      var carouselId = item.dataset["carouselItemPhoto-#{photo.id}Carousel"]
+      var modalId = item.dataset["carouselItemPhoto-#{photo.id}Modal"]
+      bootstrap.Carousel.getOrCreateInstance(document.getElementById(carouselId)).to(index)
+      bootstrap.Modal.getOrCreateInstance(document.getElementById(modalId)).show()
+      document.getElementById(carouselId).focus()
+    }

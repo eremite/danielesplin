@@ -11,11 +11,8 @@
         = f.submit "Save", class: "btn btn-primary"
 
   - if @photos.present?
-    %hr
-    .d-grid
-      = render partial: "/shared/carousel_modal",
-        locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
-      = link_to 'Slideshow of this Page', '#', class: 'btn btn-success', data: { bs_toggle: 'modal', bs_target: "#photos-modal" }
+    = render partial: "/shared/carousel_modal",
+      locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
 
   - if Photo.photo_tag_counts.present?
     %hr
