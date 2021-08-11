@@ -23,17 +23,6 @@ class Photo < ApplicationRecord
     includes(:post_photos).where( :post_photos => { :photo_id => nil } )
   end
 
-
-  def to_jq_upload
-    {
-      'name' => image.filename || "Photo#{id}",
-      'size' => image.size,
-      'image_url' => image.url,
-      'photo_url' => "/photos/#{id}",
-    }
-  end
-
-
   private
 
   def handle_hidden
