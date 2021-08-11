@@ -17,10 +17,10 @@
     .d-flex.flex-wrap.align-items-center
       = render post.photos
 
-  = render post.comments.created_at_asc
-  = form_with model: post.comments.new do |f|
+  .toast-container.mb-3= render post.comments.created_at_asc
+  = form_with model: post.comments.new, html: { style: 'width: 350px' } do |f|
     .mb-3
-      = f.text_area :body, rows: 2, placeholder: 'Share your thoughts!', class: 'form-control'
+      = f.text_area :body, rows: 4, placeholder: 'Share your thoughts!', class: 'form-control'
     .mb-3
       = f.hidden_field :post_id
       = f.submit "Comment", class: 'btn btn-primary'

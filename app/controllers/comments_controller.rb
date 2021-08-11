@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(safe_params)
     if @comment.save
-      redirect_to :visible_posts, notice: 'Comment saved.'
+      redirect_to :posts, notice: 'Comment saved.'
     else
       render :new
     end
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     if @comment.update(safe_params)
-      redirect_to :visible_posts, notice: 'Comment updated.'
+      redirect_to :posts, notice: 'Comment updated.'
     else
       render :edit
     end
@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to :visible_posts, notice: 'Comment deleted.'
+    redirect_to :posts, notice: 'Comment deleted.'
   end
 
   private

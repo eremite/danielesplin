@@ -13,3 +13,10 @@
 //= require activestorage
 //= require rails-ujs
 //= require_self
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  var toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl, { autohide: false }).show()
+  })
+})
