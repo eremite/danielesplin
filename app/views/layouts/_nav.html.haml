@@ -1,50 +1,39 @@
-.navbar-header
-  %button.navbar-toggle.collapsed{ data: { toggle: 'collapse', target: '#navbar' } }
-    %span.sr-only Toggle Navigation
-    %span.icon-bar
-    %span.icon-bar
-    %span.icon-bar
-  = link_to 'Daniel & Erika', :root, class: 'navbar-brand'
-
-.collapse.navbar-collapse#navbar
-  %ul.nav.navbar-nav
-    - if current_user.parent?
-      %li{class: controller.controller_name == 'posts' && 'active'}
-        = link_to :posts do
-          %i.fa.fa-picture-o
-          Blog
-      %li{class: controller.controller_name == 'entries' && 'active'}
-        = link_to entries_path do
-          %i.fa.fa-book
-          Journal
-      %li{class: controller.controller_name == 'photos' && 'active'}
-        = link_to photos_path do
-          %i.fa.fa-camera
-          Photos
-      - if current_user.father?
-        %li{class: controller.controller_name == 'notes' && 'active'}
-          = link_to :notes do
-            %i.fa.fa-file-text-o
-            Notes
-      %li.dropdown
-        = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-          %i.fa.fa-list
-          Misc
-          %b.caret
-        %ul.dropdown-menu
-          %li= link_to 'Users', users_path
-          %li= link_to 'Files', saved_files_path
-          %li= link_to 'Offline', '/offline'
-          %li= link_to 'Household Inventory', :inventory_items
-          %li= link_to 'Decider Lists', :decider_lists
-
-  %ul.nav.navbar-nav.navbar-right
-    %li.dropdown
-      = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-        %i.fa.fa-user
-        = current_user.name
-        %b.caret
-      %ul.dropdown-menu
-        %li= link_to 'Edit Profile', [:edit, current_user]
-        %li.divider
-        %li= link_to 'Log Out', logout_path, method: :delete
+%nav.navbar.navbar-expand-lg.navbar-dark
+  .container-fluid
+    = link_to 'Daniel & Erika', :root, class: 'navbar-brand'
+    %button.navbar-toggler{ type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#navbarSupportedContent", "aria-controls": "navbarSupportedContent", "aria-expanded": "false", "aria-label": "Toggle navigation" }
+      %span.navbar-toggler-icon
+    .collapse.navbar-collapse#navbarSupportedContent
+      %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+        - if current_user.parent?
+          %li.nav-item
+            = link_to :posts, class: "nav-link #{"active" if controller.controller_name == "posts" }" do
+              %i.bi-card-image
+              Blog
+          %li.nav-item
+            = link_to :entries, class: "nav-link #{"active" if controller.controller_name == "entries" }" do
+              %i.bi-book-half
+              Journal
+          %li.nav-item
+            = link_to :photos, class: "nav-link #{"active" if controller.controller_name == "photos" }" do
+              %i.bi-camera-fill
+              Photos
+          - if current_user.father?
+            %li.nav-item
+              = link_to :notes, class: "nav-link #{"active" if controller.controller_name == "notes" }" do
+                Notes
+          %li.nav-item.dropdown
+            = link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdown", role: "button", data: { "bs-toggle": "dropdown" }, "aria-expanded": false do
+              Misc
+            %ul.dropdown-menu{ "aria-labelledby": "navbarDropdown" }
+              %li= link_to 'Users', :users, class: "dropdown-item"
+              %li= link_to 'Files', :saved_files, class: "dropdown-item"
+              %li= link_to 'Household Inventory', :inventory_items, class: "dropdown-item"
+              %li= link_to 'Decider Lists', :decider_lists, class: "dropdown-item"
+        %li.nav-item.dropdown
+          = link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdownUser", role: "button", data: { "bs-toggle": "dropdown" }, "aria-expanded": false do
+            = current_user.name
+          %ul.dropdown-menu{ "aria-labelledby": "navbarDropdownUser" }
+            %li= link_to "Edit Profile", [:edit, current_user], class: "dropdown-item"
+            %li.divider
+            %li= link_to "Log Out", :logout, method: :delete, class: "dropdown-item"

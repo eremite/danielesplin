@@ -2,14 +2,23 @@
 
 - content_for :sidebar do
 
-  - if @saved_file_category
-    = link_to saved_files_path, class: 'btn btn-success btn-block' do
-      All Categories
-  = link_to new_saved_file_path, class: 'btn btn-success btn-block' do
-    %i.fa.fa-inverse.fa-plus
-    Upload Files
-  = link_to saved_file_categories_path, class: 'btn btn-success btn-block' do
-    Manage Categories
+  .d-grid.gap-2
+    - if @saved_file_category
+      = link_to saved_files_path, class: 'btn btn-success' do
+        All Categories
+    = link_to new_saved_file_path, class: 'btn btn-success' do
+      %i.bi-plus-lg
+      Upload Files
+    = link_to saved_file_categories_path, class: 'btn btn-success' do
+      Manage Categories
+
+  %hr
+  = form_with model: SavedFileCategory.new do |f|
+    .mb-3
+      = f.label :name, class: 'form-label visually-hidden'
+      = f.text_field :name, class: 'form-control'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Add Category', class: 'btn btn-primary'
 
 - if params[:category_id]
 

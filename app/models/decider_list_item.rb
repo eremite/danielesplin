@@ -14,54 +14,49 @@ class DeciderListItem < ApplicationRecord
 
   def icon_list
     %w[
-      bell-o
-      anchor
-      smile-o
-      bed
+      alarm
+      award
+      bag-check
+      bank
+      basket
+      bell
       bicycle
-      birthday-cake
-      bolt
-      book
-      bus
-      car
-      check-square-o
-      child
-      cut
-      cutlery
-      diamond
-      eye
-      fighter-jet
-      fire
+      box
+      briefcase
+      brush
+      bug
+      camera
+      cloud-drizzle
+      cloud-lightning-rain
+      cloud-sun
+      droplet-half
+      egg
+      emoji-heart-eyes
+      emoji-laughing
+      emoji-smile
+      emoji-sunglasses
+      emoji-wink
       flag
-      flask
-      gift
-      graduation-cap
-      heart-o
-      home
+      flower1
+      flower2
+      flower3
+      heart
+      house-door
       key
-      leaf
-      lightbulb-o
-      linux
-      medkit
-      moon-o
-      music
-      paper-plane
-      paperclip
+      life-preserver
+      lightning
+      mask
+      moon-stars
+      music-note
+      music-note-beamed
+      palette
+      pen
       pencil
-      plane
-      recycle
-      rocket
-      scissors
-      ship
-      space-shuttle
-      spinner
-      star
-      star-o
-      tree
-      truck
-      twitter
-      umbrella
-      wrench
+      piggy-bank
+      snow
+      snow2
+      snow3
+      sun
     ]
   end
 

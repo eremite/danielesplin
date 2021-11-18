@@ -2,79 +2,52 @@
 
 - content_for :sidebar do
 
-  = link_to [:new, :note], class: 'btn btn-success btn-block' do
-    %i.fa.fa-inverse.fa-plus
-    New Note
-  = link_to [:notes, { finished: 'Finished' }], class: 'btn btn-warning btn-block' do
-    %i.fa.fa-file-text-o
-    Finished Notes
+  .d-grid.gap-2
+    = link_to [:new, :note], class: 'btn btn-success' do
+      %i.bi-plus-lg
+      New Note
+    = link_to [:notes, { finished: 'Finished' }], class: 'btn btn-warning' do
+      %i.bi-file-earmark-fill
+      Finished Notes
 
   %hr
 
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title Search
-    .panel-body
-      = form_tag nil, method: :get, role: 'form' do
-        .form-group
-          = label_tag :user
-          = select nil, :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, { selected: params[:user_id] || current_user.id.to_s }, { class: 'form-control' }
-        .form-group
-          = label_tag :kind
-          = select_tag :kind, options_for_select([nil] + Note.pluck(:kind).uniq.compact, params[:kind]), { class: 'form-control' }
-        .form-group
-          = label_tag :term
-          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
-        .form-group
-          = label_tag :finished
-          = select_tag :finished, options_for_select(%w(Unfinished Finished Either), params[:finished]), { class: 'form-control' }
-        .checkbox
-          %label
-            = check_box_tag :random, '1', params[:random]
-            Random
-        = submit_tag 'Search', class: 'btn btn-primary btn-block'
-
-  %hr
+  %h3 Search
+  = form_with url: :notes, method: :get, role: 'form' do |f|
+    .mb-3
+      = f.label :user_id, class: 'form-input'
+      = f.select :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, { selected: params[:user_id] || current_user.id.to_s }, class: 'form-select'
+    .mb-3
+      = f.label :kind, class: 'form-input'
+      = f.select :kind, [nil] + Note.pluck(:kind).uniq.compact, { selected: params[:kind] }, class: 'form-select'
+    .mb-3
+      = f.label :term, class: 'form-input'
+      = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
+    .mb-3
+      = f.label :finished, class: 'form-input'
+      = f.select :finished, %w(Unfinished Finished Either), { selected: params[:finished] }, { class: 'form-select' }
+    .form-check
+      = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
+      = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Search', class: 'btn btn-primary'
 
   - if Note.note_tag_counts.present?
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title Tags
-      .panel-body
-        - tag_cloud(Note.tag_counts_on(:note_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
-          = link_to tag.name, notes_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
+    %hr
+    - tag_counts = Note.tag_counts_on(:note_tags).order(taggings_count: :desc)
+    = render partial: 'shared/tag_list', locals: { path: :notes, tag_counts: tag_counts }
 
 - if @notes.empty?
-  .jumbotron
+  .alert.alert-warning
     %h2 No results found
     %p Maybe search for something else?
-    %p
-      Or
-      = link_to 'try the blog!', :posts
 - else
   - @notes.each do |note|
-    .well
-      .row
-        .col-md-12
-          .pull-right
-            - if note.finished_at.present?
-              = link_to [note, { note: { finished_at: nil } }], method: :patch, class: 'btn btn-default btn-xs' do
-                Unfinish
-            - else
-              = link_to [note, { note: { finished_at: Time.zone.now } }], method: :patch, class: 'btn btn-default btn-xs' do
-                Finish
-            .btn-group
-              = link_to [:edit, note], class: 'btn btn-default btn-xs' do
-                %i.fa.fa-edit
-                Edit
-              = link_to note, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this note?' } do
-                %i.fa.fa-trash-o
-                Delete
-          %strong
-            = link_to note, style: 'color: inherit' do
-              #{note.kind}: #{note.title}
-          - note.note_tag_list.each do |tag_name|
-            %span.label.label-default{ style: 'margin-left: 0.5em' }
-              = link_to tag_name, [:notes, { tag: tag_name }], style: 'color: inherit'
+    .mb-3
+      %strong
+        = link_to note, class: 'text-reset' do
+          #{note.kind}: #{note.title}
+      - note.note_tag_list.each do |tag_name|
+        = link_to tag_name, [:notes, { tag: tag_name }], class: 'text-reset badge bg-secondary ms-2'
 
   = paginate @notes

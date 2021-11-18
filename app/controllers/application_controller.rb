@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def deny_access
-    redirect_to :login, alert: 'Permission denied!'
+    redirect_to :root, alert: 'Permission denied!'
   end
 
   def authorized?

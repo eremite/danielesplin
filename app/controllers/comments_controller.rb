@@ -2,14 +2,10 @@ class CommentsController < ApplicationController
 
   before_action :verify_authorized
 
-  def index
-    @comments = Comment.created_at_desc.page(params[:page])
-  end
-
   def create
     @comment = current_user.comments.new(safe_params)
     if @comment.save
-      redirect_to :visible_posts, notice: 'Comment saved.'
+      redirect_to :posts, notice: 'Comment saved.'
     else
       render :new
     end
@@ -22,8 +18,8 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update_attributes(safe_params)
-      redirect_to :visible_posts, notice: 'Comment updated.'
+    if @comment.update(safe_params)
+      redirect_to :posts, notice: 'Comment updated.'
     else
       render :edit
     end
@@ -32,7 +28,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to :visible_posts, notice: 'Comment deleted.'
+    redirect_to :posts, notice: 'Comment deleted.'
   end
 
   private

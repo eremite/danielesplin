@@ -1,12 +1,7 @@
 class EntriesController < ApplicationController
 
   def index
-    begin
-      @ends_on = Date.strptime(params[:ends_on].to_s, '%m/%d/%Y')
-    rescue ArgumentError, TypeError
-      flash[:error] = 'Invalid date' if params[:ends_on].present?
-      @ends_on = Time.zone.now.to_date
-    end
+    @ends_on = Date.parse(params[:ends_on] || Date.current.to_s)
     @entry_user = User.where(id: params[:user_id]).first
     if current_user.grandparent?
       @entry_user ||= User.where(role: 'baby').first
@@ -26,7 +21,7 @@ class EntriesController < ApplicationController
     if params[:tag].present?
       @entries = @entries.tagged_with(params[:tag], on: :entry_tags)
     end
-    if params[:random]
+    if params[:random].to_i.nonzero?
       @entries = @entries.where(id: @entries.sample.try(:id))
     end
     @entries = @entries.page(params[:page])
@@ -47,18 +42,13 @@ class EntriesController < ApplicationController
     end
   end
 
-  # TODO test
-  def show
-    @entry = Entry.find(params[:id])
-  end
-
   def edit
     @entry = Entry.find(params[:id])
   end
 
   def update
     @entry = Entry.find(params[:id])
-    if @entry.update_attributes(safe_params)
+    if @entry.update(safe_params)
       params.delete(:redirect_to) if params[:redirect_to] == root_url
       redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
     else

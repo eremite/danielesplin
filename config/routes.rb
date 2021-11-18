@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
 
   resources :comments
-  resources :decider_lists, only: %i[index show], shallow: true do
+  resources :decider_lists, shallow: true do
     resources :decider_list_items, only: %i[new create destroy]
   end
   resources :entries
@@ -26,11 +26,9 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :visible_posts, only: :index
-  get '/posts.rss', to: 'visible_posts#index'
-  get '/blog_posts', to: redirect('/posts')
-  get '/blog_posts.rss', to: redirect('/posts.rss')
 
-  resources :photos, except: %i(new)
+  resources :photos, except: %i[new create show]
+  resources :photo_batches, only: :create
 
   get 'pick', to: 'decider_list_picker#index'
   get 'pick/:id', to: 'decider_list_picker#new'

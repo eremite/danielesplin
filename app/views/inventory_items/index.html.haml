@@ -2,9 +2,10 @@
 
 - content_for :sidebar do
 
-  = link_to [:new, :inventory_item], class: 'btn btn-success btn-block' do
-    %i.fa.fa-plus.fa-inverse
-    New Item
+  .d-grid.gap-2
+    = link_to [:new, :inventory_item], class: 'btn btn-success' do
+      %i.bi-plus-lg
+      New Item
 
   %hr
 
@@ -21,26 +22,20 @@
         %td= number_to_currency InventoryItem.sum(:value).to_f / 100
 
   - if InventoryItem.inventory_item_tag_counts.present?
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title Tags
-      .panel-body
-        .list-group{ style: 'margin-top: 0.5em' }
-          - InventoryItem.tag_counts_on(:inventory_item_tags).order(:name).each do |tag|
-            = link_to tag.name, inventory_items_path(tag: tag.name), class: 'list-group-item'
+    %hr
+    - tag_counts = InventoryItem.tag_counts_on(:inventory_item_tags).order(taggings_count: :desc)
+    = render partial: 'shared/tag_list', locals: { path: :inventory_items, tag_counts: tag_counts }
 
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title Search
-    .panel-body
-      = form_tag nil, method: :get, role: 'form' do
-        .form-group
-          = label_tag :ends_on, 'Date'
-          = date_field_tag :ends_on, l(@ends_on, format: :db), class: 'form-control'
-        .form-group
-          = label_tag :term
-          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
-        = submit_tag 'Search', class: 'btn btn-primary btn-block'
+  %h3 Search
+  = form_with url: :inventory_items, method: :get do |f|
+    .mb-3
+      = f.label :ends_on, 'Date'
+      = f.date_field :ends_on, value: @ends_on, class: 'form-control'
+    .mb-3
+      = f.label :term
+      = f.text_field :term, value: params[:term], class: 'form-control'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Search', class: 'btn btn-primary'
 
 %table.table.table-striped
   %thead
@@ -60,6 +55,6 @@
         %td
           - inventory_item.inventory_item_tag_list.each do |tag_name|
             %span.label.label-default{ style: 'margin-left: 0.5em' }
-              = link_to tag_name, inventory_items_path(tag: tag_name), style: 'color: inherit'
+              = link_to tag_name, inventory_items_path(tag: tag_name), class: 'text-reset'
 
 = paginate @inventory_items

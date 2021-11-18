@@ -1,13 +1,10 @@
-.list-group-item.clearfix
-  .btn-group.pull-right{ style: 'margin-left: 0.5em' }
-    = link_to [:edit, comment], class: 'btn btn-default btn-xs', title: 'Edit' do
-      %i.fa.fa-edit
-    = link_to comment, class: 'btn btn-default btn-xs', title: 'Delete', method: :delete, data: { confirm: 'Are you sure you want to delete this comment?' } do
-      %i.fa.fa-trash-o
-  = comment.body
-  .pull-right.text-muted
-    &mdash;
-    = comment.user.try(:name)
-    %small
-      at
-      =l comment.created_at
+.toast
+  .toast-header
+    %strong.me-auto= comment.user&.name
+    %small= l(comment.created_at)
+  .toast-body.text-dark
+    = comment.body
+    - if current_user == comment.user
+      .mt-2.pt-2.border-top
+        = link_to 'Edit', [:edit, comment], class: 'btn btn-sm btn-outline-info'
+        = link_to 'Delete', comment, method: :delete, class: 'btn btn-sm btn-outline-danger'

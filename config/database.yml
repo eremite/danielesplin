@@ -1,6 +1,8 @@
 development: &default
   adapter: mysql2
+  collation: utf8mb4_unicode_ci
   database: <%= ENV['DB_NAME'] %>
+  encoding: utf8mb4
   host: <%= ENV['DB_HOST'] %>
   password: <%= "'#{ENV['DB_PASSWORD']}'" %>
   username: <%= ENV['DB_USERNAME'] %>

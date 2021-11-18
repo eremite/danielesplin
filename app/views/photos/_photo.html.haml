@@ -1,13 +1,21 @@
-- if photo.image?
-  - classes = []
-  - classes << 'unblogged' if photo.posts.count.zero?
-  - classes << (local_assigns[:center].present? ? 'center-block' : 'pull-left')
-  .photo
-    .btn-hover.thumbnail{ class: classes }
-      = link_to [:edit, photo], class: 'btn btn-success btn-small visible-xs-block', title: 'Edit Photo' do
-        %i.fa.fa-edit
-      = link_to [:edit, photo], class: 'btn btn-success btn-small hidden-xs', title: 'Edit Photo' do
-        %i.fa.fa-edit
-      - group = 'group' if local_assigns[:group].nil?
-      = link_to photo.image.url, class: 'fancybox', rel: group, title: photo.description do
-        = image_tag photo.image.url, class: 'img-rounded img-responsive', alt: photo.description.to_s
+- if photo.image.attached? && photo.image.representable?
+  %figure.figure.my-3.mx-1.text-center.d-table
+    = link_to "javascript:openPhoto#{photo.id}()", class: 'd-table-row' do
+      = image_tag photo.image.variant(resize_to_limit: [250, 200]), class: 'figure-img img-thumbnail'
+    %figcaption.figure-caption{ style: 'display: table-caption; caption-side: bottom' }
+      = link_to [:edit, photo], class: 'text-white text-decoration-none' do
+        - if photo.description.to_s.gsub(/\s/, '').blank?
+          %em Insert caption here
+        - else
+          = photo.description.to_s.html_safe
+
+  :javascript
+    function openPhoto#{photo.id} () {
+      var item = document.querySelector("[data-carousel-item-photo-#{photo.id}-index]")
+      var index = item.dataset["carouselItemPhoto-#{photo.id}Index"]
+      var carouselId = item.dataset["carouselItemPhoto-#{photo.id}Carousel"]
+      var modalId = item.dataset["carouselItemPhoto-#{photo.id}Modal"]
+      bootstrap.Carousel.getOrCreateInstance(document.getElementById(carouselId)).to(index)
+      bootstrap.Modal.getOrCreateInstance(document.getElementById(modalId)).show()
+      document.getElementById(carouselId).focus()
+    }

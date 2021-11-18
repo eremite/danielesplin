@@ -11,8 +11,7 @@ class SessionsControllerTest < ActionController::TestCase
     User.stub_any_instance :authenticate, nil do
       post :create
     end
-    assert_response :success
-    assert_nil session['user_id']
+    assert_redirected_to :pages
   end
 
   test 'create valid' do
@@ -22,7 +21,7 @@ class SessionsControllerTest < ActionController::TestCase
         post :create, params: { email: u.email }
       end
     end
-    assert_redirected_to :public_posts
+    assert_redirected_to :visible_posts
     assert_equal u.id, session['user_id']
   end
 

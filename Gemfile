@@ -1,23 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.7.2'
+gem 'rails', '6.1.4'
 
 gem 'acts-as-taggable-on'
-gem 'aws-ses'
+gem 'aws-sdk-s3'
 gem 'bcrypt'
-gem 'carrierwave'
-gem 'daemons'
+gem 'bootsnap'
 gem 'exifr'
-gem 'fog'
-gem 'haml-rails'
-gem 'jquery-fileupload-rails'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'haml'
+gem 'image_processing'
 gem 'kaminari'
-gem 'mini_magick'
 gem 'mysql2'
-gem 'redcarpet'
-gem 'sass-rails'
 gem 'uglifier'
 
 group :production do
@@ -26,6 +19,7 @@ end
 
 group :development, :test do
   gem 'byebug'
+  gem 'listen'
 end
 
 group :test do

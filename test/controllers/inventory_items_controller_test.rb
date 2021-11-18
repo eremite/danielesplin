@@ -38,14 +38,14 @@ class InventoryItemsControllerTest < ActionController::TestCase
   end
 
   test 'update invalid' do
-    InventoryItem.stub_any_instance :update_attributes, false do
+    InventoryItem.stub_any_instance :update, false do
       put :update, params: { id: @inventory_item.id, inventory_item: valid_attributes }
     end
     assert_response :success
   end
 
   test 'update valid' do
-    InventoryItem.stub_any_instance :update_attributes, true do
+    InventoryItem.stub_any_instance :update, true do
       put :update, params: { id: @inventory_item.id, inventory_item: valid_attributes }
     end
     assert_redirected_to :inventory_items

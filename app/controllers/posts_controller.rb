@@ -3,12 +3,7 @@ class PostsController < ApplicationController
   def index
     current_user.try(:log, 'blog')
     current_user.try(:touch, :viewed_blog_at)
-    begin
-      @ends_on = Date.strptime(params[:ends_on].to_s, '%m/%d/%Y')
-    rescue ArgumentError, TypeError
-      flash[:error] = 'Invalid date' if params[:ends_on].present?
-      @ends_on = Time.zone.now.to_date
-    end
+    @ends_on = Date.parse(params[:ends_on] || Date.current.to_s)
     @past_posts = Post.at_desc.past.page(params[:page])
     @past_posts = @past_posts.before(@ends_on.end_of_day) if params[:ends_on].present?
     if params[:term].present?
@@ -34,17 +29,13 @@ class PostsController < ApplicationController
     end
   end
 
-  def show
-    @post = Post.find(params[:id])
-  end
-
   def edit
     @post = Post.find(params[:id])
   end
 
   def update
     @post = Post.find(params[:id])
-    if @post.update_attributes(safe_params)
+    if @post.update(safe_params)
       redirect_to :posts, notice: 'Post saved.'
     else
       render :edit
@@ -64,6 +55,7 @@ class PostsController < ApplicationController
   end
 
   def authorized?
+    return true if current_user.present? && action_name == "index"
     current_user&.parent?
   end
 

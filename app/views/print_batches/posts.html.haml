@@ -1,13 +1,12 @@
-%h1
-  Blog
-  = params[:year]
+%h1 Blog #{params[:year]}
 
 - @posts.each do |post|
-  %h3{ style: 'float: right; font-size: smaller' }= l post.at
-  :markdown
-    #{post.body}
-  - post.photos.at_asc.each do |photo|
-    - if photo.image.present?
-      %figure{ style: 'float: left; margin: 0 0.25em' }
-        = image_tag photo.image.url, width: '400px'
-  %br{ :style => 'clear: both' }
+  %div{ style: 'display: flex; flex-wrap: wrap' }
+    %div{ style: 'width: 600px; margin: 10px' }
+      %h5{ style: 'float: right' }= l(post.at.to_date, format: :long)
+      = post.body.html_safe
+    - post.photos.at_asc.each do |photo|
+      - if photo.image.representable?
+        %div{ style: 'margin: 10px' }
+          = image_tag photo.image.variant(resize_to_limit: [400, 300])
+          = photo.description.to_s.html_safe

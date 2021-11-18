@@ -2,4 +2,5 @@
 
 base:
   user: admin
+  saved_file_category: base
   description: File

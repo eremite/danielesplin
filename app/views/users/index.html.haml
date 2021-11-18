@@ -1,11 +1,12 @@
 - title 'Users Report'
 
 - content_for :sidebar do
-  = link_to [:new, :user], class: 'btn btn-success btn-block' do
-    %i.fa.fa-inverse.fa-plus
-    New User
+  .d-grid.gap-2
+    = link_to [:new, :user], class: 'btn btn-success' do
+      %i.bi-plus-lg
+      New User
 
-%table.table
+%table.table.text-light
   %thead
     %tr
       %th Name

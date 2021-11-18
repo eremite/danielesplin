@@ -1,0 +1,15 @@
+- if starts_at.present?
+  %h3 Calendar
+  #calendar-accordion.accordion.text-dark
+    - (starts_at.year..Time.current.year).to_a.reverse.each do |year|
+      - is_first = year == Time.current.year
+      .accordion-item
+        %h2.accordion-header
+          %button.accordion-button{ type: 'button', class: is_first ? '' : 'collapsed', data: { bs: { toggle: 'collapse', target: "#accordion-content-#{year}" } } }
+            = year
+        .accordion-collapse.collapse{ id: "accordion-content-#{year}", class: is_first ? 'show' : '', data: { bs: { parent: '#calendar-accordion' } } }
+          .list-group.list-group-flush
+            - (1..12).to_a.reverse.each do |i|
+              - ends_at = Time.current.change(month: i, year: year).end_of_month
+              - next if ends_at > Time.current.end_of_month
+              = link_to ends_at.strftime('%B %Y'), [resource, ends_on: ends_at.to_date], class: 'list-group-item list-group-item-action'

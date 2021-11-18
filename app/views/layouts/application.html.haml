@@ -10,36 +10,30 @@
     %meta{ 'http-equiv' => 'Content-Type', content: 'text/html; charset=utf-8' }
     %link{ rel: 'alternate', title: 'Daniel & Erika Esplin', href: posts_url(format: 'rss'), type: 'application/rss+xml' }
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
-    - versions = { bootstrap: '3.3.5', font_awesome: '4.3.0' }
-    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/css/bootstrap.min.css"
-    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/css/bootstrap-theme.min.css"
-    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/#{versions[:font_awesome]}/css/font-awesome.min.css"
-    = stylesheet_link_tag :application
+    = javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity: "sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    = javascript_include_tag "https://cdn.jsdelivr.net/npm/trix@1.3.1/dist/trix.js"
     = javascript_include_tag :application
-    = javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/#{versions[:bootstrap]}/js/bootstrap.min.js"
+    = stylesheet_link_tag :application
     = csrf_meta_tag
     = yield :head if content_for? :head
 
-  %body{ id: "#{controller.controller_name.dasherize}-controller" }
+  %body.bg-dark.text-light{ id: "#{controller.controller_name.dasherize}-controller" }
+    .container
+      - if current_user.present? && controller.controller_name != 'decider_list_picker'
+        %header= render 'layouts/nav'
 
-    - if current_user.present? && controller.controller_name != 'decider_list_picker'
-      %header
-        .navbar.navbar-default{ role: 'navigation' }
-          .container
-            = render 'layouts/nav'
-
-    %section.container
-      .row
+      %section.mb-3
         = render 'layouts/flash_hash'
-        - if content_for? :sidebar
-          .col-md-3.col-md-push-9
-            = yield :sidebar
-          .col-md-9.col-md-pull-3
-            = yield
-        - else
-          = yield
+        .row
+          - if content_for? :sidebar
+            .col-md-3.order-md-last
+              = yield :sidebar
+            .col-md-9.order-md-first
+              = yield
+          - else
+            .col= yield
 
-    %footer.container
-      %p.text-center.text-muted
-        &copy; #{Time.zone.now.year}
-        = link_to 'Nutritional Bites LLC', 'http://www.nutritionalbites.org'
+      %footer
+        %p.text-center.text-muted
+          &copy; #{Time.zone.now.year}
+          = link_to 'Nutritional Bites LLC', 'http://www.nutritionalbites.org'

@@ -1,0 +1,5 @@
+.list-group{ style: 'font-size: small' }
+  - tag_counts.each do |tag_count|
+    = link_to [path, { tag: tag_count.name }], class: "list-group-item list-group-item-action py-1" do
+      .badge.bg-secondary.rounded-pill.float-end #{tag_count.taggings_count}
+      = tag_count.name

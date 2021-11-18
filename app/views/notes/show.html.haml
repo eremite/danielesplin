@@ -1,20 +1,21 @@
 - title @note.title
 
 - content_for :sidebar do
-  = link_to [:edit, @note], class: 'btn btn-info btn-block' do
-    %i.fa.fa-edit.fa-inverse
-      Edit
-  - if @note.finished_at.present?
-    = link_to [@note, { note: { finished_at: nil } }], method: :patch, class: 'btn btn-warning btn-block' do
-      %i.fa.fa-check.fa-inverse
-      Unfinish
-  - else
-    = link_to [@note, { note: { finished_at: Time.zone.now } }], method: :patch, class: 'btn btn-warning btn-block' do
-      %i.fa.fa-check.fa-inverse
-      Finish
-  = link_to @note, class: 'btn btn-danger btn-block', method: :delete, data: { confirm: 'Are you sure you want to delete this note?' } do
-    %i.fa.fa-trash-o.fa-inverse
-    Delete
+  .d-grid.gap-2
+    = link_to [:edit, @note], class: 'btn btn-info' do
+      %i.bi-pencil-fill
+        Edit
+    - if @note.finished_at.present?
+      = link_to [@note, { note: { finished_at: nil } }], method: :patch, class: 'btn btn-warning' do
+        %i.bi-check-lg
+        Unfinish
+    - else
+      = link_to [@note, { note: { finished_at: Time.zone.now } }], method: :patch, class: 'btn btn-warning' do
+        %i.bi-check-lg
+        Finish
+    = link_to @note, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure you want to delete this note?' } do
+      %i.bi-trash-fill
+      Delete
 
   - if @note.note_tags.present?
     .panel.panel-default
@@ -27,7 +28,5 @@
 
 .row
   .col-md-12
-    %h2.h2
-      = @note.title
-    :markdown
-      #{@note.body}
+    %h2.h2= @note.title
+    = @note.body.html_safe

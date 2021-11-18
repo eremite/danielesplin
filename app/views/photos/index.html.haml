@@ -3,28 +3,24 @@
 - content_for :sidebar do
 
   .row
-    = form_for Photo.new, html: { multipart: true  } do |f|
-      .col-md-12.fileupload-buttonbar
-        %span.btn.btn-block.btn-success.fileinput-button
-          %i.fa.fa-plus.fa-inverse
-          %span Upload #{Photo.model_name.human.pluralize}
-          = f.file_field :image, multiple: true
-      .files
-  = render 'jquery_file_upload_templates'
+    %h3.mb-3 Upload Photos
+    = form_with model: PhotoBatch.new, html: { multipart: true  } do |f|
+      .mb-3
+        = f.file_field :images, multiple: true, class: "form-control"
+      .mb-3.d-grid
+        = f.submit "Save", class: "btn btn-primary"
 
-  %hr
+  - if @photos.present?
+    = render partial: "/shared/carousel_modal",
+      locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
 
   - if Photo.photo_tag_counts.present?
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title Tags
-      .panel-body
-        - tag_cloud(Photo.tag_counts_on(:photo_tags).order(:name), %w(1 2 3 4)) do |tag, frequency|
-          = link_to tag.name, photos_path(tag: tag.name), style: "font-size: #{frequency.to_i * 0.5}em"
+    %hr
+    - tag_counts = Photo.tag_counts_on(:photo_tags).order(taggings_count: :desc, name: :asc)
+    = render partial: 'shared/tag_list', locals: { path: :photos, tag_counts: tag_counts }
 
-.row
-  .col-md-12.photo-container
-    = render @photos
+.d-flex.flex-wrap.align-items-center
+  = render @photos
 
 .row
   .col-md-12

@@ -1,10 +1,9 @@
 !!! XML
-%rss{:version => '2.0'}
+%rss{ version: '2.0' }
   %channel
     %title Daniel &amp; Erika's blog
     %link= posts_url
-    %description
-      The (private) blog of Daniel and Erika Esplin in St. George, Utah.
+    %description The (private) blog of Daniel and Erika Esplin in St. George, Utah.
     %language en-us
     %pubDate= Time.now.rfc822
 
@@ -15,9 +14,7 @@
           %p= post.title
           %p
             - if post.photos.count > 0
-              Includes #{pluralize(post.photos.count, 'picture')}!
-            - else
-              No pictures. :(
+              Includes #{pluralize(post.photos.count, 'picture')}.
         %link= posts_url
         %guid= post.id
         %pubDate= post.at.rfc822

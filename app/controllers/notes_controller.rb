@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
 
   def index
+    @notes = Note.all
     if params[:user_id].present?
       @notes = @notes.where(user_id: params[:user_id])
     else
@@ -54,7 +55,7 @@ class NotesController < ApplicationController
 
   def update
     @note = Note.find(params[:id])
-    if @note.update_attributes(safe_params)
+    if @note.update(safe_params)
       redirect_to [:edit, @note], notice: 'Note saved.'
     else
       render :edit

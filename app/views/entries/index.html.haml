@@ -2,56 +2,51 @@
 
 - content_for :sidebar do
 
-  = link_to %i[new entry], class: 'btn btn-success btn-block' do
-    %i.fa.fa-inverse.fa-plus
-    New Journal Entry
-  - current_user.users_whose_entries_i_can_edit.each do |user|
-    - next if user.id == current_user.id
-    = link_to entries_path(user_id: user.id), class: 'btn btn-warning btn-block' do
-      %i.fa.fa-inverse.fa-book
+  .d-grid.gap-2
+    = link_to %i[new entry], class: 'btn btn-success' do
+      %i.bi-plus-lg
+      New Journal Entry
+    - current_user.users_whose_entries_i_can_edit.each do |user|
+      - next if user.id == current_user.id
+      = link_to entries_path(user_id: user.id), class: 'btn btn-warning' do
+        %i.bi-book
         #{user.name}'s Journal
-  = link_to :print_batches, class: 'btn btn-info btn-block' do
-    %i.fa.fa-inverse.fa-print
-    Print by Year
+    = link_to :print_batches, class: 'btn btn-info' do
+      %i.bi-printer
+      Print by Year
 
   %hr
+  %h3 Search
+  = form_with url: :entries, method: :get do |f|
+    .mb-3
+      = f.label :ends_on, 'Date'
+      = f.date_field :ends_on, value: @ends_on, class: 'form-control'
+    .mb-3
+      = f.label :age_months, "Age"
+      .input-group
+        = f.text_field :age_months, value: params[:age_months], placeholder: 'Months', class: 'form-control'
+        = f.text_field :age_years, value: params[:age_years], placeholder: 'Years', class: 'form-control'
+    .mb-3
+      = f.label :user
+      = f.select :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
+    .mb-3
+      = f.label :tag
+      = f.select :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
+    .form-check
+      = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
+      = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'
+    .mb-3
+      = f.label :term
+      = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Search', class: 'btn btn-primary'
 
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title Search
-    .panel-body
-      = form_tag nil, method: :get, role: 'form' do
-        .form-group
-          = label_tag :ends_on, 'Date'
-          = text_field_tag :ends_on, l(@ends_on), class: 'datepicker form-control'
-        .form-group
-          %label{ style: 'display: block' } Age
-          .col-md-6
-            = text_field_tag :age_months, params[:age_months], placeholder: 'Months', class: 'form-control'
-          .col-md-6
-            = text_field_tag :age_years, params[:age_years], placeholder: 'Years', class: 'form-control'
-        .form-group
-          = label_tag :user
-          = select nil, :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
-        .form-group
-          = label_tag :tag
-          = select nil, :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
-        .checkbox
-          %label
-            = check_box_tag :random, '1', params[:random]
-            Random
-        .form-group
-          = label_tag :term
-          = text_field_tag :term, params[:term], class: 'form-control', :placeholder => 'Search'
-        = submit_tag 'Search', class: 'btn btn-primary btn-block'
+  = render partial: '/shared/calendar', locals: { starts_at: @entry_user.entries.order(at: :asc).first&.at, resource: :entries }
 
 - if @entries.empty?
-  .jumbotron
+  .alert.alert-warning
     %h2 No results found
     %p Maybe search for something else?
-    %p
-      Or
-      = link_to 'try the blog!', :posts
 - else
   - previous_at = nil
   - @entries.each do |entry|
@@ -59,44 +54,28 @@
       %p.text-center
         = pluralize((previous_at.to_date - entry.at.to_date).to_i, 'day') if previous_at.present?
         - previous_at = entry.at
-    .well
-      .row
-        .col-md-12
-          .pull-right
-            .btn-group
-              = link_to [:edit, entry], class: 'btn btn-default btn-xs' do
-                %i.fa.fa-edit
-                Edit
-              = link_to entry, class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure you want to delete this entry?' } do
-                %i.fa.fa-trash-o
-                Delete
-            - if entry.entry_tags.present?
-              .list-group{ style: 'margin-top: 0.5em' }
-                - entry.entry_tag_list.each do |tag_name|
-                  = link_to tag_name, entries_path(tag: tag_name), class: 'list-group-item list-group-item-success'
-          %h2.h2
-            = link_to entry, style: 'color: inherit' do
-              = l entry.at.to_date, format: :long
-              - if entry.at != entry.at.beginning_of_day
-                %small
-                  at
-                  = l entry.at, format: '%l:%M%p'
-          - if params[:term].present?
-            .row
-              .col-md-12
-                %p
-                  &hellip;
-                  = entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>").html_safe
-                  &hellip;
-          - else
-            .row
-              .col-md-12
-                :markdown
-                  #{entry.body}
-            - photos = Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).at_asc
-            - if photos.present?
-              .row
-                .col-md-12.photo-container
-                  = render photos
+    .d-flex.justify-content-between
+      %div
+        %h2
+          = link_to [:edit, entry], class: 'text-reset' do
+            = l entry.at.to_date, format: :long
+            - if entry.at != entry.at.beginning_of_day
+              %small
+                at
+                = l entry.at, format: '%l:%M%p'
+      %div
+        - if entry.entry_tags.present?
+          - entry.entry_tag_list.each do |tag_name|
+            = link_to tag_name, entries_path(tag: tag_name), class: 'badge bg-info'
+    - if params[:term].present?
+      %p
+        &hellip;
+        = entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>").html_safe
+        &hellip;
+    - else
+      .mb-4
+        = entry.body.html_safe
+        - photos = Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).at_asc
+        .row.g-3.mt-0= render photos if photos.present?
 
   = paginate @entries

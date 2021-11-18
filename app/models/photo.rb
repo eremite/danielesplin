@@ -2,12 +2,10 @@ class Photo < ApplicationRecord
 
   acts_as_taggable_on :photo_tags
 
-  mount_uploader :image, ImageUploader
-
-  paginates_per 20
+  has_one_attached :image
 
   belongs_to :user
-  belongs_to :entry
+  belongs_to :entry, optional: true
   has_many :post_photos
   has_many :posts, through: :post_photos
   has_many :inventory_item_photos
@@ -24,17 +22,6 @@ class Photo < ApplicationRecord
   def self.unblogged
     includes(:post_photos).where( :post_photos => { :photo_id => nil } )
   end
-
-
-  def to_jq_upload
-    {
-      'name' => image.filename || "Photo#{id}",
-      'size' => image.size,
-      'image_url' => image.url,
-      'photo_url' => "/photos/#{id}",
-    }
-  end
-
 
   private
 

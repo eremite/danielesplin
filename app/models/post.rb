@@ -20,7 +20,7 @@ class Post < ApplicationRecord
 
 
   def title
-    body.split(/\r?\n/).first.gsub(/[^\w\s\.\?,!]/, '').squish.first(50)
+    Nokogiri::HTML(body).css('h1').text
   end
 
   def dated_title

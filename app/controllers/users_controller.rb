@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(current_user.guest? ? current_user.id: params[:id])
-    if @user.update_attributes(safe_params)
+    if @user.update(safe_params)
       redirect_to edit_user_url(@user), notice: 'Changes saved.'
     else
       render :edit

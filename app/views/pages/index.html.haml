@@ -1,38 +1,26 @@
-.hidden-xs.hidden-sm
-  %br
-  %br
+- if current_user.nil?
+  %nav.navbar.navbar-dark.navbar-expand
+    .container-fluid
+      %span.right-align-the-login-form
+      = form_with url: :sessions, class: 'd-md-flex' do |f|
+        = f.email_field :email, value: params[:email], class: 'form-control me-2', placeholder: 'Email'
+        = f.password_field :password, class: 'form-control me-2', placeholder: 'Password'
+        .d-none.d-md-block= f.submit 'Log in', class: 'btn btn-success'
+        .d-grid.d-md-none= f.submit 'Log in', class: 'btn btn-success'
 
-.jumbotron.row
+.row.d-flex.align-items-center.min-vh-100
 
-  .col-md-3.col-md-push-9
-    - if current_user&.parent?
-      = link_to 'See the blog!', %i(posts), class: 'btn btn-primary btn-block'
-      = link_to 'Photos: Look and See', %i(photos), class: 'btn btn-warning btn-block'
-      = link_to 'Browse the Journal', %i(entries), class: 'btn btn-info btn-block'
-      = link_to 'Create Journal Entry', %i(new entry), class: 'btn btn-success btn-block'
-    - else
-      = form_tag :sessions do
-        .form-group
-          = label_tag :email, nil, class: 'control-label'
-          = email_field_tag :email, params[:email], class: 'autofocus form-control', placeholder: 'Email'
-        .form-group
-          = label_tag :password, nil, class: 'control-label'
-          = password_field_tag :password, nil, class: 'form-control', placeholder: 'Password'
-        .form-group
-          = submit_tag 'Log in', class: 'btn btn-primary btn-block'
+  .col.rounded-circle.bg-light.text-dark.py-4.d-none.d-md-block{ style: "max-width: 200px" }
+    %h1{ style: "margin-left: 30px; position: relative; font-family: 'Courier New', 'Lucida Console', 'Monaco', monospace; font-size: 40px; line-height: 40px; text-transform: uppercase; height: 6em; font-weight: bold;" }
+      %span{ style: 'position: absolute; top: 0; left: 1.2em; width: 1em; word-wrap: break-word;' } Daniel
+      %span{ style: 'position: absolute; top: 88px; left: 30px; font-size: 100px; line-height: 100px; font-weight: bolder; color: rgba(80, 0, 80, 0.3);' } &amp;
+      %span{ style: 'position: absolute; top: 3em; left: 0;' } Erika
 
-  .col-md-3.col-md-pull-3
-
-    %h1.name-container
-      .daniel Daniel
-      .amp &amp;
-      .erika Erika
-
-  .col-md-6.col-md-pull-3.description
-
-    .hidden-xs.hidden-sm
-      %br
-      %br
-    %p Daniel Esplin is a #{link_to('Ruby on Rails Programmer', 'https://github.com/eremite')}.
-    %p Erika Esplin is a #{link_to('Registered Dietitian', 'http://www.nutritionalbites.org')}.
+  .col.mx-4.fs-5
+    - with_options class: 'link-light' do
+      %p
+        Daniel Esplin is a #{link_to('Ruby on Rails Programmer', 'https://github.com/eremite')}
+        who served an #{link_to 'LDS Mission to Panama', 'https://s3.amazonaws.com/danielesplin/mission/index.html'}
+        and compiled a #{link_to 'history of the Billerica, Massachusetts Ward', 'https://s3.amazonaws.com/danielesplin/eagle/index.htm'}.
+      %p Erika Esplin is a #{link_to('Registered Dietitian', 'http://www.nutritionalbites.org')}.
     %p We live with our daughters in Santa Clara, Utah.
