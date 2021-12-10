@@ -21,7 +21,7 @@
           - if current_user.father?
             %li.nav-item
               = link_to :notes, class: "nav-link #{"active" if controller.controller_name == "notes" }" do
-                Notes
+                Study
           %li.nav-item.dropdown
             = link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdown", role: "button", data: { "bs-toggle": "dropdown" }, "aria-expanded": false do
               Misc
