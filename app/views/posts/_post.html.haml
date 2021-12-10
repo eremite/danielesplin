@@ -1,5 +1,6 @@
-- if post.photos.present?
-  = render partial: "/shared/carousel_modal", locals: { photos: post.photos, modal_id: "post-#{post.id}-modal", carousel_id: "post-#{post.id}-carousel" }
+- photos = post.photos.order(at: :asc)
+- if photos.present?
+  = render partial: "/shared/carousel_modal", locals: { photos: photos, modal_id: "post-#{post.id}-modal", carousel_id: "post-#{post.id}-carousel" }
 
 .mb-4{ class: post.at.future? && 'bg-secondary p-3 rounded' }
   %h5.float-end.text-reset
@@ -13,9 +14,9 @@
 
   .mb-3= post.body.html_safe
 
-  - if post.photos.at_asc.present?
+  - if photos.present?
     .d-flex.flex-wrap.align-items-center
-      = render post.photos
+      = render photos
 
   .toast-container.mb-3= render post.comments.created_at_asc
   = form_with model: post.comments.new, html: { style: 'width: 350px' } do |f|
