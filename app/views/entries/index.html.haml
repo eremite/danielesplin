@@ -75,7 +75,8 @@
     - else
       .mb-4
         = entry.body.html_safe
-        - photos = Photo.where(at: entry.at.beginning_of_day..entry.at.end_of_day).at_asc
-        .row.g-3.mt-0= render photos if photos.present?
+        - photos = Photo.where(at: entry.at.all_day).order(at: :asc).tagged_with(@entry_user.name, on: :photo_tags)
+        - if photos.present?
+          .d-flex.flex-wrap.align-items-center= render photos
 
   = paginate @entries
