@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_06_013306) do
+ActiveRecord::Schema.define(version: 2022_01_14_042930) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
@@ -142,23 +142,6 @@ ActiveRecord::Schema.define(version: 2021_07_06_013306) do
     t.datetime "at"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "saved_file_categories", charset: "utf8", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "saved_files", charset: "utf8", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.integer "user_id"
-    t.text "description"
-    t.string "attachment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "saved_file_category_id"
-    t.index ["saved_file_category_id"], name: "index_saved_files_on_saved_file_category_id"
-    t.index ["user_id"], name: "index_saved_files_on_user_id"
   end
 
   create_table "taggings", charset: "utf8", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|

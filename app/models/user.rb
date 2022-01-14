@@ -9,7 +9,6 @@ class User < ApplicationRecord
   has_many :log_entries
   has_many :notes
   has_many :photos
-  has_many :saved_files
 
   validates :email,
     presence: true,

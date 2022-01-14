@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   resources :inventory_items
   resources :notes
   resources :pages
-  resources :saved_file_categories
-  resources :saved_files
   resources :users
   resources :post_photos, only: %i[create destroy]
 
