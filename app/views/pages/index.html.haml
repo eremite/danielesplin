@@ -17,10 +17,13 @@
       %span{ style: 'position: absolute; top: 3em; left: 0;' } Erika
 
   .col.mx-4.fs-5
-    - with_options class: 'link-light' do
-      %p
-        Daniel Esplin is a #{link_to('Ruby on Rails Programmer', 'https://github.com/eremite')}
-        who served an #{link_to 'LDS Mission to Panama', 'https://s3.amazonaws.com/danielesplin/mission/index.html'}
-        and compiled a #{link_to 'history of the Billerica, Massachusetts Ward', 'https://s3.amazonaws.com/danielesplin/eagle/index.htm'}.
-      %p Erika Esplin is a #{link_to('Registered Dietitian', 'http://www.nutritionalbites.org')}.
+    - options = { class: 'link-light' }
+    %p
+      Daniel Esplin is a #{link_to('Ruby on Rails Programmer', 'https://github.com/eremite', options)}
+      - bucket = 'https://s3.amazonaws.com/danielesplin-files/public'
+      who served an
+      = link_to_if current_user.present?, 'LDS Mission to Panama', "#{bucket}/mission/index.html", options
+      and compiled a
+      #{link_to 'history of the Billerica, Massachusetts Ward', "#{bucket}/billerica_ward/index.html", options}.
+    %p Erika Esplin is a #{link_to('Registered Dietitian', 'https://www.nutritionalbites.org')}.
     %p We live with our daughters in Santa Clara, Utah.
