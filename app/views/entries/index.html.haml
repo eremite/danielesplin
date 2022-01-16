@@ -48,6 +48,7 @@
     %h2 No results found
     %p Maybe search for something else?
 - else
+  - page_photos = []
   - previous_at = nil
   - @entries.each do |entry|
     - if params[:tag].present?
@@ -77,6 +78,11 @@
         = entry.body.html_safe
         - photos = Photo.where(at: entry.at.all_day).order(at: :asc).tagged_with(@entry_user.name, on: :photo_tags)
         - if photos.present?
+          - page_photos += photos
           .d-flex.flex-wrap.align-items-center= render photos
 
   = paginate @entries
+
+  - if page_photos.present?
+    = render partial: "/shared/carousel_modal",
+      locals: { photos: page_photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }

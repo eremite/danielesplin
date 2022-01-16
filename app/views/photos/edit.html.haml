@@ -14,3 +14,6 @@
   = render @photo
 
 = render 'form'
+
+= render partial: "/shared/carousel_modal",
+  locals: { photos: [@photo], modal_id: "photos-modal", carousel_id: "photos-carousel" }
