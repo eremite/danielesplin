@@ -19,7 +19,7 @@
 
   %body.bg-dark.text-light{ id: "#{controller.controller_name.dasherize}-controller" }
     .container
-      - if current_user.present? && controller.controller_name != 'decider_list_picker'
+      - if current_user.present? && %w[decider_list_picker print_batches].exclude?(controller.controller_name)
         %header= render 'layouts/nav'
 
       %section.mb-3
@@ -33,7 +33,8 @@
           - else
             .col= yield
 
-      %footer
-        %p.text-center.text-muted
-          &copy; #{Time.zone.now.year}
-          = link_to 'Nutritional Bites LLC', 'http://www.nutritionalbites.org'
+      - if current_user.present? && %w[decider_list_picker print_batches].exclude?(controller.controller_name)
+        %footer
+          %p.text-center.text-muted
+            &copy; #{Time.zone.now.year}
+            = link_to 'Nutritional Bites LLC', 'http://www.nutritionalbites.org'
