@@ -1,26 +1,29 @@
-%h1 #{@user.name} #{params[:year]}
+.bg-light.text-dark
 
-.row
-  .col-md-9
-    - @entries.each do |entry|
-      %h3= l entry.at.to_date, format: :long
-      = entry.body.html_safe
-  - if @photos.present?
-    .col-md-3
-      = render partial: "/shared/carousel_modal",
-        locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
-      - @photos.each do |photo|
-        = l photo.at
-        &nbsp;
-        %input{ id: "photo-#{photo.id}-url", type: "hidden", value: polymorphic_url(photo.image) }
-        = link_to "javascript:copyPhotoUrlToClipboard(#{photo.id})", title: "Copy to clipboard" do
-          %i.bi-clipboard
-        = render photo
-    :javascript
-      function copyPhotoUrlToClipboard(id) {
-        const inputElement = document.getElementById(`photo-${id}-url`)
-        inputElement.type = 'text'
-        inputElement.select()
-        document.execCommand("copy")
-        inputElement.type = 'hidden'
-      }
+  %h1 #{@user.name} #{params[:year]}
+
+  .row
+    .col-md-9
+      - @entries.each do |entry|
+        .mt-3
+          %h6.text-muted= l entry.at.to_date, format: :long
+          = entry.body.gsub('<br>', '').html_safe
+    - if @photos.present?
+      .col-md-3
+        = render partial: "/shared/carousel_modal",
+          locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
+        - @photos.each do |photo|
+          = l photo.at
+          &nbsp;
+          %input{ id: "photo-#{photo.id}-url", type: "hidden", value: polymorphic_url(photo.image) }
+          = link_to "javascript:copyPhotoUrlToClipboard(#{photo.id})", title: "Copy to clipboard" do
+            %i.bi-clipboard
+          = render photo
+      :javascript
+        function copyPhotoUrlToClipboard(id) {
+          const inputElement = document.getElementById(`photo-${id}-url`)
+          inputElement.type = 'text'
+          inputElement.select()
+          document.execCommand("copy")
+          inputElement.type = 'hidden'
+        }
