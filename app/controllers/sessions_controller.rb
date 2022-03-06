@@ -2,10 +2,6 @@ class SessionsController < ApplicationController
 
   skip_before_action :verify_authorized
 
-  def new
-    redirect_to :root if current_user.present?
-  end
-
   def create
     if (user = User.find_by_email(params[:email]).try(:authenticate, params[:password]))
       user.log('login')

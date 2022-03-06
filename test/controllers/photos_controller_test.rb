@@ -35,7 +35,7 @@ class PhotosControllerTest < ActionController::TestCase
     Photo.stub_any_instance :update, true do
       put :update, params: { id: @photo.id, photo: valid_attributes, redirect_to: '/' }
     end
-    assert_redirected_to '/'
+    assert_redirected_to '/photos'
   end
 
   test 'destroy' do

@@ -34,11 +34,6 @@ class EntriesControllerTest < ActionController::TestCase
     assert_redirected_to :entries
   end
 
-  test 'show' do
-    get :show, params: { id: @entry.id }
-    assert_response :success
-  end
-
   test 'edit' do
     get :edit, params: { id: @entry.id }
     assert_response :success

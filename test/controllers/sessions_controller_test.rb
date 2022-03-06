@@ -2,16 +2,11 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
 
-  test 'new' do
-    get :new
-    assert_response :success
-  end
-
   test 'create invalid' do
     User.stub_any_instance :authenticate, nil do
       post :create
     end
-    assert_redirected_to :pages
+    assert_redirected_to :root
   end
 
   test 'create valid' do

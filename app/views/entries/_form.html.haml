@@ -6,7 +6,7 @@
     .col-auto
       = f.label :at, class: 'form-label'
       = f.datetime_field :at, class: "form-control",  tabindex: 1
-      - if f.object.user.born_at.present? && f.object.persisted?
+      - if f.object.user&.born_at.present? && f.object.persisted?
         .form-text #{distance_of_time_in_words(f.object.user.born_at, f.object.at).capitalize} old
     .col-auto
       - if f.object.persisted?
