@@ -11,9 +11,24 @@ class DeciderListsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'create invalid' do
+    post :create, params: { decider_list: { name: "" } }
+    assert_redirected_to :decider_lists
+  end
+
+  test 'create valid' do
+    post :create, params: { decider_list: { name: "Present" } }
+    assert_redirected_to DeciderList.last
+  end
+
   test 'show' do
-    get :show, params: { id: decider_lists(:base) }
+    get :show, params: { id: decider_lists(:base).id }
     assert_response :success
+  end
+
+  test 'destroy' do
+    get :destroy, params: { id: decider_lists(:base).id }
+    assert_redirected_to :decider_lists
   end
 
 end

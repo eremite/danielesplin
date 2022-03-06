@@ -2,18 +2,12 @@ class DeciderListItemsController < ApplicationController
 
   before_action :verify_authorized
 
-  def new
-    list = DeciderList.find(params[:decider_list_id])
-    @item = list.items.new
-  end
-
   def create
-    flash.notice = "Item added to list"
     item = DeciderListItem.new(safe_params)
     if item.save
-      redirect_to item.decider_list
+      redirect_to item.decider_list, notice: "Item added to list"
     else
-      render :new
+      redirect_to item.decider_list, alert: item.errors.full_messages.to_sentence
     end
   end
 

@@ -1,10 +1,4 @@
 - content_for :sidebar do
-  .d-grid.gap-2
-    = link_to %i[new decider_list], class: 'btn btn-success' do
-      %i.bi-plus-lg
-      New List
-
-  %hr
   = form_with model: DeciderList.new do |f|
     - if f.object.errors.any?
       .alert.alert-danger= f.object.errors.full_messages.to_sentence

@@ -15,6 +15,10 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
+def login(fixture_key)
+  post "/sessions", params: { email: users(fixture_key).email, password: "secret" }
+end
+
 def login_as(user)
   user.tap { |u| @request.session['user_id'] = u.try(:id) }
 end

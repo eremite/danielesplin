@@ -2,6 +2,8 @@ class DeciderList < ApplicationRecord
 
   has_many :items, class_name: "DeciderListItem", dependent: :destroy
 
+  validates :name, presence: true
+
   def pick
     available_items = items.where(picked_at: nil)
     if available_items.empty?

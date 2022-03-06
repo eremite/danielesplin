@@ -2,6 +2,8 @@ class DeciderListItem < ApplicationRecord
 
   belongs_to :decider_list
 
+  validates :name, presence: true
+
   def icon
     icon_list.sample
   end

@@ -1,5 +1,5 @@
 PASSWORD: &PASSWORD
-  password_digest: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+  password_digest: "<%= BCrypt::Password.create('secret') %>"
 
 base:
   name: Base User
