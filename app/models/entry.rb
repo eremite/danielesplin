@@ -12,6 +12,11 @@ class Entry < ApplicationRecord
   scope :at_desc, -> { order(arel_table[:at].desc) }
   scope :before, -> (ends_at) { where(arel_table[:at].lteq(ends_at)) }
 
+  def self.tags
+    taggings = ActsAsTaggableOn::Tagging.where(context: 'entry_tags')
+    ActsAsTaggableOn::Tag.joins(:taggings).merge(taggings).order(taggings_count: :desc).distinct
+  end
+
   def after_create_redirect_url
     if at < 1.week.ago
       [:new, :entry, { at: at + 1.day }]
@@ -26,6 +31,10 @@ class Entry < ApplicationRecord
     else
       [:entries]
     end
+  end
+
+  def suggested_tags
+    self.class.tags.where.not(id: entry_tag_ids)
   end
 
 end

@@ -23,6 +23,15 @@ class Photo < ApplicationRecord
     includes(:post_photos).where( :post_photos => { :photo_id => nil } )
   end
 
+  def self.tags
+    taggings = ActsAsTaggableOn::Tagging.where(context: 'photo_tags')
+    ActsAsTaggableOn::Tag.joins(:taggings).merge(taggings).order(taggings_count: :desc).distinct
+  end
+
+  def suggested_tags
+    self.class.tags.where.not(id: photo_tag_ids)
+  end
+
   private
 
   def handle_hidden

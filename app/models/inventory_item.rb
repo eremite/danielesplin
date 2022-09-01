@@ -10,6 +10,11 @@ class InventoryItem < ApplicationRecord
   scope :on_desc, -> { order(arel_table[:on].desc) }
   scope :before, -> (ends_on) { where(arel_table[:on].lteq(ends_on)) }
 
+  def self.tags
+    taggings = ActsAsTaggableOn::Tagging.where(context: 'inventory_item_tags')
+    ActsAsTaggableOn::Tag.joins(:taggings).merge(taggings).order(taggings_count: :desc).distinct
+  end
+
   def summary
     [name.presence, I18n.l(on).presence, inventory_item_tags.pluck(:name).join(', ')].compact.join(' - ')
   end
@@ -17,6 +22,7 @@ class InventoryItem < ApplicationRecord
   def cost_in_dollars
     cost.to_i / 100.0
   end
+
   def cost_in_dollars=(amount)
     self.cost = amount.to_s.gsub(/[^-\d\.]/, '').to_f * 100
   end
@@ -24,8 +30,13 @@ class InventoryItem < ApplicationRecord
   def value_in_dollars
     value.to_i / 100.0
   end
+
   def value_in_dollars=(amount)
     self.value = amount.to_s.gsub(/[^-\d\.]/, '').to_f * 100
+  end
+
+  def suggested_tags
+    self.class.tags.where.not(id: inventory_item_tag_ids)
   end
 
 end

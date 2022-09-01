@@ -30,8 +30,7 @@
     = f.text_area :meta, rows: 3, class: 'form-control', tabindex: 4
   .mb-3
     = f.label :note_tag_list, class: 'form-label'
-    = render partial: '/shared/suggested_tags', locals: { tag_counts: Note.note_tag_counts,
-      existing_tags: f.object.note_tags, input_name: "note[note_tag_list]" }
+    = render partial: '/shared/suggested_tags', locals: { object: f.object, input_name: "note[note_tag_list]" }
     = f.text_field :note_tag_list, value: f.object.note_tag_list.to_s, class: 'form-control', tabindex: 4
   .mb-3
     = f.submit 'Save', class: 'btn btn-primary'

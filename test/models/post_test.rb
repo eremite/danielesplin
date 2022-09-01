@@ -23,4 +23,16 @@ class PostTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'self.tags' do
+    post = posts(:base).tap { |e| e.update!(post_tag_list: 'first') }
+    assert Post.tags.exists?(name: 'first')
+  end
+
+  test 'suggested_tags' do
+    post = posts(:base).tap { |e| e.update!(post_tag_list: 'existing') }
+    second = Post.create!(body: 'C', post_tag_list: 'suggested')
+    assert_not post.suggested_tags.exists?(name: 'existing')
+    assert post.suggested_tags.exists?(name: 'suggested')
+  end
+
 end

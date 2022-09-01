@@ -18,8 +18,7 @@
     <trix-editor input="trix-editor-content" autofocus="true"></trix-editor>
   .mb-3
     = f.label :photo_tag_list, class: 'form-label'
-    = render partial: '/shared/suggested_tags', locals: { tag_counts: Photo.photo_tag_counts,
-      existing_tags: f.object.photo_tags, input_name: 'photo[photo_tag_list]' }
+    = render partial: '/shared/suggested_tags', locals: { object: f.object, input_name: 'photo[photo_tag_list]' }
     = f.text_field :photo_tag_list, value: f.object.photo_tag_list.to_s, class: 'form-control'
     .text-muted Whenever possible use full names for anyone outside our immediate family.
   .mb-3

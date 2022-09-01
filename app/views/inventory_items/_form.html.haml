@@ -25,8 +25,8 @@
     = f.text_area :description, rows: 3, class: 'form-control'
   .mb-3
     = f.label :inventory_item_tag_list, class: 'form-label'
-    = render partial: '/shared/suggested_tags', locals: { tag_counts: InventoryItem.inventory_item_tag_counts,
-      existing_tags: f.object.inventory_item_tags, input_name: 'inventory_item[inventory_item_tag_list]' }
+    = render partial: '/shared/suggested_tags',
+      locals: { object: f.object, input_name: 'inventory_item[inventory_item_tag_list]' }
     = f.text_field :inventory_item_tag_list, value: f.object.inventory_item_tag_list.to_s, class: 'form-control'
   .mb-3
     = f.submit 'Save', class: 'btn btn-primary'

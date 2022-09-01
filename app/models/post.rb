@@ -27,6 +27,14 @@ class Post < ApplicationRecord
     "#{I18n.l(at.to_date)} #{title}"
   end
 
+  def self.tags
+    taggings = ActsAsTaggableOn::Tagging.where(context: 'post_tags')
+    ActsAsTaggableOn::Tag.joins(:taggings).merge(taggings).order(taggings_count: :desc).distinct
+  end
+
+  def suggested_tags
+    self.class.tags.where.not(id: post_tag_ids)
+  end
 
   private
 

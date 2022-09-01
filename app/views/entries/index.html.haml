@@ -31,7 +31,8 @@
       = f.select :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
     .mb-3
       = f.label :tag
-      = f.select :tag, Entry.entry_tag_counts.order(:name).pluck(:name), { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
+      = f.select :tag, Entry.tags.pluck(:name),
+        { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
     .form-check
       = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
       = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'

@@ -14,8 +14,7 @@
     <trix-editor input="trix-editor-content" autofocus="true" tabindex=2></trix-editor>
   .mb-3
     = f.label :post_tag_list, class: 'form-label'
-    = render partial: '/shared/suggested_tags', locals: { tag_counts: Post.post_tag_counts,
-      existing_tags: f.object.post_tags, input_name: 'post[post_tag_list]' }
+    = render partial: '/shared/suggested_tags', locals: { object: f.object, input_name: 'post[post_tag_list]' }
     = f.text_field :post_tag_list, value: f.object.post_tag_list.to_s, class: 'form-control', tabindex: 3
   .mb-3
     = f.submit 'Save', class: 'btn btn-primary', tabindex: 4

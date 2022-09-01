@@ -10,6 +10,6 @@
   }
 
 %p
-  - tag_counts.order('taggings_count DESC').limit(9).where.not(id: existing_tags.pluck(:id)).each do |tag|
+  - object.suggested_tags.limit(9).each do |tag|
     - tag_json = { name: tag.name, css_id: "btn-tag-#{tag.id}" }.to_json
     = link_to tag.name, "javascript: insertTag(#{tag_json})", id: "btn-tag-#{tag.id}", class: 'btn btn-secondary btn-sm'
