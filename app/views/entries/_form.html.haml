@@ -27,5 +27,14 @@
       = f.text_field :entry_tag_list, value: f.object.entry_tag_list.to_s, class: 'form-control', tabindex: 4
   .mb-3
     = hidden_field_tag :redirect_to, request.referrer || entries_path
-    %button.btn.btn-primary{ type: 'submit', tabindex: 4 } Save
-    = link_to 'Cancel', entries_path, class: 'btn', tabindex: 5
+    = f.submit 'Save', class: 'btn btn-primary', tabindex: 4
+:javascript
+  setInterval(function () {
+    let element = document.querySelector('trix-editor')
+    let form = element.inputElement.form
+    fetch(form.action, {
+      method: form.method,
+      body: new URLSearchParams(new FormData(form)),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' }
+    })
+  }, 5000)

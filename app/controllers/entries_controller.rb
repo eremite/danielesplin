@@ -27,19 +27,9 @@ class EntriesController < ApplicationController
     @entries = @entries.page(params[:page])
   end
 
-  def new
-    @entry = Entry.new(safe_params)
-    @entry.at ||= Time.zone.now
-    @entry.user ||= current_user
-  end
-
   def create
-    @entry = Entry.new(safe_params)
-    if @entry.save
-      redirect_to @entry.after_create_redirect_url
-    else
-      render :new
-    end
+    entry = Entry.create!(at: Time.current, user_id: current_user.id)
+    redirect_to [:edit, entry]
   end
 
   def edit
@@ -48,11 +38,17 @@ class EntriesController < ApplicationController
 
   def update
     @entry = Entry.find(params[:id])
-    if @entry.update(safe_params)
-      params.delete(:redirect_to) if params[:redirect_to] == root_url
-      redirect_to params[:redirect_to].presence || entries_url, notice: 'Entry saved.'
-    else
-      render :edit
+    respond_to do |format|
+      format.html do
+        if @entry.update(safe_params)
+          redirect_to @entry.after_create_redirect_url
+        else
+          render :edit
+        end
+      end
+      format.json do
+        head @entry.update(safe_params) ? :ok : :not_acceptable
+      end
     end
   end
 

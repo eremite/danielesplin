@@ -13,25 +13,9 @@ class EntriesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'new' do
-    get :new
-    assert_response :success
-  end
-
-  test 'create invalid' do
-    Entry.stub_any_instance :save, false do
-      post :create, params: { entry: valid_attributes }
-    end
-    assert_response :success
-  end
-
   test 'create valid' do
-    Entry.stub_any_instance :save, true do
-      Entry.stub_any_instance :after_create_redirect_url, [:entries] do
-        post :create, params: { entry: valid_attributes }
-      end
-    end
-    assert_redirected_to :entries
+    post :create, params: { entry: valid_attributes }
+    assert_redirected_to [:edit, Entry.last]
   end
 
   test 'edit' do
@@ -48,7 +32,9 @@ class EntriesControllerTest < ActionController::TestCase
 
   test 'update valid' do
     Entry.stub_any_instance :update, true do
-      put :update, params: { id: @entry.id, entry: valid_attributes }
+      Entry.stub_any_instance :after_create_redirect_url, [:entries] do
+        put :update, params: { id: @entry.id, entry: valid_attributes }
+      end
     end
     assert_redirected_to entries_url
   end

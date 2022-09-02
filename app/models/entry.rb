@@ -4,7 +4,7 @@ class Entry < ApplicationRecord
 
   belongs_to :user
 
-  validates :body, presence: true
+  validates :body, presence: true, on: :update
 
   paginates_per 7
 
@@ -18,19 +18,15 @@ class Entry < ApplicationRecord
   end
 
   def after_create_redirect_url
-    if at < 1.week.ago
-      [:new, :entry, { at: at + 1.day }]
-    elsif %w(mother baby).include?(user.try(:role))
-      child = nil
-      User.where(role: 'baby').each do |user|
-        if user.entries.where(at: at.beginning_of_day..at.end_of_day).blank?
-          child = user and break
-        end
+    return [:entries] if at < 1.week.ago
+    child = nil
+    User.where(role: 'baby').each do |user|
+      if user.entries.where(at: at.all_day).blank?
+        entry = Entry.create!(at: Time.current, user: user)
+        return [:edit, entry]
       end
-      child.present? ? [:new, :entry, { entry: { user_id: child.id } }] : [:entries]
-    else
-      [:entries]
     end
+    [:entries]
   end
 
   def suggested_tags
