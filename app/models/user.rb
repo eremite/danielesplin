@@ -60,7 +60,7 @@ class User < ApplicationRecord
   end
 
   def login_redirect
-    return %i[new entry] if parent? && entry_for_today.blank?
+    return :entries if parent? && entry_for_today.blank?
     :visible_posts
   end
 
