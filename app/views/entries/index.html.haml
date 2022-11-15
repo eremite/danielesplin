@@ -75,7 +75,7 @@
         &hellip;
     - else
       .mb-4
-        = entry.body.html_safe
+        = entry.body&.html_safe
         - photos = Photo.where(at: entry.at.all_day).order(at: :asc).tagged_with(@entry_user.name, on: :photo_tags)
         - if photos.present?
           - page_photos += photos
