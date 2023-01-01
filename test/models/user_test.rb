@@ -7,10 +7,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'log' do
-    u = users(:base)
-    assert_difference lambda { LogEntry.count } do
-      assert u.log('login')
-    end
+    user = users(:base)
+    user.log_entries.destroy_all
+    assert user.log('blog')
+    assert user.log_entries.present?
+    assert_not_nil user.viewed_blog_at
   end
 
   test 'father?' do

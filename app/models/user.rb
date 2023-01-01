@@ -52,6 +52,7 @@ class User < ApplicationRecord
   end
 
   def log(action)
+    touch(:viewed_blog_at) if action.to_s == 'blog'
     log_entries.create(action: action)
   end
 

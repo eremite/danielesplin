@@ -1,18 +1,7 @@
 class PostsController < ApplicationController
 
   def index
-    current_user.try(:log, 'blog')
-    current_user.try(:touch, :viewed_blog_at)
-    @ends_on = Date.parse(params[:ends_on] || Date.current.to_s)
-    @past_posts = Post.at_desc.past.includes(:photos)
-    @past_posts = @past_posts.before(@ends_on.end_of_day) if params[:ends_on].present?
-    if params[:term].present?
-      @past_posts = @past_posts.where(Post.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
-    end
-    if params[:tag].present?
-      @past_posts = @past_posts.tagged_with(params[:tag], on: :post_tags)
-    end
-    @future_posts = Post.at_desc.future
+    redirect_to Post.at_desc.past.first
   end
 
   def new
@@ -27,6 +16,11 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    current_user.log('blog')
+    @post = Post.find(params[:id])
   end
 
   def edit

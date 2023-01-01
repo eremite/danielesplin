@@ -25,3 +25,11 @@
     .mb-3
       = f.hidden_field :post_id
       = f.submit "Comment", class: 'btn btn-primary'
+
+  .d-flex.justify-content-between
+    - previous_post = Post.past.find_by(id: post.id - 1)
+    - if previous_post.present?
+      = link_to "Previous: #{previous_post.title.presence || l(previous_post.at.to_date)}", previous_post, class: "btn btn-info"
+    - next_post = Post.past.find_by(id: post.id + 1)
+    - if next_post.present?
+      = link_to "Next: #{next_post.title.presence || l(next_post.at.to_date)}", next_post, class: "btn btn-info"

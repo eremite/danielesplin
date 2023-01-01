@@ -31,22 +31,12 @@
             ago
     %hr
 
-    %h3 Search
-    = form_with url: :posts, method: :get do |f|
-      .mb-3
-        = f.label :ends_on, 'Date', class: 'form-label'
-        = f.date_field :ends_on, value: @ends_on, class: 'form-control'
-      .mb-3
-        = f.label :term
-        = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search term'
-      .mb-3.d-grid
-        = f.submit 'Search', class: 'btn btn-primary'
-    %hr
 
-  - if @past_posts.present?
+  - all_posts = Post.at_desc
+  - cache(all_posts) do
     %h3 Calendar
     #calendar-accordion.accordion.text-dark
-      - @past_posts.to_a.group_by { |post| post.at.year }.each do |year, posts|
+      - all_posts.to_a.group_by { |post| post.at.year }.each do |year, posts|
         .accordion-item
           %h2.accordion-header
             %button.accordion-button{ type: 'button', class: year == Time.current.year ? '' : 'collapsed', data: { bs: { toggle: 'collapse', target: "#accordion-content-#{year}" } } }
@@ -54,26 +44,18 @@
           .accordion-collapse.collapse{ id: "accordion-content-#{year}", class: year == Time.current.year ? 'show' : '', data: { bs: { parent: '#calendar-accordion' } } }
             .list-group.list-group-flush
               - posts.each do |post|
-                = link_to post.title.presence || l(post.at.to_date), post, class: 'list-group-item list-group-item-action'
-
+                - css_classes = 'list-group-item list-group-item-action'
+                - if post.at.future?
+                  - next unless current_user.parent?
+                  - css_classes << ' list-group-item-secondary'
+                = link_to post, class: css_classes do
+                  - if post.at.future?
+                    %i.bi-calendar3{ title: "Unpublished" }
+                    &nbsp;
+                  = post.title.presence || l(post.at.to_date)
   .d-grid.gap-2.mt-3
     = link_to :print_batches, class: 'btn btn-info' do
       %i.bi-printer
       Print by Year
 
-  - if current_user.parent? && Post.post_tag_counts.present?
-    %hr
-    - tag_counts = Post.tag_counts_on(:post_tags).order(taggings_count: :desc)
-    = render partial: 'shared/tag_list', locals: { path: :posts, tag_counts: tag_counts }
-
-= render @future_posts if current_user.parent?
-
-- if @past_posts.empty?
-  .alert.alert-warning
-    %h2 Nothing to see here.
-    %p Apparently, we're not that interesting. :)
-    = link_to 'Show all posts', :posts
-- else
-  - @past_posts = @past_posts.page(params[:page])
-  = render @past_posts
-  = paginate @past_posts
+= render @post
