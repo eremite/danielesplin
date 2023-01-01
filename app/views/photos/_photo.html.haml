@@ -21,5 +21,5 @@
       var modalId = item.dataset["carouselItemPhoto-#{photo.id}Modal"]
       bootstrap.Carousel.getOrCreateInstance(document.getElementById(carouselId)).to(index)
       bootstrap.Modal.getOrCreateInstance(document.getElementById(modalId)).show()
-      document.getElementById(carouselId).focus()
+      document.querySelector("#" + modalId + " .carousel-control-prev").focus()
     }
