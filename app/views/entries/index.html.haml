@@ -41,7 +41,7 @@
     .mb-3.d-grid.gap-2
       = f.submit 'Search', class: 'btn btn-primary'
 
-  = render partial: '/shared/calendar', locals: { starts_at: @entry_user.entries.order(at: :asc).first&.at, resource: :entries }
+  = render partial: 'calendar', locals: { starts_at: @entry_user.entries.order(at: :asc).first&.at, resource: :entries }
 
 - if @entries.empty?
   .alert.alert-warning

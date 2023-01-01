@@ -43,7 +43,18 @@
         = f.submit 'Search', class: 'btn btn-primary'
     %hr
 
-  = render partial: '/shared/calendar', locals: { starts_at: Post.order(at: :asc).first&.at, resource: :posts }
+  - if @past_posts.present?
+    %h3 Calendar
+    #calendar-accordion.accordion.text-dark
+      - @past_posts.to_a.group_by { |post| post.at.year }.each do |year, posts|
+        .accordion-item
+          %h2.accordion-header
+            %button.accordion-button{ type: 'button', class: year == Time.current.year ? '' : 'collapsed', data: { bs: { toggle: 'collapse', target: "#accordion-content-#{year}" } } }
+              = year
+          .accordion-collapse.collapse{ id: "accordion-content-#{year}", class: year == Time.current.year ? 'show' : '', data: { bs: { parent: '#calendar-accordion' } } }
+            .list-group.list-group-flush
+              - posts.each do |post|
+                = link_to post.title.presence || l(post.at.to_date), post, class: 'list-group-item list-group-item-action'
 
   - if current_user.parent? && Post.post_tag_counts.present?
     %hr
@@ -58,5 +69,6 @@
     %p Apparently, we're not that interesting. :)
     = link_to 'Show all posts', :posts
 - else
+  - @past_posts = @past_posts.page(params[:page])
   = render @past_posts
   = paginate @past_posts

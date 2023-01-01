@@ -4,7 +4,7 @@ class PostsController < ApplicationController
     current_user.try(:log, 'blog')
     current_user.try(:touch, :viewed_blog_at)
     @ends_on = Date.parse(params[:ends_on] || Date.current.to_s)
-    @past_posts = Post.at_desc.past.page(params[:page])
+    @past_posts = Post.at_desc.past
     @past_posts = @past_posts.before(@ends_on.end_of_day) if params[:ends_on].present?
     if params[:term].present?
       @past_posts = @past_posts.where(Post.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
