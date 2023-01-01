@@ -14,8 +14,8 @@ class PrintBatchesController < ApplicationController
 
   def posts
     starts_on = Time.zone.parse("#{params[:year]}-01-01")
-    @posts = Post.at_asc.past.where(at: starts_on..starts_on.end_of_year)
-    render :posts, layout: false
+    @posts = Post.at_asc.past.where(at: starts_on..starts_on.end_of_year).includes(:photos)
+    render :posts
   end
 
   private

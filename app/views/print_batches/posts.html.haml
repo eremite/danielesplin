@@ -1,12 +1,10 @@
-%h1 Blog #{params[:year]}
+%h1 #{params[:year]}
 
 - @posts.each do |post|
-  %div{ style: 'display: flex; flex-wrap: wrap' }
-    %div{ style: 'width: 600px; margin: 10px' }
-      %h5{ style: 'float: right' }= l(post.at.to_date, format: :long)
-      = post.body.html_safe
-    - post.photos.at_asc.each do |photo|
-      - if photo.image.representable?
-        %div{ style: 'margin: 10px' }
-          = image_tag photo.image.representation(resize_to_limit: [400, 300])
-          = photo.description.to_s.html_safe
+  - photos = post.photos.at_asc
+  = render partial: "/shared/carousel_modal",
+    locals: { photos: photos, modal_id: "post-#{post.id}-modal", carousel_id: "post-#{post.id}-carousel" }
+  .mt-3
+    = post.body.html_safe
+    .d-flex.flex-wrap.align-items-center
+      = render photos
