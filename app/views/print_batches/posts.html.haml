@@ -8,5 +8,5 @@
     - post.photos.at_asc.each do |photo|
       - if photo.image.representable?
         %div{ style: 'margin: 10px' }
-          = image_tag photo.image.variant(resize_to_limit: [400, 300])
+          = image_tag photo.image.representation(resize_to_limit: [400, 300])
           = photo.description.to_s.html_safe

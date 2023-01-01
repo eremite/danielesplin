@@ -13,7 +13,12 @@
             - photos.each_with_index do |photo, i|
               - data = { index: i, modal: modal_id, carousel: carousel_id }
               .carousel-item{ class: i.zero? && 'active', data: { "carousel-item-photo-#{photo.id}": data } }
-                = image_tag photo.image, class: 'd-block m-auto', style: 'height: 90vh' if photo.image.attached?
+                - if photo.image.attached?
+                  - css = 'd-block m-auto'
+                  - if photo.image.previewable?
+                    = video_tag rails_blob_url(photo.image), controls: true, class: css, style: 'height: 70vh'
+                  - if photo.image.variable?
+                    = image_tag photo.image, class: css, style: 'height: 90vh'
           %button.carousel-control-prev{ type: 'button', data: { bs: { target: "##{carousel_id}", slide: 'prev' } } }
             %span.carousel-control-prev-icon{ aria: { hidden: true } }
             %span.visually-hidden Previous
