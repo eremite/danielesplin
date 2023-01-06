@@ -16,7 +16,7 @@ class SessionsControllerTest < ActionController::TestCase
         post :create, params: { email: u.email }
       end
     end
-    assert_redirected_to :visible_posts
+    assert_redirected_to :posts
     assert_equal u.id, session['user_id']
   end
 

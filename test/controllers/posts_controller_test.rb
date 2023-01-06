@@ -8,7 +8,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test 'index' do
     get :index
-    assert_response :success
+    assert_redirected_to posts(:base)
   end
 
   test 'new' do
