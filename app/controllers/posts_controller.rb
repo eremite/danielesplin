@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   end
 
   def authorized?
-    return true if current_user.present? && action_name == "index"
+    return true if current_user.present? && %w[index show].include?(action_name)
     current_user&.parent?
   end
 
