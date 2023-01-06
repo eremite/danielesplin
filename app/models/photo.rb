@@ -17,6 +17,7 @@ class Photo < ApplicationRecord
 
   before_validation :handle_hidden
   after_save :auto_assign_posts, if: ->(photo) { photo.post_ids.blank? && !photo.hidden? }
+  before_destroy :purge_image
 
 
   def self.unblogged
@@ -43,6 +44,10 @@ class Photo < ApplicationRecord
 
   def auto_assign_posts
     self.posts = Post.where(at: created_at.beginning_of_day..created_at.end_of_day)
+  end
+
+  def purge_image
+    image.purge
   end
 
 end
