@@ -18,11 +18,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(current_user.guest? ? current_user.id: params[:id])
+    @user = find_user
   end
 
   def update
-    @user = User.find(current_user.guest? ? current_user.id: params[:id])
+    @user = find_user
     if @user.update(safe_params)
       redirect_to edit_user_url(@user), notice: 'Changes saved.'
     else
@@ -31,12 +31,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    redirect_to users_url, notice: 'User deleted.'
+    find_user.destroy
+    redirect_to :users, notice: 'User deleted.'
   end
 
-
   private
+
+  def find_user
+    User.find(current_user.parent? ? params[:id] : current_user.id)
+  end
 
   def safe_params
     permitted_attributes = [:name, :email, :password, :password_confirmation]
@@ -48,10 +51,10 @@ class UsersController < ApplicationController
 
   def authorized?
     return false if current_user.nil?
-    if current_user.guest?
+    if current_user.guest? || current_user.grandparent?
       %w[edit update].include?(params[:action])
     else
-      current_user.parent?
+      current_user.parent? || current_user.child?
     end
   end
 

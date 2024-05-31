@@ -53,9 +53,10 @@
                     %i.bi-calendar3{ title: "Unpublished" }
                     &nbsp;
                   = post.title.presence || l(post.at.to_date)
-  .d-grid.gap-2.mt-3
-    = link_to :print_batches, class: 'btn btn-info' do
-      %i.bi-printer
-      Print by Year
+  - if current_user.parent?
+    .d-grid.gap-2.mt-3
+      = link_to :print_batches, class: 'btn btn-info' do
+        %i.bi-printer
+        Print by Year
 
 = render @post
