@@ -39,7 +39,7 @@ class Photo < ApplicationRecord
       photos = photos.where(arel_table[:description].matches("%#{params[:term].to_s.downcase}%"))
     end
     photos = photos.where(description: [nil, ""]) if params[:nondescript].to_i.nonzero?
-    photos = photos.includes(:posts).where(posts: { id: nil }) if params[:unblogged].to_i.nonzero?
+    photos = photos.includes(:post_photos).where(post_photos: { photo_id: nil }) if params[:unblogged].to_i.nonzero?
     photos.page(params[:page]).per(100)
   end
 
