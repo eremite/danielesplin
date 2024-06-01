@@ -1,10 +1,7 @@
 class PhotosController < ApplicationController
 
   def index
-    @photos = Photo.created_at_desc.page(params[:page]).per(100)
-    if params[:tag].present?
-      @photos = @photos.tagged_with(params[:tag], on: :photo_tags)
-    end
+    @photos = Photo.search(params)
   end
 
   def edit

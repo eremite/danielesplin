@@ -10,6 +10,29 @@
       .mb-3.d-grid
         = f.submit "Save", class: "btn btn-primary"
 
+  %hr
+  %h3 Search
+  = form_with url: :photos, method: :get do |f|
+    .mb-3
+      = f.label :order
+      = f.select :order, Photo.order_options, { selected: params[:order] }, { class: 'form-control' }
+    .mb-3
+      = f.label :ends_on, 'Date'
+      = f.date_field :ends_on, value: params[:ends_on], class: 'form-control'
+    .mb-3
+      = f.label :term, "Description"
+      = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
+    .form-check.mb-3
+      = f.check_box :nondescript, checked: !params[:nondescript].to_i.zero?, class: 'form-check-input',
+        id: 'search-nondescript-checkbox'
+      = f.label :nondescript, "Without description", class: 'form-check-label', for: 'search-nondescript-checkbox'
+    .form-check.mb-3
+      = f.check_box :unblogged, checked: !params[:unblogged].to_i.zero?, class: 'form-check-input',
+        id: 'search-unblogged-checkbox'
+      = f.label :unblogged, class: 'form-check-label', for: 'search-unblogged-checkbox'
+    .mb-3.d-grid.gap-2
+      = f.submit 'Search', class: 'btn btn-primary'
+
   - if @photos.present?
     = render partial: "/shared/carousel_modal",
       locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
