@@ -48,7 +48,7 @@ class User < ApplicationRecord
   end
 
   def users_whose_entries_i_can_edit
-    return User.where(role: %w[father mother baby]) if parent?
+    return User.where(role: %w[father mother baby]).order(born_at: :asc) if parent?
     return User.where(id: id) if child?
     []
   end
