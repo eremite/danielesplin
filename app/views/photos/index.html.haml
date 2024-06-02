@@ -42,6 +42,9 @@
     - tag_counts = Photo.tag_counts_on(:photo_tags).order(taggings_count: :desc, name: :asc)
     = render partial: 'shared/tag_list', locals: { path: :photos, tag_counts: tag_counts }
 
+  %hr
+  = render partial: 'shared/calendar', locals: { starts_at: Photo.order(at: :asc).first&.at, resource: :photos }
+
 .d-flex.flex-wrap.align-items-center
   = render @photos
 

@@ -4,13 +4,14 @@
     document.getElementById('tag-list-show-all-link').remove()
   }
 
-.list-group#tag-list{ style: 'font-size: small; max-height: 5em; overflow-y: auto' }
+.list-group#tag-list{ style: 'font-size: small; max-height: 20em; overflow-y: auto' }
   - tag_counts.each do |tag_count|
     = link_to [path, { tag: tag_count.name }], class: "list-group-item list-group-item-action py-1" do
       .badge.bg-secondary.rounded-pill.float-end #{tag_count.taggings_count}
       = tag_count.name
-.text-center#tag-list-show-all-link
-  = link_to 'javascript: showAllTags()', class: "link-secondary text-decoration-none" do
-    %i.bi-chevron-double-down
-    Show all
-    %i.bi-chevron-double-down
+- if tag_counts.size > 7
+  .text-center#tag-list-show-all-link
+    = link_to 'javascript: showAllTags()', class: "link-secondary text-decoration-none" do
+      %i.bi-chevron-double-down
+      Show all
+      %i.bi-chevron-double-down
