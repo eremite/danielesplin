@@ -9,17 +9,10 @@
 
   %hr
 
-  %table.table.table-striped.table-condensed.table-dark
-    %thead
-      %tr
-        %th Count
-        %th= InventoryItem.human_attribute_name(:cost)
-        %th= InventoryItem.human_attribute_name(:value)
-    %tbody
-      %tr
-        %td= number_with_delimiter InventoryItem.count
-        %td= number_to_currency InventoryItem.sum(:cost).to_f / 100
-        %td= number_to_currency InventoryItem.sum(:value).to_f / 100
+  .text-center
+    %strong
+      #{number_with_delimiter(InventoryItem.count)} items
+      costing #{number_to_currency(InventoryItem.sum(:cost).to_d / 100)}
 
   - if InventoryItem.inventory_item_tag_counts.present?
     %hr
@@ -44,7 +37,6 @@
       %th= InventoryItem.human_attribute_name(:name)
       %th= InventoryItem.human_attribute_name(:on)
       %th= InventoryItem.human_attribute_name(:cost)
-      %th= InventoryItem.human_attribute_name(:value)
       %th= InventoryItem.human_attribute_name(:inventory_item_tag_list)
   %tbody
     - @inventory_items.each do |inventory_item|
@@ -52,7 +44,6 @@
         %td= link_to inventory_item.name, [:edit, inventory_item], class: 'link-light text-decoration-none'
         %td= l inventory_item.on
         %td= number_to_currency inventory_item.cost_in_dollars
-        %td= number_to_currency inventory_item.value_in_dollars
         %td
           - inventory_item.inventory_item_tag_list.each do |tag_name|
             %span.label.label-default{ style: 'margin-left: 0.5em' }

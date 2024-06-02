@@ -56,7 +56,7 @@ class InventoryItemsController < ApplicationController
   private
 
   def safe_params
-    params.permit(inventory_item: [:name, :on, :description, :cost_in_dollars, :value_in_dollars, :inventory_item_tag_list])[:inventory_item]
+    params.permit(inventory_item: [:name, :on, :description, :cost_in_dollars, :inventory_item_tag_list])[:inventory_item]
   end
 
   def authorized?

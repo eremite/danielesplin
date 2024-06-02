@@ -43,7 +43,8 @@
     = render partial: 'shared/tag_list', locals: { path: :photos, tag_counts: tag_counts }
 
   %hr
-  = render partial: 'shared/calendar', locals: { starts_at: Photo.order(at: :asc).first&.at, resource: :photos }
+  = render partial: 'shared/calendar',
+    locals: { starts_at: Photo.where.not(at: nil).order(at: :asc).first&.at, resource: :photos }
 
 .d-flex.flex-wrap.align-items-center
   = render @photos
