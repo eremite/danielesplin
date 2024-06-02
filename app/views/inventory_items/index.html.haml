@@ -9,7 +9,7 @@
 
   %hr
 
-  %table.table.table-striped.table-condensed
+  %table.table.table-striped.table-condensed.table-dark
     %thead
       %tr
         %th Count
@@ -25,6 +25,7 @@
     %hr
     - tag_counts = InventoryItem.tag_counts_on(:inventory_item_tags).order(taggings_count: :desc)
     = render partial: 'shared/tag_list', locals: { path: :inventory_items, tag_counts: tag_counts }
+    .mb-3
 
   %h3 Search
   = form_with url: :inventory_items, method: :get do |f|
@@ -37,7 +38,7 @@
     .mb-3.d-grid.gap-2
       = f.submit 'Search', class: 'btn btn-primary'
 
-%table.table.table-striped
+%table.table.table-striped.table-dark
   %thead
     %tr
       %th= InventoryItem.human_attribute_name(:name)
@@ -48,7 +49,7 @@
   %tbody
     - @inventory_items.each do |inventory_item|
       %tr
-        %td= link_to inventory_item.name, [:edit, inventory_item]
+        %td= link_to inventory_item.name, [:edit, inventory_item], class: 'link-light text-decoration-none'
         %td= l inventory_item.on
         %td= number_to_currency inventory_item.cost_in_dollars
         %td= number_to_currency inventory_item.value_in_dollars
