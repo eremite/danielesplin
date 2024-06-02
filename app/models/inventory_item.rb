@@ -15,6 +15,10 @@ class InventoryItem < ApplicationRecord
     ActsAsTaggableOn::Tag.joins(:taggings).merge(taggings).order(taggings_count: :desc).distinct
   end
 
+  def self.order_options
+    [["Purchase Date - Newest First", :on_desc], ["Purchase Date - Oldest First", :on_asc]]
+  end
+
   def summary
     [name.presence, I18n.l(on).presence, inventory_item_tags.pluck(:name).join(', ')].compact.join(' - ')
   end

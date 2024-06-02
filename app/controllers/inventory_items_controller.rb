@@ -7,7 +7,9 @@ class InventoryItemsController < ApplicationController
       flash[:error] = 'Invalid date' if params[:ends_on].present?
       @ends_on = Time.zone.today
     end
-    @inventory_items = InventoryItem.on_desc.page(params[:page])
+    @inventory_items = InventoryItem.all
+    @inventory_items = params[:order] == "on_asc" ? @inventory_items.order(on: :asc) : @inventory_items.on_desc
+    @inventory_items = @inventory_items.page(params[:page])
     @inventory_items = @inventory_items.before(@ends_on.end_of_day) if params[:ends_on].present?
     if params[:term].present?
       term = "%#{params[:term].to_s.downcase}%"

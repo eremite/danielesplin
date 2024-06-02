@@ -11,8 +11,8 @@
 
   .text-center
     %strong
-      #{number_with_delimiter(InventoryItem.count)} items
-      costing #{number_to_currency(InventoryItem.sum(:cost).to_d / 100)}
+      #{pluralize number_with_delimiter(@inventory_items.count), 'item'}
+      costing #{number_to_currency(@inventory_items.sum(:cost).to_d / 100)}
 
   - if InventoryItem.inventory_item_tag_counts.present?
     %hr
@@ -22,6 +22,9 @@
 
   %h3 Search
   = form_with url: :inventory_items, method: :get do |f|
+    .mb-3
+      = f.label :order
+      = f.select :order, InventoryItem.order_options, { selected: params[:order] }, { class: 'form-control' }
     .mb-3
       = f.label :ends_on, 'Date'
       = f.date_field :ends_on, value: @ends_on, class: 'form-control'
