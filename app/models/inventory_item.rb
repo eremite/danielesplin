@@ -9,6 +9,8 @@ class InventoryItem < ApplicationRecord
 
   scope :on_desc, -> { order(arel_table[:on].desc) }
   scope :before, -> (ends_on) { where(arel_table[:on].lteq(ends_on)) }
+  scope :deleted, -> { where.not(deleted_at: nil) }
+  scope :not_deleted, -> { where(deleted_at: nil) }
 
   def self.tags
     taggings = ActsAsTaggableOn::Tagging.where(context: 'inventory_item_tags')

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_14_042930) do
+ActiveRecord::Schema.define(version: 2024_06_03_023931) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 2022_01_14_042930) do
     t.datetime "at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.bigint "creator_id"
+    t.index ["creator_id"], name: "index_entries_on_creator_id"
     t.index ["user_id"], name: "index_entries_on_user_id"
   end
 
@@ -91,6 +93,7 @@ ActiveRecord::Schema.define(version: 2022_01_14_042930) do
     t.integer "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
   create_table "log_entries", charset: "utf8", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -177,4 +180,5 @@ ActiveRecord::Schema.define(version: 2022_01_14_042930) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "entries", "users", column: "creator_id"
 end

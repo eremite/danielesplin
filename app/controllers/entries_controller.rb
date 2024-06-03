@@ -20,7 +20,7 @@ class EntriesController < ApplicationController
   end
 
   def create
-    entry = Entry.create!(at: Time.current, user_id: current_user.id)
+    entry = Entry.create!(at: Time.current, user: current_user, creator: current_user)
     redirect_to [:edit, entry]
   end
 

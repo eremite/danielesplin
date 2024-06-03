@@ -8,6 +8,7 @@ class InventoryItemsController < ApplicationController
       @ends_on = Time.zone.today
     end
     @inventory_items = InventoryItem.all
+    @inventory_items = params[:deleted].to_i.nonzero? ? @inventory_items.deleted : @inventory_items.not_deleted
     @inventory_items = params[:order] == "on_asc" ? @inventory_items.order(on: :asc) : @inventory_items.on_desc
     @inventory_items = @inventory_items.page(params[:page])
     @inventory_items = @inventory_items.before(@ends_on.end_of_day) if params[:ends_on].present?
@@ -50,8 +51,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def destroy
-    @inventory_item = InventoryItem.find(params[:id])
-    @inventory_item.destroy
+    InventoryItem.find(params[:id]).touch(:deleted_at)
     redirect_to :inventory_items, notice: "#{InventoryItem.model_name.human} deleted."
   end
 
