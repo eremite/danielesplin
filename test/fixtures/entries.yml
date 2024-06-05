@@ -3,4 +3,4 @@
 base:
   user: admin
   body: Content
-  at: <%= Time.current.to_s(:db) %>
+  at: <%= Time.current %>

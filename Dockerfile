@@ -1,4 +1,4 @@
-FROM ruby:2.6-alpine
+FROM ruby:3.3-alpine
 
 ENV LC_ALL C.UTF-8
 
@@ -22,7 +22,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY Gemfile* /usr/src/app/
 RUN bundle config --global jobs 8
-RUN bundle install --system
+RUN bundle install
 
 COPY . /usr/src/app
 

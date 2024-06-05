@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '6.1.4'
+gem 'rails', '7.1.3.3'
 
 gem 'acts-as-taggable-on'
 gem 'aws-sdk-s3'
