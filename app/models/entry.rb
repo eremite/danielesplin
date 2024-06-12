@@ -19,8 +19,8 @@ class Entry < ApplicationRecord
   end
 
   def after_create_redirect_url
-    # return [:entries] if at < 3.days.ago || creator.child?
-    # return [:entries, { ends_on: 5.years.ago.to_date, random: 1 }] if creator.father?
+    return [:entries] if at < 3.days.ago || creator.child?
+    return [:entries, { ends_on: 5.years.ago.to_date, random: 1 }] if creator.father?
     child = nil
     User.where(role: 'baby').each do |user|
       if user.entries.where(at: at.all_day).blank?
