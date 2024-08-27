@@ -60,9 +60,12 @@
           = link_to [:edit, entry], class: 'text-reset' do
             = l entry.at.to_date, format: :long
             - if entry.at != entry.at.beginning_of_day
-              %small
-                at
-                = l entry.at, format: '%l:%M%p'
+              %small.fs-5 at #{l entry.at, format: '%l:%M%p'}
+      - if entry.at < 1.week.ago
+        .text-muted.text-end
+          - if entry.user&.born_at.present?
+            %small.d-block #{timespan(entry.user.born_at, entry.at)} old
+          %small.d-block #{timespan(Time.current, entry.at)} ago
       %div
         - if entry.entry_tags.present?
           - entry.entry_tag_list.each do |tag_name|
