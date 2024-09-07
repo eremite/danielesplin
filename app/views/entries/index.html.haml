@@ -18,7 +18,7 @@
   = form_with url: :entries, method: :get do |f|
     .mb-3
       = f.label :ends_on, 'Date'
-      = f.date_field :ends_on, value: @ends_on, class: 'form-control'
+      = f.date_field :ends_on, value: @ends_on.presence.to_date.to_s, class: 'form-control'
     .mb-3
       = f.label :age_months, "Age"
       .input-group
