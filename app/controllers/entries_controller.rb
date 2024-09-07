@@ -1,7 +1,7 @@
 class EntriesController < ApplicationController
 
   def index
-    @ends_on = Date.parse(params[:ends_on] || Date.current.to_s)
+    @ends_on = parse_date(params[:ends_on])
     @entry_user = current_user.users_whose_entries_i_can_edit.find_by(id: params[:user_id]) || current_user
     if @entry_user.born_at.present? && (params[:age_months].present? || params[:age_years].present?)
       @ends_on = @entry_user.born_at + params[:age_months].to_i.months + params[:age_years].to_i.years
@@ -62,6 +62,12 @@ class EntriesController < ApplicationController
 
   def authorized?
     current_user&.parent? || current_user&.child?
+  end
+
+  def parse_date(date_string)
+    Date.parse(date_string)
+  rescue ArgumentError, TypeError
+    Date.current
   end
 
 end
