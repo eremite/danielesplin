@@ -1,25 +1,35 @@
 source 'https://rubygems.org'
 
-gem 'rails', '6.1.4'
+gem "rails", "~> 8.0.0"
 
-gem 'acts-as-taggable-on'
-gem 'aws-sdk-s3'
-gem 'bcrypt'
-gem 'bootsnap'
-gem 'exifr'
-gem 'haml'
-gem 'image_processing'
-gem 'kaminari'
-gem 'mysql2'
-gem 'uglifier'
-
-group :production do
-  gem 'puma'
-end
+gem "acts-as-taggable-on"
+gem "aws-sdk-s3"
+gem "bcrypt"
+gem "bootsnap", require: false
+gem "exifr"
+gem "haml"
+gem "image_processing"
+gem "importmap-rails"
+gem "kamal", require: false
+gem "kaminari"
+gem "propshaft"
+gem "puma"
+gem "solid_cable"
+gem "solid_cache"
+gem "solid_queue"
+gem "sqlite3"
+gem "stimulus-rails"
+gem "thruster", require: false
+gem "turbo-rails"
 
 group :development, :test do
-  gem 'byebug'
-  gem 'listen'
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
+  # gem "brakeman", require: false
+  # gem "rubocop-rails-omakase", require: false
+end
+
+group :development do
+  gem "web-console"
 end
 
 group :test do

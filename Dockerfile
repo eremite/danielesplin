@@ -1,30 +1,27 @@
-FROM ruby:2.6-alpine
+# syntax=docker/dockerfile:1
+# check=error=true
 
-ENV LC_ALL C.UTF-8
+ARG RUBY_VERSION=3.3.4
+FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
-RUN apk add --update --upgrade \
-  build-base \
-  ffmpeg \
-  imagemagick \
-  libxml2-dev \
-  libxslt-dev \
-  mysql-dev \
-  netcat-openbsd \
-  nodejs \
-  shared-mime-info \
-  tzdata \
-  && rm -rf /var/cache/apk/*
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
 
-# Use libxml2, libxslt a packages from alpine for building nokogiri
-RUN bundle config build.nokogiri --use-system-libraries
+WORKDIR /rails
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY Gemfile* /usr/src/app/
-RUN bundle config --global jobs 8
-RUN bundle install --system
+# Install base packages
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libssl-dev libreadline-dev zlib1g-dev autoconf && \
+      bison build-essential libyaml-dev libncurses5-dev libffi-dev libgdbm-dev libxml2-dev rustc pkg-config && \
+      libsqlite3-dev sqlite3 libvips ffmpeg poppler-utils && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-COPY . /usr/src/app
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+COPY . .
+
+FROM base
 
 EXPOSE 3000
 CMD ["bin/devserver"]

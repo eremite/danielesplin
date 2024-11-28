@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   ROLES = %w(father mother baby grandparent guest)
+  EMAIL_REGEX = /\A(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\Z/i
 
   has_secure_password
 
@@ -13,7 +14,7 @@ class User < ApplicationRecord
   validates :email,
     presence: true,
     uniqueness: { case_sensitive: false },
-    format: { with: Rails.application.config.email_regex }
+    format: { with: EMAIL_REGEX }
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 4 }, allow_blank: true
   validates :api_key, uniqueness: true, allow_blank: true

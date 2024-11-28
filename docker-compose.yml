@@ -3,22 +3,12 @@ services:
   web:
     build: .
     volumes:
-      - .:/usr/src/app
+      - .:/rails
     ports:
       - "80:3000"
-    depends_on:
-      - db
-    environment:
-      DB_NAME: danielesplin
-      DB_HOST: db
-      DB_PASSWORD: docker
-      DB_USERNAME: root
-      FROM_EMAIL: test@example.com
-
-  db:
-    image: "mysql:5.6"
-    ports:
-      - "3306:3306"
-    command: --innodb-file-format=Barracuda --innodb-large-prefix
-    environment:
-      MYSQL_ROOT_PASSWORD: docker
+    # environment:
+    #   DB_NAME: danielesplin
+    #   DB_HOST: db
+    #   DB_PASSWORD: docker
+    #   DB_USERNAME: root
+    #   FROM_EMAIL: test@example.com
