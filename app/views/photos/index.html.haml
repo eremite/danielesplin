@@ -6,7 +6,7 @@
     %h3.mb-3 Upload Photos
     = form_with model: PhotoBatch.new, html: { multipart: true  } do |f|
       .mb-3
-        = f.file_field :images, multiple: true, class: "form-control"
+        = f.file_field :images, multiple: true, direct_upload: true, class: "form-control"
       .mb-3.d-grid
         = f.submit "Save", class: "btn btn-primary"
 
