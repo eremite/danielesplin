@@ -1,5 +1,5 @@
 base:
   user: base
   entry: base
-  at: <%= Time.current.to_s(:db) %>
+  at: <%= Time.current %>
   description: Funky

@@ -6,9 +6,5 @@ services:
       - .:/rails
     ports:
       - "80:3000"
-    # environment:
-    #   DB_NAME: danielesplin
-    #   DB_HOST: db
-    #   DB_PASSWORD: docker
-    #   DB_USERNAME: root
-    #   FROM_EMAIL: test@example.com
+    environment:
+      FROM_EMAIL: test@example.com

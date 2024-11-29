@@ -14,6 +14,7 @@ class DeciderListPickerControllerTest < ActionController::TestCase
 
   test 'create' do
     post :create, params: { id: decider_lists(:base).id }
+    assert_response :success
   end
 
 end
