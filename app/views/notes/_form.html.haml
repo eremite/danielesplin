@@ -1,26 +1,14 @@
-:javascript
-  function insertKind(kind) {
-    var input = document.getElementsByName('note[kind]')[0]
-    if (input.value) {
-      input.value = input.value + ', ' + tag.name
-    } else {
-      input.value = kind.name
-    }
-    document.getElementById(kind.index).remove()
-  }
-
 = form_with model: @note do |f|
   - if f.object.errors.any?
     .alert.alert-danger= f.object.errors.full_messages.to_sentence
   .mb-3
     = f.label :title, class: 'form-label'
     = f.text_field :title, class: 'form-control', tabindex: 1
-  .mb-3
+  .mb-3{ data: { controller: "tag-inserter" } }
     = f.label :kind, class: 'form-label'
     - current_user.notes.pluck(:kind).uniq.compact.each_with_index do |kind, i|
-      - kind_json = { name: kind, index: "btn-kind-#{i}" }.to_json
-      = link_to kind, "javascript: insertKind(#{kind_json})", id: "btn-kind-#{i}", class: 'btn btn-secondary btn-sm'
-    = f.text_field :kind, class: 'form-control', tabindex: 2
+      = link_to kind, "#", data: { action: "tag-inserter#insert" }, class: 'btn btn-secondary btn-sm'
+    = f.text_field :kind, class: 'form-control', tabindex: 2, data: { tag_inserter_target: "input" }
   .mb-3
     = f.label :body, class: 'form-label'
     = f.hidden_field :body, id: 'trix-editor-content'
@@ -28,10 +16,13 @@
   .mb-3
     = f.label :meta, class: 'form-label'
     = f.text_area :meta, rows: 3, class: 'form-control', tabindex: 4
-  .mb-3
+  .mb-3{ data: { controller: "tag-inserter" } }
     = f.label :note_tag_list, class: 'form-label'
-    = render partial: '/shared/suggested_tags', locals: { object: f.object, input_name: "note[note_tag_list]" }
-    = f.text_field :note_tag_list, value: f.object.note_tag_list.to_s, class: 'form-control', tabindex: 4
+    %p
+      - f.object.suggested_tags.limit(9).each do |tag|
+        = link_to tag.name, "#", data: { action: "tag-inserter#insert" }, class: 'btn btn-secondary btn-sm'
+    = f.text_field :note_tag_list, value: f.object.note_tag_list.to_s, class: 'form-control', tabindex: 4,
+      data: { tag_inserter_target: "input" }
   .mb-3
     = f.submit 'Save', class: 'btn btn-primary'
     = link_to 'Cancel', :notes, class: 'btn btn-secondary'

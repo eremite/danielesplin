@@ -13,17 +13,10 @@
         = render partial: "/shared/carousel_modal",
           locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
         - @photos.each do |photo|
-          = l photo.at
-          &nbsp;
-          %input{ id: "photo-#{photo.id}-url", type: "hidden", value: polymorphic_url(photo.image) }
-          = link_to "javascript:copyPhotoUrlToClipboard(#{photo.id})", title: "Copy to clipboard" do
-            %i.bi-clipboard
-          = render photo
-      :javascript
-        function copyPhotoUrlToClipboard(id) {
-          const inputElement = document.getElementById(`photo-${id}-url`)
-          inputElement.type = 'text'
-          inputElement.select()
-          document.execCommand("copy")
-          inputElement.type = 'hidden'
-        }
+          %div{ data: { controller: "clipboard" } }
+            = l photo.at
+            &nbsp;
+            %input{ type: "hidden", value: polymorphic_url(photo.image), data: { clipboard_target: "source" } }
+            = link_to "#", title: "Copy to clipboard", data: { action: "clipboard#copy" } do
+              %i.bi-clipboard
+            = render photo

@@ -16,13 +16,6 @@
     = yield :head
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
-    :javascript
-      document.addEventListener("DOMContentLoaded", function(event) {
-        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-        var toastList = toastElList.map(function (toastEl) {
-          return new bootstrap.Toast(toastEl, { autohide: false }).show()
-        })
-      })
 
   %body.bg-dark.text-light{ id: "#{controller.controller_name.dasherize}-controller" }
     .container

@@ -1,6 +1,6 @@
 - if photo.image.attached?
-  %figure.figure.my-3.mx-1.text-center.d-table.position-relative
-    = link_to "javascript:openPhoto#{photo.id}()", class: 'd-table-row text-white' do
+  %figure.figure.my-3.mx-1.text-center.d-table.position-relative{ data: { controller: "photo-carousel" } }
+    = link_to "#", class: 'd-table-row text-white', data: { action: 'photo-carousel#openPhoto', photo_carousel_photo_id_param: photo.id } do
       - if photo.image.previewable?
         - play_styles = 'font-size: 3em; top: 40%; left: 50%; transform: translate(-50%,-50%)'
         %i.bi-play-circle.position-absolute{ style: play_styles }
@@ -12,14 +12,3 @@
           %em Insert caption here
         - else
           = photo.description.to_s.html_safe
-
-  :javascript
-    function openPhoto#{photo.id} () {
-      var item = document.querySelector("[data-carousel-item-photo-#{photo.id}-index]")
-      var index = item.dataset["carouselItemPhoto-#{photo.id}Index"]
-      var carouselId = item.dataset["carouselItemPhoto-#{photo.id}Carousel"]
-      var modalId = item.dataset["carouselItemPhoto-#{photo.id}Modal"]
-      bootstrap.Carousel.getOrCreateInstance(document.getElementById(carouselId)).to(index)
-      bootstrap.Modal.getOrCreateInstance(document.getElementById(modalId)).show()
-      document.querySelector("#" + modalId + " .carousel-control-prev").focus()
-    }

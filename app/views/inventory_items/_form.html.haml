@@ -18,11 +18,13 @@
   .mb-3
     = f.label :description, class: 'form-label'
     = f.text_area :description, rows: 3, class: 'form-control'
-  .mb-3
+  .mb-3{ data: { controller: "tag-inserter" } }
     = f.label :inventory_item_tag_list, class: 'form-label'
-    = render partial: '/shared/suggested_tags',
-      locals: { object: f.object, input_name: 'inventory_item[inventory_item_tag_list]' }
-    = f.text_field :inventory_item_tag_list, value: f.object.inventory_item_tag_list.to_s, class: 'form-control'
+    %p
+      - f.object.suggested_tags.limit(9).each do |tag|
+        = link_to tag.name, "#", data: { action: "tag-inserter#insert" }, class: 'btn btn-secondary btn-sm'
+    = f.text_field :inventory_item_tag_list, value: f.object.inventory_item_tag_list.to_s, class: 'form-control',
+      data: { tag_inserter_target: "input" }
   .mb-3
     = f.submit 'Save', class: 'btn btn-primary'
     = link_to 'Cancel', :inventory_items, class: 'btn btn-outline-secondary'

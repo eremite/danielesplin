@@ -8,7 +8,8 @@
               %span.carousel-captions.collapse.text-center{ id: "#{carousel_id}-caption-#{i}", class: i.zero? && 'show' }
                 = photo.description.to_s.html_safe
           %button.btn-close{ type: 'button', data: { bs: { dismiss: 'modal' } } }
-        .carousel.carousel-dark.slide{ id: carousel_id, data: { bs: { interval: 'false' } } }
+        - data = { bs: { interval: 'false' }, controller: "photo-carousel" }
+        .carousel.carousel-dark.slide{ id: carousel_id, data: data }
           .carousel-inner
             - photos.each_with_index do |photo, i|
               - data = { index: i, modal: modal_id, carousel: carousel_id }
@@ -25,11 +26,3 @@
           %button.carousel-control-next{ type: 'button', data: { bs: { target: "##{carousel_id}", slide: 'next' } } }
             %span.carousel-control-next-icon{ aria: { hidden: true } }
             %span.visually-hidden Next
-
-:javascript
-  document.getElementById('#{carousel_id}').addEventListener('slide.bs.carousel', function (event) {
-    Array.from(document.querySelectorAll('.carousel-captions')).forEach(function(captionElement) {
-      captionElement.classList.remove('show');
-    })
-    document.getElementById('#{carousel_id}-caption-' + event.to).classList.add('show')
-  })
