@@ -13,9 +13,12 @@ class EntriesController < ApplicationController
     if params[:tag].present?
       @entries = @entries.tagged_with(params[:tag], on: :entry_tags)
     end
-    @entries = @entries.on_this_day if params[:on_this_day]
     if params[:random].to_i.nonzero?
       @entries = @entries.where(id: @entries.sample.try(:id))
+    end
+    if params[:on_this_day]
+      entry = @entry_user.random_entry_on_the_same_day_of_the_year
+      @entries = Entry.where(id: entry.id) if entry.present?
     end
     @entries = @entries.page(params[:page])
   end

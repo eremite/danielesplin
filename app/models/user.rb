@@ -54,6 +54,17 @@ class User < ApplicationRecord
     []
   end
 
+  def random_entry_on_the_same_day_of_the_year
+    return unless born_at?
+    year_span = Time.current.year - born_at.year
+    25.times do
+      same_day_different_year = (rand(year_span) + 1).years.ago.all_day
+      entry = entries.find_by(at: same_day_different_year)
+      return entry if entry.present?
+    end
+    nil
+  end
+
   def log(action)
     touch(:viewed_blog_at) if action.to_s == 'blog'
     log_entries.create(action: action)
