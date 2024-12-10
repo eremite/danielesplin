@@ -11,8 +11,8 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libssl-dev libreadline-dev zlib1g-dev autoconf && \
-      bison build-essential libyaml-dev libncurses5-dev libffi-dev libgdbm-dev libxml2-dev rustc pkg-config && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libssl-dev libreadline-dev zlib1g-dev autoconf \
+      bison build-essential libyaml-dev libncurses5-dev libffi-dev libgdbm-dev libxml2-dev rustc pkg-config \
       libsqlite3-dev sqlite3 libvips ffmpeg poppler-utils && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
