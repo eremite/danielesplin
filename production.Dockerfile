@@ -24,7 +24,9 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git pkg-config && \
+    apt-get install --no-install-recommends -y git libssl-dev libreadline-dev zlib1g-dev autoconf \
+      bison build-essential libyaml-dev libncurses5-dev libffi-dev libgdbm-dev libxml2-dev rustc pkg-config \
+      libsqlite3-dev ffmpeg poppler-utils && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -42,9 +44,6 @@ RUN bundle exec bootsnap precompile app/ lib/
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
-
-
-
 # Final stage for app image
 FROM base
 
@@ -52,11 +51,12 @@ FROM base
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 
-# Run and own only the runtime files as a non-root user for security
-RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER 1000:1000
+# # Run and own only the runtime files as a non-root user for security
+# TODO: Figure out how to make sqlite play nicely with /storage.
+# RUN groupadd --system --gid 1000 rails && \
+#     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+#     chown -R rails:rails log storage tmp
+# USER 1000:1000
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]

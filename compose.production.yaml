@@ -1,0 +1,13 @@
+services:
+
+  web:
+    build:
+      context: .
+      dockerfile: production.Dockerfile
+    volumes:
+      - ./storage:/rails/storage
+    ports:
+      - "80:80"
+    environment:
+      FROM_EMAIL: test@example.com
+      TLS_DOMAIN: danielesplin.org,www.danielesplin.org

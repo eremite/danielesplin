@@ -1,5 +1,12 @@
-.git
-db/data.yml
-log
-tmp
-storage
+/.git/
+/.bundle
+/.env*
+/config/master.key
+/log/*
+!/log/.keep
+/storage/*
+!/storage/.keep
+/tmp/*
+!/tmp/.keep
+/tmp/storage/*
+!/tmp/storage/.keep
