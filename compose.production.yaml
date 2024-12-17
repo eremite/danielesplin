@@ -4,10 +4,9 @@ services:
     build:
       context: .
       dockerfile: production.Dockerfile
-    volumes:
-      - ./storage:/rails/storage
+    env_file: ".env"
     ports:
       - "80:80"
-    environment:
-      FROM_EMAIL: test@example.com
-      TLS_DOMAIN: danielesplin.org,www.danielesplin.org
+      - "443:443"
+    volumes:
+      - ./storage:/rails/storage
