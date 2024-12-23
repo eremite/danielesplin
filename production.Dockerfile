@@ -10,7 +10,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 ffmpeg && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -26,7 +26,7 @@ FROM base AS build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y git libssl-dev libreadline-dev zlib1g-dev autoconf \
       bison build-essential libyaml-dev libncurses5-dev libffi-dev libgdbm-dev libxml2-dev rustc pkg-config \
-      libsqlite3-dev ffmpeg poppler-utils && \
+      libsqlite3-dev poppler-utils && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
