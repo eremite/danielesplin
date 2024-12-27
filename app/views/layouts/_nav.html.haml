@@ -37,4 +37,4 @@
           %ul.dropdown-menu{ "aria-labelledby": "navbarDropdownUser" }
             %li= link_to "Edit Profile", [:edit, current_user], class: "dropdown-item"
             %li.divider
-            %li= link_to "Log Out", :logout, method: :delete, class: "dropdown-item"
+            %li= button_to "Log Out", :logout, method: :delete, class: "dropdown-item"

@@ -7,4 +7,4 @@
     - if current_user == comment.user
       .mt-2.pt-2.border-top
         = link_to 'Edit', [:edit, comment], class: 'btn btn-sm btn-outline-info'
-        = link_to 'Delete', comment, method: :delete, class: 'btn btn-sm btn-outline-danger'
+        = button_to 'Delete', comment, method: :delete, class: 'btn btn-sm btn-outline-danger'

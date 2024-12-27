@@ -1,5 +1,9 @@
 - title 'Edit Blog Post'
 
+- content_for :sidebar do
+  - if @post.persisted?
+    = button_to 'Delete', @post, method: :delete, class: 'btn btn-outline-danger', data: { turbo_confirm: "Are you sure you want to delete this blog post?" }
+
 = render 'form'
 
 - if (photos = @post.photos.at_asc).present?

@@ -1,13 +1,9 @@
 = form_with model: @post do |f|
   - if f.object.errors.any?
     .alert.alert-danger= f.object.errors.full_messages.to_sentence
-  .row.mb-3.d-flex.justify-content-between
-    .col-auto
-      = f.label :at, class: 'form-label'
-      = f.datetime_field :at, class: 'form-control', tabindex: 1
-    .col-auto
-      - if f.object.persisted?
-        = link_to 'Delete', f.object, method: :delete, class: 'btn btn-outline-danger', data: { confirm: "Are you sure you want to delete this blog post?" }
+  .mb-3
+    = f.label :at, class: 'form-label'
+    = f.datetime_field :at, class: 'form-control', tabindex: 1
   .mb-3
     = f.label :body, class: 'form-label'
     = f.hidden_field :body, id: 'trix-editor-content'

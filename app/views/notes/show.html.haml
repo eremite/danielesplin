@@ -6,14 +6,14 @@
       %i.bi-pencil-fill
         Edit
     - if @note.finished_at.present?
-      = link_to [@note, { note: { finished_at: nil } }], method: :patch, class: 'btn btn-warning' do
+      = button_to [@note, { note: { finished_at: nil } }], method: :patch, class: 'btn btn-warning' do
         %i.bi-check-lg
         Unfinish
     - else
-      = link_to [@note, { note: { finished_at: Time.zone.now } }], method: :patch, class: 'btn btn-warning' do
+      = button_to [@note, { note: { finished_at: Time.zone.now } }], method: :patch, class: 'btn btn-warning' do
         %i.bi-check-lg
         Finish
-    = link_to @note, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure you want to delete this note?' } do
+    = button_to @note, class: 'btn btn-danger', method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this note?' } do
       %i.bi-trash-fill
       Delete
 

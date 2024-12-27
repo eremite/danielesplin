@@ -1,3 +1,7 @@
 - title 'Edit'
 
+- content_for :sidebar do
+  - if @entry.persisted?
+    = button_to 'Delete', @entry, class: 'btn btn-outline-danger float-end', method: :delete, data: { turbo_confirm: "Are you sure you want to delete this entry?" }
+
 = render 'form'

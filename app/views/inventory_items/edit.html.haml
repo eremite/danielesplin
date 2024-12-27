@@ -3,7 +3,7 @@
 - content_for :sidebar do
 
   .d-grid.gap-2
-    = link_to @inventory_item, class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure you want to delete this #{InventoryItem.model_name.human}?" } do
+    = button_to @inventory_item, class: 'btn btn-danger', method: :delete, data: { turbo_confirm: "Are you sure you want to delete this #{InventoryItem.model_name.human}?" } do
       %i.bi-trash-fill
       Delete
 
