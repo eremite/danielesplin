@@ -1,6 +1,7 @@
 - if photo.image.attached?
   %figure.figure.my-3.mx-1.text-center.d-table.position-relative{ data: { controller: "photo-carousel" } }
-    = link_to "#", class: 'd-table-row text-white', data: { action: 'photo-carousel#openPhoto', photo_carousel_photo_id_param: photo.id } do
+    - data = { action: 'photo-carousel#openPhoto', photo_carousel_photo_id_param: photo.id }
+    = link_to "#", class: 'd-table-row text-white', data: data do
       - if photo.image.previewable?
         - play_styles = 'font-size: 3em; top: 40%; left: 50%; transform: translate(-50%,-50%)'
         %i.bi-play-circle.position-absolute{ style: play_styles }

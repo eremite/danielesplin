@@ -8,7 +8,9 @@
               %span.carousel-captions.collapse.text-center{ id: "#{carousel_id}-caption-#{i}", class: i.zero? && 'show' }
                 = photo.description.to_s.html_safe
           %button.btn-close{ type: 'button', data: { bs: { dismiss: 'modal' } } }
-        - data = { bs: { interval: 'false' }, controller: "photo-carousel" }
+        - interval = 'false'
+        - interval = (params[:interval].presence || 3).to_i * 1000 if controller_name == 'print_batches'
+        - data = { bs: { interval: interval }, controller: "photo-carousel" }
         .carousel.carousel-dark.slide{ id: carousel_id, data: data }
           .carousel-inner
             - photos.each_with_index do |photo, i|

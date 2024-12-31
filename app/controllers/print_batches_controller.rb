@@ -13,8 +13,10 @@ class PrintBatchesController < ApplicationController
   end
 
   def posts
-    starts_on = Time.zone.parse("#{params[:year]}-01-01")
-    @posts = Post.at_asc.past.where(at: starts_on..starts_on.end_of_year).includes(:photos)
+    @photos_by_posts = {}
+    Post.at_asc.past.where(at: Time.zone.local(params[:year]).all_year).includes(:photos).each do |post|
+      @photos_by_posts[post] = post.photos.at_asc.where(id: post.photos.ids.sample((params[:count].presence || 5).to_i))
+    end
     render :posts
   end
 

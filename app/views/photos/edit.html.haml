@@ -1,17 +1,15 @@
 - title 'Edit Photo'
 
 - content_for :sidebar do
+  - if @photo.persisted?
+    .row.justify-content-center
+      .col-auto
+        = button_to @photo, class: 'btn btn-outline-danger ', method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this photo?' } do
+          %i.bi-trash-fill
+          Delete
 
-  .d-grid.gap-2
-    = link_to new_post_path(post: { at: @photo.at }), class: 'btn btn-success' do
-      %i.bi-plus-lg
-      New Blog Post
-    = button_to @photo, class: 'btn btn-danger', method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this photo?' } do
-      %i.bi-trash-fill
-      Delete
-
-  %hr
-  = render @photo
+  .row.justify-content-center
+    .col-auto= render @photo
 
 = render 'form'
 

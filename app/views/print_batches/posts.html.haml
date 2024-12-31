@@ -1,9 +1,8 @@
 %h1 #{params[:year]}
 
-- @posts.each do |post|
-  - photos = post.photos.at_asc
-  = render partial: "/shared/carousel_modal",
-    locals: { photos: photos, modal_id: "post-#{post.id}-modal", carousel_id: "post-#{post.id}-carousel" }
+= render partial: "/shared/carousel_modal",
+  locals: { photos: @photos_by_posts.values.flatten, modal_id: 'posts-modal', carousel_id: 'posts-carousel' }
+- @photos_by_posts.each do |post, photos|
   .mt-3
     = post.body.html_safe
     .d-flex.flex-wrap.align-items-center
