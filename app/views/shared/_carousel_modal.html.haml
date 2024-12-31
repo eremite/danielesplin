@@ -11,7 +11,7 @@
         - interval = 'false'
         - interval = (params[:interval].presence || 3).to_i * 1000 if controller_name == 'print_batches'
         - data = { bs: { interval: interval }, controller: "photo-carousel" }
-        .carousel.carousel-dark.slide{ id: carousel_id, data: data }
+        .carousel.carousel-dark.carousel-fade.slide{ id: carousel_id, data: data }
           .carousel-inner
             - photos.each_with_index do |photo, i|
               - data = { index: i, modal: modal_id, carousel: carousel_id }
@@ -21,6 +21,7 @@
                   - if photo.image.previewable?
                     = video_tag rails_blob_url(photo.image), controls: true, class: css, style: 'height: 70vh'
                   - if photo.image.variable?
+                    .text-muted.float-end= l photo.at if photo.at?
                     = image_tag photo.image, class: css, style: 'height: 90vh'
           %button.carousel-control-prev{ type: 'button', data: { bs: { target: "##{carousel_id}", slide: 'prev' } } }
             %span.carousel-control-prev-icon{ aria: { hidden: true } }
