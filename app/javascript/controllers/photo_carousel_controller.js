@@ -7,7 +7,7 @@ export default class extends Controller {
     }
     let imgElement = this.element.querySelector('img')
     if (imgElement && imgElement.dataset.loadingDelay) {
-      this.timeout = setTimeout(() =>{ imgElement.src = imgElement.dataset.thumbnailUrl }, parseInt(imgElement.dataset.loadingDelay) * 200)
+      this.timeout = setTimeout(() =>{ imgElement.src = imgElement.dataset.thumbnailUrl }, parseInt(imgElement.dataset.loadingDelay) * 500)
     }
   }
 

@@ -40,7 +40,7 @@ class Photo < ApplicationRecord
     end
     photos = photos.where(description: [nil, ""]) if params[:nondescript].to_i.nonzero?
     photos = photos.includes(:post_photos).where(post_photos: { photo_id: nil }) if params[:unblogged].to_i.nonzero?
-    photos.page(params[:page]).per(100)
+    photos.page(params[:page]).per(30)
   end
 
   def self.order_options
