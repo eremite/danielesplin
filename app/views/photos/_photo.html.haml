@@ -7,7 +7,7 @@
         %i.bi-play-circle.position-absolute{ style: play_styles }
       - if photo.image.representable?
         - thumbnail = photo.image.representation(resize_to_limit: [250, 200])
-        - if defined?(photo_counter).present? && photo_counter > 3
+        - if defined?(photo_counter).present?
           - data = { thumbnail_url: url_for(thumbnail) }
           - data[:loading_delay] = photo_counter if defined?(photo_counter).present?
           = image_tag '/loading.png', class: 'figure-img img-thumbnail', data: data
