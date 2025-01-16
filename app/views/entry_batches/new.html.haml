@@ -1,0 +1,12 @@
+%h1 Journal Entries for #{l(Date.current, format: :long)}
+= form_with model: @entry_batch do |f|
+  - f.object.entry_params_by_user_id.each do |user_id, entry_params|
+    - user = entry_params[:user]
+    .mb-3
+      %h3= user.name
+      = f.fields_for :entry_params_by_user_id do |user_form|
+        = user_form.fields_for user.id.to_s do |entry_form|
+          = entry_form.hidden_field :id, value: entry_params[:id]
+          = entry_form.hidden_field :body, id: "user-#{user.id}-trix-editor-content", value: entry_params[:body]
+      <trix-editor input="user-#{user.id}-trix-editor-content"></trix-editor>
+  = f.submit 'Save', class: 'btn btn-primary'

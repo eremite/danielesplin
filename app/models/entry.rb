@@ -20,7 +20,9 @@ class Entry < ApplicationRecord
 
   def after_create_redirect_url
     return [:entries] unless at.to_date == Date.current
-    if creator.parent?
+    if creator.father?
+      return [:new, :entry_batch]
+    elsif creator.mother?
       child = nil
       User.where(role: 'baby').each do |user|
         if user.entries.where(at: Time.current.all_day).blank?

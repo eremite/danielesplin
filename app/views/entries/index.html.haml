@@ -5,6 +5,7 @@
   .d-grid.gap-2
     = form_with model: Entry.new do |f|
       = f.submit "+ New Journal Entry", class: 'btn btn-success w-100'
+    = link_to "+ New Kids Entries", [:new, :entry_batch], class: 'btn btn-success'
     - current_user.users_whose_entries_i_can_edit.each do |user|
       = link_to entries_path(user_id: user.id), class: 'btn btn-warning' do
         %i.bi-book

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :decider_list_items, only: %i[new create destroy]
   end
   resources :entries
+  resources :entry_batches, only: %i[new create]
   resources :inventory_items
   resources :notes
   resources :pages
