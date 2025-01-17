@@ -1,6 +1,6 @@
 class LogEntry < ApplicationRecord
 
-  belongs_to :user
+  belongs_to :user, default: -> { Current.user }
 
   scope :logins, -> { where(action: 'login') }
   scope :blogs, -> { where(action: 'blog') }

@@ -4,7 +4,7 @@ class Photo < ApplicationRecord
 
   has_one_attached :image
 
-  belongs_to :user
+  belongs_to :user, default: -> { Current.user }
   belongs_to :entry, optional: true
   has_many :post_photos
   has_many :posts, through: :post_photos

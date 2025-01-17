@@ -3,7 +3,7 @@ class Entry < ApplicationRecord
   acts_as_taggable_on :entry_tags
 
   belongs_to :user
-  belongs_to :creator, class_name: 'User', optional: true
+  belongs_to :creator, class_name: 'User', optional: true, default: -> { Current.user }
 
   validates :body, presence: true, on: :update
 

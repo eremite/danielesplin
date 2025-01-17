@@ -2,7 +2,7 @@ class Note < ApplicationRecord
 
   acts_as_taggable_on :note_tags
 
-  belongs_to :user
+  belongs_to :user, default: -> { Current.user }
 
   def self.tags
     taggings = ActsAsTaggableOn::Tagging.where(context: 'note_tags')
