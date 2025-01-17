@@ -2,7 +2,7 @@
 
 - content_for :sidebar do
 
-  - if current_user.parent?
+  - if Current.user.parent?
     .d-grid.gap-2
       = link_to [:new, :post], class: 'btn btn-success' do
         %i.bi-plus-lg
@@ -11,7 +11,7 @@
 
     %h3 Visitors
     %ul.list-unstyled
-      - User.where.not(id: current_user.id).viewed_blog_at_desc.limit(8).each do |user|
+      - User.where.not(id: Current.user.id).viewed_blog_at_desc.limit(8).each do |user|
         %li
           %strong= user.name
           &mdash;
@@ -46,14 +46,14 @@
               - posts.each do |post|
                 - css_classes = 'list-group-item list-group-item-action'
                 - if post.at.future?
-                  - next unless current_user.parent?
+                  - next unless Current.user.parent?
                   - css_classes << ' list-group-item-secondary'
                 = link_to post, class: css_classes do
                   - if post.at.future?
                     %i.bi-calendar3{ title: "Unpublished" }
                     &nbsp;
                   = post.title.presence || l(post.at.to_date)
-  - if current_user.parent?
+  - if Current.user.parent?
     .d-grid.gap-2.mt-3
       = link_to :print_batches, class: 'btn btn-info' do
         %i.bi-printer

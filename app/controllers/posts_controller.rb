@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    current_user.log('blog')
+    Current.user.log('blog')
     @post = Post.find(params[:id])
   end
 
@@ -49,8 +49,8 @@ class PostsController < ApplicationController
   end
 
   def authorized?
-    return true if current_user.present? && %w[index show].include?(action_name)
-    current_user&.parent?
+    return true if Current.user.present? && %w[index show].include?(action_name)
+    Current.user&.parent?
   end
 
 end

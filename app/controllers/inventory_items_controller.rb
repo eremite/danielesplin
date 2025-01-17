@@ -62,7 +62,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def authorized?
-    current_user&.parent?
+    Current.user&.parent?
   end
 
 end

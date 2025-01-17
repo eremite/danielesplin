@@ -5,7 +5,7 @@ class NotesController < ApplicationController
     if params[:user_id].present?
       @notes = @notes.where(user_id: params[:user_id])
     else
-      @notes = current_user.notes
+      @notes = Current.user.notes
     end
     if params[:kind].present?
       @notes = @notes.where(kind: params[:kind])
@@ -37,7 +37,7 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = current_user.notes.new(safe_params)
+    @note = Current.user.notes.new(safe_params)
     if @note.save
       redirect_to [:edit, @note], notice: 'Note saved.'
     else
@@ -83,7 +83,7 @@ class NotesController < ApplicationController
   end
 
   def authorized?
-    current_user&.father?
+    Current.user&.father?
   end
 
 end

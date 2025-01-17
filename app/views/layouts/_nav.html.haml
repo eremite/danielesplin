@@ -5,12 +5,12 @@
       %span.navbar-toggler-icon
     .collapse.navbar-collapse#navbarSupportedContent
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-        - if current_user.present?
+        - if Current.user.present?
           %li.nav-ite
             = link_to :posts, class: "nav-link #{"active" if controller.controller_name == "posts" }" do
               %i.bi-card-image
               Blog
-        - if current_user.parent? || current_user.child?
+        - if Current.user.parent? || Current.user.child?
           %li.nav-item
             = link_to :entries, class: "nav-link #{"active" if controller.controller_name == "entries" }" do
               %i.bi-book-half
@@ -19,11 +19,11 @@
             = link_to :photos, class: "nav-link #{"active" if controller.controller_name == "photos" }" do
               %i.bi-camera-fill
               Photos
-          - if current_user.father?
+          - if Current.user.father?
             %li.nav-item
               = link_to :notes, class: "nav-link #{"active" if controller.controller_name == "notes" }" do
                 Study
-          - if current_user.parent?
+          - if Current.user.parent?
             %li.nav-item.dropdown
               = link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdown", role: "button", data: { "bs-toggle": "dropdown" }, "aria-expanded": false do
                 Misc
@@ -33,8 +33,8 @@
                 %li= link_to 'Decider Lists', :decider_lists, class: "dropdown-item"
         %li.nav-item.dropdown
           = link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdownUser", role: "button", data: { "bs-toggle": "dropdown" }, "aria-expanded": false do
-            = current_user.name
+            = Current.user.name
           %ul.dropdown-menu{ "aria-labelledby": "navbarDropdownUser" }
-            %li= link_to "Edit Profile", [:edit, current_user], class: "dropdown-item"
+            %li= link_to "Edit Profile", [:edit, Current.user], class: "dropdown-item"
             %li.divider
             %li= button_to "Log Out", :logout, method: :delete, class: "dropdown-item"

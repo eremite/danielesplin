@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :verify_authorized
 
   def create
-    @comment = current_user.comments.new(safe_params)
+    @comment = Current.user.comments.new(safe_params)
     if @comment.save
       redirect_to :posts, notice: 'Comment saved.'
     else
@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
-    deny_access unless @comment.user_id == current_user.id || current_user.parent?
+    deny_access unless @comment.user_id == Current.user.id || Current.user.parent?
   end
 
   def update
@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
   end
 
   def authorized?
-    current_user.present?
+    Current.user.present?
   end
 
 end

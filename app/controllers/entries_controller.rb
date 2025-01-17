@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
 
   def index
     @ends_on = parse_date(params[:ends_on])
-    @entry_user = current_user.users_whose_entries_i_can_edit.find_by(id: params[:user_id]) || current_user
+    @entry_user = Current.user.users_whose_entries_i_can_edit.find_by(id: params[:user_id]) || Current.user
     if @entry_user.born_at.present? && (params[:age_months].present? || params[:age_years].present?)
       @ends_on = @entry_user.born_at + params[:age_months].to_i.months + params[:age_years].to_i.years
     end
@@ -24,7 +24,7 @@ class EntriesController < ApplicationController
   end
 
   def create
-    entry = Entry.create!(at: Time.current, user: current_user, creator: current_user)
+    entry = Entry.create!(at: Time.current, user: Current.user, creator: Current.user)
     redirect_to [:edit, entry]
   end
 
@@ -56,7 +56,7 @@ class EntriesController < ApplicationController
   private
 
   def find_entry
-    Entry.where(user: current_user.users_whose_entries_i_can_edit).find(params[:id])
+    Entry.where(user: Current.user.users_whose_entries_i_can_edit).find(params[:id])
   end
 
   def safe_params
@@ -64,7 +64,7 @@ class EntriesController < ApplicationController
   end
 
   def authorized?
-    current_user&.parent? || current_user&.child?
+    Current.user&.parent? || Current.user&.child?
   end
 
   def parse_date(date_string)

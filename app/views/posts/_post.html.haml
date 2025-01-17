@@ -7,7 +7,7 @@
     - css_class = post.at.future? ? 'fst-italic' : ''
     - if post.at.future?
       %span{ class: css_class } Scheduled for
-    - if current_user.parent?
+    - if Current.user.parent?
       = link_to l(post.at.to_date, format: :long), [:edit, post], class: [css_class, 'text-reset']
     - else
       = l(post.at.to_date, format: :long)

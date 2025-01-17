@@ -1,4 +1,4 @@
-- if current_user.nil?
+- if Current.user.nil?
   %nav.navbar.navbar-dark.navbar-expand
     .container-fluid
       %span.right-align-the-login-form
@@ -22,7 +22,7 @@
       Daniel Esplin is a #{link_to('Ruby on Rails Programmer', 'https://github.com/eremite', options)}
       - bucket = 'https://s3.amazonaws.com/danielesplin-files/public'
       who served an
-      = link_to_if current_user.present?, 'LDS Mission to Panama', "#{bucket}/mission/index.html", options
+      = link_to_if Current.user.present?, 'LDS Mission to Panama', "#{bucket}/mission/index.html", options
       and compiled a
       #{link_to 'history of the Billerica, Massachusetts Ward', "#{bucket}/billerica_ward/index.htm", options}.
     %p Erika Esplin is a #{link_to('Registered Dietitian', 'https://www.nutritionalbites.org')}.

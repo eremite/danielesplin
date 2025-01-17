@@ -31,7 +31,7 @@ class PhotosController < ApplicationController
   end
 
   def authorized?
-    current_user&.parent? || current_user&.child?
+    Current.user&.parent? || Current.user&.child?
   end
 
 end

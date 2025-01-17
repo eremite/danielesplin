@@ -6,7 +6,7 @@
     = f.text_field :title, class: 'form-control', tabindex: 1
   .mb-3{ data: { controller: "tag-inserter" } }
     = f.label :kind, class: 'form-label'
-    - current_user.notes.pluck(:kind).uniq.compact.each_with_index do |kind, i|
+    - Current.user.notes.pluck(:kind).uniq.compact.each_with_index do |kind, i|
       = link_to kind, "#", data: { action: "tag-inserter#insert" }, class: 'btn btn-secondary btn-sm'
     = f.text_field :kind, class: 'form-control', tabindex: 2, data: { tag_inserter_target: "input" }
   .mb-3

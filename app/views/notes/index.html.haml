@@ -16,7 +16,7 @@
   = form_with url: :notes, method: :get, role: 'form' do |f|
     .mb-3
       = f.label :user_id, class: 'form-input'
-      = f.select :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, { selected: params[:user_id] || current_user.id.to_s }, class: 'form-select'
+      = f.select :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, { selected: params[:user_id] || Current.user.id.to_s }, class: 'form-select'
     .mb-3
       = f.label :kind, class: 'form-input'
       = f.select :kind, [nil] + Note.pluck(:kind).uniq.compact, { selected: params[:kind] }, class: 'form-select'

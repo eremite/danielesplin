@@ -27,7 +27,7 @@ class DeciderListsController < ApplicationController
   private
 
   def authorized?
-    current_user.present?
+    Current.user.present?
   end
 
   def safe_params

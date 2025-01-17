@@ -14,7 +14,7 @@
           #{timespan(Time.current, f.object.at)} ago
   .mb-3
     = f.label :user_id, class: 'form-label d-block'
-    - current_user.users_whose_entries_i_can_edit.each do |user|
+    - Current.user.users_whose_entries_i_can_edit.each do |user|
       = f.radio_button :user_id, user.id, autocomplete: 'off', class: 'btn-check', id: "user-id-#{user.id}"
       = f.label nil, user.name, class: 'btn btn-outline-secondary', for: "user-id-#{user.id}"
   .mb-3

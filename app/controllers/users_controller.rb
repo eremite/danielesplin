@@ -38,23 +38,23 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    User.find(current_user.parent? ? params[:id] : current_user.id)
+    User.find(Current.user.parent? ? params[:id] : Current.user.id)
   end
 
   def safe_params
     permitted_attributes = [:name, :email, :password, :password_confirmation]
     %i{role api_key born_at}.each do |field|
-      permitted_attributes << field if current_user.parent?
+      permitted_attributes << field if Current.user.parent?
     end
     params.require(:user).permit(*permitted_attributes)
   end
 
   def authorized?
-    return false if current_user.nil?
-    if current_user.guest? || current_user.grandparent?
+    return false if Current.user.nil?
+    if Current.user.guest? || Current.user.grandparent?
       %w[edit update].include?(params[:action])
     else
-      current_user.parent? || current_user.child?
+      Current.user.parent? || Current.user.child?
     end
   end
 

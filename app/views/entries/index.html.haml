@@ -6,7 +6,7 @@
     = form_with model: Entry.new do |f|
       = f.submit "+ New Journal Entry", class: 'btn btn-success w-100'
     = link_to "+ New Kids Entries", [:new, :entry_batch], class: 'btn btn-success'
-    - current_user.users_whose_entries_i_can_edit.each do |user|
+    - Current.user.users_whose_entries_i_can_edit.each do |user|
       = link_to entries_path(user_id: user.id), class: 'btn btn-warning' do
         %i.bi-book
         #{user.name}'s Journal
@@ -27,7 +27,7 @@
         = f.text_field :age_years, value: params[:age_years], placeholder: 'Years', class: 'form-control'
     .mb-3
       = f.label :user
-      = f.select :user_id, current_user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
+      = f.select :user_id, Current.user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
     .mb-3
       = f.label :tag
       = f.select :tag, Entry.tags.pluck(:name),

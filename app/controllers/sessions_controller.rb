@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     if (user = User.find_by_email(params[:email]).try(:authenticate, params[:password]))
       user.log('login')
       session[:user_id] = user.id
-      redirect_to current_user.login_redirect
+      redirect_to user.login_redirect
     else
       redirect_to :root, alert: 'Invalid login or password.'
     end
