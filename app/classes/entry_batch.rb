@@ -10,10 +10,20 @@ class EntryBatch
     self
   end
 
+  def opened_by
+    @opened_by ||= User.find_by(id: Rails.cache.read("entry_batch_opened_by_user_id"))
+  end
+
+  def autosave_interval
+    opened_by.present? ? 0 : 5000
+  end
+
   def save
+    Rails.cache.write("entry_batch_opened_by_user_id", Current.user&.id, expires_in: 15.seconds)
     entry_params_by_user_id.each do |user_id, entry_params|
       user = User.find(user_id)
       entry = user.entries.find_by(id: entry_params[:id])
+      entry ||= existing_entry_for_user(user)
       entry ||= user.entries.new(at: Time.current)
       entry.update(entry_params.slice(:body)) if entry_params[:body].present?
     end

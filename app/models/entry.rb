@@ -19,19 +19,11 @@ class Entry < ApplicationRecord
   end
 
   def after_create_redirect_url
-    return [:entries] unless at.to_date == Date.current
-    if creator.father?
-      return [:new, :entry_batch]
-    elsif creator.mother?
-      child = nil
-      User.where(role: 'baby').each do |user|
-        if user.entries.where(at: Time.current.all_day).blank?
-          entry = Entry.create!(at: Time.current, user: user, creator: creator)
-          return [:edit, entry]
-        end
-      end
+    if at.to_date.today? && user.parent? && creator.parent?
+      [:new, :entry_batch]
+    else
+      [:entries, { user_id: user.id }]
     end
-    [:entries, { on_this_day: 1 }]
   end
 
   def suggested_tags

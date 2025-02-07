@@ -6,7 +6,14 @@ class EntryBatchesController < ApplicationController
 
   def create
     EntryBatch.new(safe_params).save
-    redirect_to [:entries, { on_this_day: 1 }]
+    respond_to do |format|
+      format.html do
+        redirect_to [:entries, { on_this_day: 1 }]
+      end
+      format.json do
+        head :ok
+      end
+    end
   end
 
   private

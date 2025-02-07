@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = [ "editor" ]
 
   connect() {
-    if (this.hasIntervalValue) {
+    if (this.hasIntervalValue && this.intervalValue) {
       this.startAutoSaving()
     }
   }
