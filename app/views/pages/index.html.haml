@@ -23,7 +23,14 @@
       - bucket = 'https://s3.amazonaws.com/danielesplin-files/public'
       who served an
       = link_to_if Current.user.present?, 'LDS Mission to Panama', "#{bucket}/mission/index.html", options
-      and compiled a
-      #{link_to 'history of the Billerica, Massachusetts Ward', "#{bucket}/billerica_ward/index.htm", options}.
-    %p Erika Esplin is a #{link_to('Registered Dietitian', 'https://www.nutritionalbites.org')}.
+      compiled a
+      #{link_to 'history of the Billerica, Massachusetts Ward', "#{bucket}/billerica_ward/index.htm", options}
+      and created a few (AI assisted) stories:
+      %ul
+        %li= link_to 'The Curious Tabby', "#{bucket}/stories/kitten/index.html", options
+        %li= link_to 'Clara and her Horse', "#{bucket}/stories/horse/index.html", options
+        %li= link_to 'Rose Learns to Love', "#{bucket}/stories/rose/index.html", options
+    %p
+      Erika Esplin is a mother, musician and
+      #{link_to('Registered Dietitian', 'https://www.nutritionalbites.org', options)}.
     %p We live with our daughters in Santa Clara, Utah.
