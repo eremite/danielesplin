@@ -20,8 +20,12 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'auto_assign_photos' do
-    skip
+    photo = photos(:base)
+    photo.update_columns(at: Time.current, hidden: false)
+    post = Post.create!(body: "Body", at: Time.current)
+    assert post.photos.include?(photo)
   end
+
 
   test 'self.tags' do
     post = posts(:base).tap { |e| e.update!(post_tag_list: 'first') }
