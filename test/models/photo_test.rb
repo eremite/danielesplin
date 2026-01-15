@@ -24,8 +24,14 @@ class PhotoTest < ActiveSupport::TestCase
     assert photo.posts.empty?
   end
 
-  test 'auto_assign_entries' do
-    skip
+  test 'auto_assign_posts' do
+    post = posts(:base)
+    post.update_columns(created_at: Time.current)
+    photo = photos(:base)
+    photo.update_columns(hidden: false)
+    photo.post_photos.destroy_all
+    photo.save
+    assert photo.posts.include?(post)
   end
 
   test 'self.tags' do
