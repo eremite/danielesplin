@@ -15,7 +15,13 @@ class PhotoTest < ActiveSupport::TestCase
   end
 
   test 'handle hidden' do
-    skip
+    photo = Photo.new(hidden: false)
+    photo.post_ids = posts(:base).id
+    photo.posts.build
+    photo.hidden = true
+    photo.valid?
+    assert photo.post_ids.empty?
+    assert photo.posts.empty?
   end
 
   test 'auto_assign_entries' do
