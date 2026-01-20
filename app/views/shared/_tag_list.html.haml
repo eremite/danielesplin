@@ -1,5 +1,9 @@
-%div{ data: { controller: "show-all" } }
-  .list-group{ data: { show_all_target: "container" }, style: 'font-size: small; max-height: 20em; overflow-y: auto' }
+.small{ data: { controller: "show-all" } }
+  .list-group.mb-2
+    = link_to path, class: "list-group-item list-group-item-action" do
+      .badge.bg-secondary.rounded-pill.float-end= tag_counts.sum(&:taggings_count)
+      All
+  .list-group{ data: { show_all_target: "container" }, style: 'max-height: 20em; overflow-y: auto' }
     - tag_counts.each do |tag_count|
       = link_to [path, { tag: tag_count.name }], class: "list-group-item list-group-item-action py-1" do
         .badge.bg-secondary.rounded-pill.float-end #{tag_count.taggings_count}
