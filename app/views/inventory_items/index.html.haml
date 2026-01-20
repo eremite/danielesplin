@@ -17,7 +17,7 @@
   - if InventoryItem.inventory_item_tag_counts.present?
     %hr
     - tag_counts = InventoryItem.tag_counts_on(:inventory_item_tags).order(taggings_count: :desc)
-    = render partial: 'shared/tag_list', locals: { path: :inventory_items, tag_counts: tag_counts }
+    = render partial: 'shared/tag_list', locals: { path: :inventory_items, tag_counts: tag_counts, total_count: InventoryItem.count }
     .mb-3
 
   %h3 Search

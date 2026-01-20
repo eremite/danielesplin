@@ -40,7 +40,7 @@
   - if Photo.photo_tag_counts.present?
     %hr
     - tag_counts = Photo.tag_counts_on(:photo_tags).order(taggings_count: :desc, name: :asc)
-    = render partial: 'shared/tag_list', locals: { path: :photos, tag_counts: tag_counts }
+    = render partial: 'shared/tag_list', locals: { path: :photos, tag_counts: tag_counts, total_count: Photo.count }
 
   %hr
   = render partial: 'shared/calendar',

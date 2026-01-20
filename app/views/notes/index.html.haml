@@ -35,7 +35,7 @@
   - if Note.note_tag_counts.present?
     %hr
     - tag_counts = Note.tag_counts_on(:note_tags).order(taggings_count: :desc)
-    = render partial: 'shared/tag_list', locals: { path: :notes, tag_counts: tag_counts }
+    = render partial: 'shared/tag_list', locals: { path: :notes, tag_counts: tag_counts, total_count: Note.count }
 
 - if @notes.empty?
   .alert.alert-warning
