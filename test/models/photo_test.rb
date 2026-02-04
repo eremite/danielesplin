@@ -46,4 +46,18 @@ class PhotoTest < ActiveSupport::TestCase
     assert photo.suggested_tags.exists?(name: 'suggested')
   end
 
+  test 'random_photo_around_the_same_time_of_the_year' do
+    current_photo = photos(:base)
+    target_photo = Photo.create(user: users(:base), at: 1.year.ago - 1.day)
+    Photo.where.not(id: target_photo).update_all(at: Time.current)
+    assert_equal target_photo, current_photo.random_photo_around_the_same_time_of_the_year
+  end
+
+  test 'random_photo_around_the_same_time_of_the_year falls back to any photo' do
+    current_photo = photos(:base)
+    target_photo = Photo.create(user: users(:base), at: 1.day.ago)
+    Photo.where.not(id: target_photo).update_all(at: Time.current)
+    assert_equal target_photo, current_photo.random_photo_around_the_same_time_of_the_year
+  end
+
 end

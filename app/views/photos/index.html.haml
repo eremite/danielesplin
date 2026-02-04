@@ -36,6 +36,11 @@
   - if @photos.present?
     = render partial: "/shared/carousel_modal",
       locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
+    %hr
+    .d-grid.gap-2
+      = link_to [Photo.last, next_in: 90], class: "btn btn-info btn-block" do
+        %i.bi-images
+        Slideshow
 
   - if Photo.photo_tag_counts.present?
     %hr

@@ -4,6 +4,11 @@ class PhotosController < ApplicationController
     @photos = Photo.search(params)
   end
 
+  def show
+    @photo = Photo.find(params[:id])
+    render layout: false
+  end
+
   def edit
     @photo = Photo.find(params[:id])
   end

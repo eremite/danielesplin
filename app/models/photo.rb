@@ -60,6 +60,20 @@ class Photo < ApplicationRecord
     self.class.tags.where.not(id: photo_tag_ids)
   end
 
+  def next_slideshow_photo
+    Photo.all.sample
+  end
+
+  def random_photo_around_the_same_time_of_the_year
+    year_span = Time.current.year - 2010
+    25.times do
+      anchor_day = rand(year_span).years.ago
+      photo = Photo.where.not(id: id).find_by(at: (anchor_day - 1.week)..(anchor_day + 1.week))
+      return photo if photo.present?
+    end
+    Photo.all.sample
+  end
+
   private
 
   def handle_hidden

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :visible_posts, only: :index
 
-  resources :photos, except: %i[new create show]
+  resources :photos, except: %i[new create]
   resources :photo_batches, only: :create
 
   get 'pick', to: 'decider_list_picker#index'
