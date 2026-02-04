@@ -66,7 +66,7 @@ class Photo < ApplicationRecord
     25.times do
       anchor_day = rand(year_span).years.ago
       photo = Photo.where(hidden: false).where.not(id: id).find_by(at: (anchor_day - 1.week)..(anchor_day + 1.week))
-      return photo if photo.present?
+      return photo if photo&.image&.variable?
     end
     Photo.all.sample
   end
