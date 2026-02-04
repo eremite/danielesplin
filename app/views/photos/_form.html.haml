@@ -4,9 +4,12 @@
       = f.label :at, class: 'form-label'
       = f.datetime_field :at, class: 'form-control'
       .form-text Uploaded #{l(f.object.created_at)}
-  .mb-3
+  .mb-1
     = f.label :post_ids, nil, class: 'form-label'
     = f.collection_select :post_ids, Post.at_desc, :id, :dated_title, { include_blank: 'Any that match the date' }, { multiple: true, class: 'form-control' }
+  .mb-3
+    = f.check_box :hidden, class: 'form-check-input', id: 'photo_hidden'
+    = f.label :hidden, class: 'form-check-label', for: 'photo_hidden'
   .mb-3
     = f.label :description, class: 'form-label'
     = f.hidden_field :description, id: 'trix-editor-content'

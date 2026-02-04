@@ -30,6 +30,11 @@
       = f.check_box :unblogged, checked: !params[:unblogged].to_i.zero?, class: 'form-check-input',
         id: 'search-unblogged-checkbox'
       = f.label :unblogged, class: 'form-check-label', for: 'search-unblogged-checkbox'
+    - if Current.user.parent?
+      .form-check.mb-3
+        = f.check_box :not_hidden, checked: !params[:not_hidden].to_i.zero?, class: 'form-check-input',
+          id: 'search-not-hidden-checkbox'
+        = f.label :not_hidden, 'Include hidden photos', class: 'form-check-label', for: 'search-not-hidden-checkbox'
     .mb-3.d-grid.gap-2
       = f.submit 'Search', class: 'btn btn-primary'
 

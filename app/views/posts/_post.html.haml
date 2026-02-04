@@ -1,4 +1,4 @@
-- photos = post.photos.order(at: :asc)
+- photos = post.photos.where(hidden: false).order(at: :asc)
 - if photos.present?
   = render partial: "/shared/carousel_modal", locals: { photos: photos, modal_id: "post-#{post.id}-modal", carousel_id: "post-#{post.id}-carousel" }
 

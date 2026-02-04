@@ -40,6 +40,7 @@ class Photo < ApplicationRecord
     end
     photos = photos.where(description: [nil, ""]) if params[:nondescript].to_i.nonzero?
     photos = photos.includes(:post_photos).where(post_photos: { photo_id: nil }) if params[:unblogged].to_i.nonzero?
+    photos = photos.where(hidden: false) unless params[:not_hidden].to_i.nonzero?
     photos.page(params[:page]).per(30)
   end
 
@@ -60,15 +61,11 @@ class Photo < ApplicationRecord
     self.class.tags.where.not(id: photo_tag_ids)
   end
 
-  def next_slideshow_photo
-    Photo.all.sample
-  end
-
   def random_photo_around_the_same_time_of_the_year
     year_span = Time.current.year - 2010
     25.times do
       anchor_day = rand(year_span).years.ago
-      photo = Photo.where.not(id: id).find_by(at: (anchor_day - 1.week)..(anchor_day + 1.week))
+      photo = Photo.where(hidden: false).where.not(id: id).find_by(at: (anchor_day - 1.week)..(anchor_day + 1.week))
       return photo if photo.present?
     end
     Photo.all.sample
