@@ -12,6 +12,16 @@ class PhotosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'show' do
+    get :show, params: { id: @photo.id }
+    assert_response :success
+  end
+
+  test 'show can redirect' do
+    get :show, params: { id: 0 }
+    assert_redirected_to '/photos'
+  end
+
   test 'edit' do
     get :edit, params: { id: @photo.id }
     assert_response :success

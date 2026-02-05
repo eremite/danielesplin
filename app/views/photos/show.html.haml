@@ -1,25 +1,19 @@
-!!!
-%html{ lang: 'en' }
-  %head
-    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
-    = javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", integrity: "sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM", crossorigin: "anonymous"
-    = csrf_meta_tags
-    = csp_meta_tag
-    = stylesheet_link_tag :app, "data-turbo-track": "reload"
-
-  %body.bg-dark.text-light.d-flex.justify-content-center.vw-100.vh-100.overflow-hidden
-    .vh-100.flex-grow-1.p-4.d-flex.flex-column.justify-content-start.align-items-start{ style: "flex-basis: 0;" }
-      %div= @photo.description.to_s.html_safe
-    = image_tag @photo.image, class: "vh-100 object-fit-cover flex-shrink-0" if @photo.image.present?
-    .vh-100.flex-grow-1.p-4.d-flex.flex-column.justify-content-end.align-items-end{ style: "flex-basis: 0;" }
+- if @photo.image&.variable?
+  .bg-dark.text-light.d-flex.justify-content-center.vh-100.overflow-hidden
+    .position-relative.d-inline-block
+      = image_tag @photo.image, class: "vh-100", style: "object-fit: cover;"
+    .position-absolute.top-0.start-50.translate-middle-x.mt-3.px-3.bg-dark.bg-opacity-50.p-2.rounded
+      = @photo.description.to_s.html_safe
+    .position-absolute.bottom-0.end-0.m-3
       = l @photo.at&.to_date
 
-    - if params[:next_in].to_i.positive?
-      :javascript
-        const seconds = parseInt(#{params[:next_in]})
-        const nextId = #{@photo.random_photo_around_the_same_time_of_the_year.id}
-        if (!isNaN(seconds)) {
-          setTimeout(function() {
-            window.location.href = `/photos/${nextId}?next_in=${seconds}`
-          }, seconds * 1000)
-        }
+  - if params[:next_in].to_i.positive?
+    :javascript
+      const seconds = parseInt(#{params[:next_in]})
+      const days = parseInt(#{params[:days]})
+      const nextId = #{Photo.random_photo_around_the_current_time_of_the_year(day_span: params[:days], ids_to_exclude: @photo.id)&.id || 0}
+      if (!isNaN(seconds)) {
+        setTimeout(function() {
+          window.location.href = `/photos/${nextId}?next_in=${seconds}&days=${days}`
+        }, seconds * 1000)
+      }

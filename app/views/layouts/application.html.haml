@@ -18,7 +18,7 @@
 
   %body.bg-dark.text-light{ id: "#{controller.controller_name.dasherize}-controller" }
     .container
-      - if Current.user.present? && %w[decider_list_picker print_batches].exclude?(controller.controller_name)
+      - if Current.user.present? && params[:next_in].blank? && %w[decider_list_picker print_batches].exclude?(controller.controller_name)
         %header= render 'layouts/nav'
 
       %section.mb-3
