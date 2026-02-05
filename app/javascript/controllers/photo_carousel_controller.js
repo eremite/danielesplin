@@ -1,8 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
+import { Carousel, Modal } from "bootstrap"
 
 export default class extends Controller {
   connect() {
     if (this.element.classList.contains('carousel')) {
+      this.showCaption = this.showCaption.bind(this)
       this.element.addEventListener('slide.bs.carousel', this.showCaption)
     }
     let imgElement = this.element.querySelector('img')
@@ -18,11 +20,14 @@ export default class extends Controller {
     }
   }
 
-  showCaption() {
+  showCaption(event) {
+    const nextIndex = event.to
+    const targetCaption = document.getElementById(`${this.element.id}-caption-${nextIndex}`)
+
     Array.from(document.querySelectorAll('.carousel-captions')).forEach(function(captionElement) {
       captionElement.classList.remove('show');
     })
-    document.getElementById(`${this.id}-caption-${event.to}`).classList.add('show')
+    if (targetCaption) targetCaption.classList.add('show')
   }
 
   openPhoto({ params: { photoId } }) {
@@ -31,8 +36,8 @@ export default class extends Controller {
     let index = item.dataset[`carouselItemPhoto-${photoId}Index`]
     let carouselId = item.dataset[`carouselItemPhoto-${photoId}Carousel`]
     let modalId = item.dataset[`carouselItemPhoto-${photoId}Modal`]
-    bootstrap.Carousel.getOrCreateInstance(document.getElementById(carouselId)).to(index)
-    bootstrap.Modal.getOrCreateInstance(document.getElementById(modalId)).show()
+    Carousel.getOrCreateInstance(document.getElementById(carouselId)).to(index)
+    Modal.getOrCreateInstance(document.getElementById(modalId)).show()
     document.querySelector(`#` + modalId + ` .carousel-control-prev`).focus()
   }
 }

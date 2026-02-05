@@ -4,10 +4,3 @@ import "controllers"
 import Trix from "trix"
 import * as ActiveStorage from "@rails/activestorage"
 ActiveStorage.start()
-
-document.addEventListener("turbo:load", function(event) {
-  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-  var toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl, { autohide: false }).show()
-  })
-})
