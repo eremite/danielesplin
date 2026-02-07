@@ -1,9 +1,9 @@
 .card.shadow-sm.mb-3
-  .card-header.d-flex.justify-content-between.align-items-center.bg-light
+  .card-header.d-flex.justify-content-between.align-items-center
     %strong= comment.user&.name
     %small.text-muted= l(comment.created_at)
 
-  .card-body.text-dark
+  .card-body
     %p.card-text= comment.body
 
     - if Current.user == comment.user
