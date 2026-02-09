@@ -38,4 +38,18 @@ class UserTest < ActiveSupport::TestCase
     assert parent.users_whose_entries_i_can_edit.include?(child)
   end
 
+  test 'grant_access' do
+    user = User.new
+    user.grant_access
+    assert_not_nil user.access_token
+    assert_not_nil user.access_token_expires_at
+  end
+
+  test 'grant_access!' do
+    user = users(:base).tap { |u| u.update_columns(access_token: nil, access_token_expires_at: nil) }
+    user.grant_access!
+    assert_not_nil user.reload.access_token
+    assert_not_nil user.access_token_expires_at
+  end
+
 end

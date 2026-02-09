@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :pages
   resources :users
   resources :post_photos, only: %i[create destroy]
+  resources :post_access_grants, only: %i[create]
 
   resources :print_batches, only: :index do
     collection do

@@ -19,18 +19,14 @@
             = time_ago_in_words user.viewed_blog_at
             ago
     %hr
+    - User.guest.each do |user|
+      - grant = PostAccessGrant.new(user_id: user.id, user: user, post_id: @post.id)
+      = form_with model: grant, data: { turbo: false }, html: { target: :_blank, rel: "noopener" } do |f|
+        = f.hidden_field :post_id
+        = f.hidden_field :user_id
+        = f.submit "Email #{f.object.user.name}", class: "btn btn-warning w-100"
 
-    %h3 Comments
-    %ul.list-unstyled
-      - Comment.created_at_desc.limit(5).each_with_index do |comment, i|
-        %li
-          %strong= comment.user.try(:name)
-          &mdash;
-          = time_tag comment.created_at, is: 'relative-time', title: l(comment.created_at) do
-            = time_ago_in_words comment.created_at
-            ago
     %hr
-
 
   - all_posts = Post.at_desc
   - cache(all_posts) do
@@ -53,6 +49,7 @@
                     %i.bi-calendar3{ title: "Unpublished" }
                     &nbsp;
                   = post.title.presence || l(post.at.to_date)
+
   - if Current.user.parent?
     .d-grid.gap-2.mt-3
       = link_to :print_batches, class: 'btn btn-info' do

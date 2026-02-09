@@ -3,6 +3,7 @@ class User < ApplicationRecord
   enum :role, { father: "father", mother: "mother", child: "child", guest: "guest", inactive: "inactive" }
 
   EMAIL_REGEX = /\A(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\Z/i
+  ACCESS_TOKEN_EXPIRES_IN = 1.week
 
   has_secure_password
 
@@ -56,6 +57,16 @@ class User < ApplicationRecord
   def login_redirect
     return :entries if parent? && entry_for_today.blank?
     :posts
+  end
+
+  def grant_access
+    self.access_token = SecureRandom.urlsafe_base64(16)
+    self.access_token_expires_at = ACCESS_TOKEN_EXPIRES_IN.from_now
+  end
+
+  def grant_access!
+    grant_access
+    save!
   end
 
 end
