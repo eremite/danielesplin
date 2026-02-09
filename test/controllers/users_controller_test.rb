@@ -31,30 +31,30 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'edit' do
-    login_as(users(:base))
-    get :edit, params: { id: users(:base).id }
+    login_as(users(:child))
+    get :edit, params: { id: users(:child).id }
     assert_response :success
   end
 
   test 'update invalid' do
-    login_as(users(:base))
+    login_as(users(:child))
     User.stub_any_instance :update, false do
-      put :update, params: { id: users(:base).id, user: valid_attributes }
+      put :update, params: { id: users(:child).id, user: valid_attributes }
     end
     assert_response :success
   end
 
   test 'update valid' do
-    login_as(users(:base))
+    login_as(users(:child))
     User.stub_any_instance :update, true do
-      put :update, params: { id: users(:base).id, user: valid_attributes }
+      put :update, params: { id: users(:child).id, user: valid_attributes }
     end
-    assert_redirected_to edit_user_url(users(:base))
+    assert_redirected_to edit_user_url(users(:child))
   end
 
   test 'destroy' do
     login_as(users(:admin))
-    delete :destroy, params: { id: users(:base).id }
+    delete :destroy, params: { id: users(:child).id }
     assert_redirected_to users_url
   end
 

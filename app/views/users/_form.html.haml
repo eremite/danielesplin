@@ -1,6 +1,10 @@
-- if Current.user.parent?
-  = button_to @user, class: 'btn btn-small btn-danger ms-3', method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this user?' } do
-    Delete
+- content_for :sidebar do
+
+  - if Current.user.parent?
+    .d-grid.gap-2
+      = button_to @user, class: 'btn btn-danger w-100', method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this user?' } do
+        Delete
+
 = form_for @user do |f|
   - if f.object.errors.any?
     .mb-3.alert.alert-danger
@@ -11,22 +15,24 @@
   .mb-3
     = f.label :email, class: 'form-label'
     = f.text_field :email, class: 'form-control'
-  .mb-3
-    = f.label :password, 'New Password', class: 'form-label'
-    = f.password_field :password, class: 'form-control'
-  .mb-3
-    = f.label :password_confirmation, 'Confirm New Password', class: 'form-label'
-    = f.password_field :password_confirmation, class: 'form-control'
+  - if f.object.parent? || f.object.child?
+    .mb-3
+      = f.label :password, 'New Password', class: 'form-label'
+      = f.password_field :password, class: 'form-control'
+    .mb-3
+      = f.label :password_confirmation, 'Confirm New Password', class: 'form-label'
+      = f.password_field :password_confirmation, class: 'form-control'
   - if Current.user.parent?
     .mb-3
       = f.label :role, class: 'form-label'
-      = f.select :role, User::ROLES.map { |role| [role.titleize, role] }, {}, class: 'form-control'
-    .mb-3
-      = f.label :api_key, class: 'form-label'
-      = f.text_field :api_key, class: 'form-control'
-    .mb-3
-      = f.label :born_at, class: 'form-label'
-      = f.date_field :born_at, class: 'form-control'
+      = f.select :role, User.roles.keys.map { |role| [role.titleize, role] }, {}, class: 'form-control'
+    - if f.object.parent? || f.object.child?
+      .mb-3
+        = f.label :api_key, class: 'form-label'
+        = f.text_field :api_key, class: 'form-control'
+      .mb-3
+        = f.label :born_at, class: 'form-label'
+        = f.date_field :born_at, class: 'form-control'
   .mb-3
     = f.submit 'Save', class: 'btn btn-primary'
     = link_to 'Cancel', :root, class: 'btn btn-outline-secondary ms-3'

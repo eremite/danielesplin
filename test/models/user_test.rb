@@ -24,16 +24,6 @@ class UserTest < ActiveSupport::TestCase
     assert User.new(:role => 'mother').mother?
   end
 
-  test 'baby?' do
-    assert !User.new(:role => 'father').baby?
-    assert User.new(:role => 'baby').baby?
-  end
-
-  test 'grandparent?' do
-    assert !User.new(:role => 'father').grandparent?
-    assert User.new(:role => 'grandparent').grandparent?
-  end
-
   test 'guest?' do
     assert !User.new(:role => 'father').guest?
     assert User.new(:role => 'guest').guest?
@@ -41,11 +31,11 @@ class UserTest < ActiveSupport::TestCase
 
   test 'users_whose_entries_i_can_edit' do
     guest = users(:base)
-    baby = users(:baby)
+    child = users(:child)
     parent = users(:admin)
     assert guest.users_whose_entries_i_can_edit.empty?
     assert parent.users_whose_entries_i_can_edit.include?(parent)
-    assert parent.users_whose_entries_i_can_edit.include?(baby)
+    assert parent.users_whose_entries_i_can_edit.include?(child)
   end
 
 end

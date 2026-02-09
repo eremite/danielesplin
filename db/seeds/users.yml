@@ -25,7 +25,7 @@ users_3:
   id: 3
   name: Firstborn
   password_digest: "$2a$10$0XiSxE.b7v3caWgQjzFinewn5S4ZhMjSG5wjo65vZSXCMUppaGsRa"
-  role: baby
+  role: child
   updated_at: 2015-07-31 18:40:03.000000000 Z
   viewed_blog_at: 
 users_4:
@@ -35,7 +35,7 @@ users_4:
   id: 4
   name: Child
   password_digest: "$2a$10$qomBUL3RRn0VaD9sZkiaGekQ3OtMZuc35QNNsLwG3cgkVGwP.Irzu"
-  role: baby
+  role: child
   updated_at: 2015-07-31 18:39:53.000000000 Z
   viewed_blog_at: 
 users_5:

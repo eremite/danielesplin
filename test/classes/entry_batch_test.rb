@@ -6,7 +6,7 @@ class EntryBatchTest < ActiveSupport::TestCase
     entry = entries(:base)
     entry.update_columns(at: Time.current, body: "Body")
     user = entry.user
-    user.update_columns(role: :baby)
+    user.update_columns(role: :child)
     batch = EntryBatch.new.load
     params = batch.entry_params_by_user_id[user.id]
     assert_equal "Body", params[:body]
@@ -14,7 +14,7 @@ class EntryBatchTest < ActiveSupport::TestCase
   end
 
   test 'save can create new entry' do
-    user = users(:baby)
+    user = users(:child)
     user.entries.destroy_all
     assert EntryBatch.new(entry_params_by_user_id: { user.id => { body: "New Entry" } }).save
     assert user.entries.find_by(at: Time.current.all_day, body: "New Entry")
@@ -24,7 +24,7 @@ class EntryBatchTest < ActiveSupport::TestCase
     entry = entries(:base)
     entry.update_columns(at: Time.current, body: "Existing")
     user = entry.user
-    user.update_columns(role: :baby)
+    user.update_columns(role: :child)
     assert EntryBatch.new(entry_params_by_user_id: { user.id => { body: "Updated" } }).save
     assert user.entries.find_by(at: Time.current.all_day, body: "Updated")
   end

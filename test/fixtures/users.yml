@@ -7,10 +7,10 @@ base:
   role: guest
   <<: *PASSWORD
 
-baby:
-  name: Baby User
-  email: baby@example.com
-  role: baby
+child:
+  name: Child User
+  email: child@example.com
+  role: child
   <<: *PASSWORD
 
 admin:

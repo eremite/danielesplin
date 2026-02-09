@@ -33,7 +33,7 @@ class EntryBatch
   private
 
   def children
-    User.where(role: :baby).order(born_at: :asc)
+    User.where(role: :child).order(born_at: :asc)
   end
 
   def entry_params_for_user(user)

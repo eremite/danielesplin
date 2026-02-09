@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
-  ROLES = %w(father mother baby grandparent guest)
+  enum :role, { father: "father", mother: "mother", child: "child", guest: "guest", inactive: "inactive" }
+
   EMAIL_REGEX = /\A(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\Z/i
 
   has_secure_password
@@ -22,34 +23,12 @@ class User < ApplicationRecord
   scope :guest, -> { where(role: :guest) }
   scope :viewed_blog_at_desc, -> { where.not(viewed_blog_at: nil).order(arel_table[:viewed_blog_at].desc) }
 
-
-  def father?
-    role == 'father'
-  end
-
-  def mother?
-    role == 'mother'
-  end
-
   def parent?
     father? || mother?
   end
 
-  def baby?
-    role == 'baby'
-  end
-  alias child? baby?
-
-  def guest?
-    role == 'guest'
-  end
-
-  def grandparent?
-    role == 'grandparent'
-  end
-
   def users_whose_entries_i_can_edit
-    return User.where(role: %w[father mother baby]).order(born_at: :asc) if parent?
+    return User.where(role: %w[father mother child]).order(born_at: :asc) if parent?
     return User.where(id: id) if child?
     []
   end

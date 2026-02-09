@@ -51,11 +51,7 @@ class UsersController < ApplicationController
 
   def authorized?
     return false if Current.user.nil?
-    if Current.user.guest? || Current.user.grandparent?
-      %w[edit update].include?(params[:action])
-    else
-      Current.user.parent? || Current.user.child?
-    end
+    Current.user.parent? || Current.user.child?
   end
 
 end

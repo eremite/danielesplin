@@ -12,7 +12,7 @@ class EntryBatchesControllerTest < ActionController::TestCase
   end
 
   test 'create' do
-    put :create, params: { entry_batch: { entry_params_by_user_id: { users(:baby).id => { body: "Body" } } } }
+    put :create, params: { entry_batch: { entry_params_by_user_id: { users(:child).id => { body: "Body" } } } }
     assert_redirected_to [:entries, { on_this_day: 1 }]
   end
 
