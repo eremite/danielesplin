@@ -1,14 +1,13 @@
 class CommentsController < ApplicationController
 
-  before_action :verify_authorized
-
   def create
-    @comment = Current.user.comments.new(safe_params)
+    @comment = @user.comments.new(safe_params)
     if @comment.save
-      redirect_to :posts, notice: 'Comment saved.'
+      flash.notice = 'Thank you!'
     else
-      render :new
+      flash.alert = @comment.errors.full_messages.to_sentence
     end
+    redirect_to [@comment.post, access_token: params[:access_token]]
   end
 
   def edit
@@ -38,7 +37,11 @@ class CommentsController < ApplicationController
   end
 
   def authorized?
-    Current.user.present?
+    @user = Current.user
+    return true if @user.present?
+    @user = User.find_by!(access_token: params[:access_token])
+    return false if action_name != 'create' || @user.access_token_expires_at.past?
+    true
   end
 
 end

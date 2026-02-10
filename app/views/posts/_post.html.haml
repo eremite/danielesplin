@@ -7,7 +7,7 @@
     - css_class = post.at.future? ? 'fst-italic' : ''
     - if post.at.future?
       %span{ class: css_class } Scheduled for
-    - if Current.user.parent?
+    - if Current.user.present?
       = link_to l(post.at.to_date, format: :long), [:edit, post], class: [css_class, 'text-reset']
     - else
       = l(post.at.to_date, format: :long)
@@ -18,13 +18,16 @@
     .d-flex.flex-wrap.align-items-center
       = render photos
 
-  .mb-3= render post.comments.created_at_asc
-  = form_with model: post.comments.new, html: { style: 'width: 350px' } do |f|
-    .mb-3
-      = f.text_area :body, rows: 4, placeholder: 'Share your thoughts!', class: 'form-control'
-    .mb-3
-      = f.hidden_field :post_id
-      = f.submit "Comment", class: 'btn btn-primary'
+  .row.mt-3
+    .col-md-8
+      = render post.comments.created_at_asc
+      = form_with model: post.comments.new do |f|
+        .mb-3
+          = f.text_area :body, rows: 3, placeholder: 'Share your thoughts!', class: 'form-control'
+        .mb-3
+          = f.hidden_field :post_id
+          = hidden_field_tag :access_token, params[:access_token]
+          = f.submit 'Comment', class: 'btn btn-outline-success'
 
   .d-flex.justify-content-between
     - previous_post = Post.at_desc.where.not(id: post.id).find_by(at: Time.zone.at(0)..post.at)

@@ -19,7 +19,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    Current.user.log('blog')
     @post = Post.find(params[:id])
   end
 
@@ -49,8 +48,11 @@ class PostsController < ApplicationController
   end
 
   def authorized?
-    return true if Current.user.present? && %w[index show].include?(action_name)
-    Current.user&.parent?
+    return true if Current.user.present?
+    user = User.where.not(access_token: [nil, ""]).find_by!(access_token: params[:access_token])
+    return false if action_name != 'show' || user.access_token_expires_at.past?
+    user.log('blog')
+    true
   end
 
 end

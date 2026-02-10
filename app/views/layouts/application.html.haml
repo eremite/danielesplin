@@ -19,6 +19,8 @@
     .container
       - if Current.user.present? && params[:next_in].blank? && %w[decider_list_picker print_batches].exclude?(controller.controller_name)
         %header= render 'layouts/nav'
+      - else
+        .mt-4
 
       %section.mb-3
         = render 'layouts/flash_hash'
