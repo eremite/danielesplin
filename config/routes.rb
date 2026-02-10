@@ -27,7 +27,6 @@ Rails.application.routes.draw do
   end
 
   resources :posts
-  resources :visible_posts, only: :index
 
   resources :photos, except: %i[new create]
   resources :photo_batches, only: :create
