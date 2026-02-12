@@ -10,7 +10,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'create valid' do
-    u = users(:base)
+    u = users(:admin)
     User.stub_any_instance :authenticate, u do
       assert_difference lambda { LogEntry.logins.count } do
         post :create, params: { email: u.email }

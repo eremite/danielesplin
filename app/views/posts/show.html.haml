@@ -20,12 +20,14 @@
             = time_ago_in_words user.viewed_blog_at
             ago
     %hr
-    - User.guest.each do |user|
-      - grant = PostAccessGrant.new(user_id: user.id, user: user, post_id: @post.id)
-      = form_with model: grant, data: { turbo: false }, html: { target: :_blank, rel: "noopener" } do |f|
-        = f.hidden_field :post_id
-        = f.hidden_field :user_id
-        = f.submit "Email #{f.object.user.name}", class: "btn btn-warning w-100"
+
+    .d-grid.gap-2
+      - User.guest.each do |user|
+        - grant = PostAccessGrant.new(user_id: user.id, user: user, post_id: @post.id)
+        = form_with model: grant, data: { turbo: false }, html: { target: :_blank, rel: "noopener" } do |f|
+          = f.hidden_field :post_id
+          = f.hidden_field :user_id
+          = f.submit "Email #{f.object.user.name}", class: "btn btn-warning w-100"
 
     %hr
 

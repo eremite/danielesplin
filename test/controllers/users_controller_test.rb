@@ -19,7 +19,7 @@ class UsersControllerTest < ActionController::TestCase
     User.stub_any_instance :save, false do
       post :create, params: { user: valid_attributes }
     end
-    assert_response :success
+    assert_response :unprocessable_entity
   end
 
   test 'create valid' do

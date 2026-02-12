@@ -11,9 +11,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(safe_params)
     if @user.save
-      redirect_to users_url, notice: 'User created.'
+      redirect_to :users, notice: 'User created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

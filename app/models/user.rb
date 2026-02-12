@@ -5,7 +5,7 @@ class User < ApplicationRecord
   EMAIL_REGEX = /\A(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\Z/i
   ACCESS_TOKEN_EXPIRES_IN = 1.week
 
-  has_secure_password
+  has_secure_password validations: false
 
   has_many :comments
   has_many :entries
@@ -17,8 +17,7 @@ class User < ApplicationRecord
     presence: true,
     uniqueness: { case_sensitive: false },
     format: { with: EMAIL_REGEX }
-  validates :password, presence: true, on: :create
-  validates :password, length: { minimum: 4 }, allow_blank: true
+  validates :password, length: { minimum: 4, maximum: 72 }, allow_blank: true
   validates :api_key, uniqueness: true, allow_blank: true
 
   scope :guest, -> { where(role: :guest) }
