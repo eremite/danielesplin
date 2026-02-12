@@ -12,23 +12,14 @@
 
     %h3 Visitors
     %ul.list-unstyled
-      - User.where.not(id: Current.user.id).viewed_blog_at_desc.limit(8).each do |user|
-        %li
+      - User.guest.order(viewed_blog_at: :desc).each do |user|
+        %li.d-flex.justify-content-between.mb-2
           %strong= user.name
-          &mdash;
-          = time_tag user.viewed_blog_at, is: 'relative-time', title: l(user.viewed_blog_at) do
-            = time_ago_in_words user.viewed_blog_at
-            ago
-    %hr
-
-    .d-grid.gap-2
-      - User.guest.each do |user|
-        - grant = PostAccessGrant.new(user_id: user.id, user: user, post_id: @post.id)
-        = form_with model: grant, data: { turbo: false }, html: { target: :_blank, rel: "noopener" } do |f|
-          = f.hidden_field :post_id
-          = f.hidden_field :user_id
-          = f.submit "Email #{f.object.user.name}", class: "btn btn-warning w-100"
-
+          - if user.viewed_blog_at.present?
+            = time_tag user.viewed_blog_at, is: 'relative-time', title: l(user.viewed_blog_at) do
+              = time_ago_in_words user.viewed_blog_at
+              ago
+          = link_to 'Email', '#', class: 'btn btn-sm btn-warning'
     %hr
 
     - all_posts = Post.at_desc

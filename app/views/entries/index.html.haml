@@ -1,5 +1,11 @@
 - title 'Journal'
 
+- Comment.where(created_at: 1.day.ago..).each do |comment|
+  .alert.alert-primary.alert-dismissible.fade.show{ role: 'alert' }
+    %strong #{comment.user.name}:
+    = link_to comment.body, comment.post, class: 'text-decoration-none'
+    %button.btn-close{ 'data-bs-dismiss': 'alert', 'aria-label': 'close' }
+
 - content_for :sidebar do
 
   .d-grid.gap-2
