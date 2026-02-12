@@ -19,7 +19,11 @@
             = time_tag user.viewed_blog_at, is: 'relative-time', title: l(user.viewed_blog_at) do
               = time_ago_in_words user.viewed_blog_at
               ago
-          = link_to 'Email', '#', class: 'btn btn-sm btn-warning'
+          - grant = PostAccessGrant.new(user_id: user.id, user: user, post_id: @post.id)
+          = form_with model: grant, data: { turbo: false }, html: { target: :_blank, rel: "noopener" } do |f|
+            = f.hidden_field :post_id
+            = f.hidden_field :user_id
+            = f.submit 'Email', class: 'btn btn-warning'
     %hr
 
     - all_posts = Post.at_desc
