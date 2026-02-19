@@ -26,6 +26,11 @@
             = f.submit 'Email', class: 'btn btn-warning'
     %hr
 
+      .d-flex.justify-content-between
+        %h5.d-inline Photo count
+        %span #{@post.photos.count}
+    %hr
+
     - all_posts = Post.at_desc
     - cache(all_posts) do
       %h3 Calendar
