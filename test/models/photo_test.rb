@@ -46,8 +46,4 @@ class PhotoTest < ActiveSupport::TestCase
     assert photo.suggested_tags.exists?(name: 'suggested')
   end
 
-  test 'random_photo_around_the_current_time_of_the_year' do
-    assert_nil Photo.random_photo_around_the_current_time_of_the_year
-  end
-
 end

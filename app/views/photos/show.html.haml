@@ -10,10 +10,9 @@
   - if params[:next_in].to_i.positive?
     :javascript
       const seconds = parseInt(#{params[:next_in]})
-      const days = parseInt(#{params[:days]})
-      const nextId = #{Photo.random_photo_around_the_current_time_of_the_year(day_span: params[:days], ids_to_exclude: @photo.id)&.id || 0}
+      const nextId = #{PhotoFrame.new.next_photo&.id || 0}
       if (!isNaN(seconds)) {
         setTimeout(function() {
-          window.location.href = `/photos/${nextId}?next_in=${seconds}&days=${days}`
+          window.location.href = `/photos/${nextId}?next_in=${seconds}`
         }, seconds * 1000)
       }

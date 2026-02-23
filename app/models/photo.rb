@@ -57,17 +57,6 @@ class Photo < ApplicationRecord
     ActsAsTaggableOn::Tag.joins(:taggings).merge(taggings).order(taggings_count: :desc).distinct
   end
 
-  def self.random_photo_around_the_current_time_of_the_year(day_span: 7, ids_to_exclude: [])
-    year_span = Time.current.year - 2010
-    span = day_span.to_i.days
-    25.times do
-      anchor_day = rand(year_span).years.ago
-      photo = Photo.where(hidden: false).where.not(id: ids_to_exclude).find_by(at: (anchor_day - span)..(anchor_day + span))
-      return photo if photo&.image&.variable?
-    end
-    nil
-  end
-
   def suggested_tags
     self.class.tags.where.not(id: photo_tag_ids)
   end

@@ -42,13 +42,10 @@
     = render partial: "/shared/carousel_modal",
       locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
     %hr
-    = form_with url: Photo.where(hidden: false).sample, method: :get do |f|
+    = form_with url: PhotoFrame.new.next_photo || Photo.where(hidden: false).sample, method: :get do |f|
       .mb-3
         = f.label :next_in, 'Number of Seconds'
         = f.number_field :next_in, value: 90, min: 1, max: 43200, class: 'form-control'
-      .mb-3
-        = f.label :days, 'Days before and after'
-        = f.number_field :days, value: 7, min: 1, max: 90, class: 'form-control'
       .mb-3.d-grid.gap-2
         = f.button class: 'btn btn-info', type: 'submit' do
           %i.bi-images
