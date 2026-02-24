@@ -7,12 +7,11 @@
     .position-absolute.bottom-0.end-0.m-3
       = l @photo.at&.to_date
 
-  - if params[:next_in].to_i.positive?
-    :javascript
-      const seconds = parseInt(#{params[:next_in]})
-      const nextId = #{PhotoFrame.new.next_photo&.id || 0}
-      if (!isNaN(seconds)) {
-        setTimeout(function() {
-          window.location.href = `/photos/${nextId}?next_in=${seconds}`
-        }, seconds * 1000)
-      }
+:javascript
+  const seconds = parseInt(#{params[:next_in]})
+  const nextId = #{PhotoFrame.new.next_photo&.id || 0}
+  if (!isNaN(seconds)) {
+    setTimeout(function() {
+      window.location.href = `/photos/${nextId}?next_in=${seconds}`
+    }, #{@photo.image&.previewable? ? 0 : 'seconds'} * 1000)
+  }
