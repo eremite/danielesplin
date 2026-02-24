@@ -1,25 +1,25 @@
 require 'test_helper'
 
-class CommentsControllerTest < ActionController::TestCase
+class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'create invalid' do
-    login_as(users(:admin))
-    post :create, params: { comment: { post_id: posts(:base).id, body: "" } }
+    login(:child)
+    post '/comments', params: { comment: { post_id: posts(:base).id, body: "" } }
     assert_redirected_to posts(:base)
   end
 
   test 'create as a guest' do
     user = users(:guest).tap(&:grant_access!)
-    post :create, params: { comment: {
+    post '/comments', params: { comment: {
       post_id: posts(:base).id,
       body: 'Cool!',
     }, access_token: user.access_token }
-    assert_redirected_to [posts(:base), access_token: user.access_token]
+    assert_redirected_to "/posts/#{posts(:base).id}?access_token=#{user.access_token}"
   end
 
   test 'create as a parent' do
-    login_as(users(:admin))
-    post :create, params: { comment: {
+    login(:admin)
+    post '/comments', params: { comment: {
       post_id: posts(:base).id,
       body: 'Thanks!',
     } }
@@ -27,40 +27,30 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'edit' do
-    login_as(users(:admin))
-    get :edit, params: { id: comments(:base).id }
+    login(:admin)
+    get "/comments/#{comments(:base).id}/edit"
     assert_response :success
   end
 
   test 'update invalid' do
-    login_as(users(:admin))
-    Comment.stub_any_instance :update, false do
-      put :update, params:{ id: comments(:base).id, comment: valid_attributes }
-    end
+    login(:admin)
+    put "/comments/#{comments(:base).id}", params:{ comment: { post_id: posts(:base).id, body: "" } }
     assert_response :success
   end
 
   test 'update valid' do
-    login_as(users(:admin))
-    Comment.stub_any_instance :update, true do
-      put :update, params: {id: comments(:base).id, comment: valid_attributes}
-    end
-    assert_redirected_to :posts
+    login(:admin)
+    put "/comments/#{comments(:base).id}", params: { id: comments(:base).id, comment: {
+      post_id: posts(:base).id,
+      body: 'Body',
+    } }
+    assert_redirected_to posts(:base)
   end
 
   test 'destroy' do
-    login_as(users(:admin))
-    delete :destroy, params: { id: comments(:base).id }
-    assert_redirected_to :posts
-  end
-
-  private
-
-  def valid_attributes
-    {
-      post_id: posts(:base).id,
-      body: 'Body',
-    }
+    login(:admin)
+    delete  "/comments/#{comments(:base).id}"
+    assert_redirected_to posts(:base)
   end
 
 end

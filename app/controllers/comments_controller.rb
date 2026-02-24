@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     if @comment.update(safe_params)
-      redirect_to :posts, notice: 'Comment updated.'
+      redirect_to @comment.post, notice: 'Comment updated.'
     else
       render :edit
     end
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to :posts, notice: 'Comment deleted.'
+    redirect_to @comment.post, notice: 'Comment deleted.'
   end
 
   private
