@@ -12,11 +12,14 @@
         - if f.object.at < 1.day.ago
           %br
           #{timespan(Time.current, f.object.at)} ago
-  .mb-3
-    = f.label :user_id, class: 'form-label d-block'
-    - Current.user.users_whose_entries_i_can_edit.each do |user|
-      = f.radio_button :user_id, user.id, autocomplete: 'off', class: 'btn-check', id: "user-id-#{user.id}"
-      = f.label nil, user.name, class: 'btn btn-outline-secondary', for: "user-id-#{user.id}"
+  - if Current.user.parent?
+    .mb-3
+      = f.label :user_id, class: 'form-label d-block'
+      - Current.user.users_whose_entries_i_can_edit.each do |user|
+        = f.radio_button :user_id, user.id, autocomplete: 'off', class: 'btn-check', id: "user-id-#{user.id}"
+        = f.label nil, user.name, class: 'btn btn-outline-secondary', for: "user-id-#{user.id}"
+  - else
+    = f.hidden_field :user_id
   .mb-3
     = f.label :body, class: 'form-label col-md-2'
     = f.hidden_field :body, id: 'trix-editor-content'
