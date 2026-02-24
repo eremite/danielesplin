@@ -15,9 +15,10 @@
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
 
+  - show_full_layout = Current.user.present? && params[:next_in].blank? && %w[decider_list_picker print_batches].exclude?(controller.controller_name)
   %body.bg-dark.text-light{ id: "#{controller.controller_name.dasherize}-controller" }
     .container
-      - if Current.user.present? && params[:next_in].blank? && %w[decider_list_picker print_batches].exclude?(controller.controller_name)
+      - if show_full_layout
         %header= render 'layouts/nav'
       - else
         .mt-4
@@ -33,7 +34,7 @@
           - else
             .col= yield
 
-      - if Current.user.present? && %w[decider_list_picker print_batches].exclude?(controller.controller_name)
+      - if show_full_layout
         %footer
           %p.text-center.text-muted
             &copy; #{Time.zone.now.year}
