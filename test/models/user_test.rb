@@ -52,4 +52,10 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil user.access_token_expires_at
   end
 
+  test 'contrast_color' do
+    assert_equal '#000000', User.new(color: nil).contrast_color
+    assert_equal '#ffffff', User.new(color: '#111111').contrast_color
+    assert_equal '#000000', User.new(color: '#eeeeee').contrast_color
+  end
+
 end

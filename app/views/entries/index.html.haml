@@ -14,7 +14,11 @@
     - if Current.user.parent?
       = link_to "+ New Kids Entries", [:new, :entry_batch], class: 'btn btn-success'
       - Current.user.users_whose_entries_i_can_edit.each do |user|
-        = link_to entries_path(user_id: user.id), class: 'btn btn-warning' do
+        - if user.color.present?
+          - style = "background-color: #{user.color}; color: #{user.contrast_color}"
+        - else
+          - style = 'background-color: #ffc107; color: black'
+        = link_to entries_path(user_id: user.id), class: 'btn', style: style do
           %i.bi-book
           #{user.name}'s Journal
       = link_to :print_batches, class: 'btn btn-info' do

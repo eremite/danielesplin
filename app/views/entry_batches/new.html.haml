@@ -9,16 +9,22 @@
   - i = 0
   - f.object.entry_params_by_user_id.each do |user_id, entry_params|
     - user = entry_params[:user]
-    .mb-3
-      %h3= user.name
-      = f.fields_for :entry_params_by_user_id do |user_form|
-        = user_form.fields_for user.id.to_s do |entry_form|
-          = entry_form.hidden_field :id, value: entry_params[:id]
-          = entry_form.hidden_field :body, id: "user-#{user.id}-trix-editor-content", value: entry_params[:body]
-      - if i.zero?
-        <trix-editor input="user-#{user.id}-trix-editor-content" data-autosave-target="editor" autofocus="true"></trix-editor>
-      - else
-        <trix-editor input="user-#{user.id}-trix-editor-content"></trix-editor>
-      - i += 1
+    - if user.color.present?
+      - style = "border-color: #{user.color}"
+    - else
+      - style = ''
+    .card.mb-3{ style: style }
+      .card-body
+        %h3{ style: "color: #{user.color}; filter: brightness(1.5) contrast(1.2);" }
+          = user.name
+        = f.fields_for :entry_params_by_user_id do |user_form|
+          = user_form.fields_for user.id.to_s do |entry_form|
+            = entry_form.hidden_field :id, value: entry_params[:id]
+            = entry_form.hidden_field :body, id: "user-#{user.id}-trix-editor-content", value: entry_params[:body]
+        - if i.zero?
+          <trix-editor input="user-#{user.id}-trix-editor-content" data-autosave-target="editor" autofocus="true"></trix-editor>
+        - else
+          <trix-editor input="user-#{user.id}-trix-editor-content"></trix-editor>
+        - i += 1
   = f.submit 'Save', class: 'btn btn-primary'
   = link_to 'Cancel', [:entries, { on_this_day: 1 }], class: 'btn btn-outline-secondary'

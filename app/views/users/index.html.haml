@@ -11,12 +11,13 @@
     %tr
       %th Name
       %th Email
-      %th Last Login
+      %th User Color
       %th Comments
   %tbody
     - @users.sort_by { |u| u.log_entries.logins.created_at_desc.first.try(:created_at) || Time.at(0) }.reverse.each do |user|
       %tr
         %td= link_to user.name, [:edit, user]
         %td= user.email
-        %td=l user.log_entries.logins.created_at_desc.first.try(:created_at)
+        %td{ style: "color: #{user.color}; filter: brightness(1.5) contrast(1.2);" }
+          = user.color
         %td= user.comments.count

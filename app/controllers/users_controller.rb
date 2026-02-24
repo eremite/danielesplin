@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   def safe_params
-    permitted_attributes = [:name, :email, :password, :password_confirmation]
+    permitted_attributes = %i[name email color password password_confirmation]
     %i{role api_key born_at}.each do |field|
       permitted_attributes << field if Current.user.parent?
     end

@@ -1,4 +1,4 @@
-.card.shadow-sm.mb-3
+.card.shadow-sm.mb-3{ style: comment.user.color.present? ? "border-color: #{comment.user.color}" : '' }
   .card-header.d-flex.justify-content-between.align-items-center
     %strong= comment.user&.name
     %small.text-muted= l(comment.created_at)

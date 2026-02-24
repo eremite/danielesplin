@@ -67,4 +67,11 @@ class User < ApplicationRecord
     save!
   end
 
+  def contrast_color
+    return '#000000' if color.blank?
+    r, g, b = color.delete('#').scan(/../).map { |c| c.hex }
+    yiq = ((r * 299) + (g * 587) + (114 * b)) / 1000
+    yiq >= 128 ? '#000000' : '#ffffff'
+  end
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_09_213505) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_24_215016) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -169,6 +169,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_213505) do
     t.datetime "access_token_expires_at"
     t.string "api_key"
     t.datetime "born_at"
+    t.string "color"
     t.datetime "created_at"
     t.string "email"
     t.string "name"
