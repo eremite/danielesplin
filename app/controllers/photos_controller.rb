@@ -17,7 +17,7 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     if @photo.update(safe_params)
       next_photo = Photo.where(description: nil).first
-      redirect_to next_photo.present? ? [:edit, next_photo] : :photos
+      redirect_to next_photo.present? ? [:edit, next_photo] : params[:redirect_to] || :photos
     else
       render :edit
     end

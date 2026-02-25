@@ -14,7 +14,7 @@
         - else
           = image_tag thumbnail, class: 'figure-img img-thumbnail'
     %figcaption.figure-caption{ style: 'display: table-caption; caption-side: bottom' }
-      = link_to [:edit, photo], class: 'text-white text-decoration-none' do
+      = link_to [:edit, photo, { redirect_to: request.fullpath }], class: 'text-white text-decoration-none' do
         - if photo.description.to_s.gsub(/\s/, '').blank?
           %em Insert caption here
         - else
