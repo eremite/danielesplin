@@ -11,7 +11,7 @@
 
   .text-center
     %strong
-      #{pluralize number_with_delimiter(@inventory_items.count), 'item'}
+      #{pluralize number_with_delimiter(InventoryItem.not_deleted.count), 'item'}
       costing #{number_to_currency(@inventory_items.sum(:cost).to_d / 100)}
 
   - if InventoryItem.inventory_item_tag_counts.present?
