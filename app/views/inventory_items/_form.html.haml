@@ -17,7 +17,8 @@
         = f.text_field :cost_in_dollars, class: 'form-control'
   .mb-3
     = f.label :description, class: 'form-label'
-    = f.text_area :description, rows: 3, class: 'form-control'
+    = f.hidden_field :description, id: 'trix-editor-content'
+    <trix-editor input="trix-editor-content"></trix-editor>
   .mb-3{ data: { controller: "tag-inserter" } }
     = f.label :inventory_item_tag_list, class: 'form-label'
     %p
