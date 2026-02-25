@@ -1,31 +1,31 @@
 require 'test_helper'
 
-class EntriesControllerTest < ActionController::TestCase
+class EntriesControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
+  setup do
     user = users(:admin)
     @entry = user.entries.create!(body: 'body', at: Time.zone.now)
-    login_as(user)
+    login(:admin)
   end
 
   test 'index' do
-    get :index
+    get '/entries'
     assert_response :success
   end
 
   test 'create valid' do
-    post :create, params: { entry: valid_attributes }
-    assert_redirected_to [:edit, Entry.last]
+    post '/entries', params: { entry: valid_attributes }
+    assert_redirected_to "/entries/#{Entry.last.id}/edit"
   end
 
   test 'edit' do
-    get :edit, params: { id: @entry.id }
+    get "/entries/#{@entry.id}/edit"
     assert_response :success
   end
 
   test 'update invalid' do
     Entry.stub_any_instance :update, false do
-      put :update, params: { id: @entry.id, entry: valid_attributes }
+      put "/entries/#{@entry.id}", params: { entry: valid_attributes }
     end
     assert_response :success
   end
@@ -33,15 +33,15 @@ class EntriesControllerTest < ActionController::TestCase
   test 'update valid' do
     Entry.stub_any_instance :update, true do
       Entry.stub_any_instance :after_create_redirect_url, [:entries] do
-        put :update, params: { id: @entry.id, entry: valid_attributes }
+        put "/entries/#{@entry.id}", params: { entry: valid_attributes }
       end
     end
-    assert_redirected_to entries_url
+    assert_redirected_to entries_path
   end
 
   test 'destroy' do
-    delete :destroy, params: { id: @entry.id }
-    assert_redirected_to entries_url
+    delete "/entries/#{@entry.id}"
+    assert_redirected_to "/entries"
   end
 
 

@@ -1,19 +1,19 @@
 require 'test_helper'
 
-class DeciderListPickerControllerTest < ActionController::TestCase
+class DeciderListPickerControllerTest < ActionDispatch::IntegrationTest
 
   test 'index' do
-    get :index
+    get '/pick'
     assert_response :success
   end
 
   test 'new' do
-    get :new, params: { id: decider_lists(:base).id }
+    get "/pick/#{decider_lists(:base).id}"
     assert_response :success
   end
 
   test 'create' do
-    post :create, params: { id: decider_lists(:base).id }
+    post "/pick/#{decider_lists(:base).id}"
     assert_response :success
   end
 
