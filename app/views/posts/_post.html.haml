@@ -23,7 +23,7 @@
       = render post.comments.created_at_asc
       = form_with model: post.comments.new do |f|
         .mb-3
-          = f.text_area :body, rows: 3, placeholder: 'Share your thoughts!', class: 'form-control', style: Current.user.color.present? ? "border-color: #{Current.user.color}" : ''
+          = f.text_area :body, rows: 3, placeholder: 'Share your thoughts!', class: 'form-control', style: Current.user&.color.present? ? "border-color: #{Current.user.color}" : ''
         .mb-3
           = f.hidden_field :post_id
           = hidden_field_tag :access_token, params[:access_token]
