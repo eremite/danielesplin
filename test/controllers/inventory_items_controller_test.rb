@@ -1,58 +1,49 @@
 require 'test_helper'
 
-class InventoryItemsControllerTest < ActionController::TestCase
+class InventoryItemsControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
-    user = users(:admin)
+  setup do
     @inventory_item = inventory_items(:base)
-    login_as(user)
+    login(:admin)
   end
 
   test 'index' do
-    get :index
+    get '/inventory_items'
     assert_response :success
   end
 
   test 'new' do
-    get :new
+    get '/inventory_items/new'
     assert_response :success
   end
 
   test 'create invalid' do
-    InventoryItem.stub_any_instance :save, false do
-      post :create, params: { inventory_item: valid_attributes }
-    end
+    post '/inventory_items', params: { inventory_item: invalid_attributes }
     assert_response :success
   end
 
   test 'create valid' do
-    InventoryItem.stub_any_instance :save, true do
-      post :create, params: { inventory_item: valid_attributes }
-    end
+    post '/inventory_items', params: { inventory_item: valid_attributes }
     assert_redirected_to :inventory_items
   end
 
   test 'edit' do
-    get :edit, params: { id: @inventory_item.id }
+    get "/inventory_items/#{@inventory_item.id}/edit"
     assert_response :success
   end
 
   test 'update invalid' do
-    InventoryItem.stub_any_instance :update, false do
-      put :update, params: { id: @inventory_item.id, inventory_item: valid_attributes }
-    end
+    put "/inventory_items/#{@inventory_item.id}", params: { inventory_item: invalid_attributes }
     assert_response :success
   end
 
   test 'update valid' do
-    InventoryItem.stub_any_instance :update, true do
-      put :update, params: { id: @inventory_item.id, inventory_item: valid_attributes }
-    end
+    put "/inventory_items/#{@inventory_item.id}", params: { inventory_item: valid_attributes }
     assert_redirected_to :inventory_items
   end
 
   test 'destroy' do
-    delete :destroy, params: { id: @inventory_item.id }
+    delete "/inventory_items/#{@inventory_item.id}"
     assert_redirected_to :inventory_items
   end
 
@@ -63,6 +54,13 @@ class InventoryItemsControllerTest < ActionController::TestCase
     {
       at: Time.zone.today,
       name: 'Couch',
+    }
+  end
+
+  def invalid_attributes
+    {
+      at: Time.zone.today,
+      name: '',
     }
   end
 
