@@ -16,4 +16,4 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-        run: docker compose run web db:test:prepare test
+        run: docker compose run web bin/rails db:test:prepare test
