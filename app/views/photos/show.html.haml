@@ -6,6 +6,8 @@
       = @photo.description.to_s.html_safe
     .position-absolute.bottom-0.end-0.m-3
       = l @photo.at&.to_date
+    .position-absolute.bottom-0.start-0.m-3
+      = l Time.current
 
 :javascript
   const seconds = parseInt(#{params[:next_in]})
