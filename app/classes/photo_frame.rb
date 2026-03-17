@@ -21,7 +21,7 @@ class PhotoFrame
     if range.first < 1 || range.last > 366
       low_bound = (range.first - 1) % 366 + 1
       high_bound = (range.last - 1) % 366 + 1
-      photos.where(julian_func.gteq(low_bound).or(day_of_year.lteq(high_bound)))
+      photos.where(julian_func.gteq(low_bound).or(julian_func.lteq(high_bound)))
     else
       photos.where(julian_func.between(range))
     end
