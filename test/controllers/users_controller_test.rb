@@ -1,63 +1,62 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionController::TestCase
+class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'index' do
-    login_as(users(:admin))
-    get :index
+    login(:admin)
+    get '/users'
     assert_response :success
   end
 
   test 'new' do
-    login_as(users(:admin))
-    get :new
+    login(:admin)
+    get '/users/new'
     assert_response :success
   end
 
   test 'create invalid' do
-    login_as(users(:admin))
+    login(:admin)
     User.stub_any_instance :save, false do
-      post :create, params: { user: valid_attributes }
+      post '/users', params: { user: valid_attributes }
     end
     assert_response :unprocessable_entity
   end
 
   test 'create valid' do
-    login_as(users(:admin))
+    login(:admin)
     User.stub_any_instance :save, true do
-      post :create, params: { user: valid_attributes }
+      post '/users', params: { user: valid_attributes }
     end
-    assert_redirected_to users_url
+    assert_redirected_to '/users'
   end
 
   test 'edit' do
-    login_as(users(:child))
-    get :edit, params: { id: users(:child).id }
+    login(:child)
+    get "/users/#{users(:child).id}/edit"
     assert_response :success
   end
 
   test 'update invalid' do
-    login_as(users(:child))
+    login(:child)
     User.stub_any_instance :update, false do
-      put :update, params: { id: users(:child).id, user: valid_attributes }
+      put "/users/#{users(:child).id}", params: { user: valid_attributes }
     end
     assert_response :success
   end
 
   test 'update valid' do
-    login_as(users(:child))
+    login(:child)
     User.stub_any_instance :update, true do
-      put :update, params: { id: users(:child).id, user: valid_attributes }
+      put "/users/#{users(:child).id}", params: { user: valid_attributes }
     end
-    assert_redirected_to edit_user_url(users(:child))
+    assert_redirected_to "/users/#{users(:child).id}/edit"
   end
 
   test 'destroy' do
-    login_as(users(:admin))
-    delete :destroy, params: { id: users(:child).id }
-    assert_redirected_to users_url
+    login(:admin)
+    delete "/users/#{users(:child).id}"
+    assert_redirected_to '/users'
   end
-
 
   private
 

@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class PagesControllerTest < ActionController::TestCase
+class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test 'index' do
-    get :index
+    get '/pages'
     assert_response :success
   end
 

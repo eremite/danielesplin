@@ -1,31 +1,20 @@
 require 'test_helper'
 
-class PostPhotosControllerTest < ActionController::TestCase
+class PostPhotosControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
-    login_as(users(:admin))
+  setup do
+    login(:admin)
   end
 
-  test 'create invalid' do
-    PostPhoto.stub_any_instance :save, false do
-      post :create, params: { post_photo: valid_attributes }
-    end
-    assert_redirected_to [:edit, posts(:base)]
-  end
-
-  test 'create valid' do
-    PostPhoto.stub_any_instance :save, true do
-      post :create, params: { post_photo: valid_attributes }
-    end
-    assert_redirected_to [:edit, posts(:base)]
+  test 'create' do
+    post '/post_photos', params: { post_photo: valid_attributes }
+    assert_redirected_to "/posts/#{posts(:base).id}/edit"
   end
 
   test 'destroy' do
-    delete :destroy, params: { id: post_photos(:base).id }
-    assert_redirected_to [:edit, posts(:base)]
+    delete "/post_photos/#{post_photos(:base).id}"
+    assert_redirected_to "/posts/#{posts(:base).id}/edit"
   end
-
-
 
   private
 

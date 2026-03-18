@@ -1,15 +1,15 @@
 require 'test_helper'
 
-class PostAccessGrantsControllerTest < ActionController::TestCase
+class PostAccessGrantsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    login_as(users(:admin))
+    login(:admin)
   end
 
   test 'create' do
-    post :create, params: { post_access_grant: {
-      user_id: users(:base),
-      post_id: posts(:base),
+    post '/post_access_grants', params: { post_access_grant: {
+      user_id: users(:base).id,
+      post_id: posts(:base).id,
     } }
     assert_response :redirect
   end

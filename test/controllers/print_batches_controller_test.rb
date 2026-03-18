@@ -1,23 +1,23 @@
 require 'test_helper'
 
-class PrintBatchesControllerTest < ActionController::TestCase
+class PrintBatchesControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
-    login_as(users(:admin))
+  setup do
+    login(:admin)
   end
 
   test 'index' do
-    get :index
+    get '/print_batches'
     assert_response :success
   end
 
   test 'entries' do
-    get :entries, params: { user_id: users(:admin).id, year: Time.zone.now.year }
+    get '/print_batches/entries', params: { user_id: users(:admin).id, year: Time.zone.now.year }
     assert_response :success
   end
 
   test 'posts' do
-    get :posts, params: { year: Time.zone.now.year }
+    get '/print_batches/posts', params: { year: Time.zone.now.year }
     assert_response :success
   end
 

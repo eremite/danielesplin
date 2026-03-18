@@ -1,58 +1,57 @@
 require 'test_helper'
 
-class PhotosControllerTest < ActionController::TestCase
+class PhotosControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
+  setup do
     @photo = photos(:base)
-    login_as(users(:admin))
+    login(:admin)
   end
 
   test 'index' do
-    get :index
+    get '/photos'
     assert_response :success
   end
 
   test 'show' do
-    get :show, params: { id: @photo.id }
+    get "/photos/#{@photo.id}"
     assert_response :success
   end
 
   test 'show can redirect' do
-    get :show, params: { id: 0 }
+    get '/photos/0'
     assert_redirected_to '/photos'
   end
 
   test 'edit' do
-    get :edit, params: { id: @photo.id }
+    get "/photos/#{@photo.id}/edit"
     assert_response :success
   end
 
   test 'update invalid' do
     Photo.stub_any_instance :update, false do
-      put :update, params: { id: @photo.id, photo: valid_attributes }
+      put "/photos/#{@photo.id}", params: { photo: valid_attributes }
     end
     assert_response :success
   end
 
   test 'update valid' do
     Photo.stub_any_instance :update, true do
-      put :update, params: { id: @photo.id, photo: valid_attributes }
+      put "/photos/#{@photo.id}", params: { photo: valid_attributes }
     end
     assert_redirected_to photos_url
   end
 
   test 'update valid with redirect' do
     Photo.stub_any_instance :update, true do
-      put :update, params: { id: @photo.id, photo: valid_attributes, redirect_to: '/' }
+      put "/photos/#{@photo.id}", params: { photo: valid_attributes, redirect_to: '/' }
     end
     assert_redirected_to '/'
   end
 
   test 'destroy' do
-    delete :destroy, params: { id: @photo.id }
-    assert_redirected_to photos_url
+    delete "/photos/#{@photo.id}"
+    assert_redirected_to '/photos'
   end
-
 
   private
 
