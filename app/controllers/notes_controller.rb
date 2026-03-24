@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
 
   def index
-    @notes = Note.all
+    @notes = Note.order(Note.arel_table[:updated_at].desc)
     if params[:user_id].present?
       @notes = @notes.where(user_id: params[:user_id])
     else
@@ -16,19 +16,9 @@ class NotesController < ApplicationController
     if params[:tag].present?
       @notes = @notes.tagged_with(params[:tag], on: :note_tags)
     end
-    @notes =
-      case params[:finished].to_s
-      when 'Finished'
-        @notes.where.not(finished_at: nil)
-      when 'Unfinished', ''
-        @notes.where(finished_at: nil)
-      else
-        @notes
-      end
     if params[:random]
       @notes = @notes.where(id: @notes.sample.try(:id))
     end
-    @notes = @notes.order(Note.arel_table[:updated_at].desc)
     @notes = @notes.page(params[:page])
   end
 
@@ -73,7 +63,6 @@ class NotesController < ApplicationController
   def safe_params
     params.permit(note: [
       :body,
-      :finished_at,
       :kind,
       :meta,
       :note_tag_list,

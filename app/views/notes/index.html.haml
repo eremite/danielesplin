@@ -6,9 +6,6 @@
     = link_to [:new, :note], class: 'btn btn-success' do
       %i.bi-plus-lg
       New Note
-    = link_to [:notes, { finished: 'Finished' }], class: 'btn btn-warning' do
-      %i.bi-file-earmark-fill
-      Finished Notes
 
   %hr
 
@@ -23,9 +20,6 @@
     .mb-3
       = f.label :term, class: 'form-input'
       = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
-    .mb-3
-      = f.label :finished, class: 'form-input'
-      = f.select :finished, %w(Unfinished Finished Either), { selected: params[:finished] }, { class: 'form-select' }
     .form-check
       = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
       = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'
