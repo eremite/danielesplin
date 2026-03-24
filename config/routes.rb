@@ -3,19 +3,19 @@ Rails.application.routes.draw do
   get "up", to: "rails/health#show", as: :rails_health_check
 
   namespace :api do
-    resources :entries
+    resources :entries, only: [:create]
   end
 
-  resources :comments
-  resources :decider_lists, shallow: true do
-    resources :decider_list_items, only: %i[new create destroy]
+  resources :comments, only: [:create, :edit, :update, :destroy]
+  resources :decider_lists, only: [:index, :create, :show, :destroy], shallow: true do
+    resources :decider_list_items, only: %i[create destroy]
   end
-  resources :entries
+  resources :entries, only: [:index, :create, :edit, :update, :destroy]
   resources :entry_batches, only: %i[new create]
   resources :inventory_items
   resources :notes
-  resources :pages
-  resources :users
+  resources :pages, only: [:index]
+  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :post_photos, only: %i[create destroy]
   resources :post_access_grants, only: %i[create]
 
@@ -35,10 +35,9 @@ Rails.application.routes.draw do
   get 'pick/:id', to: 'decider_list_picker#new'
   post 'pick/:id', to: 'decider_list_picker#create'
 
-  resources :sessions
+  resources :sessions, only: [:create, :destroy]
   delete 'logout', to: 'sessions#destroy', as: 'logout'
   get 'logout', to: 'sessions#destroy'
-  get 'login', to: 'sessions#new', as: 'login'
 
   root to: 'pages#index'
 
