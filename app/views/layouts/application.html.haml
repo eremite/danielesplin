@@ -20,7 +20,7 @@
     .container
       - if show_full_layout
         %header= render 'layouts/nav'
-      - else
+      - elsif controller.controller_name != 'photo_frames'
         .mt-4
 
       %section.mb-3
