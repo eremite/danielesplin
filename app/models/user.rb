@@ -18,7 +18,6 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false },
     format: { with: EMAIL_REGEX }
   validates :password, length: { minimum: 4, maximum: 72 }, allow_blank: true
-  validates :api_key, uniqueness: true, allow_blank: true
 
   scope :guest, -> { where(role: :guest) }
 

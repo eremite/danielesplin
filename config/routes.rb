@@ -25,10 +25,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :api do
-    resources :entries, only: [:create]
-  end
-
   get 'pick', to: 'decider_list_picker#index'
   get 'pick/:id', to: 'decider_list_picker#new'
   post 'pick/:id', to: 'decider_list_picker#create'

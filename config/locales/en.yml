@@ -37,7 +37,6 @@ en:
         value_in_dollars: 'Value'
         inventory_item_tag_list: 'Tags'
       user:
-        api_key: 'API Key'
         born_at: 'Birth Date'
       note:
         note_tag_list: 'Tags'
