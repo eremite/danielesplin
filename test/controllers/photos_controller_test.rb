@@ -12,16 +12,6 @@ class PhotosControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'show' do
-    get "/photos/#{@photo.id}"
-    assert_response :success
-  end
-
-  test 'show can redirect' do
-    get '/photos/0'
-    assert_redirected_to '/photos'
-  end
-
   test 'edit' do
     get "/photos/#{@photo.id}/edit"
     assert_response :success

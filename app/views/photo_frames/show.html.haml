@@ -1,0 +1,26 @@
+- if @photo.image&.variable?
+  .bg-dark.text-light.d-flex.justify-content-center.vh-100.overflow-hidden
+    .position-relative.d-inline-block
+      = image_tag @photo.image, class: "vh-100", style: "object-fit: cover;"
+    .position-absolute.top-0.start-50.translate-middle-x.mt-3.px-3.bg-dark.bg-opacity-50.p-2.rounded
+      = @photo.description.to_s.html_safe
+    .position-absolute.top-0.start-0.m-3
+      = link_to :back, class: 'btn btn-lg btn-outline-secondary' do
+        %i.bi.bi-arrow-left-circle
+        Back
+    .position-absolute.bottom-0.end-0.m-3
+      = l @photo.at&.to_date
+    .position-absolute.bottom-0.start-0.m-3
+      = l Time.current
+
+:javascript
+  window.photoTimer = window.photoTimer || null;
+  document.addEventListener('turbo:load', function() {
+    clearTimeout(window.photoTimer)
+    const nextId = #{PhotoFrame.new.next_photo&.id || 0}
+    const timeout = #{(Rails.env.production? ? 90 : 5) * 1000}
+    const isPreviewable = #{@photo.image&.previewable? ? 'true' : 'false'}
+    window.photoTimer = setTimeout(function() {
+      window.location.href = `/ff/${nextId}`
+    }, isPreviewable ? 0 : timeout)
+  })

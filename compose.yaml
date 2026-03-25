@@ -8,3 +8,4 @@ services:
       - "80:3000"
     environment:
       FROM_EMAIL: test@example.com
+      PHOTO_FRAME_IP: 127.0.0.1

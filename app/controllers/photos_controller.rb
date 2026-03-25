@@ -4,11 +4,6 @@ class PhotosController < ApplicationController
     @photos = Photo.search(params)
   end
 
-  def show
-    @photo = Photo.find_by(id: params[:id])
-    redirect_to :photos, alert: "No photos found in that range" if @photo.nil?
-  end
-
   def edit
     @photo = Photo.find(params[:id])
   end
