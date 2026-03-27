@@ -19,7 +19,7 @@ class EntryBatchesController < ApplicationController
   private
 
   def safe_params
-    params.require(:entry_batch).permit!
+    params.require(:entry_batch).permit(entry_params_by_user_id: {})
   end
 
   def authorized?

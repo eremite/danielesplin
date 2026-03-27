@@ -8,10 +8,6 @@ class PhotoBatchesController < ApplicationController
 
   private
 
-  def safe_params
-    params.require(:photo).permit!
-  end
-
   def authorized?
     Current.user&.parent?
   end

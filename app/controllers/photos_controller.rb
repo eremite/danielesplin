@@ -28,7 +28,7 @@ class PhotosController < ApplicationController
   private
 
   def safe_params
-    params.require(:photo).permit!
+    params.require(:photo).permit(:at, :post_ids, :hidden, :description, :photo_tag_list)
   end
 
   def authorized?
