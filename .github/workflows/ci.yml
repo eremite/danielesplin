@@ -6,6 +6,16 @@ on:
     branches: [ main ]
 
 jobs:
+  brakeman:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Brakeman
+        run: docker compose run web brakeman --run-all-checks --except UnscopedFind
+
   test:
     runs-on: ubuntu-latest
 
