@@ -85,7 +85,7 @@
     - if params[:term].present?
       %p
         &hellip;
-        = sanitize entry.body.to_s[/\b.{0,55}#{params[:term].to_s.downcase}.{0,55}\b/i].gsub(/#{params[:term].to_s.downcase}/i, "<strong><em>#{params[:term]}</em></strong>")
+        = highlight(excerpt(entry.body, params[:term], radius: 55), params[:term])
         &hellip;
     - else
       .mb-4

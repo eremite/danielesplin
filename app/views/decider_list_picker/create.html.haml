@@ -1,6 +1,4 @@
 .text-center
   %h1{ style: "margin-top: 10rem; margin-bottom: 5rem; font-family: #{@item.font}, serif" }= @item.name
-  %p{ style: 'margin: 5rem' }
-    %i{ class: "bi-#{@item.icon}", style: 'font-size: 10rem' }
 
   %p= link_to "Start Over", "/pick", class: "btn btn-secondary", style: 'margin-bottom: 3rem'
