@@ -12,7 +12,7 @@
     - else
       = l(post.at.to_date, format: :long)
 
-  .mb-3= post.body.html_safe
+  .mb-3= sanitize post.body
 
   - if photos.present?
     .d-flex.flex-wrap.align-items-center

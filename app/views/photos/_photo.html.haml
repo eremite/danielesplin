@@ -18,4 +18,4 @@
         - if photo.description.to_s.gsub(/\s/, '').blank?
           %em Insert caption here
         - else
-          = photo.description.to_s.html_safe
+          = sanitize photo.description.to_s

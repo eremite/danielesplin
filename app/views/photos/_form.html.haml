@@ -25,4 +25,4 @@
   .mb-3
     = hidden_field_tag :redirect_to, params[:redirect_to]
     = f.submit 'Save', class: 'btn btn-primary'
-    = link_to 'Cancel', params[:redirect_to] || :photos, class: 'btn btn-outline-secondary'
+    = link_to 'Cancel', @redirect_path, class: 'btn btn-outline-secondary'

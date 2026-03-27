@@ -7,7 +7,7 @@
       - @entries.each do |entry|
         .mt-3
           %h6.text-muted= l entry.at.to_date, format: :long
-          = entry.body.gsub('<br>', '').html_safe
+          = sanitize entry.body.gsub('<br>', '')
     - if @photos.present?
       .col-md-3
         = render partial: "/shared/carousel_modal",

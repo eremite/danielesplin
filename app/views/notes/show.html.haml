@@ -21,4 +21,4 @@
 .row
   .col-md-12
     %h2.h2= @note.title
-    = @note.body.html_safe
+    = sanitize @note.body

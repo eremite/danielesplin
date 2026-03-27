@@ -6,6 +6,7 @@ class PhotosController < ApplicationController
 
   def edit
     @photo = Photo.find(params[:id])
+    @redirect_path = url_from(params[:redirect_to]) || :photos
   end
 
   def update
