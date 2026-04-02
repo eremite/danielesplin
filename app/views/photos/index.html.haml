@@ -14,6 +14,14 @@
   %h3 Search
   = form_with url: :photos, method: :get do |f|
     .mb-3
+      .btn-group{ role: 'group', aria: { label: 'Media filter' } }
+        = f.radio_button :media, '', class: 'btn-check', checked: params[:media].blank?
+        = f.label :media, 'Both', class: 'btn btn-outline-success', for: 'media'
+        = f.radio_button :media, 'photos', class: 'btn-check', checked: params[:media] == 'photos'
+        = f.label :media, 'Photos', class: 'btn btn-outline-success', for: 'media_photos'
+        = f.radio_button :media, 'videos', class: 'btn-check', checked: params[:media] == 'videos'
+        = f.label :media, 'Videos', class: 'btn btn-outline-success', for: 'media_videos'
+    .mb-3
       = f.label :order
       = f.select :order, Photo.order_options, { selected: params[:order] }, { class: 'form-control' }
     .mb-3

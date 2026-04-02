@@ -21,6 +21,12 @@ class Photo < ApplicationRecord
 
   def self.search(params)
     photos = Photo.all
+    case params[:media]
+    when 'photos'
+      photos = photos.joins(image_attachment: :blob).where(active_storage_blobs: { content_type: "image/jpeg" })
+    when 'videos'
+      photos = photos.joins(image_attachment: :blob).where(active_storage_blobs: { content_type: "video/mp4" })
+    end
     photos =
       case params[:order]
       when "created_at_desc"
