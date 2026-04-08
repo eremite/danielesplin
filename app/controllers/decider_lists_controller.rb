@@ -1,9 +1,12 @@
 class DeciderListsController < ApplicationController
-
   before_action :verify_authorized
 
   def index
     @lists = DeciderList.order(name: :asc)
+  end
+
+  def show
+    @list = DeciderList.find(params[:id])
   end
 
   def create
@@ -13,10 +16,6 @@ class DeciderListsController < ApplicationController
     else
       redirect_to :decider_lists, alert: @list.errors.full_messages.to_sentence
     end
-  end
-
-  def show
-    @list = DeciderList.find(params[:id])
   end
 
   def destroy
@@ -33,5 +32,4 @@ class DeciderListsController < ApplicationController
   def safe_params
     params.require(:decider_list).permit(:name)
   end
-
 end

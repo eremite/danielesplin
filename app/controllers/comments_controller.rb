@@ -1,4 +1,8 @@
 class CommentsController < ApplicationController
+  def edit
+    @comment = Comment.find(params[:id])
+    deny_access unless @comment.user_id == Current.user.id || Current.user.parent?
+  end
 
   def create
     @comment = @user.comments.new(safe_params)
@@ -7,12 +11,7 @@ class CommentsController < ApplicationController
     else
       flash.alert = @comment.errors.full_messages.to_sentence
     end
-    redirect_to [@comment.post, access_token: params[:access_token]]
-  end
-
-  def edit
-    @comment = Comment.find(params[:id])
-    deny_access unless @comment.user_id == Current.user.id || Current.user.parent?
+    redirect_to [@comment.post, { access_token: params[:access_token] }]
   end
 
   def update
@@ -39,9 +38,10 @@ class CommentsController < ApplicationController
   def authorized?
     @user = Current.user
     return true if @user.present?
+
     @user = User.find_by!(access_token: params[:access_token])
     return false if action_name != 'create' || @user.access_token_expires_at.past?
+
     true
   end
-
 end

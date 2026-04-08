@@ -1,29 +1,29 @@
 class NotesController < ApplicationController
-
   def index
     @notes = Note.order(Note.arel_table[:updated_at].desc)
-    if params[:user_id].present?
-      @notes = @notes.where(user_id: params[:user_id])
-    else
-      @notes = Current.user.notes
-    end
-    if params[:kind].present?
-      @notes = @notes.where(kind: params[:kind])
-    end
-    if params[:term].present?
-      @notes = @notes.where(Note.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
-    end
-    if params[:tag].present?
-      @notes = @notes.tagged_with(params[:tag], on: :note_tags)
-    end
-    if params[:random]
-      @notes = @notes.where(id: @notes.sample.try(:id))
-    end
+    @notes =
+      if params[:user_id].present?
+        @notes.where(user_id: params[:user_id])
+      else
+        Current.user.notes
+      end
+    @notes = @notes.where(kind: params[:kind]) if params[:kind].present?
+    @notes = @notes.where(Note.arel_table[:body].matches("%#{params[:term].to_s.downcase}%")) if params[:term].present?
+    @notes = @notes.tagged_with(params[:tag], on: :note_tags) if params[:tag].present?
+    @notes = @notes.where(id: @notes.sample.try(:id)) if params[:random]
     @notes = @notes.page(params[:page])
+  end
+
+  def show
+    @note = Note.find(params[:id])
   end
 
   def new
     @note = Note.new
+  end
+
+  def edit
+    @note = Note.find(params[:id])
   end
 
   def create
@@ -33,14 +33,6 @@ class NotesController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-    @note = Note.find(params[:id])
-  end
-
-  def edit
-    @note = Note.find(params[:id])
   end
 
   def update
@@ -61,18 +53,10 @@ class NotesController < ApplicationController
   private
 
   def safe_params
-    params.permit(note: [
-      :body,
-      :kind,
-      :meta,
-      :note_tag_list,
-      :title,
-      :user_id,
-    ])[:note]
+    params.permit(note: %i[body kind meta note_tag_list title user_id])[:note]
   end
 
   def authorized?
     Current.user&.father?
   end
-
 end

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     @users = User.order(created_at: :desc)
   end
@@ -8,17 +7,17 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+    @user = find_user
+  end
+
   def create
     @user = User.new(safe_params)
     if @user.save
       redirect_to :users, notice: 'User created.'
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
-  end
-
-  def edit
-    @user = find_user
   end
 
   def update
@@ -43,7 +42,7 @@ class UsersController < ApplicationController
 
   def safe_params
     permitted_attributes = %i[name email color password password_confirmation]
-    %i{role born_at}.each do |field|
+    %i[role born_at].each do |field|
       permitted_attributes << field if Current.user.parent?
     end
     params.require(:user).permit(*permitted_attributes)
@@ -53,5 +52,4 @@ class UsersController < ApplicationController
     return false if Current.user.nil?
     Current.user.parent? || Current.user.child?
   end
-
 end

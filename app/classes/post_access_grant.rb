@@ -1,5 +1,4 @@
 class PostAccessGrant
-
   include ActiveModel::Model
 
   attr_accessor :user_id, :user, :post_id, :post, :url
@@ -29,5 +28,4 @@ class PostAccessGrant
       SUBJECT
     }.to_query
   end
-
 end

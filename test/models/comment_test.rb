@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-
   test 'valid' do
     assert comments(:base).valid?
   end
@@ -11,9 +10,8 @@ class CommentTest < ActiveSupport::TestCase
       Comment.create!({
         user: users(:base),
         post: posts(:base),
-        body: 'Body',
+        body: 'Body'
       })
     end
   end
-
 end

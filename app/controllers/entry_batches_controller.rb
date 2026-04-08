@@ -1,5 +1,4 @@
 class EntryBatchesController < ApplicationController
-
   def new
     @entry_batch = EntryBatch.new.load
   end
@@ -25,5 +24,4 @@ class EntryBatchesController < ApplicationController
   def authorized?
     Current.user&.parent?
   end
-
 end

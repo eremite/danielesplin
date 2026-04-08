@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PhotosControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     @photo = photos(:base)
     login(:admin)
@@ -48,8 +47,7 @@ class PhotosControllerTest < ActionDispatch::IntegrationTest
   def valid_attributes
     {
       at: Time.zone.now,
-      description: 'Description',
+      description: 'Description'
     }
   end
-
 end

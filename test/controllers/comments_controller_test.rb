@@ -1,10 +1,9 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
-
   test 'create invalid' do
     login(:child)
-    post '/comments', params: { comment: { post_id: posts(:base).id, body: "" } }
+    post '/comments', params: { comment: { post_id: posts(:base).id, body: '' } }
     assert_redirected_to posts(:base)
   end
 
@@ -12,7 +11,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     user = users(:guest).tap(&:grant_access!)
     post '/comments', params: { comment: {
       post_id: posts(:base).id,
-      body: 'Cool!',
+      body: 'Cool!'
     }, access_token: user.access_token }
     assert_redirected_to "/posts/#{posts(:base).id}?access_token=#{user.access_token}"
   end
@@ -21,7 +20,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     login(:admin)
     post '/comments', params: { comment: {
       post_id: posts(:base).id,
-      body: 'Thanks!',
+      body: 'Thanks!'
     } }
     assert_redirected_to posts(:base)
   end
@@ -34,7 +33,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'update invalid' do
     login(:admin)
-    put "/comments/#{comments(:base).id}", params:{ comment: { post_id: posts(:base).id, body: "" } }
+    put "/comments/#{comments(:base).id}", params: { comment: { post_id: posts(:base).id, body: '' } }
     assert_response :success
   end
 
@@ -42,15 +41,14 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     login(:admin)
     put "/comments/#{comments(:base).id}", params: { id: comments(:base).id, comment: {
       post_id: posts(:base).id,
-      body: 'Body',
+      body: 'Body'
     } }
     assert_redirected_to posts(:base)
   end
 
   test 'destroy' do
     login(:admin)
-    delete  "/comments/#{comments(:base).id}"
+    delete "/comments/#{comments(:base).id}"
     assert_redirected_to posts(:base)
   end
-
 end

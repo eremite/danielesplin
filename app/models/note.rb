@@ -1,5 +1,4 @@
 class Note < ApplicationRecord
-
   acts_as_taggable_on :note_tags
 
   belongs_to :user, default: -> { Current.user }
@@ -12,5 +11,4 @@ class Note < ApplicationRecord
   def suggested_tags
     self.class.tags.where.not(id: note_tag_ids)
   end
-
 end

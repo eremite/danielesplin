@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class InventoryItemsControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     @inventory_item = inventory_items(:base)
     login(:admin)
@@ -47,21 +46,19 @@ class InventoryItemsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to :inventory_items
   end
 
-
   private
 
   def valid_attributes
     {
       at: Time.zone.today,
-      name: 'Couch',
+      name: 'Couch'
     }
   end
 
   def invalid_attributes
     {
       at: Time.zone.today,
-      name: '',
+      name: ''
     }
   end
-
 end

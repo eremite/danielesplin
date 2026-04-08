@@ -1,5 +1,4 @@
 class EntryBatch
-
   include ActiveModel::Model
 
   attr_accessor :entry_params_by_user_id
@@ -11,7 +10,7 @@ class EntryBatch
   end
 
   def opened_by
-    @opened_by ||= User.find_by(id: Rails.cache.read("entry_batch_opened_by_user_id"))
+    @opened_by ||= User.find_by(id: Rails.cache.read('entry_batch_opened_by_user_id'))
   end
 
   def autosave_interval
@@ -19,7 +18,7 @@ class EntryBatch
   end
 
   def save
-    Rails.cache.write("entry_batch_opened_by_user_id", Current.user&.id, expires_in: 15.seconds)
+    Rails.cache.write('entry_batch_opened_by_user_id', Current.user&.id, expires_in: 15.seconds)
     entry_params_by_user_id.each do |user_id, entry_params|
       user = User.find(user_id)
       entry = user.entries.find_by(id: entry_params[:id])
@@ -41,12 +40,11 @@ class EntryBatch
     {
       body: entry&.body,
       id: entry&.id,
-      user: user,
+      user: user
     }
   end
 
   def existing_entry_for_user(user)
     user.entries.find_by(at: Time.current.all_day)
   end
-
 end

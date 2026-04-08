@@ -1,5 +1,4 @@
 class PhotoFrame
-
   DAY_SPAN = 7
 
   def next_photo
@@ -16,11 +15,11 @@ class PhotoFrame
   end
 
   def get_photos
-    day_of_year = Time.current.strftime("%j").to_i
-    range = start_day_of_year = (day_of_year - DAY_SPAN)..(day_of_year + DAY_SPAN)
+    day_of_year = Time.current.strftime('%j').to_i
+    range = (day_of_year - DAY_SPAN)..(day_of_year + DAY_SPAN)
     if range.first < 1 || range.last > 366
-      low_bound = (range.first - 1) % 366 + 1
-      high_bound = (range.last - 1) % 366 + 1
+      low_bound = ((range.first - 1) % 366) + 1
+      high_bound = ((range.last - 1) % 366) + 1
       photos.where(julian_func.gteq(low_bound).or(julian_func.lteq(high_bound)))
     else
       photos.where(julian_func.between(range))
@@ -29,9 +28,9 @@ class PhotoFrame
 
   def julian_func
     Arel::Nodes::NamedFunction.new(
-      "CAST", [
-        Arel::Nodes::NamedFunction.new("strftime", [Arel::Nodes.build_quoted("%j"), Photo.arel_table[:at]])
-        .as("INTEGER")
+      'CAST', [
+        Arel::Nodes::NamedFunction.new('strftime', [Arel::Nodes.build_quoted('%j'), Photo.arel_table[:at]])
+        .as('INTEGER')
       ]
     )
   end
@@ -39,5 +38,4 @@ class PhotoFrame
   def photos
     Photo.where(hidden: false)
   end
-
 end

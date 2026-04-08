@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EntriesControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     user = users(:admin)
     @entry = user.entries.create!(body: 'body', at: Time.zone.now)
@@ -41,17 +40,15 @@ class EntriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'destroy' do
     delete "/entries/#{@entry.id}"
-    assert_redirected_to "/entries"
+    assert_redirected_to '/entries'
   end
-
 
   private
 
   def valid_attributes
     {
       at: Time.zone.now,
-      body: 'Body',
+      body: 'Body'
     }
   end
-
 end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class NotesControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     user = users(:admin)
     @note = user.notes.create!(title: 'Title', body: 'body')
@@ -42,5 +41,4 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     delete "/notes/#{@note.id}"
     assert_redirected_to '/notes'
   end
-
 end

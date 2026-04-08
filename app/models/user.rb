@@ -1,8 +1,7 @@
 class User < ApplicationRecord
+  enum :role, { father: 'father', mother: 'mother', child: 'child', guest: 'guest', inactive: 'inactive' }
 
-  enum :role, { father: "father", mother: "mother", child: "child", guest: "guest", inactive: "inactive" }
-
-  EMAIL_REGEX = /\A(?:[a-z\d!#\$%&'\*\+\-\/=\?\^_`\{\|\}~]+|\.)+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\Z/i
+  EMAIL_REGEX = %r{\A(?:[a-z\d!#$%&'*+\-/=?\^_`{|}~]+|\.)+@[a-z\d-]+(?:\.[a-z\d-]+)*\Z}i
   ACCESS_TOKEN_EXPIRES_IN = 1.week
 
   has_secure_password validations: false
@@ -13,10 +12,7 @@ class User < ApplicationRecord
   has_many :notes
   has_many :photos
 
-  validates :email,
-    presence: true,
-    uniqueness: { case_sensitive: false },
-    format: { with: EMAIL_REGEX }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }
   validates :password, length: { minimum: 4, maximum: 72 }, allow_blank: true
 
   scope :guest, -> { where(role: :guest) }
@@ -72,5 +68,4 @@ class User < ApplicationRecord
     yiq = ((r * 299) + (g * 587) + (114 * b)) / 1000
     yiq >= 128 ? '#000000' : '#ffffff'
   end
-
 end

@@ -1,5 +1,4 @@
 class FixImageProcessingInPhotos < ActiveRecord::Migration
-
   def self.up
     remove_column :photos, :boolean
     add_column :photos, :image_processing, :boolean
@@ -9,5 +8,4 @@ class FixImageProcessingInPhotos < ActiveRecord::Migration
     remove_column :photos, :image_processing
     add_column :photos, :boolean, :string
   end
-
 end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-
   test 'valid' do
     assert users(:base).valid?
   end
@@ -15,18 +14,18 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'father?' do
-    assert_not User.new(:role => 'mother').father?
-    assert User.new(:role => 'father').father?
+    assert_not User.new(role: 'mother').father?
+    assert User.new(role: 'father').father?
   end
 
   test 'mother?' do
-    assert_not User.new(:role => 'father').mother?
-    assert User.new(:role => 'mother').mother?
+    assert_not User.new(role: 'father').mother?
+    assert User.new(role: 'mother').mother?
   end
 
   test 'guest?' do
-    assert_not User.new(:role => 'father').guest?
-    assert User.new(:role => 'guest').guest?
+    assert_not User.new(role: 'father').guest?
+    assert User.new(role: 'guest').guest?
   end
 
   test 'users_whose_entries_i_can_edit' do
@@ -57,5 +56,4 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '#ffffff', User.new(color: '#111111').contrast_color
     assert_equal '#000000', User.new(color: '#eeeeee').contrast_color
   end
-
 end

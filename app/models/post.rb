@@ -1,5 +1,4 @@
 class Post < ApplicationRecord
-
   acts_as_taggable_on :post_tags
 
   has_many :comments
@@ -14,10 +13,9 @@ class Post < ApplicationRecord
 
   scope :at_asc, -> { order(arel_table[:at].asc) }
   scope :at_desc, -> { order(arel_table[:at].desc) }
-  scope :before, -> (ends_at) { where(arel_table[:at].lteq(ends_at)) }
+  scope :before, ->(ends_at) { where(arel_table[:at].lteq(ends_at)) }
   scope :past, -> { where(arel_table[:at].lteq(Time.zone.now)) }
   scope :future, -> { where(arel_table[:at].gt(Time.zone.now)) }
-
 
   def title
     Nokogiri::HTML(body).css('h1').text
@@ -39,10 +37,7 @@ class Post < ApplicationRecord
   private
 
   def auto_assign_photos
-    if at.present?
-      self.photos = Photo.where(hidden: false, created_at: at.beginning_of_day..at.end_of_day)
-    end
+    self.photos = Photo.where(hidden: false, created_at: at.all_day) if at.present?
     true
   end
-
 end

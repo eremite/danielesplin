@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class DeciderListsControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     login(:admin)
   end
@@ -12,12 +11,12 @@ class DeciderListsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create invalid' do
-    post '/decider_lists', params: { decider_list: { name: "" } }
+    post '/decider_lists', params: { decider_list: { name: '' } }
     assert_redirected_to decider_lists_path
   end
 
   test 'create valid' do
-    post '/decider_lists', params: { decider_list: { name: "Present" } }
+    post '/decider_lists', params: { decider_list: { name: 'Present' } }
     assert_redirected_to decider_list_path(DeciderList.last)
   end
 
@@ -30,5 +29,4 @@ class DeciderListsControllerTest < ActionDispatch::IntegrationTest
     delete "/decider_lists/#{decider_lists(:base).id}"
     assert_redirected_to '/decider_lists'
   end
-
 end

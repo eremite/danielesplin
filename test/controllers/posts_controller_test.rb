@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
-
   test 'index' do
     login(:admin)
     get '/posts'
@@ -47,8 +46,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   def valid_attributes
     {
       at: Time.zone.now,
-      body: 'Body',
+      body: 'Body'
     }
   end
-
 end

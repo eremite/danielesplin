@@ -1,5 +1,4 @@
 class PostAccessGrantsController < ApplicationController
-
   def create
     access_grant = PostAccessGrant.new(safe_params).load!
     redirect_to access_grant.mailto, allow_other_host: true
@@ -14,5 +13,4 @@ class PostAccessGrantsController < ApplicationController
   def authorized?
     Current.user&.parent?
   end
-
 end

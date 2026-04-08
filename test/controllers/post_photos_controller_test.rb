@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PostPhotosControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     login(:admin)
   end
@@ -21,8 +20,7 @@ class PostPhotosControllerTest < ActionDispatch::IntegrationTest
   def valid_attributes
     {
       post_id: posts(:base).id,
-      photo_id: photos(:base).id,
+      photo_id: photos(:base).id
     }
   end
-
 end

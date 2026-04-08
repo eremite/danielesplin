@@ -1,7 +1,6 @@
 class PrintBatchesController < ApplicationController
-
   def index
-    @users = User.where(role: %w(father mother baby)).order(User.arel_table[:id].asc)
+    @users = User.where(role: %w[father mother baby]).order(User.arel_table[:id].asc)
   end
 
   def entries
@@ -28,5 +27,4 @@ class PrintBatchesController < ApplicationController
   def authorized?
     Current.user&.parent?
   end
-
 end

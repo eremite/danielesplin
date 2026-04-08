@@ -1,6 +1,6 @@
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
+require 'rails/test_help'
 
 module ActiveSupport
   class TestCase
@@ -12,7 +12,7 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
     def login(fixture_key)
-      post "/sessions", params: { email: users(fixture_key).email, password: "secret" }
+      post '/sessions', params: { email: users(fixture_key).email, password: 'secret' }
     end
 
     def login_as(user)

@@ -1,12 +1,19 @@
 class PostsController < ApplicationController
-
   def index
     redirect_to Post.at_desc.past.first
+  end
+
+  def show
+    @post = Post.find(params[:id])
   end
 
   def new
     @post = Post.new(safe_params)
     @post.at ||= Time.zone.now
+  end
+
+  def edit
+    @post = Post.find(params[:id])
   end
 
   def create
@@ -16,14 +23,6 @@ class PostsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-    @post = Post.find(params[:id])
-  end
-
-  def edit
-    @post = Post.find(params[:id])
   end
 
   def update
@@ -44,15 +43,14 @@ class PostsController < ApplicationController
   private
 
   def safe_params
-    params.permit(post: [:at, :body, :post_tag_list])[:post]
+    params.permit(post: %i[at body post_tag_list])[:post]
   end
 
   def authorized?
     return true if Current.user.present?
-    user = User.where.not(access_token: [nil, ""]).find_by!(access_token: params[:access_token])
+    user = User.where.not(access_token: [nil, '']).find_by!(access_token: params[:access_token])
     return false if action_name != 'show' || user.access_token_expires_at.past?
     user.log('blog')
     true
   end
-
 end

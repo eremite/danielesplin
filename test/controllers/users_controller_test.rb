@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-
   test 'index' do
     login(:admin)
     get '/users'
@@ -62,11 +61,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   def valid_attributes
     {
-      :name => 'Name',
-      :email => 'e@mai.l',
-      :password => 'secret123',
-      :password_confirmation => 'secret123',
+      name: 'Name',
+      email: 'e@mai.l',
+      password: 'secret123',
+      password_confirmation: 'secret123'
     }
   end
-
 end

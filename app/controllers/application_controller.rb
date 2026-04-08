@@ -28,5 +28,4 @@ class ApplicationController < ActionController::Base
   def authorized?
     false
   end
-
 end

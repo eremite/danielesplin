@@ -4,3 +4,27 @@ plugins: rubocop-rails
 
 AllCops:
   NewCops: enable
+  Exclude:
+    - 'Rakefile'
+    - 'bin/**/*'
+    - 'config.ru'
+    - 'config/**/*'
+    - 'db/cache_schema.rb'
+    - 'db/schema.rb'
+    - 'script/**/*'
+
+# I don't like empty lines in methods
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+# Always indent 2 spaces, no exceptions
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+Layout/FirstParameterIndentation:
+  EnforcedStyle: consistent
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation

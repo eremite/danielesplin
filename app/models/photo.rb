@@ -1,5 +1,4 @@
 class Photo < ApplicationRecord
-
   acts_as_taggable_on :photo_tags
 
   has_one_attached :image
@@ -16,22 +15,22 @@ class Photo < ApplicationRecord
   scope :created_at_desc, -> { order(arel_table[:created_at].desc) }
 
   before_validation :handle_hidden
-  after_save :auto_assign_posts, if: ->(photo) { photo.post_ids.blank? && !photo.hidden? }
   before_destroy :purge_image
+  after_save :auto_assign_posts, if: ->(photo) { photo.post_ids.blank? && !photo.hidden? }
 
   def self.search(params)
     photos = Photo.all
     case params[:media]
     when 'photos'
-      photos = photos.joins(image_attachment: :blob).where(active_storage_blobs: { content_type: "image/jpeg" })
+      photos = photos.joins(image_attachment: :blob).where(active_storage_blobs: { content_type: 'image/jpeg' })
     when 'videos'
-      photos = photos.joins(image_attachment: :blob).where(active_storage_blobs: { content_type: "video/mp4" })
+      photos = photos.joins(image_attachment: :blob).where(active_storage_blobs: { content_type: 'video/mp4' })
     end
     photos =
       case params[:order]
-      when "created_at_desc"
+      when 'created_at_desc'
         photos.created_at_desc
-      when "updated_at_desc"
+      when 'updated_at_desc'
         photos.order(updated_at: :desc)
       else
         photos.at_desc
@@ -44,18 +43,18 @@ class Photo < ApplicationRecord
     if params[:term].present?
       photos = photos.where(arel_table[:description].matches("%#{params[:term].to_s.downcase}%"))
     end
-    photos = photos.where(description: [nil, ""]) if params[:nondescript].to_i.nonzero?
+    photos = photos.where(description: [nil, '']) if params[:nondescript].to_i.nonzero?
     photos = photos.includes(:post_photos).where(post_photos: { photo_id: nil }) if params[:unblogged].to_i.nonzero?
     photos = photos.where(hidden: false) unless params[:not_hidden].to_i.nonzero?
     photos.page(params[:page]).per(30)
   end
 
   def self.order_options
-    [["Photo Date", :at_desc], ["Date Uploaded", :created_at_desc], ["Last Modified", :updated_at_desc]]
+    [['Photo Date', :at_desc], ['Date Uploaded', :created_at_desc], ['Last Modified', :updated_at_desc]]
   end
 
   def self.unblogged
-    includes(:post_photos).where( :post_photos => { :photo_id => nil } )
+    includes(:post_photos).where(post_photos: { photo_id: nil })
   end
 
   def self.tags
@@ -70,18 +69,17 @@ class Photo < ApplicationRecord
   private
 
   def handle_hidden
-    if hidden?
-      self.posts = []
-      self.post_ids = []
-    end
+    return unless hidden?
+
+    self.posts = []
+    self.post_ids = []
   end
 
   def auto_assign_posts
-    self.posts = Post.where(at: created_at.beginning_of_day..created_at.end_of_day)
+    self.posts = Post.where(at: created_at.all_day)
   end
 
   def purge_image
     image.purge
   end
-
 end

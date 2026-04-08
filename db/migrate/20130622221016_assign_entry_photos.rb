@@ -1,5 +1,4 @@
 class AssignEntryPhotos < ActiveRecord::Migration
-
   class Photo < ActiveRecord::Base
   end
 
@@ -16,7 +15,7 @@ class AssignEntryPhotos < ActiveRecord::Migration
   def up
     Entry.find_each do |entry|
       t = Photo.arel_table
-      conditions = t[:at].in(entry.at.beginning_of_day..entry.at.end_of_day).and(t[:entry_id].eq(nil))
+      conditions = t[:at].in(entry.at.all_day).and(t[:entry_id].eq(nil))
       conditions = conditions.or(t[:entry_id].eq(entry.id))
       entry.photos << Photo.where(conditions)
     end

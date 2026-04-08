@@ -1,5 +1,4 @@
 class DeciderListItem < ApplicationRecord
-
   belongs_to :decider_list
 
   validates :name, presence: true
@@ -63,11 +62,10 @@ class DeciderListItem < ApplicationRecord
   end
 
   def font_list
-    %w[
-      Georgia
-      Garamond
-      Comic\ Sans\ MS
+    [
+      'Georgia',
+      'Garamond',
+      'Comic Sans MS'
     ]
   end
-
 end

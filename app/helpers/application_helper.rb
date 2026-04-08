@@ -16,5 +16,4 @@ module ApplicationHelper
       "#{value} #{key.to_s.singularize.pluralize(value)}"
     end.join(', ')
   end
-
 end

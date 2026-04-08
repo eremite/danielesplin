@@ -1,5 +1,4 @@
 class MovePublicEntriesToPosts < ActiveRecord::Migration
-
   class EntryPhoto < ActiveRecord::Base
     belongs_to :entry
     belongs_to :photo
@@ -29,7 +28,7 @@ class MovePublicEntriesToPosts < ActiveRecord::Migration
           at: entry.at,
           body: entry.body,
           created_at: entry.created_at,
-          updated_at: entry.updated_at,
+          updated_at: entry.updated_at
         })
         entry.photos.each do |photo|
           post.photos << photo
@@ -50,7 +49,7 @@ class MovePublicEntriesToPosts < ActiveRecord::Migration
           at: post.at,
           body: post.body,
           created_at: post.created_at,
-          updated_at: post.updated_at,
+          updated_at: post.updated_at
         })
         post.photos.each do |photo|
           entry.photos << photo
@@ -62,5 +61,4 @@ class MovePublicEntriesToPosts < ActiveRecord::Migration
       end
     end
   end
-
 end
