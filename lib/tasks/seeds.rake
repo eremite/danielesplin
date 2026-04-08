@@ -3,7 +3,7 @@ namespace :db do
 
     desc 'Create YAML fixtures from data in the database. TABLES=x[,y,z] SKIP_TABLES=x[,y,z].'
     task :dump => :environment do
-      fixtures_dir = ENV['FIXTURES_PATH'] || Rails.root.join('db', 'seeds')
+      fixtures_dir = ENV['FIXTURES_PATH'] || Rails.root.join("db/seeds")
       FileUtils.mkdir_p(fixtures_dir)
       tables = ENV['TABLES'].to_s.split(',').presence || ActiveRecord::Base.connection.tables
       tables -= ENV['SKIP_TABLES'].to_s.split(',').presence || %w(sessions schema_migrations)

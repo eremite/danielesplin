@@ -15,17 +15,17 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'father?' do
-    assert !User.new(:role => 'mother').father?
+    assert_not User.new(:role => 'mother').father?
     assert User.new(:role => 'father').father?
   end
 
   test 'mother?' do
-    assert !User.new(:role => 'father').mother?
+    assert_not User.new(:role => 'father').mother?
     assert User.new(:role => 'mother').mother?
   end
 
   test 'guest?' do
-    assert !User.new(:role => 'father').guest?
+    assert_not User.new(:role => 'father').guest?
     assert User.new(:role => 'guest').guest?
   end
 

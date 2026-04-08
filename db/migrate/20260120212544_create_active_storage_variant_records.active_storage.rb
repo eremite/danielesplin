@@ -1,4 +1,5 @@
 # This migration comes from active_storage (originally 20191206030411)
+# rubocop:disable all
 class CreateActiveStorageVariantRecords < ActiveRecord::Migration[6.0]
   def change
     return unless table_exists?(:active_storage_blobs)
