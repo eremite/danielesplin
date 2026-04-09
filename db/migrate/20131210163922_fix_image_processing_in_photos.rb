@@ -1,7 +1,7 @@
 class FixImageProcessingInPhotos < ActiveRecord::Migration
   def self.up
     remove_column :photos, :boolean
-    add_column :photos, :image_processing, :boolean
+    add_column :photos, :image_processing, :boolean # rubocop:disable Rails/ThreeStateBooleanColumn
   end
 
   def self.down

@@ -13,9 +13,9 @@ class PrintBatchesController < ApplicationController
 
   def posts
     @photos_by_posts = {}
-    Post.at_asc.past.where(at: Time.zone.local(params[:year]).all_year).includes(:photos).each do |post|
+    Post.at_asc.past.where(at: Time.zone.local(params[:year]).all_year).includes(:photos).find_each do |post|
       @photos_by_posts[post] = []
-      post.photos.at_asc.where(id: post.photos.ids.sample((params[:count].presence || 5).to_i)).each do |photo|
+      post.photos.at_asc.where(id: post.photos.ids.sample((params[:count].presence || 5).to_i)).find_each do |photo|
         @photos_by_posts[post] << photo unless photo.image.previewable?
       end
     end

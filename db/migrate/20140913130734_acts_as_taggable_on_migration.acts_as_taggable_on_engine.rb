@@ -1,4 +1,5 @@
 # This migration comes from acts_as_taggable_on_engine (originally 1)
+# rubocop:disable all
 class ActsAsTaggableOnMigration < ActiveRecord::Migration
   def self.up
     create_table :tags do |t|

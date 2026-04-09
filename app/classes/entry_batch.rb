@@ -10,7 +10,7 @@ class EntryBatch
   end
 
   def opened_by
-    @opened_by ||= User.find_by(id: Rails.cache.read('entry_batch_opened_by_user_id'))
+    User.find_by(id: Rails.cache.read('entry_batch_opened_by_user_id'))
   end
 
   def autosave_interval

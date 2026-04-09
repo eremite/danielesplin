@@ -1,4 +1,4 @@
-- title 'Journal'
+- content_for(:title) { 'Journal' }
 
 - Comment.where(created_at: 1.day.ago..).each do |comment|
   .alert.alert-primary.alert-dismissible.fade.show{ role: 'alert' }

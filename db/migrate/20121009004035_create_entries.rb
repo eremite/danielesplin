@@ -4,7 +4,7 @@ class CreateEntries < ActiveRecord::Migration
       t.belongs_to :user
       t.text :body
       t.datetime :at
-      t.boolean :public, default: false
+      t.boolean :public, default: false # rubocop:disable Rails/ThreeStateBooleanColumn
       t.timestamps
     end
     add_index :entries, :user_id

@@ -1,8 +1,8 @@
 class Post < ApplicationRecord
   acts_as_taggable_on :post_tags
 
-  has_many :comments
-  has_many :post_photos
+  has_many :comments, dependent: :destroy
+  has_many :post_photos, dependent: :destroy
   has_many :photos, through: :post_photos
 
   before_create :auto_assign_photos

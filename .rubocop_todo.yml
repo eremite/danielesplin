@@ -6,13 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: AllowSafeAssignment.
-Lint/AssignmentInCondition:
-  Exclude:
-    - 'db/migrate/20260120212543_add_service_name_to_active_storage_blobs.active_storage.rb'
-
 # Offense count: 13
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
@@ -38,87 +31,6 @@ Metrics/MethodLength:
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/PerceivedComplexity:
   Max: 13
-
-# Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'app/classes/photo_frame.rb'
-
-# Offense count: 3
-# Configuration parameters: Mode, AllowedMethods, AllowedPatterns, AllowBangMethods, WaywardPredicates.
-# AllowedMethods: call
-# WaywardPredicates: infinite?, nonzero?
-Naming/PredicateMethod:
-  Exclude:
-    - 'app/classes/entry_batch.rb'
-    - 'app/classes/photo_batch.rb'
-    - 'app/models/post.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Rails/ApplicationMailer:
-  Exclude:
-    - 'app/mailers/notifier.rb'
-
-# Offense count: 1
-Rails/CreateTableWithTimestamps:
-  Exclude:
-    - 'db/migrate/20140913130734_acts_as_taggable_on_migration.acts_as_taggable_on_engine.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Rails/FindByOrAssignmentMemoization:
-  Exclude:
-    - 'app/classes/entry_batch.rb'
-
-# Offense count: 3
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: AllowedMethods, AllowedPatterns.
-# AllowedMethods: order, limit, select, lock
-Rails/FindEach:
-  Exclude:
-    - 'app/controllers/print_batches_controller.rb'
-    - 'db/seeds.rb'
-
-# Offense count: 10
-Rails/HasManyOrHasOneDependent:
-  Exclude:
-    - 'app/models/inventory_item.rb'
-    - 'app/models/photo.rb'
-    - 'app/models/post.rb'
-    - 'app/models/user.rb'
-
-# Offense count: 1
-Rails/HelperInstanceVariable:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-
-# Offense count: 18
-Rails/I18nLocaleTexts:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/comments_controller.rb'
-    - 'app/controllers/decider_list_items_controller.rb'
-    - 'app/controllers/entries_controller.rb'
-    - 'app/controllers/inventory_items_controller.rb'
-    - 'app/controllers/notes_controller.rb'
-    - 'app/controllers/photo_frames_controller.rb'
-    - 'app/controllers/photos_controller.rb'
-    - 'app/controllers/posts_controller.rb'
-    - 'app/controllers/sessions_controller.rb'
-    - 'app/controllers/users_controller.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Rails/MailerName:
-  Exclude:
-    - 'app/mailers/notifier.rb'
-
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Rails/Output:
-  Exclude:
-    - 'db/seeds.rb'
 
 # Offense count: 17
 # Configuration parameters: ForbiddenMethods, AllowedMethods.
@@ -150,13 +62,6 @@ Rails/StrongParametersExpect:
     - 'app/controllers/post_photos_controller.rb'
     - 'app/controllers/users_controller.rb'
 
-# Offense count: 3
-Rails/ThreeStateBooleanColumn:
-  Exclude:
-    - 'db/migrate/20121009004035_create_entries.rb'
-    - 'db/migrate/20130623020611_add_hidden_to_photos.rb'
-    - 'db/migrate/20131210163922_fix_image_processing_in_photos.rb'
-
 # Offense count: 13
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
@@ -165,55 +70,3 @@ Rails/TimeZone:
   Exclude:
     - 'app/models/photo.rb'
     - 'test/helpers/application_helper_test.rb'
-
-# Offense count: 1
-Rails/UniqueValidationWithoutIndex:
-  Exclude:
-    - 'app/models/user.rb'
-
-# Offense count: 99
-# Configuration parameters: AllowedConstants.
-Style/Documentation:
-  Enabled: false
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/FileEmpty:
-  Exclude:
-    - 'lib/tasks/seeds.rake'
-
-# Offense count: 157
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, always_true, never
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/GlobalStdStream:
-  Exclude:
-    - 'config/environments/production.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: literals, strict
-Style/MutableConstant:
-  Exclude:
-    - 'app/models/user.rb'
-
-# Offense count: 1
-# Configuration parameters: AllowedMethods.
-# AllowedMethods: respond_to_missing?
-Style/OptionalBooleanParameter:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: AllowMethodsWithArguments, AllowedMethods, AllowedPatterns, AllowComments.
-# AllowedMethods: define_method, mail, respond_to
-Style/SymbolProc:
-  Exclude:
-    - 'app/models/user.rb'

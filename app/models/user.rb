@@ -1,16 +1,16 @@
 class User < ApplicationRecord
   enum :role, { father: 'father', mother: 'mother', child: 'child', guest: 'guest', inactive: 'inactive' }
 
-  EMAIL_REGEX = %r{\A(?:[a-z\d!#$%&'*+\-/=?\^_`{|}~]+|\.)+@[a-z\d-]+(?:\.[a-z\d-]+)*\Z}i
+  EMAIL_REGEX = %r{\A(?:[a-z\d!#$%&'*+\-/=?\^_`{|}~]+|\.)+@[a-z\d-]+(?:\.[a-z\d-]+)*\Z}i.freeze
   ACCESS_TOKEN_EXPIRES_IN = 1.week
 
   has_secure_password validations: false
 
-  has_many :comments
-  has_many :entries
-  has_many :log_entries
-  has_many :notes
-  has_many :photos
+  has_many :comments, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  has_many :log_entries, dependent: :destroy
+  has_many :notes, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }
   validates :password, length: { minimum: 4, maximum: 72 }, allow_blank: true
@@ -64,7 +64,7 @@ class User < ApplicationRecord
 
   def contrast_color
     return '#000000' if color.blank?
-    r, g, b = color.delete('#').scan(/../).map { |c| c.hex }
+    r, g, b = color.delete('#').scan(/../).map(&:hex)
     yiq = ((r * 299) + (g * 587) + (114 * b)) / 1000
     yiq >= 128 ? '#000000' : '#ffffff'
   end

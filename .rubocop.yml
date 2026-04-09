@@ -13,11 +13,13 @@ AllCops:
     - 'db/schema.rb'
     - 'script/**/*'
 
-# I don't like empty lines in methods
+# I don't like empty lines in methods.
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
-# Always indent 2 spaces, no exceptions
+# Always indent 2 spaces, no exceptions.
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
 Layout/FirstArgumentIndentation:
   EnforcedStyle: consistent
 Layout/FirstArrayElementIndentation:
@@ -26,5 +28,23 @@ Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 Layout/FirstParameterIndentation:
   EnforcedStyle: consistent
-Layout/ArgumentAlignment:
-  EnforcedStyle: with_fixed_indentation
+
+# get and set prefixes help avoid naming collisions.
+Naming/AccessorMethodName:
+  Enabled: false
+
+# Follow the Rails pattern of returning true when a method succeeds.
+Naming/PredicateMethod:
+  Enabled: false
+
+# Internationalization is unnecessary.
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+# Well-written Ruby code documents itself.
+Style/Documentation:
+  Enabled: false
+
+# Boilerplate is ugly.
+Style/FrozenStringLiteralComment:
+  Enabled: false
