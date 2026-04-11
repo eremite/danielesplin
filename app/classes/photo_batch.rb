@@ -8,7 +8,6 @@ class PhotoBatch
     self.errors = []
     images.each do |image|
       next if image.blank?
-
       photo = user.photos.new(image: image)
       photo.image.open { |tempfile| photo.at = extract_time(tempfile, photo.image.blob.filename.to_s) }
       errors << photo.errors.full_messages unless photo.save

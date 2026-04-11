@@ -9,25 +9,42 @@
 # Offense count: 13
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
-  Max: 76
+  Max: 30
+  Exclude:
+    - 'app/controllers/entries_controller.rb'
+    - 'app/controllers/inventory_items_controller.rb'
+    - 'app/controllers/notes_controller.rb'
+    - 'app/models/photo.rb'
 
 # Offense count: 4
 # Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
 # AllowedMethods: refine
 Metrics/BlockLength:
-  Max: 32
+  Max: 30
 
 # Offense count: 3
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/CyclomaticComplexity:
-  Max: 13
+  Exclude:
+    - 'app/controllers/entries_controller.rb'
+    - 'app/controllers/inventory_items_controller.rb'
+    - 'app/controllers/notes_controller.rb'
+    - 'app/models/photo.rb'
 
 # Offense count: 12
 # Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
 Metrics/MethodLength:
-  Max: 45
+  Max: 20
+  Exclude:
+    - 'app/models/decider_list_item.rb'
+    - 'app/models/photo.rb'
 
 # Offense count: 2
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/PerceivedComplexity:
-  Max: 13
+  Max: 10
+  Exclude:
+    - 'app/controllers/entries_controller.rb'
+    - 'app/controllers/inventory_items_controller.rb'
+    - 'app/controllers/notes_controller.rb'
+    - 'app/models/photo.rb'
