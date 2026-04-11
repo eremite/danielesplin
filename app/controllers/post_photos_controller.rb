@@ -13,7 +13,7 @@ class PostPhotosController < ApplicationController
   private
 
   def safe_params
-    params.require(:post_photo).permit(:post_id, :photo_id)
+    params.expect(post_photo: %i[post_id photo_id])
   end
 
   def authorized?

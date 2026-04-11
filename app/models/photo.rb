@@ -37,7 +37,7 @@ class Photo < ApplicationRecord
       end
     if params[:ends_on].present?
       ends_on = Date.parse(params[:ends_on] || Date.current.to_s).end_of_day
-      photos = photos.where(at: Time.at(0)..ends_on)
+      photos = photos.where(at: Time.zone.at(0)..ends_on)
     end
     photos = photos.tagged_with(params[:tag], on: :photo_tags) if params[:tag].present?
     if params[:term].present?

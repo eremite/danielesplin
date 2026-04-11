@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
   private
 
   def safe_params
-    params.require(:comment).permit(:post_id, :body)
+    params.expect(comment: %i[post_id body])
   end
 
   def authorized?

@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     %i[role born_at].each do |field|
       permitted_attributes << field if Current.user.parent?
     end
-    params.require(:user).permit(*permitted_attributes)
+    params.expect(user: [*permitted_attributes])
   end
 
   def authorized?

@@ -40,6 +40,9 @@ Naming/PredicateMethod:
 # Internationalization is unnecessary.
 Rails/I18nLocaleTexts:
   Enabled: false
+# I promise to be careful about skipping validations.
+Rails/SkipsModelValidations:
+  Enabled: false
 
 # Well-written Ruby code documents itself.
 Style/Documentation:

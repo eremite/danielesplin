@@ -7,7 +7,7 @@ class PostAccessGrantsController < ApplicationController
   private
 
   def safe_params
-    params.require(:post_access_grant).permit(:user_id, :post_id).merge(url: request.base_url)
+    params.expect(post_access_grant: %i[user_id post_id]).merge(url: request.base_url)
   end
 
   def authorized?

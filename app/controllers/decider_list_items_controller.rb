@@ -23,6 +23,6 @@ class DeciderListItemsController < ApplicationController
   end
 
   def safe_params
-    params.require(:decider_list_item).permit(:name, :decider_list_id)
+    params.expect(decider_list_item: %i[name decider_list_id])
   end
 end
