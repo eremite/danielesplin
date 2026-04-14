@@ -27,7 +27,7 @@ class PhotosController < ApplicationController
   private
 
   def safe_params
-    params.expect(photo: %i[at post_ids hidden description photo_tag_list])
+    params.expect(photo: %i[at hidden description photo_tag_list] + [{ post_ids: [] }])
   end
 
   def authorized?
