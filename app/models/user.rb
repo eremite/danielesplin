@@ -24,7 +24,7 @@ class User < ApplicationRecord
   def users_whose_entries_i_can_edit
     return User.where(role: %w[father mother child]).order(born_at: :asc) if parent?
     return User.where(id: id) if child?
-    []
+    User.where(id: [])
   end
 
   def random_entry_on_the_same_day_of_the_year
@@ -45,11 +45,6 @@ class User < ApplicationRecord
 
   def entry_for_today
     entries.find_by(at: Time.current.all_day)
-  end
-
-  def login_redirect
-    return :entries if parent? && entry_for_today.blank?
-    :posts
   end
 
   def grant_access

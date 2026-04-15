@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 base:
-  user: admin
+  user: base
   body: Content
   at: <%= Time.current %>

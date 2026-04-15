@@ -27,41 +27,41 @@
 
   %hr
   %h3 Search
-  = form_with url: :entries, method: :get do |f|
-    .mb-3
-      = f.label :ends_on, 'Date'
-      = f.date_field :ends_on, value: @ends_on.presence.to_date.to_s, class: 'form-control'
-    .mb-3
-      = f.label :age_months, "Age"
-      .input-group
-        = f.text_field :age_months, value: params[:age_months], placeholder: 'Months', class: 'form-control'
-        = f.text_field :age_years, value: params[:age_years], placeholder: 'Years', class: 'form-control'
+  = form_with model: @entry_search, url: :entries, method: :get do |f|
     .mb-3
       = f.label :user
-      = f.select :user_id, Current.user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, { selected: @entry_user.id.to_s }, { class: 'form-control' }
+      = f.select :user_id, Current.user.users_whose_entries_i_can_edit.map { |user| [user.name, user.id] }, {}, { class: 'form-control' }
+    .mb-3.row
+      .col.6
+        = f.label :ends_on, 'Date'
+        = f.date_field :ends_on, class: 'form-control'
+      .col.6
+        = f.label :age, "Age"
+        = f.text_field :age, placeholder: 'Years', class: 'form-control'
     .mb-3
       = f.label :tag
       = f.select :tag, Entry.tags.pluck(:name),
-        { include_blank: 'Any tag', selected: params[:tag] }, { class: 'form-control' }
+        { include_blank: 'Any tag' }, { class: 'form-control' }
     .form-check
-      = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
+      = f.check_box :random, class: 'form-check-input', id: 'search-random-checkbox'
       = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'
     .mb-3
       = f.label :term
-      = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
+      = f.text_field :term, class: 'form-control', placeholder: 'Search'
     .mb-3.d-grid.gap-2
       = f.submit 'Search', class: 'btn btn-primary'
 
-  = render partial: 'shared/calendar', locals: { starts_at: @entry_user.born_at, resource: :entries }
+  %hr
+  = render partial: 'shared/calendar', locals: { starts_at: @entry_search.user.born_at, resource: :entries }
 
-- if @entries.empty?
+- if @entry_search.entries.empty?
   .alert.alert-warning
     %h2 No results found
     %p Maybe search for something else?
 - else
   - page_photos = []
   - previous_at = nil
-  - @entries.each do |entry|
+  - @entry_search.entries.each do |entry|
     - if params[:tag].present?
       %p.text-center
         = pluralize((previous_at.to_date - entry.at.to_date).to_i, 'day') if previous_at.present?
@@ -90,12 +90,12 @@
     - else
       .mb-4
         = entry.body&.html_safe
-        - photos = Photo.where(at: entry.at.all_day).order(at: :asc).tagged_with(@entry_user.name, on: :photo_tags)
+        - photos = Photo.where(at: entry.at.all_day).order(at: :asc).tagged_with(@entry_search.user.name, on: :photo_tags)
         - if photos.present?
           - page_photos += photos
           .d-flex.flex-wrap.align-items-center= render photos
 
-  = paginate @entries
+  = paginate @entry_search.entries
 
   - if page_photos.present?
     = render partial: "/shared/carousel_modal",

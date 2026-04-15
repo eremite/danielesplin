@@ -1,24 +1,6 @@
 class EntriesController < ApplicationController
   def index
-    @ends_on = parse_date(params[:ends_on])
-    @entry_user = Current.user.users_whose_entries_i_can_edit.find_by(id: params[:user_id]) || Current.user
-    if @entry_user.born_at.present? && (params[:age_months].present? || params[:age_years].present?)
-      @ends_on = @entry_user.born_at + params[:age_months].to_i.months + params[:age_years].to_i.years
-    end
-    @entries = Entry.where(user: @entry_user).at_desc
-    if params[:ends_on].present? || params[:age_months].present? || params[:age_years].present?
-      @entries = @entries.before(@ends_on.end_of_day)
-    end
-    if params[:term].present?
-      @entries = @entries.where(Entry.arel_table[:body].matches("%#{params[:term].to_s.downcase}%"))
-    end
-    @entries = @entries.tagged_with(params[:tag], on: :entry_tags) if params[:tag].present?
-    @entries = @entries.where(id: @entries.sample.try(:id)) if params[:random].to_i.nonzero?
-    if params[:on_this_day]
-      entry = @entry_user.random_entry_on_the_same_day_of_the_year
-      @entries = Entry.where(id: entry.id) if entry.present?
-    end
-    @entries = @entries.page(params[:page])
+    @entry_search = EntrySearch.new(search_params).load
   end
 
   def edit
@@ -59,6 +41,12 @@ class EntriesController < ApplicationController
 
   def safe_params
     params.permit(entry: %i[at user_id body entry_tag_list])[:entry]
+  end
+
+  def search_params
+    params.fetch(:entry_search, {}).permit(
+      :age, :ends_on, :entry_user, :on_this_day, :page, :random, :tag, :term, :user_id
+    ).merge(current_user: Current.user)
   end
 
   def authorized?

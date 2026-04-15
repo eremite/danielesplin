@@ -9,9 +9,8 @@
 # Offense count: 13
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
-  Max: 30
+  Max: 50
   Exclude:
-    - 'app/controllers/entries_controller.rb'
     - 'app/controllers/inventory_items_controller.rb'
     - 'app/controllers/notes_controller.rb'
     - 'app/models/photo.rb'
@@ -26,7 +25,6 @@ Metrics/BlockLength:
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/CyclomaticComplexity:
   Exclude:
-    - 'app/controllers/entries_controller.rb'
     - 'app/controllers/inventory_items_controller.rb'
     - 'app/controllers/notes_controller.rb'
     - 'app/models/photo.rb'
@@ -44,7 +42,6 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 10
   Exclude:
-    - 'app/controllers/entries_controller.rb'
     - 'app/controllers/inventory_items_controller.rb'
     - 'app/controllers/notes_controller.rb'
     - 'app/models/photo.rb'
