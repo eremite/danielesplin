@@ -3,69 +3,59 @@ class DeciderListItem < ApplicationRecord
 
   validates :name, presence: true
 
+  ICON_LIST = %w[
+    alarm
+    award
+    bag-check
+    bank
+    basket
+    bell
+    bicycle
+    box
+    briefcase
+    brush
+    bug
+    camera
+    cloud-drizzle
+    cloud-lightning-rain
+    cloud-sun
+    droplet-half
+    egg
+    emoji-heart-eyes
+    emoji-laughing
+    emoji-smile
+    emoji-sunglasses
+    emoji-wink
+    flag
+    flower1
+    flower2
+    flower3
+    heart
+    house-door
+    key
+    life-preserver
+    lightning
+    mask
+    moon-stars
+    music-note
+    music-note-beamed
+    palette
+    pen
+    pencil
+    piggy-bank
+    snow
+    snow2
+    snow3
+    sun
+  ].freeze
+
+  FONT_LIST = ['Georgia', 'Garamond', 'Comic Sans MS'].freeze
+
   def icon
-    icon_list.sample
+    ICON_LIST.sample
   end
 
   def font
-    font_list.last
-  end
-
-  private
-
-  def icon_list
-    %w[
-      alarm
-      award
-      bag-check
-      bank
-      basket
-      bell
-      bicycle
-      box
-      briefcase
-      brush
-      bug
-      camera
-      cloud-drizzle
-      cloud-lightning-rain
-      cloud-sun
-      droplet-half
-      egg
-      emoji-heart-eyes
-      emoji-laughing
-      emoji-smile
-      emoji-sunglasses
-      emoji-wink
-      flag
-      flower1
-      flower2
-      flower3
-      heart
-      house-door
-      key
-      life-preserver
-      lightning
-      mask
-      moon-stars
-      music-note
-      music-note-beamed
-      palette
-      pen
-      pencil
-      piggy-bank
-      snow
-      snow2
-      snow3
-      sun
-    ]
-  end
-
-  def font_list
-    [
-      'Georgia',
-      'Garamond',
-      'Comic Sans MS'
-    ]
+    FONT_LIST.last
   end
 end

@@ -32,7 +32,6 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Max: 20
   Exclude:
-    - 'app/models/decider_list_item.rb'
     - 'app/models/photo.rb'
 
 # Offense count: 2
