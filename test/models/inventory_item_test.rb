@@ -10,10 +10,6 @@ class InventoryItemTest < ActiveSupport::TestCase
     assert InventoryItem.tags.exists?(name: 'first')
   end
 
-  test 'self.order_options' do
-    assert_equal %i[on_desc on_asc], InventoryItem.order_options.map(&:last)
-  end
-
   test 'suggested_tags' do
     inventory_item = inventory_items(:base).tap { |e| e.update!(inventory_item_tag_list: 'existing') }
     InventoryItem.create!(name: 'C', inventory_item_tag_list: 'suggested')

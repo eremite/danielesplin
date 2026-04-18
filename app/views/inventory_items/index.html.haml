@@ -12,7 +12,7 @@
   .text-center
     %strong
       #{pluralize number_with_delimiter(InventoryItem.not_deleted.count), 'item'}
-      costing #{number_to_currency(@inventory_items.sum(:cost).to_d / 100)}
+      costing #{number_to_currency(@search.inventory_items.sum(:cost).to_d / 100)}
 
   - if InventoryItem.inventory_item_tag_counts.present?
     %hr
@@ -21,35 +21,43 @@
     .mb-3
 
   %h3 Search
-  = form_with url: :inventory_items, method: :get do |f|
+  = form_with model: @search, url: :inventory_items, method: :get do |f|
     .mb-3
       = f.label :order
-      = f.select :order, InventoryItem.order_options, { selected: params[:order] }, { class: 'form-control' }
+      = f.select :order, InventoryItemSearch.order_options, {}, { class: 'form-control' }
     .mb-3
       = f.label :ends_on, 'Date'
-      = f.date_field :ends_on, value: @ends_on, class: 'form-control'
+      = f.date_field :ends_on, class: 'form-control'
     .mb-3
       = f.label :term
-      = f.text_field :term, value: params[:term], class: 'form-control'
+      = f.text_field :term, class: 'form-control'
+    .mb-3
+      = f.check_box :deleted, {}, '1', '0'
+      = f.label :deleted, 'Show Deleted'
     .mb-3.d-grid.gap-2
       = f.submit 'Search', class: 'btn btn-primary'
 
-%table.table.table-striped.table-dark
-  %thead
-    %tr
-      %th= InventoryItem.human_attribute_name(:name)
-      %th= InventoryItem.human_attribute_name(:on)
-      %th= InventoryItem.human_attribute_name(:cost)
-      %th= InventoryItem.human_attribute_name(:inventory_item_tag_list)
-  %tbody
-    - @inventory_items.each do |inventory_item|
-      %tr
-        %td= link_to inventory_item.name, [:edit, inventory_item], class: 'link-light text-decoration-none'
-        %td= l inventory_item.on
-        %td= number_to_currency inventory_item.cost_in_dollars
-        %td
-          - inventory_item.inventory_item_tag_list.each do |tag_name|
-            %span.label.label-default{ style: 'margin-left: 0.5em' }
-              = link_to tag_name, inventory_items_path(tag: tag_name), class: 'text-reset'
 
-= paginate @inventory_items
+- if @search.inventory_items.empty?
+  .alert.alert-warning
+    %h2 No results found.
+- else
+  %table.table.table-striped.table-dark
+    %thead
+      %tr
+        %th= InventoryItem.human_attribute_name(:name)
+        %th= InventoryItem.human_attribute_name(:on)
+        %th= InventoryItem.human_attribute_name(:cost)
+        %th= InventoryItem.human_attribute_name(:inventory_item_tag_list)
+    %tbody
+      - @search.inventory_items.each do |inventory_item|
+        %tr
+          %td= link_to inventory_item.name, [:edit, inventory_item], class: 'link-light text-decoration-none'
+          %td= l inventory_item.on
+          %td= number_to_currency inventory_item.cost_in_dollars
+          %td
+            - inventory_item.inventory_item_tag_list.each do |tag_name|
+              %span.label.label-default{ style: 'margin-left: 0.5em' }
+                = link_to tag_name, inventory_items_path(tag: tag_name), class: 'text-reset'
+
+  = paginate @search.inventory_items

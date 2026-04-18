@@ -11,7 +11,6 @@
 Metrics/AbcSize:
   Max: 50
   Exclude:
-    - 'app/controllers/inventory_items_controller.rb'
     - 'app/controllers/notes_controller.rb'
     - 'app/models/photo.rb'
 
@@ -25,7 +24,6 @@ Metrics/BlockLength:
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/CyclomaticComplexity:
   Exclude:
-    - 'app/controllers/inventory_items_controller.rb'
     - 'app/controllers/notes_controller.rb'
     - 'app/models/photo.rb'
 
@@ -42,6 +40,5 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 10
   Exclude:
-    - 'app/controllers/inventory_items_controller.rb'
     - 'app/controllers/notes_controller.rb'
     - 'app/models/photo.rb'

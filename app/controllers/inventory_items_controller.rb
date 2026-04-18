@@ -1,24 +1,6 @@
 class InventoryItemsController < ApplicationController
   def index
-    begin
-      @ends_on = Date.strptime(params[:ends_on].to_s, '%Y-%m-%d')
-    rescue ArgumentError, TypeError
-      flash[:error] = 'Invalid date' if params[:ends_on].present?
-      @ends_on = Time.zone.today
-    end
-    @inventory_items = InventoryItem.all
-    @inventory_items = params[:deleted].to_i.nonzero? ? @inventory_items.deleted : @inventory_items.not_deleted
-    @inventory_items = params[:order] == 'on_asc' ? @inventory_items.order(on: :asc) : @inventory_items.on_desc
-    @inventory_items = @inventory_items.page(params[:page])
-    @inventory_items = @inventory_items.before(@ends_on.end_of_day) if params[:ends_on].present?
-    if params[:term].present?
-      term = "%#{params[:term].to_s.downcase}%"
-      @inventory_items = @inventory_items.where(
-        InventoryItem.arel_table[:name].matches(term).or(InventoryItem.arel_table[:description].matches(term))
-      )
-    end
-    return if params[:tag].blank?
-    @inventory_items = @inventory_items.tagged_with(params[:tag], on: :inventory_item_tags)
+    @search = InventoryItemSearch.new(search_params).load
   end
 
   def new
@@ -57,6 +39,10 @@ class InventoryItemsController < ApplicationController
 
   def safe_params
     params.permit(inventory_item: %i[name on description cost_in_dollars inventory_item_tag_list])[:inventory_item]
+  end
+
+  def search_params
+    params.fetch(:inventory_item_search, {}).permit(:ends_on, :deleted, :order, :page, :term, :tag)
   end
 
   def authorized?
