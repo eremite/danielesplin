@@ -1,17 +1,6 @@
 class NotesController < ApplicationController
   def index
-    @notes = Note.order(Note.arel_table[:updated_at].desc)
-    @notes =
-      if params[:user_id].present?
-        @notes.where(user_id: params[:user_id])
-      else
-        Current.user.notes
-      end
-    @notes = @notes.where(kind: params[:kind]) if params[:kind].present?
-    @notes = @notes.where(Note.arel_table[:body].matches("%#{params[:term].to_s.downcase}%")) if params[:term].present?
-    @notes = @notes.tagged_with(params[:tag], on: :note_tags) if params[:tag].present?
-    @notes = @notes.where(id: @notes.sample.try(:id)) if params[:random]
-    @notes = @notes.page(params[:page])
+    @search = NoteSearch.new(search_params).load
   end
 
   def show
@@ -51,6 +40,12 @@ class NotesController < ApplicationController
   end
 
   private
+
+  def search_params
+    params.fetch(:note_search, {}).permit(
+      :user_id, :kind, :term, :tag, :random, :page
+    ).merge(current_user: Current.user)
+  end
 
   def safe_params
     params.permit(note: %i[body kind meta note_tag_list title user_id])[:note]

@@ -10,18 +10,18 @@
   %hr
 
   %h3 Search
-  = form_with url: :notes, method: :get, role: 'form' do |f|
+  = form_with model: @search, url: :notes, method: :get do |f|
     .mb-3
       = f.label :user_id, class: 'form-input'
-      = f.select :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, { selected: params[:user_id] || Current.user.id.to_s }, class: 'form-select'
+      = f.select :user_id, User.where(role: %w(father mother)).map { |user| [user.name, user.id] }, {}, class: 'form-select'
     .mb-3
       = f.label :kind, class: 'form-input'
-      = f.select :kind, [nil] + Note.pluck(:kind).uniq.compact, { selected: params[:kind] }, class: 'form-select'
+      = f.select :kind, [nil] + Note.pluck(:kind).uniq.compact, {}, class: 'form-select'
     .mb-3
       = f.label :term, class: 'form-input'
-      = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
+      = f.text_field :term, class: 'form-control', placeholder: 'Search'
     .form-check
-      = f.check_box :random, checked: !params[:random].to_i.zero?, class: 'form-check-input', id: 'search-random-checkbox'
+      = f.check_box :random, class: 'form-check-input', id: 'search-random-checkbox'
       = f.label :random, class: 'form-check-label', for: 'search-random-checkbox'
     .mb-3.d-grid.gap-2
       = f.submit 'Search', class: 'btn btn-primary'
@@ -31,12 +31,12 @@
     - tag_counts = Note.tag_counts_on(:note_tags).order(taggings_count: :desc)
     = render partial: 'shared/tag_list', locals: { path: :notes, tag_counts: tag_counts, total_count: Note.count }
 
-- if @notes.empty?
+- if @search.notes.empty?
   .alert.alert-warning
     %h2 No results found
     %p Maybe search for something else?
 - else
-  - @notes.each do |note|
+  - @search.notes.each do |note|
     .mb-3
       %strong
         = link_to note, class: 'text-reset' do
@@ -44,4 +44,4 @@
       - note.note_tag_list.each do |tag_name|
         = link_to tag_name, [:notes, { tag: tag_name }], class: 'text-reset badge bg-secondary ms-2'
 
-  = paginate @notes
+  = paginate @search.notes
