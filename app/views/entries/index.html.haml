@@ -62,7 +62,7 @@
   - page_photos = []
   - previous_at = nil
   - @entry_search.entries.each do |entry|
-    - if params[:tag].present?
+    - if @entry_search.tag.present?
       %p.text-center
         = pluralize((previous_at.to_date - entry.at.to_date).to_i, 'day') if previous_at.present?
         - previous_at = entry.at
@@ -81,7 +81,7 @@
       %div
         - if entry.entry_tags.present?
           - entry.entry_tag_list.each do |tag_name|
-            = link_to tag_name, entries_path(tag: tag_name), class: 'badge bg-info'
+            = link_to tag_name, entries_path(entry_search: { tag: tag_name }), class: 'badge bg-info'
     - if params[:term].present?
       %p
         &hellip;
