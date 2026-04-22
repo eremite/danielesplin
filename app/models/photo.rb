@@ -18,41 +18,6 @@ class Photo < ApplicationRecord
   before_destroy :purge_image
   after_save :auto_assign_posts, if: ->(photo) { photo.post_ids.blank? && !photo.hidden? }
 
-  def self.search(params)
-    photos = Photo.all
-    case params[:media]
-    when 'photos'
-      photos = photos.joins(image_attachment: :blob).where(active_storage_blobs: { content_type: 'image/jpeg' })
-    when 'videos'
-      photos = photos.joins(image_attachment: :blob).where(active_storage_blobs: { content_type: 'video/mp4' })
-    end
-    photos =
-      case params[:order]
-      when 'created_at_desc'
-        photos.created_at_desc
-      when 'updated_at_desc'
-        photos.order(updated_at: :desc)
-      else
-        photos.at_desc
-      end
-    if params[:ends_on].present?
-      ends_on = Date.parse(params[:ends_on] || Date.current.to_s).end_of_day
-      photos = photos.where(at: Time.zone.at(0)..ends_on)
-    end
-    photos = photos.tagged_with(params[:tag], on: :photo_tags) if params[:tag].present?
-    if params[:term].present?
-      photos = photos.where(arel_table[:description].matches("%#{params[:term].to_s.downcase}%"))
-    end
-    photos = photos.where(description: [nil, '']) if params[:nondescript].to_i.nonzero?
-    photos = photos.includes(:post_photos).where(post_photos: { photo_id: nil }) if params[:unblogged].to_i.nonzero?
-    photos = photos.where(hidden: false) unless params[:not_hidden].to_i.nonzero?
-    photos.page(params[:page]).per(30)
-  end
-
-  def self.order_options
-    [['Photo Date', :at_desc], ['Date Uploaded', :created_at_desc], ['Last Modified', :updated_at_desc]]
-  end
-
   def self.unblogged
     includes(:post_photos).where(post_photos: { photo_id: nil })
   end

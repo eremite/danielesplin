@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 plugins: rubocop-rails
 
 AllCops:
@@ -28,6 +26,16 @@ Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 Layout/FirstParameterIndentation:
   EnforcedStyle: consistent
+
+# Sometimes longer methods are more readable
+Metrics/AbcSize:
+  Max: 40
+Metrics/MethodLength:
+  Max: 20
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
 
 # get and set prefixes help avoid naming collisions.
 Naming/AccessorMethodName:

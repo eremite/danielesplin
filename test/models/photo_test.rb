@@ -5,14 +5,6 @@ class PhotoTest < ActiveSupport::TestCase
     assert photos(:base).valid?
   end
 
-  test 'self.search' do
-    assert_includes Photo.search({}), photos(:base)
-  end
-
-  test 'self.order_options' do
-    assert_equal %i[at_desc created_at_desc updated_at_desc], Photo.order_options.map(&:last)
-  end
-
   test 'handle hidden' do
     photo = Photo.new(hidden: false)
     photo.post_ids = posts(:base).id

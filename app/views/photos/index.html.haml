@@ -12,43 +12,43 @@
 
   %hr
   %h3 Search
-  = form_with url: :photos, method: :get do |f|
+  = form_with model: @search, url: :photos, method: :get do |f|
     .mb-3
       .btn-group{ role: 'group', aria: { label: 'Media filter' } }
-        = f.radio_button :media, '', class: 'btn-check', checked: params[:media].blank?
-        = f.label :media, 'Both', class: 'btn btn-outline-success', for: 'media'
-        = f.radio_button :media, 'photos', class: 'btn-check', checked: params[:media] == 'photos'
-        = f.label :media, 'Photos', class: 'btn btn-outline-success', for: 'media_photos'
-        = f.radio_button :media, 'videos', class: 'btn-check', checked: params[:media] == 'videos'
-        = f.label :media, 'Videos', class: 'btn btn-outline-success', for: 'media_videos'
+        = f.radio_button :media, '', class: 'btn-check'
+        = f.label :media, 'Both', class: 'btn btn-outline-success', for: 'photo_search_media_'
+        = f.radio_button :media, 'photos', class: 'btn-check'
+        = f.label :media, 'Photos', class: 'btn btn-outline-success', for: 'photo_search_media_photos'
+        = f.radio_button :media, 'videos', class: 'btn-check'
+        = f.label :media, 'Videos', class: 'btn btn-outline-success', for: 'photo_search_media_videos'
     .mb-3
       = f.label :order
-      = f.select :order, Photo.order_options, { selected: params[:order] }, { class: 'form-control' }
+      = f.select :order, PhotoSearch.order_options, {}, { class: 'form-control' }
     .mb-3
       = f.label :ends_on, 'Date'
-      = f.date_field :ends_on, value: params[:ends_on], class: 'form-control'
+      = f.date_field :ends_on, class: 'form-control'
     .mb-3
       = f.label :term, "Description"
-      = f.text_field :term, value: params[:term], class: 'form-control', placeholder: 'Search'
+      = f.text_field :term, class: 'form-control', placeholder: 'Search'
     .form-check.mb-3
-      = f.check_box :nondescript, checked: !params[:nondescript].to_i.zero?, class: 'form-check-input',
+      = f.check_box :nondescript, class: 'form-check-input',
         id: 'search-nondescript-checkbox'
       = f.label :nondescript, "Without description", class: 'form-check-label', for: 'search-nondescript-checkbox'
     .form-check.mb-3
-      = f.check_box :unblogged, checked: !params[:unblogged].to_i.zero?, class: 'form-check-input',
+      = f.check_box :unblogged, class: 'form-check-input',
         id: 'search-unblogged-checkbox'
       = f.label :unblogged, class: 'form-check-label', for: 'search-unblogged-checkbox'
     - if Current.user.parent?
       .form-check.mb-3
-        = f.check_box :not_hidden, checked: !params[:not_hidden].to_i.zero?, class: 'form-check-input',
+        = f.check_box :not_hidden, class: 'form-check-input',
           id: 'search-not-hidden-checkbox'
         = f.label :not_hidden, 'Include hidden photos', class: 'form-check-label', for: 'search-not-hidden-checkbox'
     .mb-3.d-grid.gap-2
       = f.submit 'Search', class: 'btn btn-primary'
 
-  - if @photos.present?
+  - if @search.photos.present?
     = render partial: "/shared/carousel_modal",
-      locals: { photos: @photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
+      locals: { photos: @search.photos, modal_id: "photos-modal", carousel_id: "photos-carousel" }
 
   - if Photo.photo_tag_counts.present?
     %hr
@@ -60,8 +60,8 @@
     locals: { starts_at: Photo.where.not(at: nil).order(at: :asc).first&.at, resource: :photos }
 
 .d-flex.flex-wrap.align-items-center
-  = render @photos
+  = render @search.photos
 
 .row
   .col-md-12
-    = paginate @photos
+    = paginate @search.photos

@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   def index
-    @photos = Photo.search(params)
+    @search = PhotoSearch.new(search_params).load
   end
 
   def edit
@@ -25,6 +25,12 @@ class PhotosController < ApplicationController
   end
 
   private
+
+  def search_params
+    params.fetch(:photo_search, {}).permit(
+      :media, :order, :ends_on, :term, :tag, :page, :photos, :unblogged, :not_hidden, :nondescript
+    )
+  end
 
   def safe_params
     params.expect(photo: %i[at hidden description photo_tag_list] + [{ post_ids: [] }])
