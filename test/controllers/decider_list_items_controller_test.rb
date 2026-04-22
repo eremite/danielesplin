@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class DeciderListItemsControllerTest < ActionDispatch::IntegrationTest
+
   setup do
     login(:admin)
     @list = decider_lists(:base)
@@ -22,4 +23,5 @@ class DeciderListItemsControllerTest < ActionDispatch::IntegrationTest
     delete "/decider_list_items/#{decider_list_items(:base).id}"
     assert_redirected_to @list
   end
+
 end

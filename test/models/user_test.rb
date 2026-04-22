@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+
   test 'valid' do
     assert users(:base).valid?
   end
@@ -56,4 +57,5 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '#ffffff', User.new(color: '#111111').contrast_color
     assert_equal '#000000', User.new(color: '#eeeeee').contrast_color
   end
+
 end

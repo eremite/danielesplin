@@ -1,4 +1,5 @@
 class CreateLogEntries < ActiveRecord::Migration
+
   def change
     create_table :log_entries do |t|
       t.belongs_to :user
@@ -7,4 +8,5 @@ class CreateLogEntries < ActiveRecord::Migration
     end
     add_index :log_entries, :user_id
   end
+
 end

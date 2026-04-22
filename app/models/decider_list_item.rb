@@ -1,4 +1,5 @@
 class DeciderListItem < ApplicationRecord
+
   belongs_to :decider_list
 
   validates :name, presence: true
@@ -58,4 +59,5 @@ class DeciderListItem < ApplicationRecord
   def font
     FONT_LIST.last
   end
+
 end

@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+
   def index
     @search = PhotoSearch.new(search_params).load
   end
@@ -39,4 +40,5 @@ class PhotosController < ApplicationController
   def authorized?
     Current.user&.parent? || Current.user&.child?
   end
+
 end

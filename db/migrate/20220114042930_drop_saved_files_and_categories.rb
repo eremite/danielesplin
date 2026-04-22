@@ -1,4 +1,5 @@
 class DropSavedFilesAndCategories < ActiveRecord::Migration[6.1]
+
   def change
     drop_table :saved_files do |t|
       t.belongs_to :user, index: true
@@ -11,4 +12,5 @@ class DropSavedFilesAndCategories < ActiveRecord::Migration[6.1]
       t.timestamps
     end
   end
+
 end

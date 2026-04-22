@@ -1,4 +1,5 @@
 class CreateInventoryItems < ActiveRecord::Migration
+
   def change
     create_table :inventory_items do |t|
       t.string :name
@@ -9,4 +10,5 @@ class CreateInventoryItems < ActiveRecord::Migration
       t.timestamps
     end
   end
+
 end

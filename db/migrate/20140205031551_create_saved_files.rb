@@ -1,4 +1,5 @@
 class CreateSavedFiles < ActiveRecord::Migration
+
   def change
     create_table :saved_files do |t|
       t.belongs_to :user, index: true
@@ -7,4 +8,5 @@ class CreateSavedFiles < ActiveRecord::Migration
       t.timestamps
     end
   end
+
 end

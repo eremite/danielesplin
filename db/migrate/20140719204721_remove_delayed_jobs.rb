@@ -1,4 +1,5 @@
 class RemoveDelayedJobs < ActiveRecord::Migration
+
   def self.up
     drop_table :delayed_jobs
   end
@@ -18,4 +19,5 @@ class RemoveDelayedJobs < ActiveRecord::Migration
     end
     add_index :delayed_jobs, %i[priority run_at], name: 'delayed_jobs_priority'
   end
+
 end

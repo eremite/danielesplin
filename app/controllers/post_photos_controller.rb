@@ -1,4 +1,5 @@
 class PostPhotosController < ApplicationController
+
   def create
     post_photo = PostPhoto.create(safe_params)
     redirect_to [:edit, post_photo.post]
@@ -19,4 +20,5 @@ class PostPhotosController < ApplicationController
   def authorized?
     Current.user&.parent?
   end
+
 end

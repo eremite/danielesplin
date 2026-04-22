@@ -1,4 +1,5 @@
 class DeciderListsController < ApplicationController
+
   before_action :verify_authorized
 
   def index
@@ -32,4 +33,5 @@ class DeciderListsController < ApplicationController
   def safe_params
     params.expect(decider_list: [:name])
   end
+
 end

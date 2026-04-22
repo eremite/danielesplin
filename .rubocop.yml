@@ -27,6 +27,10 @@ Layout/FirstHashElementIndentation:
 Layout/FirstParameterIndentation:
   EnforcedStyle: consistent
 
+# Facilitate manipulating nearby code in vim
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines_except_namespace
+
 # Sometimes longer methods are more readable
 Metrics/AbcSize:
   Max: 40

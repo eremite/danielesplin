@@ -1,4 +1,5 @@
 class NoteSearch
+
   include ActiveModel::Model
 
   attr_accessor :current_user, :user_id, :kind, :term, :tag, :random, :page, :notes
@@ -25,4 +26,5 @@ class NoteSearch
     results = results.where(id: results.sample.try(:id)) if random.present?
     results.page(page)
   end
+
 end

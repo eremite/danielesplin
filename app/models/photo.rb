@@ -1,4 +1,5 @@
 class Photo < ApplicationRecord
+
   acts_as_taggable_on :photo_tags
 
   has_one_attached :image
@@ -47,4 +48,5 @@ class Photo < ApplicationRecord
   def purge_image
     image.purge
   end
+
 end

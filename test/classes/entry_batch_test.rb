@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class EntryBatchTest < ActiveSupport::TestCase
+
   test 'load finds existing entry' do
     entry = entries(:base)
     entry.update_columns(at: Time.current, body: 'Body')
@@ -27,4 +28,5 @@ class EntryBatchTest < ActiveSupport::TestCase
     assert EntryBatch.new(entry_params_by_user_id: { user.id => { body: 'Updated' } }).save
     assert user.entries.find_by(at: Time.current.all_day, body: 'Updated')
   end
+
 end

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PostAccessGrantsControllerTest < ActionDispatch::IntegrationTest
+
   setup do
     login(:admin)
   end
@@ -12,4 +13,5 @@ class PostAccessGrantsControllerTest < ActionDispatch::IntegrationTest
     } }
     assert_response :redirect
   end
+
 end

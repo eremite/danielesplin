@@ -1,4 +1,5 @@
 class InventoryItemSearch
+
   include ActiveModel::Model
 
   attr_accessor :ends_on, :deleted, :order, :page, :term, :tag, :inventory_items
@@ -36,4 +37,5 @@ class InventoryItemSearch
   rescue ArgumentError, TypeError
     Date.current
   end
+
 end

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
+
   test 'create invalid' do
     login(:child)
     post '/comments', params: { comment: { post_id: posts(:base).id, body: '' } }
@@ -51,4 +52,5 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     delete "/comments/#{comments(:base).id}"
     assert_redirected_to posts(:base)
   end
+
 end

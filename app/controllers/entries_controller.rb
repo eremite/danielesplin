@@ -1,4 +1,5 @@
 class EntriesController < ApplicationController
+
   def index
     @entry_search = EntrySearch.new(search_params).load
   end
@@ -58,4 +59,5 @@ class EntriesController < ApplicationController
   rescue ArgumentError, TypeError
     Date.current
   end
+
 end

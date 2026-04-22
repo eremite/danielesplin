@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class InventoryItemTest < ActiveSupport::TestCase
+
   test 'valid' do
     assert inventory_items(:base).valid?
   end
@@ -16,4 +17,5 @@ class InventoryItemTest < ActiveSupport::TestCase
     assert_not inventory_item.suggested_tags.exists?(name: 'existing')
     assert inventory_item.suggested_tags.exists?(name: 'suggested')
   end
+
 end

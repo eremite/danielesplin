@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
+
   test 'index' do
     login(:admin)
     get '/posts'
@@ -49,4 +50,5 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       body: 'Body'
     }
   end
+
 end

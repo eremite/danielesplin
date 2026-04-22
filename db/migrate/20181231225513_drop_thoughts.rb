@@ -1,4 +1,5 @@
 class DropThoughts < ActiveRecord::Migration
+
   def change
     remove_index :thoughts, column: :user_id
     drop_table :thoughts do |t|
@@ -8,4 +9,5 @@ class DropThoughts < ActiveRecord::Migration
       t.timestamps
     end
   end
+
 end

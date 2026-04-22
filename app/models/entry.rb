@@ -1,4 +1,5 @@
 class Entry < ApplicationRecord
+
   acts_as_taggable_on :entry_tags
 
   belongs_to :user
@@ -28,4 +29,5 @@ class Entry < ApplicationRecord
   def suggested_tags
     self.class.tags.where.not(id: entry_tag_ids)
   end
+
 end

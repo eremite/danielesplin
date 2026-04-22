@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class EntryBatchesControllerTest < ActionDispatch::IntegrationTest
+
   setup do
     login(:admin)
   end
@@ -15,4 +16,5 @@ class EntryBatchesControllerTest < ActionDispatch::IntegrationTest
       params: { entry_batch: { entry_params_by_user_id: { users(:child).id => { body: 'Body' } } } }
     assert_redirected_to '/entries?on_this_day=1'
   end
+
 end

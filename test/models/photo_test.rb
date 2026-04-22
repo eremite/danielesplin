@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PhotoTest < ActiveSupport::TestCase
+
   test 'valid' do
     assert photos(:base).valid?
   end
@@ -36,4 +37,5 @@ class PhotoTest < ActiveSupport::TestCase
     assert_not photo.suggested_tags.exists?(name: 'existing')
     assert photo.suggested_tags.exists?(name: 'suggested')
   end
+
 end

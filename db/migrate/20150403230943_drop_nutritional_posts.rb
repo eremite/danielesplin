@@ -1,4 +1,5 @@
 class DropNutritionalPosts < ActiveRecord::Migration
+
   def change
     drop_table :nutritional_posts do |t|
       t.string :title
@@ -9,4 +10,5 @@ class DropNutritionalPosts < ActiveRecord::Migration
       t.timestamps
     end
   end
+
 end

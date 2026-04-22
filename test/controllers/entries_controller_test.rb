@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class EntriesControllerTest < ActionDispatch::IntegrationTest
+
   setup do
     user = users(:admin)
     @entry = user.entries.create!(body: 'body', at: Time.zone.now)
@@ -51,4 +52,5 @@ class EntriesControllerTest < ActionDispatch::IntegrationTest
       body: 'Body'
     }
   end
+
 end

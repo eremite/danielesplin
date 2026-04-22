@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class InventoryItemSearchTest < ActiveSupport::TestCase
+
   test 'self.order_options' do
     assert_equal %i[on_desc on_asc], InventoryItemSearch.order_options.map(&:last)
   end
@@ -17,4 +18,5 @@ class InventoryItemSearchTest < ActiveSupport::TestCase
     assert_includes InventoryItemSearch.new(term: 'cool').load.inventory_items, item
     assert_empty InventoryItemSearch.new(term: 'This is missing').load.inventory_items
   end
+
 end

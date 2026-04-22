@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class NoteTest < ActiveSupport::TestCase
+
   test 'valid' do
     assert notes(:base).valid?
   end
@@ -16,4 +17,5 @@ class NoteTest < ActiveSupport::TestCase
     assert_not note.suggested_tags.exists?(name: 'existing')
     assert note.suggested_tags.exists?(name: 'suggested')
   end
+
 end

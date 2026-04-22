@@ -1,4 +1,5 @@
 class PhotoSearch
+
   include ActiveModel::Model
 
   attr_accessor :media, :order, :ends_on, :nondescript, :term, :tag, :page, :photos, :unblogged, :not_hidden
@@ -55,4 +56,5 @@ class PhotoSearch
   rescue ArgumentError, TypeError
     Date.current
   end
+
 end

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PhotoSearchTest < ActiveSupport::TestCase
+
   test 'self.order_options' do
     assert_equal %i[at_desc created_at_desc updated_at_desc], PhotoSearch.order_options.map(&:last)
   end
@@ -15,4 +16,5 @@ class PhotoSearchTest < ActiveSupport::TestCase
     photo.update_columns(at: 1.week.ago)
     assert_includes PhotoSearch.new.load.photos, photo
   end
+
 end

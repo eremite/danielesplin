@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PostAccessGrantTest < ActiveSupport::TestCase
+
   test 'load!' do
     user = users(:base).tap { |u| u.update_columns(access_token: nil, access_token_expires_at: nil) }
     post = posts(:base)
@@ -21,4 +22,5 @@ class PostAccessGrantTest < ActiveSupport::TestCase
     assert_includes grant.mailto, 'News'
     assert_includes grant.mailto, 't0k3n'
   end
+
 end

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
+
   test 'create invalid' do
     User.stub_any_instance :authenticate, nil do
       post '/sessions'
@@ -17,4 +18,5 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to '/entries'
   end
+
 end

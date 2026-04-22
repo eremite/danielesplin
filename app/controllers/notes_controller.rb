@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+
   def index
     @search = NoteSearch.new(search_params).load
   end
@@ -54,4 +55,5 @@ class NotesController < ApplicationController
   def authorized?
     Current.user&.father?
   end
+
 end

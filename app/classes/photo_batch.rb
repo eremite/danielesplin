@@ -1,5 +1,6 @@
 require 'exifr/jpeg'
 class PhotoBatch
+
   include ActiveModel::Model
 
   attr_accessor :images, :user, :errors
@@ -35,4 +36,5 @@ class PhotoBatch
       nil
     end
   end
+
 end

@@ -1,15 +1,20 @@
 class AssignEntryPhotos < ActiveRecord::Migration
+
   class Photo < ActiveRecord::Base
   end
 
   class Entry < ActiveRecord::Base
+
     has_many :entry_photos
     has_many :photos, through: :entry_photos
+
   end
 
   class EntryPhoto < ActiveRecord::Base
+
     belongs_to :entry
     belongs_to :photo
+
   end
 
   def up
@@ -24,4 +29,5 @@ class AssignEntryPhotos < ActiveRecord::Migration
   def down
     EntryPhoto.delete_all
   end
+
 end

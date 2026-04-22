@@ -1,4 +1,5 @@
 class DeciderList < ApplicationRecord
+
   has_many :items, class_name: 'DeciderListItem', dependent: :destroy
 
   validates :name, presence: true
@@ -13,4 +14,5 @@ class DeciderList < ApplicationRecord
     item.touch(:picked_at)
     item
   end
+
 end

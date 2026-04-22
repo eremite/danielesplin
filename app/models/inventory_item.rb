@@ -1,4 +1,5 @@
 class InventoryItem < ApplicationRecord
+
   acts_as_taggable_on :inventory_item_tags
 
   has_many :inventory_item_photos, dependent: :destroy
@@ -39,4 +40,5 @@ class InventoryItem < ApplicationRecord
   def suggested_tags
     self.class.tags.where.not(id: inventory_item_tag_ids)
   end
+
 end

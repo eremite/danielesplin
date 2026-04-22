@@ -1,4 +1,5 @@
 class CreateBabyLogs < ActiveRecord::Migration
+
   def change
     create_table :baby_logs do |t|
       t.datetime :at
@@ -9,4 +10,5 @@ class CreateBabyLogs < ActiveRecord::Migration
     end
     add_index :baby_logs, :user_id
   end
+
 end

@@ -1,4 +1,5 @@
 class RemoveAttachmentImageFromPhotos < ActiveRecord::Migration
+
   # We no longer have paperclip installed...
   def up
     # remove_column :photos, :image_file_name
@@ -13,4 +14,5 @@ class RemoveAttachmentImageFromPhotos < ActiveRecord::Migration
     # add_column :photos, :image_content_type, :string
     # add_column :photos, :image_file_name, :string
   end
+
 end

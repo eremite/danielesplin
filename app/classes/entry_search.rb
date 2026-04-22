@@ -1,4 +1,5 @@
 class EntrySearch
+
   include ActiveModel::Model
 
   attr_accessor :age, :current_user, :ends_on, :user, :on_this_day, :page, :random, :tag, :term, :user_id, :entries
@@ -37,4 +38,5 @@ class EntrySearch
   rescue ArgumentError, TypeError
     Date.current
   end
+
 end

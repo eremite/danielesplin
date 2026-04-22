@@ -1,4 +1,5 @@
 class DropBabyLogs < ActiveRecord::Migration
+
   def up
     drop_table :baby_logs
   end
@@ -13,4 +14,5 @@ class DropBabyLogs < ActiveRecord::Migration
     end
     add_index :baby_logs, :user_id
   end
+
 end

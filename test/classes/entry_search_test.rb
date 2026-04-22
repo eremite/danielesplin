@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class EntrySearchTest < ActiveSupport::TestCase
+
   test 'load ends_on' do
     user = users(:base)
     assert_equal Date.new(2024, 4, 20), EntrySearch.new(current_user: user, ends_on: '2024-04-20').load.ends_on
@@ -19,4 +20,5 @@ class EntrySearchTest < ActiveSupport::TestCase
     assert_includes EntrySearch.new(current_user: entry.user).load.entries, entry
     assert_empty EntrySearch.new(current_user: entry.user, on_this_day: '1').load.entries
   end
+
 end

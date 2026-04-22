@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+
   protect_from_forgery
 
   before_action :authenticate, :verify_authorized
@@ -28,4 +29,5 @@ class ApplicationController < ActionController::Base
   def authorized?
     false
   end
+
 end

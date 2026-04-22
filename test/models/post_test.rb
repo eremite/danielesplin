@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
+
   test 'valid' do
     assert posts(:base).valid?
   end
@@ -36,4 +37,5 @@ class PostTest < ActiveSupport::TestCase
     assert_not post.suggested_tags.exists?(name: 'existing')
     assert post.suggested_tags.exists?(name: 'suggested')
   end
+
 end

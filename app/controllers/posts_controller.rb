@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+
   def index
     redirect_to Post.at_desc.past.first
   end
@@ -53,4 +54,5 @@ class PostsController < ApplicationController
     user.log('blog')
     true
   end
+
 end

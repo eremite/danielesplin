@@ -1,4 +1,5 @@
 class PhotoFrame
+
   DAY_SPAN = 7
 
   def next_photo
@@ -38,4 +39,5 @@ class PhotoFrame
   def photos
     Photo.where(hidden: false)
   end
+
 end

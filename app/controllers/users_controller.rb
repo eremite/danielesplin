@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def index
     @users = User.order(created_at: :desc)
   end
@@ -52,4 +53,5 @@ class UsersController < ApplicationController
     return false if Current.user.nil?
     Current.user.parent? || Current.user.child?
   end
+
 end

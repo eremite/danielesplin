@@ -1,4 +1,5 @@
 class EntryBatch
+
   include ActiveModel::Model
 
   attr_accessor :entry_params_by_user_id
@@ -47,4 +48,5 @@ class EntryBatch
   def existing_entry_for_user(user)
     user.entries.find_by(at: Time.current.all_day)
   end
+
 end

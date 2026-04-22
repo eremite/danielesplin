@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class DeciderListPickerControllerTest < ActionDispatch::IntegrationTest
+
   test 'index' do
     get '/pick'
     assert_response :success
@@ -15,4 +16,5 @@ class DeciderListPickerControllerTest < ActionDispatch::IntegrationTest
     post "/pick/#{decider_lists(:base).id}"
     assert_response :success
   end
+
 end

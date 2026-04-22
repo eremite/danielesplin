@@ -1,4 +1,5 @@
 class DeciderListItemsController < ApplicationController
+
   before_action :verify_authorized
 
   def create
@@ -25,4 +26,5 @@ class DeciderListItemsController < ApplicationController
   def safe_params
     params.expect(decider_list_item: %i[name decider_list_id])
   end
+
 end

@@ -1,4 +1,5 @@
 class CreateThoughts < ActiveRecord::Migration
+
   def change
     create_table :thoughts do |t|
       t.belongs_to :user
@@ -8,4 +9,5 @@ class CreateThoughts < ActiveRecord::Migration
     end
     add_index :thoughts, :user_id
   end
+
 end

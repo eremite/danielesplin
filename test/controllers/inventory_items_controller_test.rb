@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class InventoryItemsControllerTest < ActionDispatch::IntegrationTest
+
   setup do
     @inventory_item = inventory_items(:base)
     login(:admin)
@@ -61,4 +62,5 @@ class InventoryItemsControllerTest < ActionDispatch::IntegrationTest
       name: ''
     }
   end
+
 end

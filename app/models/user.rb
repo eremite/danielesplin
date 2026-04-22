@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+
   enum :role, { father: 'father', mother: 'mother', child: 'child', guest: 'guest', inactive: 'inactive' }
 
   EMAIL_REGEX = %r{\A(?:[a-z\d!#$%&'*+\-/=?\^_`{|}~]+|\.)+@[a-z\d-]+(?:\.[a-z\d-]+)*\Z}i.freeze
@@ -63,4 +64,5 @@ class User < ApplicationRecord
     yiq = ((r * 299) + (g * 587) + (114 * b)) / 1000
     yiq >= 128 ? '#000000' : '#ffffff'
   end
+
 end

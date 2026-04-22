@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class EntryTest < ActiveSupport::TestCase
+
   test 'valid' do
     assert entries(:base).valid?
   end
@@ -22,4 +23,5 @@ class EntryTest < ActiveSupport::TestCase
     assert_not entry.suggested_tags.exists?(name: 'existing')
     assert entry.suggested_tags.exists?(name: 'suggested')
   end
+
 end

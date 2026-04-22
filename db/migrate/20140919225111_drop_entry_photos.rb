@@ -1,4 +1,5 @@
 class DropEntryPhotos < ActiveRecord::Migration
+
   def change
     drop_table :entry_photos do |t|
       t.belongs_to :entry
@@ -6,4 +7,5 @@ class DropEntryPhotos < ActiveRecord::Migration
       t.timestamps
     end
   end
+
 end

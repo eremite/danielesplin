@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+
   acts_as_taggable_on :post_tags
 
   has_many :comments, dependent: :destroy
@@ -40,4 +41,5 @@ class Post < ApplicationRecord
     self.photos = Photo.where(hidden: false, created_at: at.all_day) if at.present?
     true
   end
+
 end

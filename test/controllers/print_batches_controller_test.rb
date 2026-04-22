@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PrintBatchesControllerTest < ActionDispatch::IntegrationTest
+
   setup do
     login(:admin)
   end
@@ -19,4 +20,5 @@ class PrintBatchesControllerTest < ActionDispatch::IntegrationTest
     get '/print_batches/posts', params: { year: Time.zone.now.year }
     assert_response :success
   end
+
 end

@@ -1,24 +1,33 @@
 class MovePublicEntriesToPosts < ActiveRecord::Migration
+
   class EntryPhoto < ActiveRecord::Base
+
     belongs_to :entry
     belongs_to :photo
+
   end
 
   class PostPhoto < ActiveRecord::Base
+
     belongs_to :post
     belongs_to :photo
+
   end
 
   class Entry < ActiveRecord::Base
+
     has_many :comments
     has_many :entry_photos
     has_many :photos, through: :entry_photos
+
   end
 
   class Post < ActiveRecord::Base
+
     has_many :comments
     has_many :post_photos
     has_many :photos, through: :post_photos
+
   end
 
   def self.up
@@ -61,4 +70,5 @@ class MovePublicEntriesToPosts < ActiveRecord::Migration
       end
     end
   end
+
 end

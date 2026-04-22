@@ -1,4 +1,5 @@
 class CreateInventoryItemPhotos < ActiveRecord::Migration
+
   def change
     create_table :inventory_item_photos do |t|
       t.belongs_to :inventory_item, index: true
@@ -6,4 +7,5 @@ class CreateInventoryItemPhotos < ActiveRecord::Migration
       t.timestamps
     end
   end
+
 end

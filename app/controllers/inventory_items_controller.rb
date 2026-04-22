@@ -1,4 +1,5 @@
 class InventoryItemsController < ApplicationController
+
   def index
     @search = InventoryItemSearch.new(search_params).load
   end
@@ -48,4 +49,5 @@ class InventoryItemsController < ApplicationController
   def authorized?
     Current.user&.parent?
   end
+
 end

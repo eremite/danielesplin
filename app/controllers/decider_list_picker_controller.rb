@@ -1,4 +1,5 @@
 class DeciderListPickerController < ApplicationController
+
   skip_before_action :verify_authorized
 
   def index
@@ -12,4 +13,5 @@ class DeciderListPickerController < ApplicationController
   def create
     @item = DeciderList.find(params[:id]).pick
   end
+
 end

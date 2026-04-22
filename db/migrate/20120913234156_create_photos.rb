@@ -1,4 +1,5 @@
 class CreatePhotos < ActiveRecord::Migration
+
   def change
     create_table :photos do |t|
       t.datetime :taken_at
@@ -6,4 +7,5 @@ class CreatePhotos < ActiveRecord::Migration
       t.timestamps
     end
   end
+
 end

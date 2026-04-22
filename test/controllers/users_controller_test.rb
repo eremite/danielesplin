@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
+
   test 'index' do
     login(:admin)
     get '/users'
@@ -67,4 +68,5 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: 'secret123'
     }
   end
+
 end
