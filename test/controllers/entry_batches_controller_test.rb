@@ -14,7 +14,7 @@ class EntryBatchesControllerTest < ActionDispatch::IntegrationTest
   test 'create' do
     post '/entry_batches',
       params: { entry_batch: { entry_params_by_user_id: { users(:child).id => { body: 'Body' } } } }
-    assert_redirected_to '/entries?on_this_day=1'
+    assert_redirected_to "/entries?#{{ entry_search: { on_this_day: 1 } }.to_param}"
   end
 
 end
