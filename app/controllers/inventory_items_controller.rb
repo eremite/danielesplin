@@ -43,7 +43,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def search_params
-    params.fetch(:inventory_item_search, {}).permit(:ends_on, :deleted, :order, :page, :term, :tag)
+    params.fetch(:inventory_item_search, {}).permit(:ends_on, :deleted, :order, :term, :tag).merge(params.permit(:page))
   end
 
   def authorized?

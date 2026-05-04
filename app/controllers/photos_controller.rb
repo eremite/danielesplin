@@ -29,8 +29,8 @@ class PhotosController < ApplicationController
 
   def search_params
     params.fetch(:photo_search, {}).permit(
-      :media, :order, :ends_on, :term, :tag, :page, :photos, :unblogged, :not_hidden, :nondescript
-    )
+      :media, :order, :ends_on, :term, :tag, :photos, :unblogged, :not_hidden, :nondescript
+    ).merge(params.permit(:page))
   end
 
   def safe_params

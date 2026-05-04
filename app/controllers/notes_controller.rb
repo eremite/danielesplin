@@ -44,8 +44,8 @@ class NotesController < ApplicationController
 
   def search_params
     params.fetch(:note_search, {}).permit(
-      :user_id, :kind, :term, :tag, :random, :page
-    ).merge(current_user: Current.user)
+      :user_id, :kind, :term, :tag, :random
+    ).merge(current_user: Current.user).merge(params.permit(:page))
   end
 
   def safe_params

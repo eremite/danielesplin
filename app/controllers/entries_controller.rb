@@ -46,8 +46,8 @@ class EntriesController < ApplicationController
 
   def search_params
     params.fetch(:entry_search, {}).permit(
-      :age, :ends_on, :entry_user, :on_this_day, :page, :random, :tag, :term, :user_id
-    ).merge(current_user: Current.user)
+      :age, :ends_on, :entry_user, :on_this_day, :random, :tag, :term, :user_id
+    ).merge(current_user: Current.user).merge(params.permit(:page))
   end
 
   def authorized?
