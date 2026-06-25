@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    User.find(Current.user.parent? ? params[:id] : Current.user.id)
+    User.find(Current.user.parent? ? params.expect(:id) : Current.user.id)
   end
 
   def safe_params

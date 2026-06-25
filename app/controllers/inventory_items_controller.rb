@@ -10,7 +10,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def edit
-    @inventory_item = InventoryItem.find(params[:id])
+    @inventory_item = InventoryItem.find(params.expect(:id))
   end
 
   def create
@@ -23,7 +23,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def update
-    @inventory_item = InventoryItem.find(params[:id])
+    @inventory_item = InventoryItem.find(params.expect(:id))
     if @inventory_item.update(safe_params)
       redirect_to :inventory_items, notice: "#{InventoryItem.model_name.human} saved."
     else
@@ -32,7 +32,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def destroy
-    InventoryItem.find(params[:id]).touch(:deleted_at)
+    InventoryItem.find(params.expect(:id)).touch(:deleted_at)
     redirect_to :inventory_items, notice: "#{InventoryItem.model_name.human} deleted."
   end
 

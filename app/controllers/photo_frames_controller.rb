@@ -10,7 +10,7 @@ class PhotoFramesController < ApplicationController
   end
 
   def show
-    @photo = Photo.find(params[:id])
+    @photo = Photo.find(params.expect(:id))
   end
 
   private

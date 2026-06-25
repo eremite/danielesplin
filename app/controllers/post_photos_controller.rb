@@ -6,7 +6,7 @@ class PostPhotosController < ApplicationController
   end
 
   def destroy
-    post_photo = PostPhoto.find(params[:id])
+    post_photo = PostPhoto.find(params.expect(:id))
     post_photo.destroy
     redirect_to [:edit, post_photo.post]
   end

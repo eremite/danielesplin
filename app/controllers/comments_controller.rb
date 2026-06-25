@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
   def edit
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params.expect(:id))
     deny_access unless @comment.user_id == Current.user.id || Current.user.parent?
   end
 
@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params.expect(:id))
     if @comment.update(safe_params)
       redirect_to @comment.post, notice: 'Comment updated.'
     else
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params.expect(:id))
     @comment.destroy
     redirect_to @comment.post, notice: 'Comment deleted.'
   end
@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
     @user = Current.user
     return true if @user.present?
 
-    @user = User.find_by!(access_token: params[:access_token])
+    @user = User.find_by!(access_token: params.expect(:access_token))
     return false if action_name != 'create' || @user.access_token_expires_at.past?
 
     true

@@ -5,12 +5,12 @@ class PhotosController < ApplicationController
   end
 
   def edit
-    @photo = Photo.find(params[:id])
+    @photo = Photo.find(params.expect(:id))
     @redirect_path = url_from(params[:redirect_to]) || :photos
   end
 
   def update
-    @photo = Photo.find(params[:id])
+    @photo = Photo.find(params.expect(:id))
     if @photo.update(safe_params)
       next_photo = Photo.where(description: nil).first
       redirect_to next_photo.present? ? [:edit, next_photo] : params[:redirect_to] || :photos
@@ -20,7 +20,7 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    @photo = Photo.find(params[:id])
+    @photo = Photo.find(params.expect(:id))
     @photo.destroy
     redirect_to photos_url, notice: 'Photo destroyed.'
   end

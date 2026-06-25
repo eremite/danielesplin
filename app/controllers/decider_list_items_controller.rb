@@ -12,7 +12,7 @@ class DeciderListItemsController < ApplicationController
   end
 
   def destroy
-    item = DeciderListItem.find(params[:id])
+    item = DeciderListItem.find(params.expect(:id))
     item.destroy
     redirect_to item.decider_list
   end

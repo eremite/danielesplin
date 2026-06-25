@@ -5,7 +5,7 @@ class PrintBatchesController < ApplicationController
   end
 
   def entries
-    @user = User.find(params[:user_id])
+    @user = User.find(params.expect(:user_id))
     starts_on = Time.zone.parse("#{params[:year]}-01-01")
     @entries = @user.entries.at_asc.where(at: starts_on..starts_on.end_of_year)
     @photos = Photo.where(at: starts_on.all_year).order(at: :asc).tagged_with(@user.name, on: :photo_tags)

@@ -5,7 +5,7 @@ class NotesController < ApplicationController
   end
 
   def show
-    @note = Note.find(params[:id])
+    @note = Note.find(params.expect(:id))
   end
 
   def new
@@ -13,7 +13,7 @@ class NotesController < ApplicationController
   end
 
   def edit
-    @note = Note.find(params[:id])
+    @note = Note.find(params.expect(:id))
   end
 
   def create
@@ -26,7 +26,7 @@ class NotesController < ApplicationController
   end
 
   def update
-    @note = Note.find(params[:id])
+    @note = Note.find(params.expect(:id))
     if @note.update(safe_params)
       redirect_to [:edit, @note], notice: 'Note saved.'
     else
@@ -35,7 +35,7 @@ class NotesController < ApplicationController
   end
 
   def destroy
-    @note = Note.find(params[:id])
+    @note = Note.find(params.expect(:id))
     @note.destroy
     redirect_to :notes, notice: 'Note destroyed.'
   end

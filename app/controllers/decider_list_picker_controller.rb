@@ -7,11 +7,11 @@ class DeciderListPickerController < ApplicationController
   end
 
   def new
-    @list = DeciderList.find(params[:id])
+    @list = DeciderList.find(params.expect(:id))
   end
 
   def create
-    @item = DeciderList.find(params[:id]).pick
+    @item = DeciderList.find(params.expect(:id)).pick
   end
 
 end

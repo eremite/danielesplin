@@ -7,7 +7,7 @@ class DeciderListsController < ApplicationController
   end
 
   def show
-    @list = DeciderList.find(params[:id])
+    @list = DeciderList.find(params.expect(:id))
   end
 
   def create
@@ -20,7 +20,7 @@ class DeciderListsController < ApplicationController
   end
 
   def destroy
-    DeciderList.find(params[:id]).destroy
+    DeciderList.find(params.expect(:id)).destroy
     redirect_to :decider_lists
   end
 

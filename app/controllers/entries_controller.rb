@@ -37,7 +37,7 @@ class EntriesController < ApplicationController
   private
 
   def find_entry
-    Entry.where(user: Current.user.users_whose_entries_i_can_edit).find(params[:id])
+    Entry.where(user: Current.user.users_whose_entries_i_can_edit).find(params.expect(:id))
   end
 
   def safe_params

@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find(params.expect(:id))
   end
 
   def new
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
+    @post = Post.find(params.expect(:id))
   end
 
   def create
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = Post.find(params.expect(:id))
     if @post.update(safe_params)
       redirect_to :posts, notice: 'Post saved.'
     else
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    @post = Post.find(params.expect(:id))
     @post.destroy
     redirect_to :posts, notice: 'Post destroyed.'
   end
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
 
   def authorized?
     return true if Current.user.present?
-    user = User.where.not(access_token: [nil, '']).find_by!(access_token: params[:access_token])
+    user = User.where.not(access_token: [nil, '']).find_by!(access_token: params.expect(:access_token))
     return false if action_name != 'show' || user.access_token_expires_at.past?
     user.log('blog')
     true
