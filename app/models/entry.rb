@@ -20,7 +20,7 @@ class Entry < ApplicationRecord
 
   def after_create_redirect_url
     if at.to_date.today? && user.parent? && creator.parent?
-      %i[new entry_batch]
+      [:entries, { entry_search: { on_this_day: 1, user_id: user.id } }]
     else
       [:entries, { user_id: user.id }]
     end
