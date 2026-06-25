@@ -14,6 +14,7 @@ gem 'kamal', require: false
 gem 'kaminari'
 gem 'propshaft'
 gem 'puma'
+gem 'ruby-vips'
 gem 'solid_cable'
 gem 'solid_cache'
 gem 'solid_queue'

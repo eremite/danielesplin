@@ -17,7 +17,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
+RUN bundle config set min_age 3 && bundle install
 
 COPY . .
 
