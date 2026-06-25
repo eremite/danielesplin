@@ -8,7 +8,8 @@ class EntryBatchesController < ApplicationController
     EntryBatch.new(safe_params).save
     respond_to do |format|
       format.html do
-        redirect_to [:entries, { entry_search: { on_this_day: 1 } }]
+        entry = Entry.create!(at: Time.current, user: Current.user, creator: Current.user)
+        redirect_to [:edit, entry]
       end
       format.json do
         head :ok
