@@ -82,10 +82,10 @@
         - if entry.entry_tags.present?
           - entry.entry_tag_list.each do |tag_name|
             = link_to tag_name, entries_path(entry_search: { tag: tag_name }), class: 'badge bg-info'
-    - if params[:term].present?
+    - if @entry_search.term.present?
       %p
         &hellip;
-        = highlight(excerpt(entry.body, params[:term], radius: 55), params[:term])
+        = highlight(excerpt(entry.body, @entry_search.term, radius: 55), @entry_search.term)
         &hellip;
     - else
       .mb-4
