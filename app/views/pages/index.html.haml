@@ -8,8 +8,7 @@
         .d-none.d-md-block= f.submit 'Log in', class: 'btn btn-success'
         .d-grid.d-md-none= f.submit 'Log in', class: 'btn btn-success'
 
-.row.d-flex.align-items-center.min-vh-100
-
+.row.d-flex.align-items-center{ style: 'padding-top: 6rem' }
   .col.rounded-circle.bg-light.text-dark.py-4.d-none.d-md-block{ style: "max-width: 200px" }
     %h1{ style: "margin-left: 30px; position: relative; font-family: 'Courier New', 'Lucida Console', 'Monaco', monospace; font-size: 40px; line-height: 40px; text-transform: uppercase; height: 6em; font-weight: bold;" }
       %span{ style: 'position: absolute; top: 0; left: 1.2em; width: 1em; word-wrap: break-word;' } Daniel
@@ -18,20 +17,15 @@
 
   .col.mx-4.fs-5
     - with_options class: 'link-light' do |link|
-      %p
-        Daniel Esplin is a #{link.link_to('Ruby on Rails Programmer', 'https://github.com/eremite')}
-        - bucket = 'https://s3.amazonaws.com/danielesplin-files/public'
-        who served an
-        = link.link_to_if Current.user.present?, 'LDS Mission to Panama', "#{bucket}/mission/index.html"
-        compiled a
-        = link.link_to 'history of the Billerica, Massachusetts Ward', "#{bucket}/billerica_ward/index.htm"
-        and created a few (AI assisted) stories:
-        %ul
-          %li= link.link_to 'The Curious Tabby', "#{bucket}/stories/kitten/index.html"
-          %li= link.link_to 'Clara and her Horse', "#{bucket}/stories/horse/index.html"
-          %li= link.link_to 'Rose Learns to Love', "#{bucket}/stories/rose/index.html"
-          %li= link.link_to 'An Alliterative Alphabet', "#{bucket}/stories/alphabet/index.html"
-      %p
-        Erika Esplin is a mother, musician and
-        #{link.link_to('Registered Dietitian', 'https://www.nutritionalbites.org')}.
-    %p We live with our daughters in Santa Clara, Utah.
+      - bucket = 'https://s3.amazonaws.com/danielesplin-files/public'
+      %ul
+        %li= link.link_to('Github Profile', 'https://github.com/eremite')
+        %li= link.link_to 'History of the LDS ward in Billerica, MA', "#{bucket}/billerica_ward/index.htm"
+        - if Current.user.present?
+          %li= link.link_to 'Mission to Panama', "#{bucket}/mission/index.html"
+        %li= link.link_to 'Story: The Curious Tabby', "#{bucket}/stories/kitten/index.html"
+        %li= link.link_to 'Story: Clara and her Horse', "#{bucket}/stories/horse/index.html"
+        %li= link.link_to 'Story: Rose Learns to Love', "#{bucket}/stories/rose/index.html"
+        %li= link.link_to 'Story: An Alliterative Alphabet', "#{bucket}/stories/alphabet/index.html"
+        %li= link.link_to 'Game: One Ball Bouncing', 'https://eremit3.itch.io/one-ball-bouncing'
+        %li= link.link_to('Nutritional Bites', 'https://www.nutritionalbites.org')
