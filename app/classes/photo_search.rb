@@ -52,9 +52,9 @@ class PhotoSearch
   end
 
   def parse_date(date_string)
-    Date.parse(date_string)
+    Date.parse(date_string).end_of_day
   rescue ArgumentError, TypeError
-    Date.current
+    Time.zone.today.end_of_day
   end
 
 end

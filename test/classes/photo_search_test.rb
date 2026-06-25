@@ -7,8 +7,8 @@ class PhotoSearchTest < ActiveSupport::TestCase
   end
 
   test 'load ends_on' do
-    assert_equal Date.new(2030, 1, 31), PhotoSearch.new(ends_on: '2030-01-31').load.ends_on
-    assert_equal Date.current, PhotoSearch.new(ends_on: 'invalid').load.ends_on
+    assert_equal Date.new(2030, 1, 31).end_of_day, PhotoSearch.new(ends_on: '2030-01-31').load.ends_on
+    assert_equal Time.zone.today.end_of_day, PhotoSearch.new(ends_on: 'invalid').load.ends_on
   end
 
   test 'load photos' do
