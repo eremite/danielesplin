@@ -6,6 +6,11 @@
           %h5.w-100.text-center
             - photos.each_with_index do |photo, i|
               %span.carousel-captions.collapse.text-center{ id: "#{carousel_id}-caption-#{i}", class: i.zero? && 'show' }
+                - if photo.image.attached?
+                  - url = rails_blob_path(photo.image, disposition: "attachment")
+                  = link_to url, class: 'btn btn-outline-secondary float-start' do
+                    %i.bi-download
+                    Download
                 = photo.description.to_s.html_safe
           %button.btn-close{ type: 'button', data: { bs: { dismiss: 'modal' } } }
         - interval = 'false'
