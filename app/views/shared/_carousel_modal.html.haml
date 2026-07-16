@@ -1,18 +1,22 @@
 .modal.text-dark{ id: modal_id, tabindex: "-1" }
   .modal-dialog.modal-fullscreen
     .modal-content
-      .modal-body
-        .modal-header
-          %h5.w-100.text-center
+      .modal-body.pt-1
+        .modal-header.py-2.d-flex.align-items-center.justify-content-between
+          .flex-shrink-0
             - photos.each_with_index do |photo, i|
-              %span.carousel-captions.collapse.text-center{ id: "#{carousel_id}-caption-#{i}", class: i.zero? && 'show' }
+              %span.carousel-captions.collapse{ id: "#{carousel_id}-download-#{i}", class: i.zero? && 'show' }
                 - if photo.image.attached?
                   - url = rails_blob_path(photo.image, disposition: "attachment")
-                  = link_to url, class: 'btn btn-outline-secondary float-start' do
+                  = link_to url, class: 'btn btn-sm btn-outline-secondary float-start' do
                     %i.bi-download
                     Download
+          %h5.flex-grow-1.text-center.m-0.px-3
+            - photos.each_with_index do |photo, i|
+              %span.carousel-captions.collapse{ id: "#{carousel_id}-caption-#{i}", class: i.zero? && 'show' }
                 = photo.description.to_s.html_safe
-          %button.btn-close{ type: 'button', data: { bs: { dismiss: 'modal' } } }
+          .flex-shrink-0
+            %button.btn-close{ type: 'button', data: { bs: { dismiss: 'modal' } } }
         - interval = 'false'
         - interval = (params[:interval].presence || 3).to_i * 1000 if controller_name == 'print_batches'
         - data = { bs: { interval: interval }, controller: "photo-carousel" }
@@ -24,10 +28,10 @@
                 - if photo.image.attached?
                   - css = 'd-block m-auto'
                   - if photo.image.previewable?
-                    = video_tag rails_blob_url(photo.image), controls: true, class: css, style: 'height: 70vh'
+                    = video_tag rails_blob_url(photo.image), controls: true, class: css, style: 'max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain'
                   - if photo.image.variable?
                     .text-muted.float-end= l photo.at if photo.at?
-                    = image_tag photo.image, class: css, style: 'height: 90vh'
+                    = image_tag photo.image, class: css, style: 'max-width: 100%; max-height: 90vh; width: auto; height: auto; object-fit: contain'
           %button.carousel-control-prev{ type: 'button', data: { bs: { target: "##{carousel_id}", slide: 'prev' } } }
             %span.carousel-control-prev-icon{ aria: { hidden: true } }
             %span.visually-hidden Previous

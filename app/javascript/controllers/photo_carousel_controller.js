@@ -23,11 +23,13 @@ export default class extends Controller {
   showCaption(event) {
     const nextIndex = event.to
     const targetCaption = document.getElementById(`${this.element.id}-caption-${nextIndex}`)
+    const targetDownload = document.getElementById(`${this.element.id}-download-${nextIndex}`)
 
     Array.from(document.querySelectorAll('.carousel-captions')).forEach(function(captionElement) {
       captionElement.classList.remove('show');
     })
     if (targetCaption) targetCaption.classList.add('show')
+    if (targetDownload) targetDownload.classList.add('show')
   }
 
   openPhoto({ params: { photoId } }) {
