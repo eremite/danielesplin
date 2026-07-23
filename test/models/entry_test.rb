@@ -24,4 +24,11 @@ class EntryTest < ActiveSupport::TestCase
     assert entry.suggested_tags.exists?(name: 'suggested')
   end
 
+  test 'update_period_cache!' do
+    entry = entries(:base)
+    entry.entry_tag_list.add('period')
+    entry.save
+    assert entry.update_period_cache!
+  end
+
 end

@@ -30,4 +30,23 @@ class Entry < ApplicationRecord
     self.class.tags.where.not(id: entry_tag_ids)
   end
 
+  def update_period_cache!
+    return unless entry_tags.map(&:name).include?('period')
+    period_started_on = Rails.cache.read('period_started_on')
+    return unless period_started_on.nil? || at.to_date.after?(period_started_on)
+    Rails.cache.write('period_started_on', at.to_date, expires_in: 40.days)
+    Rails.cache.write('period_average_length', average_period_length, expires_in: 40.days)
+  end
+
+  private
+
+  def average_period_length(limit: 12)
+    tagged_ats = user.entries.tagged_with('period', on: :entry_tags).order(at: :desc).limit(limit + 1).pluck(:at)
+    return 0 if tagged_ats.size < 2
+    periods_in_days = tagged_ats.reverse.each_cons(2).map do |earlier, later|
+      (later.to_date - earlier.to_date).to_i
+    end
+    (periods_in_days.sum / periods_in_days.size.to_f).round
+  end
+
 end

@@ -18,6 +18,7 @@ class EntriesController < ApplicationController
     respond_to do |format|
       format.html do
         if @entry.update(safe_params)
+          @entry.update_period_cache!
           redirect_to @entry.after_create_redirect_url
         else
           render :edit

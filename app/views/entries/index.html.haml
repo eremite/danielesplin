@@ -25,6 +25,21 @@
         %i.bi-printer
         Print by Year
 
+  - period_started_on = Rails.cache.read('period_started_on')
+  - if period_started_on.present?
+    %hr
+      .d-flex.justify-content-between
+        %h5.d-inline Day of Cycle
+        %span= (Date.current - period_started_on).to_i + 1
+      - period_average_length = Rails.cache.read('period_average_length')
+      - if period_average_length.present?
+        .d-flex.justify-content-between
+          %h6.d-inline Average Cycle Length
+          %span= period_average_length
+        .d-flex.justify-content-between
+          %h6.d-inline Estimaged Start
+          %span= l(period_started_on + period_average_length.days)
+
   %hr
   %h3 Search
   = form_with model: @entry_search, url: :entries, method: :get do |f|
