@@ -4,11 +4,12 @@
 
   .row
     %h3.mb-3 Upload Photos
-    = form_with model: PhotoBatch.new, html: { multipart: true  } do |f|
+    = form_with model: PhotoBatch.new, html: { multipart: true  }, data: { controller: 'direct-upload' } do |f|
       .mb-3
-        = f.file_field :images, multiple: true, direct_upload: true, class: "form-control"
+        = f.file_field :images, multiple: true, direct_upload: true, class: 'form-control mb-3', data: { direct_upload_target: 'input' }
+        .direct-uploads-container{ data: { direct_upload_target: 'uploadsContainer' } }
       .mb-3.d-grid
-        = f.submit "Save", class: "btn btn-primary"
+        = f.submit 'Save', class: 'btn btn-primary', data: { direct_upload_target: 'submit' }
 
   %hr
   %h3 Search
