@@ -16,7 +16,7 @@ export default class extends Controller {
 
   startAutoSaving() {
     this.autosaveTimer = setInterval(() => {
-      let form = this.editorTarget.inputElement.form
+      let form = this.editorTarget.closest('form')
       fetch(form.action, {
         method: form.method,
         body: new URLSearchParams(new FormData(form)),

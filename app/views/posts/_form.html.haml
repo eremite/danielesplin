@@ -6,7 +6,6 @@
     = f.datetime_field :at, class: 'form-control', tabindex: 1
   .mb-3
     = f.label :body, class: 'form-label'
-    = f.hidden_field :body, id: 'trix-editor-content'
-    <trix-editor input="trix-editor-content" autofocus="true" tabindex=2></trix-editor>
+    = f.rich_text_area :body, autofocus: true, tabindex: 2
   .mb-3
     = f.submit 'Save', class: 'btn btn-primary', tabindex: 4

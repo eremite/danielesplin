@@ -12,6 +12,7 @@ gem 'image_processing'
 gem 'importmap-rails'
 gem 'kamal', require: false
 gem 'kaminari'
+gem 'lexxy'
 gem 'propshaft'
 gem 'puma'
 gem 'ruby-vips'

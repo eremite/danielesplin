@@ -11,8 +11,7 @@
     = f.text_field :kind, class: 'form-control', tabindex: 2, data: { tag_inserter_target: "input" }
   .mb-3
     = f.label :body, class: 'form-label'
-    = f.hidden_field :body, id: 'trix-editor-content'
-    <trix-editor input="trix-editor-content" autofocus="true"></trix-editor>
+    = f.rich_text_area :body, autofocus: true
   .mb-3
     = f.label :meta, class: 'form-label'
     = f.text_area :meta, rows: 3, class: 'form-control', tabindex: 4

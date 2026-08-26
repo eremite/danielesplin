@@ -12,8 +12,7 @@
     = f.label :hidden, class: 'form-check-label', for: 'photo_hidden'
   .mb-3
     = f.label :description, class: 'form-label'
-    = f.hidden_field :description, id: 'trix-editor-content'
-    <trix-editor input="trix-editor-content" autofocus="true"></trix-editor>
+    = f.rich_text_area :description, autofocus: true
   .mb-3{ data: { controller: "tag-inserter" } }
     = f.label :photo_tag_list, class: 'form-label'
     %p
