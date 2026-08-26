@@ -7,7 +7,7 @@
         %i.bi-play-circle.position-absolute{ style: play_styles }
       - if photo.image.representable?
         - thumbnail = photo.image.representation(resize_to_limit: [250, 200])
-        = image_tag thumbnail, class: 'figure-img img-thumbnail', loading: 'lazy', decoding: 'async'
+        = image_tag thumbnail, class: 'figure-img img-thumbnail', loading: 'lazy', decoding: 'async', width: 250, height: 200
     %figcaption.figure-caption{ style: 'display: table-caption; caption-side: bottom' }
       = link_to [:edit, photo, { redirect_to: request.fullpath }], class: 'text-white text-decoration-none' do
         - if photo.description.to_s.gsub(/\s/, '').blank?
