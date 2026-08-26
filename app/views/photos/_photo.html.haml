@@ -7,12 +7,7 @@
         %i.bi-play-circle.position-absolute{ style: play_styles }
       - if photo.image.representable?
         - thumbnail = photo.image.representation(resize_to_limit: [250, 200])
-        - if defined?(photo_counter).present?
-          - data = { thumbnail_url: url_for(thumbnail) }
-          - data[:loading_delay] = photo_counter if defined?(photo_counter).present?
-          = image_tag '/loading.png', class: 'figure-img img-thumbnail', data: data
-        - else
-          = image_tag thumbnail, class: 'figure-img img-thumbnail'
+        = image_tag thumbnail, class: 'figure-img img-thumbnail', loading: 'lazy', decoding: 'async'
     %figcaption.figure-caption{ style: 'display: table-caption; caption-side: bottom' }
       = link_to [:edit, photo, { redirect_to: request.fullpath }], class: 'text-white text-decoration-none' do
         - if photo.description.to_s.gsub(/\s/, '').blank?

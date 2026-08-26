@@ -7,10 +7,6 @@ export default class extends Controller {
       this.showCaption = this.showCaption.bind(this)
       this.element.addEventListener('slide.bs.carousel', this.showCaption)
     }
-    let imgElement = this.element.querySelector('img')
-    if (imgElement && imgElement.dataset.loadingDelay) {
-      this.timeout = setTimeout(() =>{ imgElement.src = imgElement.dataset.thumbnailUrl }, parseInt(imgElement.dataset.loadingDelay) * 500)
-    }
   }
 
   disconnect() {
