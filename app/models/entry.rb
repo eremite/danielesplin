@@ -35,18 +35,20 @@ class Entry < ApplicationRecord
     period_started_on = Rails.cache.read('period_started_on')
     return unless period_started_on.nil? || at.to_date.after?(period_started_on)
     Rails.cache.write('period_started_on', at.to_date, expires_in: 40.days)
-    Rails.cache.write('period_average_length', average_period_length, expires_in: 40.days)
+    period_lengths = period_lengths_in_days
+    return unless period_lengths.many?
+    Rails.cache.write('period_lengths', period_lengths, expires_in: 40.days)
+    Rails.cache.write('period_average_length', period_lengths.sum / period_lengths.size.to_f, expires_in: 40.days)
   end
 
   private
 
-  def average_period_length(limit: 12)
+  def period_lengths_in_days(limit: 12)
     tagged_ats = user.entries.tagged_with('period', on: :entry_tags).order(at: :desc).limit(limit + 1).pluck(:at)
-    return 0 if tagged_ats.size < 2
-    periods_in_days = tagged_ats.reverse.each_cons(2).map do |earlier, later|
+    return [] if tagged_ats.size < 2
+    tagged_ats.reverse.each_cons(2).map do |earlier, later|
       (later.to_date - earlier.to_date).to_i
     end
-    (periods_in_days.sum / periods_in_days.size.to_f).round
   end
 
 end

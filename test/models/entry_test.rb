@@ -28,7 +28,7 @@ class EntryTest < ActiveSupport::TestCase
     entry = entries(:base)
     entry.entry_tag_list.add('period')
     entry.save
-    assert entry.update_period_cache!
+    assert_nil entry.update_period_cache!
   end
 
 end

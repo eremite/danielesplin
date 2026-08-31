@@ -37,8 +37,13 @@
           %h6.d-inline Average Cycle Length
           %span= period_average_length
         .d-flex.justify-content-between
-          %h6.d-inline Estimaged Start
+          %h6.d-inline Estimated Start
           %span= l(period_started_on + period_average_length.days)
+        - period_lengths = Rails.cache.read('period_lengths')
+        - if period_lengths.present?
+          .d-flex.justify-content-between
+            %h6.d-inline Last 6 Lengths
+            %span= period_lengths.last(6).join(', ')
 
   %hr
   %h3 Search
