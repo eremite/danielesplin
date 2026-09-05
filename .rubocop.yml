@@ -7,8 +7,7 @@ AllCops:
     - 'bin/**/*'
     - 'config.ru'
     - 'config/**/*'
-    - 'db/cache_schema.rb'
-    - 'db/schema.rb'
+    - 'db/*schema.rb'
     - 'script/**/*'
 
 # I don't like empty lines in methods.
