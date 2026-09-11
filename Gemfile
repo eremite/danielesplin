@@ -15,6 +15,7 @@ gem 'kaminari'
 gem 'lexxy'
 gem 'propshaft'
 gem 'puma'
+gem 'ruby_llm'
 gem 'ruby-vips'
 gem 'solid_cable'
 gem 'solid_cache'
@@ -35,5 +36,6 @@ group :development do
 end
 
 group :test do
+  gem 'minitest-mock'
   gem 'minitest-stub_any_instance'
 end

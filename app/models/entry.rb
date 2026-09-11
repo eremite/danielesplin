@@ -7,6 +7,8 @@ class Entry < ApplicationRecord
 
   validates :body, presence: true, on: :update
 
+  before_save :reset_embedding_if_needed
+
   paginates_per 7
 
   scope :at_asc, -> { order(arel_table[:at].asc) }
@@ -49,6 +51,10 @@ class Entry < ApplicationRecord
     tagged_ats.reverse.each_cons(2).map do |earlier, later|
       (later.to_date - earlier.to_date).to_i
     end
+  end
+
+  def reset_embedding_if_needed
+    self.embedding = nil if body_changed? || (embedding.present? && entry_tag_list.map(&:downcase).exclude?('ai'))
   end
 
 end

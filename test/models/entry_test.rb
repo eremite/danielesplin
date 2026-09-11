@@ -31,4 +31,10 @@ class EntryTest < ActiveSupport::TestCase
     assert_nil entry.update_period_cache!
   end
 
+  test 'reset_embedding_if_needed' do
+    entry = entries(:base).tap { |e| e.update!(embedding: [1], body: 'Old', entry_tag_list: 'ai') }
+    entry.update(body: 'New')
+    assert_nil entry.embedding
+  end
+
 end
