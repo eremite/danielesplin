@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get "up", to: "rails/health#show", as: :rails_health_check
 
+  resources :chats, only: %i[new create]
   resources :comments, only: [:create, :edit, :update, :destroy]
   resources :decider_lists, only: [:index, :create, :show, :destroy], shallow: true do
     resources :decider_list_items, only: %i[create destroy]
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
   post 'pick/:id', to: 'decider_list_picker#create'
   get 'ff', to: 'photo_frames#index'
   get 'ff/:id', to: 'photo_frames#show'
+  get 'ai', to: 'chats#new'
 
   resources :sessions, only: [:create, :destroy]
   delete 'logout', to: 'sessions#destroy', as: 'logout'

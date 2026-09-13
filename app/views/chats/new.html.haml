@@ -1,0 +1,9 @@
+= form_with model: @chat do |f|
+  .input-group
+    = f.text_field :query, class: 'form-control', placeholder: 'Ask anything', autofocus: true
+    = f.submit 'Submit', class: 'btn btn-primary'
+
+- if @chat.content.present?
+  .card
+    .card-body
+      = sanitize @chat.content
