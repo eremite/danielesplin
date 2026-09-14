@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_09_192649) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_14_195800) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -94,6 +94,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_09_192649) do
     t.date "on"
     t.datetime "updated_at"
     t.integer "value"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "dismissed_at"
+    t.datetime "liked_at"
+    t.string "title"
+    t.string "tone"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_lessons_on_user_id"
   end
 
   create_table "log_entries", force: :cascade do |t|
@@ -186,4 +198,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_09_192649) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "entries", "users", column: "creator_id"
+  add_foreign_key "lessons", "users"
 end

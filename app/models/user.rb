@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
   has_many :entries, dependent: :destroy
+  has_many :lessons, dependent: :destroy
   has_many :log_entries, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :photos, dependent: :destroy

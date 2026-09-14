@@ -1,0 +1,28 @@
+- content_for(:title) { 'Lessons' }
+
+- if @lessons.empty?
+  .card.shadow-sm.border-0.text-center.p-5.mt-4
+    .card-body
+      %h3.h4.text-muted.mb-0 No lessons yet
+- else
+  .d-flex.flex-column.gap-3.mt-4
+    - @lessons.each do |lesson|
+      .card.shadow-sm.border-0
+        .card-header.bg-body-tertiary.d-flex.justify-content-between.align-items-center
+          %h2.h5.mb-0.fw-semibold= lesson.title
+          %span #{l(lesson.created_at)}
+        .card-body.text-body-secondary
+          = sanitize lesson.body
+        .card-footer.bg-transparent.text-body-tertiary.small.d-flex.justify-content-between.align-items-center
+          .footer-left
+            - if lesson.tone.present?
+              %span= lesson.tone
+          .footer-right.d-flex.align-items-center.gap-2
+            - if lesson.liked_at.present?
+              %span.badge.bg-success-subtle.text-success-emphasis
+                Liked #{l(lesson.liked_at, format: :short)}
+            - if lesson.dismissed_at.present?
+              %span.badge.bg-secondary-subtle.text-secondary-emphasis
+                Dismissed #{l(lesson.dismissed_at, format: :short)}
+
+  .mt-3= paginate @lessons

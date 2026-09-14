@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :entries, only: [:index, :create, :edit, :update, :destroy]
   resources :entry_batches, only: %i[new create]
   resources :inventory_items
+  resources :lessons, only: %i[index]
   resources :notes
   resources :pages, only: [:index]
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
