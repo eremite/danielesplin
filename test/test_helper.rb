@@ -12,13 +12,10 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
-    # Add more helper methods to be used by all tests here...
     def login(fixture_key)
-      post '/sessions', params: { email: users(fixture_key).email, password: 'secret' }
-    end
-
-    def login_as(user)
-      user.tap { |u| @request.session['user_id'] = u.try(:id) }
+      user = users(fixture_key)
+      post '/sessions', params: { email: user.email, password: 'secret' }
+      user
     end
 
     def logout

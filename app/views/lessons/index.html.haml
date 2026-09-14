@@ -21,8 +21,12 @@
             - if lesson.liked_at.present?
               %span.badge.bg-success-subtle.text-success-emphasis
                 Liked #{l(lesson.liked_at, format: :short)}
+            - else
+              = button_to 'Like', [lesson, :lesson_likes], class: 'btn btn-sm btn-outline-success'
             - if lesson.dismissed_at.present?
               %span.badge.bg-secondary-subtle.text-secondary-emphasis
                 Dismissed #{l(lesson.dismissed_at, format: :short)}
+            - else
+            = button_to 'Dismiss', [lesson, :lesson_dismissals], class: 'btn btn-sm btn-outline-danger'
 
   .mt-3= paginate @lessons

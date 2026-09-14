@@ -1,7 +1,7 @@
 class LessonsController < ApplicationController
 
   def index
-    @lessons = Current.user.lessons.page(params[:page])
+    @lessons = Current.user.lessons.where(dismissed_at: nil).order(created_at: :asc).page(params[:page])
   end
 
   private
