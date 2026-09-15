@@ -16,3 +16,6 @@ production:
   generate_embeddings:
     class: GenerateEntryEmbeddingsJob
     schedule: every 2 hours
+  generate_lessons:
+    class: GenerateLessonsJob
+    schedule: every 4 hours
