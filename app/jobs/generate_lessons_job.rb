@@ -6,7 +6,7 @@ class GenerateLessonsJob < ApplicationJob
     User.where(role: %w[father mother child]).find_each do |user|
       next if user.lessons.exists?(created_at: (4.hours - 5.minutes).ago..)
       entry_ids_with_embeddings = user.entries.where.not(embedding: nil).ids
-      next if entry_ids_with_embeddings.present?
+      next if entry_ids_with_embeddings.empty?
       lesson = user.lessons.new(body: chat_model.ask(lesson_prompt(user, entry_ids_with_embeddings)).content)
       lesson.title = chat_model.ask(title_prompt(lesson.body)).content
       lesson.tone = chat_model.ask(tone_prompt(lesson.body)).content
@@ -23,13 +23,17 @@ class GenerateLessonsJob < ApplicationJob
   end
 
   def lesson_prompt(user, entry_ids_with_embeddings)
-    <<~PROMPT
-      Select a specific topic or idea from the following entries and generate a short lesson (roughly 100 to 500 words) with useful practical knowledge.
+    prompt = <<~PROMPT
+      Select a specific topic or idea from the following entries and generate a short lesson (roughly 100 to 500 words)
+      with useful practical knowledge.
       Entries: #{context_entries(entry_ids_with_embeddings.sample(5))}
       ---
-      Avoid these recent topics: #{recent_topics(user)}.
-      The user likes: #{tone_of_liked_lessons(user)}.
     PROMPT
+    topics = recent_topics(user)
+    prompt << "Avoid these recent topics: #{topics}." if topics.present?
+    tone = tone_of_liked_lessons(user)
+    prompt << "The user likes: #{tone}." if tone.present?
+    prompt
   end
 
   def title_prompt(lesson_body)
