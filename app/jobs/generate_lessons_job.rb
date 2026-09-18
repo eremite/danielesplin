@@ -24,8 +24,8 @@ class GenerateLessonsJob < ApplicationJob
 
   def lesson_prompt(user, entry_ids_with_embeddings)
     prompt = <<~PROMPT
-      Select a specific topic or idea from the following entries and generate a short lesson (roughly 100 to 500 words)
-      with useful practical knowledge.
+      Select a specific topic, idea or question from the following entries and generate a short lesson (roughly 100 to 500 words)
+      with useful practical knowledge. Format in html, not markdown.
       Entries: #{context_entries(entry_ids_with_embeddings.sample(5))}
       ---
     PROMPT
@@ -37,13 +37,13 @@ class GenerateLessonsJob < ApplicationJob
   end
 
   def title_prompt(lesson_body)
-    "Generate a brief (less than 255 characters) summary title for the following:\n#{lesson_body}"
+    "Generate a short title (just a few words, no markdown) for the following:\n#{lesson_body}"
   end
 
   def tone_prompt(lesson_body)
     <<~PROMPT
-      Generate a brief (less than 255 characters) description of the tone, format and presentation of this content to
-      create more like it in the future.
+      Generate a short succinct description (no markdown) of one or two elmeents of the tone, format and/or presentation of this
+      content to create more like it in the future.
       #{lesson_body}
     PROMPT
   end
