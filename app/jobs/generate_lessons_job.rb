@@ -8,8 +8,8 @@ class GenerateLessonsJob < ApplicationJob
       entry_ids_with_embeddings = user.entries.where.not(embedding: nil).ids
       next if entry_ids_with_embeddings.empty?
       lesson = user.lessons.new(body: chat_model.ask(lesson_prompt(user, entry_ids_with_embeddings)).content)
-      lesson.title = chat_model.ask(title_prompt(lesson.body)).content
-      lesson.tone = chat_model.ask(tone_prompt(lesson.body)).content
+      lesson.title = chat_model.ask(title_prompt(lesson.body)).content.to_s.first(255)
+      lesson.tone = chat_model.ask(tone_prompt(lesson.body)).content.to_s.first(255)
       lesson.save!
     end
   rescue RubyLLM::Error => e
@@ -37,14 +37,11 @@ class GenerateLessonsJob < ApplicationJob
   end
 
   def title_prompt(lesson_body)
-    chat_model.ask(<<~PROMPT).content.first(255)
-      Generate a brief (less than 255 characters) summary title for the following:
-      #{lesson_body}
-    PROMPT
+    "Generate a brief (less than 255 characters) summary title for the following:\n#{lesson_body}"
   end
 
   def tone_prompt(lesson_body)
-    chat_model.ask(<<~PROMPT).content.first(255)
+    <<~PROMPT
       Generate a brief (less than 255 characters) description of the tone, format and presentation of this content to
       create more like it in the future.
       #{lesson_body}
