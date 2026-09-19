@@ -13,6 +13,7 @@ gem 'importmap-rails'
 gem 'kamal', require: false
 gem 'kaminari'
 gem 'lexxy'
+gem 'mission_control-jobs'
 gem 'propshaft'
 gem 'puma'
 gem 'ruby_llm'
