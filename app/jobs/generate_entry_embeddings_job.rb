@@ -8,8 +8,6 @@ class GenerateEntryEmbeddingsJob < ApplicationJob
       entries.each_with_index do |entry, index|
         entry.update_columns(embedding: embedding_result.vectors[index])
       end
-    rescue RubyLLM::Error => e
-      Rails.logger.error("GenerateEntryEmbeddingsJob: Batch embedding failed: #{e.message}")
     end
   end
 

@@ -12,8 +12,6 @@ class GenerateLessonsJob < ApplicationJob
       lesson.tone = chat_model.ask(tone_prompt(lesson.body)).content.to_s.first(255)
       lesson.save!
     end
-  rescue RubyLLM::Error => e
-    Rails.logger.error("GenerateLessonsJob: #{e.message}")
   end
 
   private
