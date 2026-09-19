@@ -23,5 +23,7 @@ module Danielesplin
     #
     config.time_zone = "Mountain Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.mission_control.jobs.http_basic_auth_enabled = false
   end
 end

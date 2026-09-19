@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorized?
+    return true if self.class.module_parent_name == 'MissionControl::Jobs' && Current.user&.parent?
     false
   end
 

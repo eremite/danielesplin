@@ -41,9 +41,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy', as: 'logout'
   get 'logout', to: 'sessions#destroy'
 
-  constraints ->(request) { request.session[:user_id] && User.find_by(id: request.session[:user_id])&.parent? } do
-    mount MissionControl::Jobs::Engine, at: "/jobs"
-  end
+  mount MissionControl::Jobs::Engine, at: "/jobs"
 
   root to: 'pages#index'
 
