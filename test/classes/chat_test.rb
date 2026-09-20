@@ -10,7 +10,7 @@ class ChatTest < ActiveSupport::TestCase
 
   test 'ask!' do
     chat = Chat.new(query: 'Why?')
-    RubyLLM::Chat.stub_any_instance :ask, Data.define(:content).new(content: 'Why not?') do
+    AI.stub :ask, 'Why not?' do
       chat.ask!
     end
     assert_equal 'Why not?', chat.content

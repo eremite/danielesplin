@@ -7,18 +7,14 @@ class GenerateLessonsJob < ApplicationJob
       next if user.lessons.exists?(created_at: (4.hours - 5.minutes).ago..)
       entry_ids_with_embeddings = user.entries.where.not(embedding: nil).ids
       next if entry_ids_with_embeddings.empty?
-      lesson = user.lessons.new(body: chat_model.ask(lesson_prompt(user, entry_ids_with_embeddings)).content)
-      lesson.title = chat_model.ask(title_prompt(lesson.body)).content.to_s.first(255)
-      lesson.tone = chat_model.ask(tone_prompt(lesson.body)).content.to_s.first(255)
+      lesson = user.lessons.new(body: AI.ask(lesson_prompt(user, entry_ids_with_embeddings)))
+      lesson.title = AI.ask(title_prompt(lesson.body)).to_s.first(255)
+      lesson.tone = AI.ask(tone_prompt(lesson.body)).to_s.first(255)
       lesson.save!
     end
   end
 
   private
-
-  def chat_model
-    RubyLLM.chat(model: 'gemini-3.6-flash')
-  end
 
   def lesson_prompt(user, entry_ids_with_embeddings)
     prompt = <<~PROMPT

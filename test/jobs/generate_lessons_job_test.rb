@@ -6,7 +6,7 @@ class GenerateLessonsJobTest < ActiveJob::TestCase
     entry = entries(:base).tap { |e| e.update_columns(embedding: [1]) }
     user = entry.user.tap { |u| u.update_columns(role: 'father') }
     user.lessons.destroy_all
-    RubyLLM::Chat.stub_any_instance :ask, Data.define(:content).new(content: 'Lesson!') do
+    AI.stub :ask, 'Lesson!' do
       GenerateLessonsJob.perform_now
     end
     lesson = Lesson.last

@@ -4,9 +4,9 @@ class GenerateEntryEmbeddingsJob < ApplicationJob
 
   def perform
     entries.find_in_batches(batch_size: 20) do |entries|
-      embedding_result = RubyLLM.embed(entries.map(&:body), model: 'gemini-embedding-2', dimensions: 768)
+      vectors = AI.embed(entries.map(&:body))
       entries.each_with_index do |entry, index|
-        entry.update_columns(embedding: embedding_result.vectors[index])
+        entry.update_columns(embedding: vectors[index])
       end
     end
   end
