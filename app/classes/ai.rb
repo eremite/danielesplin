@@ -4,6 +4,6 @@ module AI
   end
 
   def self.ask(prompt)
-    RubyLLM.chat(model: 'missing').ask(prompt).content
+    RubyLLM.chat(model: 'gemini-3.6-flash').ask(prompt).content
   end
 end
