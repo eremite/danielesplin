@@ -2,6 +2,8 @@ class GenerateLessonsJob < ApplicationJob
 
   queue_as :default
 
+  retry_on RubyLLM::ServiceUnavailableError, attempts: 3, wait: 5.minutes
+
   def perform
     User.where(role: %w[father mother child]).find_each do |user|
       next if user.lessons.exists?(created_at: (4.hours - 5.minutes).ago..)

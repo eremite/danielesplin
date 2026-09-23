@@ -21,8 +21,13 @@
               Photos
           - if Current.user.father?
             %li.nav-item
-              = link_to :notes, class: "nav-link #{"active" if controller.controller_name == "notes" }" do
-                Study
+              = link_to :lessons, class: "nav-link #{"active" if controller.controller_name == "lessons" }" do
+                %i.bi-mortarboard-fill
+                Lessons
+            %li.nav-item
+              = link_to '/jobs', class: 'nav-link' do
+                %i.bi.bi-wrench-adjustable-circle
+                Jobs
           - if Current.user.parent?
             %li.nav-item.dropdown
               = link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdown", role: "button", data: { "bs-toggle": "dropdown" }, "aria-expanded": false do
@@ -32,7 +37,7 @@
                 %li= link_to 'Household Inventory', :inventory_items, class: "dropdown-item"
                 %li= link_to 'Decider Lists', :decider_lists, class: "dropdown-item"
                 - if Current.user.father?
-                  %li= link_to 'Jobs', '/jobs', class: 'dropdown-item'
+                  %li= link_to 'Notes', :notes, class: 'dropdown-item'
         %li.nav-item.dropdown
           = link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdownUser", role: "button", data: { "bs-toggle": "dropdown" }, "aria-expanded": false do
             = Current.user.name

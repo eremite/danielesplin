@@ -18,4 +18,4 @@ production:
     schedule: every 2 hours
   generate_lessons:
     class: GenerateLessonsJob
-    schedule: every 3 hours
+    schedule: every 4 hours
