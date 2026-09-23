@@ -9,7 +9,9 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
 
   test 'create' do
     AI.stub :ask, 'Carefully' do
-      post '/chats', params: { chat: { query: 'How?' } }
+      AI.stub :embed, [1] do
+        post '/chats', params: { chat: { query: 'How?' } }
+      end
     end
     assert_response :unprocessable_content
   end

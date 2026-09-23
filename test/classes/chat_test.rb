@@ -11,7 +11,9 @@ class ChatTest < ActiveSupport::TestCase
   test 'ask!' do
     chat = Chat.new(query: 'Why?')
     AI.stub :ask, 'Why not?' do
-      chat.ask!
+      AI.stub :embed, [1] do
+        chat.ask!
+      end
     end
     assert_equal 'Why not?', chat.content
   end
