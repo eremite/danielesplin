@@ -6,6 +6,15 @@ on:
     branches: [ main ]
 
 jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Run Rubocop
+        run: docker compose run web rubocop
   brakeman:
     runs-on: ubuntu-latest
 
