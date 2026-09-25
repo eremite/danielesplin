@@ -13,7 +13,6 @@ class GenerateLessonsJobTest < ActiveJob::TestCase
     assert_not_nil lesson
     assert_equal 'Lesson!', lesson.body
     assert_equal 'Lesson!', lesson.title
-    assert_equal 'Lesson!', lesson.tone
   end
 
 end

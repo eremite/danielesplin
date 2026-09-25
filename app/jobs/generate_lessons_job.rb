@@ -11,7 +11,6 @@ class GenerateLessonsJob < ApplicationJob
       next if entry_ids_with_embeddings.empty?
       lesson = user.lessons.new(body: AI.ask(lesson_prompt(user, entry_ids_with_embeddings)))
       lesson.title = AI.ask(title_prompt(lesson.body)).to_s.first(255)
-      lesson.tone = AI.ask(tone_prompt(lesson.body)).to_s.first(255)
       lesson.save!
     end
   end
@@ -27,21 +26,11 @@ class GenerateLessonsJob < ApplicationJob
     PROMPT
     topics = recent_topics(user)
     prompt << "Avoid these recent topics: #{topics}." if topics.present?
-    tone = tone_of_liked_lessons(user)
-    prompt << "The user likes: #{tone}." if tone.present?
     prompt
   end
 
   def title_prompt(lesson_body)
     "Generate a short title (just a few words, no markdown) for the following:\n#{lesson_body}"
-  end
-
-  def tone_prompt(lesson_body)
-    <<~PROMPT
-      Generate a single short succinct sentence (no markdown) of one or two elmeents of the tone, format and/or
-      presentation of this content to create more like it in the future.
-      #{lesson_body}
-    PROMPT
   end
 
   def recent_topics(user)
@@ -50,10 +39,6 @@ class GenerateLessonsJob < ApplicationJob
 
   def context_entries(entry_ids_with_embeddings)
     Entry.where(id: entry_ids_with_embeddings).map { |e| "#{e.at}\n#{e.body}" }.join("\n---\n")
-  end
-
-  def tone_of_liked_lessons(user)
-    user.lessons.where.not(liked_at: nil).order(created_at: :desc).limit(3).pluck(:tone).join(', ')
   end
 
 end
