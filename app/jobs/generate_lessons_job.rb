@@ -20,8 +20,8 @@ class GenerateLessonsJob < ApplicationJob
   def lesson_prompt(user, entry_ids_with_embeddings)
     prompt = <<~PROMPT
       Select a specific topic, idea or question from the following entries and generate a short (less than 400 words)
-      lesson with useful practical knowledge. Be succinct! Format in html.
-      Entries: #{context_entries(entry_ids_with_embeddings.sample(5))}
+      lesson with practical knowledge or fascinating information. Be succinct! Format in html.
+      Entries: #{context_entries(entry_ids_with_embeddings.sample(3))}
       ---
     PROMPT
     topics = recent_topics(user)
@@ -34,7 +34,7 @@ class GenerateLessonsJob < ApplicationJob
   end
 
   def recent_topics(user)
-    user.lessons.order(created_at: :desc).limit(6).pluck(:title).join(', ')
+    user.lessons.order(created_at: :desc).limit(10).pluck(:title).join(', ')
   end
 
   def context_entries(entry_ids_with_embeddings)
