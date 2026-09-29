@@ -16,7 +16,7 @@ gem 'lexxy'
 gem 'mission_control-jobs'
 gem 'propshaft'
 gem 'puma'
-gem 'ruby_llm'
+gem 'ruby_llm', require: false
 gem 'ruby-vips'
 gem 'solid_cable'
 gem 'solid_cache'
