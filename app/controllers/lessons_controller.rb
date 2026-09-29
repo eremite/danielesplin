@@ -8,8 +8,7 @@ class LessonsController < ApplicationController
   private
 
   def authorized?
-    return true unless Rails.env.production?
-    ENV['PHOTO_FRAME_IP'].to_s.split.include?(request.remote_ip)
+    Current.user&.parent? || Current.user&.child?
   end
 
 end
