@@ -19,7 +19,7 @@ module ActiveSupport
     end
 
     def logout
-      @request.session['user_id'] = nil
+      delete '/logout'
     end
 
   end

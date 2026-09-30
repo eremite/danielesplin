@@ -35,7 +35,7 @@
       - if period_average_length.present?
         .d-flex.justify-content-between
           %h6.d-inline Average Cycle Length
-          %span= period_average_length
+          %span= number_with_precision period_average_length, precision: 2, significant: true
         .d-flex.justify-content-between
           %h6.d-inline Estimated Start
           %span= l(period_started_on + period_average_length.days)
