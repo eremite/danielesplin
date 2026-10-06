@@ -1,4 +1,4 @@
-= form_with model: @entry, data: { controller: "autosave", autosave_interval_value: 5000 } do |f|
+= form_with model: @entry, data: { controller: 'autosave', autosave_interval_value: 5000 } do |f|
   - if f.object.errors.any?
     .alert.alert-danger
       = f.object.errors.full_messages.to_sentence
@@ -20,9 +20,9 @@
         = f.label nil, user.name, class: 'btn btn-outline-secondary', for: "user-id-#{user.id}"
   - else
     = f.hidden_field :user_id
-  .mb-3
+  .mb-3{ data: { controller: 'expander' } }
     = f.label :body, class: 'form-label col-md-2'
-    = f.rich_text_area :body, autofocus: true, tabindex: 3, data: { autosave_target: 'editor' }
+    = f.rich_text_area :body, autofocus: true, tabindex: 3, data: { autosave_target: 'editor', action: 'keydown->expander#expand' }
   .row.mb-3
     .col-auto{ data: { controller: "tag-inserter" } }
       = f.label :entry_tag_list, class: 'form-label col-md-2'

@@ -1,7 +1,15 @@
 - content_for(:title) { 'Edit' }
 
-- if @entry.persisted?
-  - content_for :sidebar do
+- content_for :sidebar do
+  - if @entry.persisted?
     = button_to 'Delete', @entry, class: 'btn btn-outline-danger float-end', method: :delete, data: { turbo_confirm: "Are you sure you want to delete this entry?" }
+
+  .card.shadow-sm.mt-5{ data: { controller: 'expander' } }
+    .card-header.bg-body-tertiary.d-flex.justify-content-between.align-items-center
+      Replacements
+      %i.bi.bi-info-circle.text-info{ title: 'Use this to do things like automatically replacing "LR" with "Lava Ridge".' }
+
+    %ul.list-group.list-group-flush{ data: { expander_target: 'list' } }
+    .d-grid= button_to 'Add', '#', class: 'btn btn-sm btn-outline-secondary w-100', data: { action: 'click->expander#add' }
 
 = render 'form'
