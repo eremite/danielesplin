@@ -88,31 +88,32 @@ export default class extends Controller {
   }
 
   expand(event) {
-    if (event.key !== " " && event.code !== "Space") return
-    const selection = window.getSelection()
-    if (!selection.rangeCount) return
-    const range = selection.getRangeAt(0)
-    const node = range.startContainer
-    if (node.nodeType !== Node.TEXT_NODE) return
-    const cursorOffset = range.startOffset
-    const textBeforeCursor = node.textContent.slice(0, cursorOffset)
-    const match = textBeforeCursor.match(/(^|\s)(\w+)$/)
-    if (!match) return
-    const prefixSpace = match[1]
-    const word = match[2]
-    if (!Object.prototype.hasOwnProperty.call(this.expansions, word)) return
-    const replacement = this.expansions[word]
-    event.preventDefault()
-    const matchIndex = match.index + prefixSpace.length
-    const expandedText = replacement + " "
-    const newText = node.textContent.slice(0, matchIndex) + expandedText + node.textContent.slice(cursorOffset)
-    node.textContent = newText
-    const newCursorPosition = matchIndex + expandedText.length
-    const newRange = document.createRange()
-    newRange.setStart(node, newCursorPosition)
-    newRange.collapse(true)
-    selection.removeAllRanges()
-    selection.addRange(newRange)
-    this.element.dispatchEvent(new Event("input", { bubbles: true }))
+    // Allow space, standard punctuation, and symbols as triggers
+    if (!/^[\s\p{P}\p{S}]$/u.test(event.key)) return;
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+    const range = selection.getRangeAt(0);
+    const node = range.startContainer;
+    if (node.nodeType !== Node.TEXT_NODE) return;
+    const cursorOffset = range.startOffset;
+    const textBeforeCursor = node.textContent.slice(0, cursorOffset);
+    const match = textBeforeCursor.match(/(^|\s)(\w+)$/);
+    if (!match) return;
+    const [, prefixSpace, word] = match;
+    if (!Object.prototype.hasOwnProperty.call(this.expansions, word)) return;
+    const replacement = this.expansions[word];
+    event.preventDefault();
+    const delimiter = event.key === " " ? " " : event.key + " ";
+    const expandedText = replacement + delimiter;
+    const matchIndex = match.index + prefixSpace.length;
+    const newText = node.textContent.slice(0, matchIndex) + expandedText + node.textContent.slice(cursorOffset);
+    node.textContent = newText;
+    const newCursorPosition = matchIndex + expandedText.length;
+    const newRange = document.createRange();
+    newRange.setStart(node, newCursorPosition);
+    newRange.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(newRange);
+    this.element.dispatchEvent(new Event("input", { bubbles: true }));
   }
 }
