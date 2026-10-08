@@ -19,7 +19,7 @@ class PostAccessGrant
 
   def query
     {
-      subject: "New Update: #{post.title}",
+      subject: post.title,
       body: <<~SUBJECT
         This link will work for #{User::ACCESS_TOKEN_EXPIRES_IN.inspect}:
 

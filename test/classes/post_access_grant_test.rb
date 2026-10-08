@@ -15,7 +15,7 @@ class PostAccessGrantTest < ActiveSupport::TestCase
   test 'mailto' do
     user = users(:base)
     user.update_columns(email: 'uninformd@example.com', access_token: 't0k3n', access_token_expires_at: 1.week.from_now)
-    post = posts(:base).tap { |p| p.update_columns(body: '<h1>New News</h1>') }
+    post = posts(:base).tap { |p| p.update_columns(title: 'New News') }
     grant = PostAccessGrant.new(user: user, post: post)
     assert_includes grant.mailto, 'uninformd@example.com'
     assert_includes grant.mailto, post.id.to_s

@@ -9,8 +9,7 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new(safe_params)
-    @post.at ||= Time.zone.now
+    @post = Post.new(safe_params).with_defaults
   end
 
   def edit

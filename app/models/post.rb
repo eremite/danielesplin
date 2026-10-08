@@ -18,12 +18,16 @@ class Post < ApplicationRecord
   scope :past, -> { where(arel_table[:at].lteq(Time.zone.now)) }
   scope :future, -> { where(arel_table[:at].gt(Time.zone.now)) }
 
-  def title
-    Nokogiri::HTML(body).css('h1').text
+  def dated_title
+    title.presence || I18n.l(at.to_date, format: '%B %Y')
   end
 
-  def dated_title
-    "#{I18n.l(at.to_date)} #{title}"
+  def with_defaults
+    latest_at = Post.order(at: :desc).first&.at || return
+    next_at = latest_at.next_month.end_of_month
+    self.at ||= next_at
+    self.title ||= next_at.strftime('%B %Y')
+    self
   end
 
   def self.tags
