@@ -19,13 +19,13 @@ class GenerateLessonsJob < ApplicationJob
 
   def lesson_prompt(user, entry_ids_with_embeddings)
     prompt = <<~PROMPT
-      Select a specific topic, idea or question from the following entries and generate a short (less than 400 words)
-      lesson with practical knowledge or fascinating information. Be succinct! Format in html.
-      Entries: #{context_entries(entry_ids_with_embeddings.sample(3))}
+      Review the following entries and select a mentioned topic, idea or question and generate a short (less than 300
+      words) lesson with practical knowledge or fascinating information. Format in html, no markdown.
+      Entries: #{context_entries(entry_ids_with_embeddings.sample(5))}
       ---
     PROMPT
     topics = recent_topics(user)
-    prompt << "Avoid these recent topics: #{topics}." if topics.present?
+    prompt << "CRITICAL: Do NOT cover the same concept or theme as these recent topics: #{topics}." if topics.present?
     prompt
   end
 
@@ -34,7 +34,7 @@ class GenerateLessonsJob < ApplicationJob
   end
 
   def recent_topics(user)
-    user.lessons.order(created_at: :desc).limit(10).pluck(:title).join(', ')
+    user.lessons.order(created_at: :desc).limit(100).pluck(:title).join(', ')
   end
 
   def context_entries(entry_ids_with_embeddings)
