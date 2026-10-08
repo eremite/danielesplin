@@ -12,6 +12,7 @@
     - else
       = l(post.at.to_date, format: :long)
 
+  %h2= post.title
   .mb-3= sanitize post.body
 
   - if photos.present?

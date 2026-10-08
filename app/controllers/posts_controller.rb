@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   private
 
   def safe_params
-    params.permit(post: %i[at body post_tag_list])[:post]
+    params.permit(post: %i[at title body post_tag_list])[:post]
   end
 
   def authorized?
