@@ -2,7 +2,7 @@
   .row.mb-3
     .col-auto
       = f.label :at, class: 'form-label'
-      = f.datetime_field :at, class: 'form-control'
+      = f.datetime_field :at, step: 1, class: 'form-control'
       .form-text Uploaded #{l(f.object.created_at)}
   .mb-1
     = f.label :post_ids, nil, class: 'form-label'
