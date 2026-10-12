@@ -32,8 +32,9 @@
 
   .d-flex.justify-content-between
     - previous_post = Post.at_desc.where.not(id: post.id).find_by(at: Time.zone.at(0)..post.at)
+    - token = { params: params.permit(:access_token) }
     - if previous_post.present?
-      = link_to "Previous: #{previous_post.title.presence || l(previous_post.at.to_date)}", previous_post, class: "btn btn-info"
+      = link_to "Previous: #{previous_post.title.presence || l(previous_post.at.to_date)}", [previous_post, token], class: 'btn btn-info'
     - next_post = Post.past.at_asc.where.not(id: post.id).find_by(at: post.at..Time.current)
     - if next_post.present?
-      = link_to "Next: #{next_post.title.presence || l(next_post.at.to_date)}", next_post, class: "btn btn-info"
+      = link_to "Next: #{next_post.title.presence || l(next_post.at.to_date)}", [next_post, token], class: 'btn btn-info'
