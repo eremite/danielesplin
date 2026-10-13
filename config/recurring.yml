@@ -8,3 +8,6 @@ production:
   generate_lessons:
     class: GenerateLessonsJob
     schedule: every 2 hours
+  generate_meal_plans:
+    class: GenerateMealPlanJob
+    schedule: every Friday at 9am

@@ -6,7 +6,6 @@ class GenerateLessonsJob < ApplicationJob
 
   def perform
     User.where(role: %w[father mother child]).find_each do |user|
-      next if user.lessons.exists?(created_at: (4.hours - 5.minutes).ago..)
       entry_ids_with_embeddings = user.entries.where.not(embedding: nil).ids
       next if entry_ids_with_embeddings.empty?
       lesson = user.lessons.new(body: AI.ask(lesson_prompt(user, entry_ids_with_embeddings)))
