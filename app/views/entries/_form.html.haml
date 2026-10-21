@@ -20,9 +20,9 @@
         = f.label nil, user.name, class: 'btn btn-outline-secondary', for: "user-id-#{user.id}"
   - else
     = f.hidden_field :user_id
-  .mb-3{ data: { controller: 'expander' } }
+  .mb-3{ data: { controller: 'replacer' } }
     = f.label :body, class: 'form-label col-md-2'
-    = f.rich_text_area :body, autofocus: true, tabindex: 3, data: { autosave_target: 'editor', action: 'keydown->expander#expand' }
+    = f.rich_text_area :body, autofocus: true, tabindex: 3, data: { autosave_target: 'editor', action: 'keydown->replacer#expand' }
   .row.mb-3
     .col-auto{ data: { controller: "tag-inserter" } }
       = f.label :entry_tag_list, class: 'form-label col-md-2'

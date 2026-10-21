@@ -7,17 +7,17 @@ export default class extends Controller {
   }
 
   connect() {
-    this.loadExpansions()
+    this.loadReplacements()
     this.handleUpdate = () => {
-      this.loadExpansions()
+      this.loadReplacements()
       this.render()
     }
-    window.addEventListener("expansions:updated", this.handleUpdate)
+    window.addEventListener("replacers:updated", this.handleUpdate)
     this.render()
   }
 
   disconnect() {
-    window.removeEventListener("expansions:updated", this.handleUpdate)
+    window.removeEventListener("replacers:updated", this.handleUpdate)
   }
 
   add(event) {
@@ -26,43 +26,43 @@ export default class extends Controller {
     if (!shortcut) return
     const replacement = prompt('What do you want to replace that with?')
     if (!replacement) return
-    this.expansions[shortcut] = replacement
-    this.saveExpansions()
+    this.replacements[shortcut] = replacement
+    this.saveReplacements()
   }
 
   remove(event) {
     event.preventDefault()
     window.e = event
     const shortcut = event.currentTarget.dataset.shortcut
-    if (shortcut in this.expansions) {
-      delete this.expansions[shortcut]
-      this.saveExpansions()
+    if (shortcut in this.replacements) {
+      delete this.replacements[shortcut]
+      this.saveReplacements()
     }
   }
 
-  loadExpansions() {
+  loadReplacements() {
     try {
       const stored = localStorage.getItem(this.storageKeyValue)
-      this.expansions = stored ? JSON.parse(stored) : {}
+      this.replacements = stored ? JSON.parse(stored) : {}
     } catch (e) {
       console.warn("Failed to parse shortcuts from localStorage", e)
-      this.expansions = {}
+      this.replacements = {}
     }
   }
 
-  saveExpansions() {
-    this.expansions = Object.fromEntries(
-      Object.entries(this.expansions).sort(([a], [b]) => a.localeCompare(b))
+  saveReplacements() {
+    this.replacements = Object.fromEntries(
+      Object.entries(this.replacements).sort(([a], [b]) => a.localeCompare(b))
     )
-    localStorage.setItem(this.storageKeyValue, JSON.stringify(this.expansions))
-    window.dispatchEvent(new CustomEvent("expansions:updated"))
+    localStorage.setItem(this.storageKeyValue, JSON.stringify(this.replacements))
+    window.dispatchEvent(new CustomEvent("replacers:updated"))
     this.render()
   }
 
   render() {
     if (!this.hasListTarget) return
-    const entries = Object.entries(this.expansions)
-    if (this.expansions.length === 0) {
+    const entries = Object.entries(this.replacements)
+    if (this.replacements.length === 0) {
       this.listTarget.innerHTML = `
         <li class="list-group-item text-center text-muted py-3">No shortcuts saved.</li>`
       return
@@ -79,7 +79,7 @@ export default class extends Controller {
             type="button"
             class="btn-close ms-2"
             aria-label="Remove"
-            data-action="click->expander#remove"
+            data-action="click->replacer#remove"
             data-shortcut="${shortcut}">
           </button>
         </li>`
@@ -100,8 +100,8 @@ export default class extends Controller {
     const match = textBeforeCursor.match(/(^|\s)(\w+)$/);
     if (!match) return;
     const [, prefixSpace, word] = match;
-    if (!Object.prototype.hasOwnProperty.call(this.expansions, word)) return;
-    const replacement = this.expansions[word];
+    if (!Object.prototype.hasOwnProperty.call(this.replacements, word)) return;
+    const replacement = this.replacements[word];
     event.preventDefault();
     const delimiter = event.key === " " ? " " : event.key + " ";
     const expandedText = replacement + delimiter;
