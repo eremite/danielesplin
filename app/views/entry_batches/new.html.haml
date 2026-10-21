@@ -14,13 +14,13 @@
     - else
       - style = ''
     .card.mb-3{ style: style }
-      .card-body
+      .card-body{ data: { controller: 'replacer' } }
         %h3{ style: "color: #{user.color}; filter: brightness(1.5) contrast(1.2);" }
           = user.name
         = f.fields_for :entry_params_by_user_id do |user_form|
           = user_form.fields_for user.id.to_s do |entry_form|
             = entry_form.hidden_field :id, value: entry_params[:id]
-            = entry_form.rich_text_area :body, id: "user-#{user.id}-lexxy-editor-content", value: entry_params[:body], autofocus: i.zero?, data: { autosave_target: 'editor' }
+            = entry_form.rich_text_area :body, id: "user-#{user.id}-lexxy-editor-content", value: entry_params[:body], autofocus: i.zero?, data: { autosave_target: 'editor', action: 'keydown->replacer#expand' }
         - i += 1
   = f.submit 'Save', class: 'btn btn-primary'
   = link_to 'Cancel', [:entries, { entry_search: { on_this_day: 1  }}], class: 'btn btn-outline-secondary'
