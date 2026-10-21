@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { Tooltip } from "bootstrap"
 
 export default class extends Controller {
   static targets = ["list"]
@@ -18,6 +19,13 @@ export default class extends Controller {
 
   disconnect() {
     window.removeEventListener("replacers:updated", this.handleUpdate)
+  }
+
+  initTooltips() {
+    const tooltipTriggerList = this.element.querySelectorAll('[data-bs-toggle="tooltip"]')
+    tooltipTriggerList.forEach(tooltipTriggerElement => {
+      new Tooltip(tooltipTriggerElement)
+    })
   }
 
   add(event) {
@@ -62,29 +70,23 @@ export default class extends Controller {
   render() {
     if (!this.hasListTarget) return
     const entries = Object.entries(this.replacements)
-    if (this.replacements.length === 0) {
-      this.listTarget.innerHTML = `
-        <li class="list-group-item text-center text-muted py-3">No shortcuts saved.</li>`
-      return
-    }
-    this.listTarget.innerHTML = entries
-      .map(
-        ([shortcut, replacement]) => `
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <span class="badge bg-secondary me-2 font-monospace">${shortcut}</span>
-            <span>${replacement}</span>
-          </div>
+    this.listTarget.innerHTML = entries.map(
+      ([shortcut, replacement]) => `
+        <span class="badge bg-body-secondary text-body border d-inline-flex align-items-center gap-1 p-1 me-1 mb-1"
+              data-bs-toggle="tooltip"
+              data-bs-title="${replacement}">
+          <span class="font-monospace">${shortcut}</span>
           <button
             type="button"
-            class="btn-close ms-2"
+            class="btn-close"
+            style="width: 0.5em; height: 0.5em; font-size: 0.5rem;"
             aria-label="Remove"
             data-action="click->replacer#remove"
             data-shortcut="${shortcut}">
           </button>
-        </li>`
-      )
-      .join("")
+        </span>`
+      ).join("")
+    this.initTooltips()
   }
 
   expand(event) {
