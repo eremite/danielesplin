@@ -32,6 +32,7 @@ class GenerateMealPlanJob < ApplicationJob
       Continue the breakfast pattern but prefer variety for the dinners.
       Mostly use meals from previous plans but you can suggest one new thing to try if you want.
       Try to choose some dinners appropriate for the season.
+      Format in html, no markdown.
       Previous meal plans: #{previous_meal_plans}
       ---
     PROMPT
