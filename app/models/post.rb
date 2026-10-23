@@ -9,6 +9,7 @@ class Post < ApplicationRecord
   before_create :auto_assign_photos
 
   validates :body, presence: true
+  validates :at, presence: true
 
   paginates_per 3
 
