@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :entries, only: [:index, :create, :edit, :update, :destroy]
   resources :entry_batches, only: %i[new create]
   resources :inventory_items
-  resources :lessons, only: %i[index], shallow: true do
+  resources :lessons, only: %i[index create edit update destroy], shallow: true do
     resources :lesson_likes, only: %i[create]
     resources :lesson_dismissals, only: %i[create]
   end

@@ -1,5 +1,23 @@
 - content_for(:title) { 'Lessons' }
 
+- content_for(:sidebar) do
+  .card
+    .card-header
+      %h5 Questions
+    .card-body
+      .list-group.list-group-flush
+        - Lesson.questionable.each do |lesson|
+          .list-group-item
+            %p= lesson.question
+            .row
+              .col= link_to 'Edit', [:edit, lesson], class: 'btn btn-sm btn-outline-primary w-100'
+              .col= button_to 'Delete', lesson, method: :delete, class: 'btn btn-sm btn-outline-danger w-100', data: { turbo_confirm: 'Are you sure you want to delete this lesson?' }
+        .list-group-item
+          = form_with model: Lesson.new do |f|
+            .mb-3= f.text_field :question, class: 'form-control', placeholder: 'What would you like to know?'
+            .d-grid= f.submit 'Save', class: 'btn btn-outline-success w-100'
+
+
 - if @lessons.empty?
   .card.shadow-sm.border-0.text-center.p-5.mt-4
     .card-body
