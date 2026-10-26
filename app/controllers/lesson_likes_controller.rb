@@ -1,7 +1,7 @@
 class LessonLikesController < ApplicationController
 
   def create
-    Current.user.lessons.find(params.expect(:lesson_id)).touch(:liked_at)
+    Current.user.lessons.find(params.expect(:lesson_id)).touch(:liked_at, :dismissed_at)
     redirect_to :lessons
   end
 

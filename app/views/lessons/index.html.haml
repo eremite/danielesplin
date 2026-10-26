@@ -35,6 +35,11 @@
         .card-body.text-body-secondary
           = sanitize lesson.body
         .card-footer
+          - if lesson.liked_at.present?
+            %span.badge.bg-success-subtle.text-success-emphasis
+              Liked #{l(lesson.liked_at, format: :short)}
+          - else
+            = button_to 'Like', [lesson, :lesson_likes], class: 'btn btn-sm btn-outline-success'
           .float-end
             - if lesson.dismissed_at.present?
               %span.badge.bg-secondary-subtle.text-secondary-emphasis

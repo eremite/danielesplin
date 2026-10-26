@@ -21,7 +21,7 @@ class GenerateLessonsJob < ApplicationJob
   end
 
   def user
-    @user ||= User.find_by(role: 'father')
+    User.find_by(role: 'father')
   end
 
   def create_questionable_lesson
@@ -68,7 +68,7 @@ class GenerateLessonsJob < ApplicationJob
   end
 
   def random_lesson_prompt
-    prompt = <<~PROMPT
+    <<~PROMPT
       Generate a short (less than 400 words) lesson with practical knowledge, fascinating information or important
       context on a random topic. Emphasize accuracy. No title, no introduction, no commentary. Include expert details.
       Pick something not related to these recent topics: #{recent_topics}.
