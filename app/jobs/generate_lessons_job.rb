@@ -5,47 +5,83 @@ class GenerateLessonsJob < ApplicationJob
   retry_on RubyLLM::ServiceUnavailableError, attempts: 3, wait: 5.minutes
 
   def perform
-    User.where(role: %w[father mother child]).find_each do |user|
-      entry_ids_with_embeddings = user.entries.where.not(embedding: nil).ids
-      next if entry_ids_with_embeddings.empty?
-      lesson = user.lessons.new(body: AI.ask(lesson_prompt(user, entry_ids_with_embeddings)))
-      lesson.title = AI.ask(title_prompt(lesson.body)).to_s.first(255)
-      lesson.save!
+    if question_lesson.present?
+      create_questionable_lesson
+    elsif liked_lesson.present?
+      create_likeable_lesson
+    else
+      create_random_lesson
     end
   end
 
   private
 
-  def lesson_prompt(user, entry_ids_with_embeddings)
-    if rand(3).zero?
-      prompt = <<~PROMPT
-        Generate a short (less than 400 words) lesson with practical knowledge or fascinating information on a random
-        topic.  No title, no introduction, no commentary. Include expert details.  Format in html, no markdown.
-      PROMPT
-    else
-      prompt = <<~PROMPT
-        Review the following entries and select any mentioned topic and generate a short (less than 300 words) lesson
-        with practical knowledge or fascinating information. No title, no introduction, no commentary. Include expert
-        details.  Format in html, no markdown.
-        Entries: #{context_entries(entry_ids_with_embeddings.sample(5))}
-        ---
-      PROMPT
-    end
-    topics = recent_topics(user)
-    prompt << "CRITICAL: Do NOT cover the same concept or theme as these recent topics: #{topics}." if topics.present?
-    prompt
+  def question_lesson
+    @question_lesson ||= user.lessons.questionable.order(created_at: :asc).first
+  end
+
+  def user
+    @user ||= User.find_by(role: 'father')
+  end
+
+  def create_questionable_lesson
+    lesson = user.lessons.new(body: AI.ask(questionable_lesson_prompt))
+    lesson.title = AI.ask(title_prompt(lesson.body)).to_s.first(255)
+    lesson.save!
+    lesson
+  end
+
+  def questionable_lesson_prompt
+    <<~PROMPT
+      Generate a short lesson (less than 400 words) with accurate practical knowledge related to the following topic.
+      No title, no introduction, no commentary. Include expert details. Format in html, not markdown.
+      If there is a question, wrap the answer in bold tags.
+      Requested Topic: #{question_lesson.question}
+    PROMPT
+  end
+
+  def liked_lesson
+    @liked_lesson ||= user.lessons.liked.order(created_at: :asc).first
+  end
+
+  def create_likeable_lesson
+    lesson = user.lessons.new(body: AI.ask(likable_lesson_prompt))
+    lesson.title = AI.ask(title_prompt(lesson.body)).to_s.first(255)
+    liked_lesson.update!(liked_at: nil) if lesson.save!
+    lesson
+  end
+
+  def likable_lesson_prompt
+    <<~PROMPT
+      Generate a short lesson (less than 400 words) with accurate practical knowledge or accurate fascinating
+      information with further details or on a similar related subject as the following lesson.
+      No title, no introduction, no commentary. Include expert details. Format in html, not markdown.
+      Liked Lesson: #{liked_lesson.body}
+    PROMPT
+  end
+
+  def create_random_lesson
+    lesson = user.lessons.new(body: AI.ask(random_lesson_prompt))
+    lesson.title = AI.ask(title_prompt(lesson.body)).to_s.first(255)
+    lesson.save!
+    lesson
+  end
+
+  def random_lesson_prompt
+    prompt = <<~PROMPT
+      Generate a short (less than 400 words) lesson with practical knowledge, fascinating information or important
+      context on a random topic. Emphasize accuracy. No title, no introduction, no commentary. Include expert details.
+      Pick something not related to these recent topics: #{recent_topics}.
+      Format in html, no markdown.
+    PROMPT
   end
 
   def title_prompt(lesson_body)
     "Generate a short title (just a few words, no markdown) for the following:\n#{lesson_body}"
   end
 
-  def recent_topics(user)
+  def recent_topics
     user.lessons.order(created_at: :desc).limit(50).pluck(:title).join(', ')
-  end
-
-  def context_entries(entry_ids_with_embeddings)
-    Entry.where(id: entry_ids_with_embeddings).map { |e| "#{e.at}\n#{e.body}" }.join("\n---\n")
   end
 
 end
