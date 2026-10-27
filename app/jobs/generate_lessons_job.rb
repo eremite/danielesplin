@@ -25,10 +25,10 @@ class GenerateLessonsJob < ApplicationJob
   end
 
   def create_questionable_lesson
-    lesson = user.lessons.new(body: AI.ask(questionable_lesson_prompt))
-    lesson.title = AI.ask(title_prompt(lesson.body)).to_s.first(255)
-    lesson.save!
-    lesson
+    question_lesson.body = AI.ask(questionable_lesson_prompt)
+    question_lesson.title = AI.ask(title_prompt(lesson.body)).to_s.first(255)
+    question_lesson.save!
+    question_lesson
   end
 
   def questionable_lesson_prompt
