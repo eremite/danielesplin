@@ -33,9 +33,8 @@ class GenerateLessonsJob < ApplicationJob
 
   def questionable_lesson_prompt
     <<~PROMPT
-      Generate a short lesson (less than 400 words) with accurate practical knowledge related to the following topic.
+      Generate a short lesson (less than 300 words) with accurate practical knowledge related to the following topic.
       No title, no introduction, no commentary. Include expert details. Format in html, not markdown.
-      If there is a question, wrap the answer in bold tags.
       Requested Topic: #{question_lesson.question}
     PROMPT
   end
@@ -53,7 +52,7 @@ class GenerateLessonsJob < ApplicationJob
 
   def likable_lesson_prompt
     <<~PROMPT
-      Generate a short lesson (less than 400 words) with accurate practical knowledge or accurate fascinating
+      Generate a short lesson (less than 300 words) with accurate practical knowledge or accurate fascinating
       information with further details or on a similar related subject as the following lesson.
       No title, no introduction, no commentary. Include expert details. Format in html, not markdown.
       Liked Lesson: #{liked_lesson.body}
@@ -69,7 +68,7 @@ class GenerateLessonsJob < ApplicationJob
 
   def random_lesson_prompt
     <<~PROMPT
-      Generate a short (less than 400 words) lesson with practical knowledge, fascinating information or important
+      Generate a short (less than 300 words) lesson with practical knowledge, fascinating information or important
       context on a random topic. Emphasize accuracy. No title, no introduction, no commentary. Include expert details.
       Pick something not related to these recent topics: #{recent_topics}.
       Format in html, no markdown.
