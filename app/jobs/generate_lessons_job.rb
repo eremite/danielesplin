@@ -68,7 +68,7 @@ class GenerateLessonsJob < ApplicationJob
 
   def random_lesson_prompt
     <<~PROMPT
-      Generate a short (less than 300 words) lesson with practical knowledge, fascinating information or important
+      Generate a short (less than 200 words) lesson with practical knowledge, fascinating information or important
       context on a random topic. Emphasize accuracy. No title, no introduction, no commentary. Include expert details.
       Pick something not related to these recent topics: #{recent_topics}.
       Format in html, no markdown.
