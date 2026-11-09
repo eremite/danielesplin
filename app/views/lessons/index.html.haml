@@ -2,6 +2,10 @@
 
 - content_for(:sidebar) do
   .card
+    .card-body
+      .list-group-item
+        = button_to 'Create Meal Plan', :meal_plans, class: 'btn btn-outline-info w-100'
+  .card
     .card-header
       %h5 Questions
     .card-body

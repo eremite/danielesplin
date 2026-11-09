@@ -11,9 +11,10 @@ Rails.application.routes.draw do
   resources :entry_batches, only: %i[new create]
   resources :inventory_items
   resources :lessons, only: %i[index create edit update destroy], shallow: true do
-    resources :lesson_likes, only: %i[create]
     resources :lesson_dismissals, only: %i[create]
+    resources :lesson_likes, only: %i[create]
   end
+  resources :meal_plans, only: %i[create]
   resources :notes
   resources :pages, only: [:index]
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]

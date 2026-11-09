@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class GenerateMealPlanJobTest < ActiveJob::TestCase
+class MealPlanTest < ActiveSupport::TestCase
 
-  test 'perform' do
+  test 'save! creates lesson' do
     entry = entries(:base).tap { |e| e.update!(body: 'Meal plan for', entry_tag_list: 'ai') }
     user = entry.user.tap { |u| u.update_columns(role: 'father') }
     user.lessons.destroy_all
     AI.stub :ask, 'Pizza' do
-      GenerateMealPlanJob.perform_now
+      MealPlan.new(user: user).save!
     end
     lesson = user.reload.lessons.last
     assert_not_nil lesson
